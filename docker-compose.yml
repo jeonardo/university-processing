@@ -1,0 +1,47 @@
+version: '3.4'
+
+services:
+  universityprocessing.api:
+    container_name: ${DOCKER_REGISTRY-}universityprocessing-api
+    image: ${DOCKER_REGISTRY-}universityprocessing-api
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    ports:
+      - "8080"
+      - "8081"
+
+  universityprocessing.postgresql:
+    container_name: ${DOCKER_REGISTRY-}universityprocessing-postgresql
+    image: postgres:12
+    environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_DB=postgres
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
+    ports:
+        - "5432:5432"
+
+  universityprocessing.postgresql.admin:
+    container_name: ${DOCKER_REGISTRY-}universityprocessing-postgresql-admin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: postgres
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    ports:
+      - "8888:80"
+
+volumes:
+  local_pgdata:
+  pgadmin-data:
