@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations.Schema;
 using UniversityProcessing.API.Interfaces.Entities;
 
 namespace UniversityProcessing.API.Infrastructure.Entities

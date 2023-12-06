@@ -1,14 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using UniversityProcessing.API.Infrastructure;
-using UniversityProcessing.API.Infrastructure.Entities;
 
-namespace UniversityProcessing.Server.Controllers
+namespace UniversityProcessing.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UsersController(ApplicationContext context) : ControllerBase
+    public class UsersController(ApplicationDbContext context) : ControllerBase
     {
-        private readonly ApplicationContext _context = context;
+        private readonly ApplicationDbContext _context = context;
     }
 }
