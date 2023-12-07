@@ -1,11 +1,14 @@
-﻿using UniversityProcessing.API.Interfaces.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using UniversityProcessing.API.Interfaces.Entities;
 
 namespace UniversityProcessing.API.Infrastructure.Entities
 {
     public class BaseEntity : IBaseEntity
     {
-        public string Id { get; set; } = Guid.NewGuid().ToString();
+        [Key]
+        public Guid Id { get; set; } = Guid.NewGuid();
 
+        [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

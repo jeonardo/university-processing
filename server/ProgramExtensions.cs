@@ -23,7 +23,9 @@ namespace UniversityProcessing.API
             // Added configuration for PostgreSQL
             var configuration = builder.Configuration;
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+                options
+                    .UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
+                    .UseSnakeCaseNamingConvention());
 
             builder.Services
                 .AddIdentityCore<UserEntity>()

@@ -2,12 +2,12 @@
 {
     public class StudyGroupEntity : BaseEntity
     {
-        public string SpecialtyAndQualification { get; set; } = string.Empty;
+        public required string GroupNumber { get; set; }
 
-        public string GroupNumber { get; set; } = string.Empty;
+        public required DateTime StartDate { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public required DateTime EndDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+
     }
 }

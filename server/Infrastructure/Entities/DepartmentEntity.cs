@@ -2,10 +2,18 @@
 {
     public class DepartmentEntity : BaseEntity
     {
-        public string FullName { get; set; } = string.Empty;
+        public required string Name { get; set; }
 
-        public string ShortName { get; set; } = string.Empty;
+        public required string ShortName { get; set; }
 
-        public FacultyEntity? Faculty { get; set; }
+        public required Guid UniversityId { get; set; }
+
+        public required virtual UniversityEntity University { get; set; }
+
+        public required Guid FacultyId { get; set; }
+
+        public required virtual FacultyEntity Faculty { get; set; }
+
+        public required virtual ICollection<SpecialtyEntity> Specialties { get; set; }
     }
 }

@@ -1,0 +1,341 @@
+<header class="header">
+  <div class="info">
+    <img src="../../../../../assets/icons/unnamed.jpg" width="70">
+    <nav class="nav">
+      <span>Полезная информация</span>
+      <span>Методические материалы</span>
+    </nav>
+  </div>
+  <div class="user">
+    <span class="header__name">{{user['user_second_name']}} {{user['user_first_name']}}
+      {{user['user_middle_name']}}</span>
+    <img src="../../../../../assets/icons/user.png" width="55">
+  </div>
+
+</header>
+
+<div class="wrapper">
+  <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+    <li [ngbNavItem]="1">
+      <a ngbNavLink>Дипломная работа</a>
+      <ng-template ngbNavContent>
+        <div *ngIf="!diplomWork.length ; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+          <div class="card-body">
+            <button class="btn btn-lg btn-outline-primary" (click)="open(content,'insert'); getUsers('lector')">Добавить
+              дипломную
+              работу</button>
+          </div>
+        </ng-template>
+        <ng-template #elseBlock>
+          <h3>Дипломная работа</h3>
+          <button type="button" class="btn btn-primary"
+                  (click)="open(content,'update'); getUsers('lector')">Редактировать</button>
+          <div class="card">
+            <div class="card-body">
+              <p><strong>Название: </strong><span>{{diplomWork[0].name}}</span></p>
+              <p><strong>Оценка: </strong><span
+                *ngIf='diplomWork[0].mark == 0; then noMarkBlock else currentMarkBlock'></span>
+                <ng-template #noMarkBlock>
+                  Нет оценки
+                </ng-template>
+                <ng-template #currentMarkBlock>
+                  {{diplomWork[0].mark}}
+                </ng-template>
+
+
+              </p>
+            </div>
+          </div>
+        </ng-template>
+        <div *ngIf='diplomWork.length'>
+
+          <h3>ГЭК</h3>
+          <div class="card">
+            <div class="card-body">
+              <p><strong>ГЭК: </strong><span>ГЭК-5</span></p>
+            </div>
+          </div>
+
+          <div class="card">
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th scope="col">Название</th>
+                <th scope="col">Дата начала</th>
+                <th scope="col">Дата окончания</th>
+                <th scope="col">Планируемый процент</th>
+                <th scope="col">Фактический процен</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+                  ГЭК
+                </td>
+                <td>01.01.2021</td>
+                <td>01.01.2021</td>
+                <td>70</td>
+                <td>80</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Руководители и консультанты</h3>
+          <div class="card">
+            <div class="card-body">
+              <p><strong>Руководитель проекта: </strong><span>{{diplomWork[0].lector.user_second_name}}
+                {{diplomWork[0].lector.user_first_name}} {{diplomWork[0].lector.user_middle_name}}</span></p>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2">
+      <a ngbNavLink>Дипломные руководители</a>
+      <ng-template ngbNavContent>
+
+        <table mat-table [dataSource]="lectorsNew" class="mat-elevation-z8">
+          <ng-container matColumnDef="lectorName">
+            <th mat-header-cell *matHeaderCellDef>Руководитель</th>
+            <td mat-cell *matCellDef="let element">{{element.initials_lector}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef>Должность</th>
+            <td mat-cell *matCellDef="let element">{{element.position}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="allPlace">
+            <th mat-header-cell *matHeaderCellDef>Кол-во мест</th>
+            <td mat-cell *matCellDef="let element">{{element.vacancy}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="busyPlace">
+            <th mat-header-cell *matHeaderCellDef>Занятые места</th>
+            <td mat-cell *matCellDef="let element">{{element.busy_place}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Действия</th>
+            <td mat-cell *matCellDef="let element" class="mat-action-list">
+              <div *ngIf="element.initials_lector == 'Борисова И.М.'" class="user__actions">
+                <button mat-icon-button color="primary" matTooltip="Отмена">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </div>
+              <div *ngIf="element.initials_lector != 'Борисова И.М.'" class="user__actions">
+                <button mat-icon-button color="primary" matTooltip="Записаться">
+                  <mat-icon>done</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="lectorsColumns; sticky:true"></tr>
+          <tr mat-row *matRowDef="let row; columns: lectorsColumns"></tr>
+        </table>
+
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="3">
+      <a ngbNavLink>Темы</a>
+      <ng-template ngbNavContent>
+        <table class="users table table-striped">
+          <thead>
+          <tr>
+            <th scope="col" style="width:50%">Тема</th>
+            <th scope="col">Руководитель</th>
+            <th scope="col">Действия</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let work of allTopics" class="users__user user">
+            <td> {{work.name}}</td>
+            <td> {{work.initials_lectors}}</td>
+            <td>
+              <div *ngIf="work.id_student == 1" class="user__actions">
+                <button mat-icon-button color="primary" matTooltip="Отмена">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </div>
+              <div *ngIf="work.id_student  != 1" class="user__actions">
+                <button mat-icon-button color="primary" matTooltip="Записаться">
+                  <mat-icon>done</mat-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </ng-template>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="nav"></div>
+</div>
+
+<!--  <div *ngIf="!diplomWork.length ; then thenBlock else elseBlock"></div>-->
+<!--  <ng-template #thenBlock>-->
+<!--    <div class="card-body">-->
+<!--      <button class="btn btn-lg btn-outline-primary" (click)="open(content,'insert'); getUsers('lector')">Добавить-->
+<!--        дипломную-->
+<!--        работу</button>-->
+<!--    </div>-->
+<!--  </ng-template>-->
+<!--  <ng-template #elseBlock>-->
+<!--    <h3>Дипломная работа</h3>-->
+<!--    <button type="button" class="btn btn-primary"-->
+<!--      (click)="open(content,'update'); getUsers('lector')">Редактировать</button>-->
+<!--    <div class="card">-->
+<!--      <div class="card-body">-->
+<!--        <p><strong>Название: </strong><span>{{diplomWork[0].name}}</span></p>-->
+<!--        <p><strong>Оценка: </strong><span-->
+<!--            *ngIf='diplomWork[0].mark == 0; then noMarkBlock else currentMarkBlock'></span>-->
+<!--          <ng-template #noMarkBlock>-->
+<!--            Нет оценки-->
+<!--          </ng-template>-->
+<!--          <ng-template #currentMarkBlock>-->
+<!--            {{diplomWork[0].mark}}-->
+<!--          </ng-template>-->
+
+
+<!--        </p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </ng-template>-->
+<!--  <div *ngIf='diplomWork.length'>-->
+
+<!--    <h3>ГЭК</h3>-->
+<!--    <div class="card">-->
+<!--      <div class="card-body">-->
+<!--        <p><strong>ГЭК: </strong><span>ГЭК-5</span></p>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="card">-->
+<!--      <table class="table table-striped">-->
+<!--        <thead>-->
+<!--          <tr>-->
+<!--            <th scope="col">Название</th>-->
+<!--            <th scope="col">Дата начала</th>-->
+<!--            <th scope="col">Дата окончания</th>-->
+<!--            <th scope="col">Планируемый процент</th>-->
+<!--            <th scope="col">Фактический процен</th>-->
+<!--          </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--          <tr>-->
+<!--            <td>-->
+<!--              ГЭК-->
+<!--            </td>-->
+<!--            <td>01.01.2021</td>-->
+<!--            <td>01.01.2021</td>-->
+<!--            <td>70</td>-->
+<!--            <td>80</td>-->
+<!--          </tr>-->
+<!--        </tbody>-->
+<!--      </table>-->
+<!--    </div>-->
+
+<!--    <h3>Руководители и консультанты</h3>-->
+<!--    <div class="card">-->
+<!--      <div class="card-body">-->
+<!--        <p><strong>Руководитель проекта: </strong><span>{{diplomWork[0].lector.user_second_name}}-->
+<!--            {{diplomWork[0].lector.user_first_name}} {{diplomWork[0].lector.user_middle_name}}</span></p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+
+
+  <ng-template #content let-modal class="modal-xl">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Регистрация дипломной работы</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <form [formGroup]="diplomaForm">
+        <div class="form-group form__group">
+          <div class="form__group-field">
+            <label for="login">Название</label>
+            <input type="text" #coursWorkName autocomplete="off" placeholder="Название проекта" name="name"
+              formControlName="studentWorkName">
+            <div class="alert" *ngIf="studentWorkName.touched && !studentWorkName.valid">
+              <span *ngIf="studentWorkName.errors.required" class="alert__error">
+                Введите данные
+              </span>
+            </div>
+
+          </div>
+
+          <div class="form__group-field">
+            <button class="course-work__percent-btn" id="checkBtn"
+              (click)="getPercents(coursWorkName.value)">Проверить на уникальность</button>
+            <div class="alert" *ngIf="percents">
+              <span class="course-work__percent-result"
+                [ngClass]="{'alert__error': percents > 50, 'alert__success': percents <= 50}">{{percents}} %</span>
+                {{result}}
+            </div>
+
+          </div>
+        </div>
+        <div class="lectors">
+          <div class="form-group form__group">
+            <div class="form__group-field">
+              <label>Руководитель проекта</label>
+              <ng-select
+                  formControlName="studentWorkLector"
+                  [clearable]="false"
+                  [items]="lectors"
+                  bindLabel="fullName"
+                  name="lectors"
+                  [searchable]="false"
+                  bindValue="user_id"
+                  placeholder="Руководитель проекта">
+              </ng-select>
+            </div>
+          </div>
+
+          <div class="form-group form__group">
+            <div class="form__group-field">
+              <label>Научный руководитель</label>
+              <ng-select formControlName="studentWorkLector" [clearable]="false" [items]="lectors" bindLabel="fullName"
+                name="lectors" [searchable]="false" bindValue="user_id" placeholder="Научный руководитель"></ng-select>
+            </div>
+          </div>
+
+          <div class="form-group form__group">
+            <div class="form__group-field">
+              <label>Рецензент</label>
+              <ng-select formControlName="studentWorkLector" [clearable]="false" [items]="lectors" bindLabel="fullName"
+                name="lectors" [searchable]="false" bindValue="user_id" placeholder="Рецензент"></ng-select>
+            </div>
+          </div>
+
+          <div class="form-group form__group">
+            <div class="form__group-field">
+              <label>Руководитель по организационно технической части</label>
+              <ng-select formControlName="studentWorkLector" [clearable]="false" [items]="lectors" bindLabel="fullName"
+                name="lectors" [searchable]="false" bindValue="user_id" placeholder="Руководитель по организационно технической части"></ng-select>
+            </div>
+          </div>
+
+          <div class="form-group form__group">
+            <div class="form__group-field">
+              <label>Руководитель по техническо-экономическому обоснованию</label>
+              <ng-select formControlName="studentWorkLector" [clearable]="false" [items]="lectors" bindLabel="fullName"
+                name="lectors" [searchable]="false" bindValue="user_id" placeholder="Руководитель по техническо-экономическому обоснованию"></ng-select>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close(); submitDiplomaForm()">Сохранить</button>
+    </div>
+  </ng-template>

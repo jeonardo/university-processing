@@ -2,12 +2,12 @@
 
 namespace UniversityProcessing.API.Infrastructure.Entities
 {
-    public class UniversityEntity : IBaseEntity
+    public class UniversityEntity : BaseEntity, IBaseEntity
     {
-        public string FullName { get; set; } = string.Empty;
+        public required string Name { get; set; }
 
-        public string ShortName { get; set; } = string.Empty;
-        public string Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DateTime CreatedAt { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public required string ShortName { get; set; }
+
+        public required virtual ICollection<FacultyEntity> Faculties { get; set; }
     }
 }

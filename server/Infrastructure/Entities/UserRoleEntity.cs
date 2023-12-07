@@ -1,7 +1,10 @@
-﻿namespace UniversityProcessing.API.Infrastructure.Entities
+﻿using Microsoft.AspNetCore.Identity;
+using UniversityProcessing.API.Interfaces.Entities;
+
+namespace UniversityProcessing.API.Infrastructure.Entities
 {
-    public class UserRoleEntity : BaseEntity
+    public class UserRoleEntity : IdentityRole<Guid>, IBaseEntity
     {
-        public string Name { get; set; } = string.Empty;
+        public DateTime CreatedAt { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }
