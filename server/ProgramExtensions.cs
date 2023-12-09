@@ -1,9 +1,11 @@
 ﻿using AutoMapper.Internal;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using UniversityProcessing.API.Automapper;
 using UniversityProcessing.API.Infrastructure;
 using UniversityProcessing.API.Infrastructure.Entities;
+using UniversityProcessing.API.Infrastructure.Repositories;
 using UniversityProcessing.API.Interfaces.Infrastructure;
 
 namespace UniversityProcessing.API
@@ -29,6 +31,7 @@ namespace UniversityProcessing.API
 
             builder.Services
                 .AddIdentityCore<UserEntity>()
+                .AddRoles<UserRoleEntity>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddApiEndpoints();
 
@@ -38,6 +41,7 @@ namespace UniversityProcessing.API
 
             builder.Services.AddAuthorizationBuilder();
 
+            builder.Services.AddScoped<IUniversityRepository, UniversityRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddCors(x =>

@@ -9,7 +9,8 @@ namespace UniversityProcessing.API.Infrastructure
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated();
         }
 
         public DbSet<DepartmentEntity> Departments { get; set; }
