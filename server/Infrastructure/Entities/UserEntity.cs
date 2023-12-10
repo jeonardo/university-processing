@@ -7,22 +7,11 @@ namespace UniversityProcessing.API.Infrastructure.Entities
 {
     public class UserEntity : IdentityUser<Guid>, IBaseEntity
     {
+        [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        //[Required]
-        //[StringLength(50, MinimumLength = 2)]
-        //public string Name { get; set; } = string.Empty;
-        //public string Surname { get; set; } = string.Empty;
-        //[Range(0, 5)]
-        //public string Patronymic { get; set; } = string.Empty;
-        //[Key]
-        //[ForeignKey("Instructor")]
-        //public int InstructorID { get; set; }
-        //[StringLength(50)]
-        //[Display(Name = "Office Location")]
-        //public string Location { get; set; }
-        //public virtual Instructor Instructor { get; set; }
-        //public virtual ICollection<Course> Courses { get; set; }
-        //public virtual OfficeAssignment OfficeAssignment { get; set; }
+        public virtual UserProfileEntity UserProfile { get; set; } = default!;
+
+        public virtual ICollection<GraduateWorkEntity> GraduateWorks { get; set; } = default!;
     }
 }
