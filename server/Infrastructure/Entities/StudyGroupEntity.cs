@@ -12,18 +12,10 @@ namespace UniversityProcessing.API.Infrastructure.Entities
         [DataType(DataType.Date)]
         public required DateOnly EndDate { get; set; }
 
-        public required Guid UniversityId { get; set; }
+        public required Guid SpecialtyId { get; set; }
 
-        public required virtual UniversityEntity University { get; set; }
+        public required virtual SpecialtyEntity Specialty { get; set; }
 
-        public required Guid FacultyId { get; set; }
-
-        public required virtual FacultyEntity Faculty { get; set; }
-
-        public required Guid DepartmentId { get; set; }
-
-        public required virtual DepartmentEntity Department { get; set; }
-
-        public required virtual ICollection<UserEntity> Students { get; set; }
+        public virtual ICollection<UserEntity> Students { get; set; } = new List<UserEntity>();
     }
 }

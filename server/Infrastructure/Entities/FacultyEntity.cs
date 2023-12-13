@@ -14,14 +14,14 @@ namespace UniversityProcessing.API.Infrastructure.Entities
 
         public required virtual UniversityEntity University { get; set; }
 
-        public required virtual ICollection<DepartmentEntity> Departments { get; set; }
+        public virtual ICollection<DepartmentEntity> Departments { get; set; } = new List<DepartmentEntity>();
 
-        public required virtual ICollection<SpecialtyEntity> Specialties { get; set; }
+        public virtual ICollection<SpecialtyEntity> Specialties { get; set; } = new List<SpecialtyEntity>();
 
-        public required virtual ICollection<StudentEntity> Students { get; set; }
+        public virtual ICollection<StudentEntity> Students { get; set; } = new List<StudentEntity>();
 
-        public required virtual ICollection<EmployeeEntity> Employees { get; set; }
+        public virtual ICollection<EmployeeEntity> Employees { get; set; } = new List<EmployeeEntity>();
 
-        public required virtual ICollection<StudyGroupEntity> StudyGroups { get; set; }
+        public virtual ICollection<StudyGroupEntity> StudyGroups { get; set; } = new List<StudyGroupEntity>();
     }
 }

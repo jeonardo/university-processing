@@ -11,16 +11,16 @@ namespace UniversityProcessing.API.Infrastructure.Entities
         [StringLength(10, MinimumLength = 1)]
         public required string ShortName { get; set; }
 
-        public required virtual ICollection<FacultyEntity> Faculties { get; set; }
+        public virtual ICollection<FacultyEntity> Faculties { get; set; } = new List<FacultyEntity>();
 
-        public required virtual ICollection<DepartmentEntity> Departments { get; set; }
+        public virtual ICollection<DepartmentEntity> Departments { get; set; } = new List<DepartmentEntity>();
 
-        public required virtual ICollection<SpecialtyEntity> Specialties { get; set; }
+        public virtual ICollection<SpecialtyEntity> Specialties { get; set; } = new List<SpecialtyEntity>();
 
-        public required virtual ICollection<StudyGroupEntity> StudyGroups { get; set; }
+        public virtual ICollection<StudyGroupEntity> StudyGroups { get; set; } = new List<StudyGroupEntity>();
 
-        public required virtual ICollection<StudentEntity> Students { get; set; }
+        public virtual ICollection<StudentEntity> Students { get; set; } = new List<StudentEntity>();
 
-        public required virtual ICollection<EmployeeEntity> Employees { get; set; }
+        public virtual ICollection<EmployeeEntity> Employees { get; set; } = new List<EmployeeEntity>();
     }
 }

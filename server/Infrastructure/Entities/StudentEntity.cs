@@ -2,6 +2,6 @@
 {
     public class StudentEntity : UserEntity
     {
-        public required virtual ICollection<StudyGroupEntity> StudyGroups { get; set; }
+        public required virtual StudyGroupEntity StudyGroup { get; set; }
     }
 }

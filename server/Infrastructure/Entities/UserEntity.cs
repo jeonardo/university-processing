@@ -12,6 +12,6 @@ namespace UniversityProcessing.API.Infrastructure.Entities
 
         public virtual UserProfileEntity UserProfile { get; set; } = default!;
 
-        public virtual ICollection<GraduateWorkEntity> GraduateWorks { get; set; } = default!;
+        public virtual ICollection<GraduateWorkEntity> GraduateWorks { get; set; } = new List<GraduateWorkEntity>();
     }
 }
