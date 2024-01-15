@@ -60,19 +60,13 @@ namespace UniversityProcessing.API.Infrastructure.Seeds
             var bntu_faculty_stf = AddFaculty("Спортивно-технический факультет", "СТФ", bntu);
             var bntu_faculty_fms = AddFaculty("Факультет международного сотрудничества", "ФМС", bntu);
 
-            var bntu_polozkov = AddEmployee("Polozkov_Yuri_Vladimirovich", bntu, bntu_pos_8);
-            var bntu_shchukin = AddEmployee("Shchukin_Mikhail_Vladimirovich", bntu, bntu_pos_8);
-            var bntu_khorunzhiy = AddEmployee("Khorunzhiy_Igor_Anatolievich", bntu, bntu_pos_8);
-            var bntu_borodulya = AddEmployee("Borodulya_Alexey_Valentinovich", bntu, bntu_pos_8);
-            var bntu_pavlyukovets = AddEmployee("Pavlyukovets_Sergey_Anatolievich", bntu, bntu_pos_8);
-
             //check if supervisor has a department
 
-            var bntu_faculty_fitr_poisit = AddDepartment("Программное обеспечение информационных систем и технологий", "ПОИСиТ", bntu_faculty_fmmp, bntu_polozkov);
-            var bntu_faculty_fitr_zaputk = AddDepartment("Электропривод и автоматизация промышленных установок и технологических комплексов", "ЭАПУиТК", bntu_faculty_fmmp, bntu_pavlyukovets);
-            var bntu_faculty_fitr_rts = AddDepartment("Робототехнические системы", "РТС", bntu_faculty_fmmp, bntu_borodulya);
-            var bntu_faculty_fitr_tf = AddDepartment("Техническая физика", "ТФ", bntu_faculty_fmmp, bntu_khorunzhiy);
-            var bntu_faculty_fitr_vm = AddDepartment("Высшая математика", "ВМ", bntu_faculty_fmmp, bntu_shchukin);
+            var bntu_faculty_fitr_poisit = AddDepartment("Программное обеспечение информационных систем и технологий", "ПОИСиТ", bntu_faculty_fmmp);
+            var bntu_faculty_fitr_zaputk = AddDepartment("Электропривод и автоматизация промышленных установок и технологических комплексов", "ЭАПУиТК", bntu_faculty_fmmp);
+            var bntu_faculty_fitr_rts = AddDepartment("Робототехнические системы", "РТС", bntu_faculty_fmmp);
+            var bntu_faculty_fitr_tf = AddDepartment("Техническая физика", "ТФ", bntu_faculty_fmmp);
+            var bntu_faculty_fitr_vm = AddDepartment("Высшая математика", "ВМ", bntu_faculty_fmmp);
 
             var bntu_faculty_fitr_sp1 = AddSpecialty("Автоматизация технологических процессов и производств в энергетике", "Short", "6-05-0713-04", bntu_faculty_fitr);
             var bntu_faculty_fitr_sp2 = AddSpecialty("Автоматизация технологических процессов и производств в приборостроении и радиоэлектронике", "Short", "6-05-0713-04", bntu_faculty_fitr);
@@ -80,6 +74,12 @@ namespace UniversityProcessing.API.Infrastructure.Seeds
             var bntu_faculty_fitr_sp4 = AddSpecialty("Информационные системы и технологии в проектировании и производстве", "Short", "6-05-0611-01", bntu_faculty_fitr);
             var bntu_faculty_fitr_sp5 = AddSpecialty("Программная инженерия", "Short", "6-05-0612-01", bntu_faculty_fitr);
             var bntu_faculty_fitr_sp6 = AddSpecialty("Промышленные роботы и робототехнические комплексы", "Short", "6-05-0713-05", bntu_faculty_fitr);
+
+            var bntu_polozkov = AddEmployee("Polozkov_Yuri_Vladimirovich", bntu, bntu_pos_8, bntu_faculty_fitr_poisit);
+            var bntu_shchukin = AddEmployee("Shchukin_Mikhail_Vladimirovich", bntu, bntu_pos_8, bntu_faculty_fitr_vm);
+            var bntu_khorunzhiy = AddEmployee("Khorunzhiy_Igor_Anatolievich", bntu, bntu_pos_8, bntu_faculty_fitr_tf);
+            var bntu_borodulya = AddEmployee("Borodulya_Alexey_Valentinovich", bntu, bntu_pos_8, bntu_faculty_fitr_rts);
+            var bntu_pavlyukovets = AddEmployee("Pavlyukovets_Sergey_Anatolievich", bntu, bntu_pos_8, bntu_faculty_fitr_zaputk);
 
             var bntu_prikhozhy = AddEmployee("Prikhozhy_Anatoly_Alekseevich", bntu, bntu_pos_7, bntu_faculty_fitr_poisit);
             var bntu_gursky = AddEmployee("Gursky_Nikolai_Nikolaevich", bntu, bntu_pos_6, bntu_faculty_fitr_poisit);
@@ -135,16 +135,14 @@ namespace UniversityProcessing.API.Infrastructure.Seeds
             return result;
         }
 
-        private DepartmentEntity AddDepartment(string name, string shortName, FacultyEntity faculty, EmployeeEntity supervisor)
+        private DepartmentEntity AddDepartment(string name, string shortName, FacultyEntity faculty)
         {
             var result = new DepartmentEntity()
             {
                 Name = name,
                 ShortName = shortName,
                 Faculty = faculty,
-                FacultyId = faculty.Id,
-                Supervisor = supervisor,
-                SupervisorId = supervisor.Id
+                FacultyId = faculty.Id
             };
             DepartmentValues.Add(result);
             return result;

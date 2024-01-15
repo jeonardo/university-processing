@@ -45,7 +45,7 @@ namespace UniversityProcessing.API
             builder.Services.AddScoped<IUniversityRepository, UniversityRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            builder.Services.AddSingleton<UniversitySeed>();
+            builder.Services.AddScoped<UniversitySeed>();
 
             builder.Services.AddCors(x =>
                 x.AddDefaultPolicy(x =>

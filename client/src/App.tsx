@@ -30,3 +30,21 @@ const App: React.FC = () => (
 );
 
 export default App;
+
+const App: React.FC = () => {
+  return (
+    <AuthProvider>
+      <Routes>
+        {/* Public routes */}
+        <Route path="/login" element={<LoginPage />} />
+
+        {/* Private route using PrivateRoute component */}
+        <Route path="/" element={<PrivateRoute />}>
+          <Route path="/account" element={<HomePage />} />
+        </Route>
+      </Routes>
+    </AuthProvider>
+  );
+};
+
+export default App;

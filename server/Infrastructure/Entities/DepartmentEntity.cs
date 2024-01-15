@@ -15,10 +15,6 @@ namespace UniversityProcessing.API.Infrastructure.Entities
 
         public required virtual FacultyEntity Faculty { get; set; }
 
-        public required Guid SupervisorId { get; set; }
-
-        public required virtual EmployeeEntity Supervisor { get; set; }
-
         public virtual ICollection<EmployeeEntity> Employees { get; set; } = new List<EmployeeEntity>();
     }
 }
