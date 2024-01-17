@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
 import { Button } from "@mui/material";
-import { useAppDispatch,useAppSelector } from "../hooks";
-import { useNavigate } from "react-router-dom";
-import { getUser, logout } from "../features/authSlice";
+import { useAppDispatch,useAppSelector } from "../redux/hooks";
+import { getUser, logout } from "../redux/slices/authSlice";
+import { useEffect } from "react";
 
 const Home = () => {
   const dispatch = useAppDispatch();
