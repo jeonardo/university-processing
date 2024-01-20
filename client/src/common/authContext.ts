@@ -8,7 +8,7 @@ interface AuthContextProps {
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 //: React.FC<{ children: React.ReactNode }>
-export const AuthProvider : React.FC<{ children: React.ReactNode }> = ({children}) => {
+export const AuthProvider = (props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const loginUser = () => {
