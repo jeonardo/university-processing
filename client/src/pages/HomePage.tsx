@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import { useAppDispatch,useAppSelector } from "../redux/hooks";
 import { getUser, logout } from "../redux/slices/auth.slice";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const dispatch = useAppDispatch();

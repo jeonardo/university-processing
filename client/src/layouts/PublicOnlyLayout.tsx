@@ -1,13 +1,10 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../common/authContext";
+import { IAuthState } from "./authState";
 
-const PublicOnlyLayout: React.FC = () => {
-    const { isAuthenticated } = useAuth();
-
-    if (isAuthenticated)
-        return <Navigate replace to={"/"} />;
-
-    return <Outlet />;
-}
+const PublicOnlyLayout: React.FC<IAuthState> = ({ isAuthenticated }: IAuthState) => (
+    isAuthenticated
+        ? <Navigate replace to={"/"} />
+        : <Outlet />
+);
 
 export default PublicOnlyLayout;

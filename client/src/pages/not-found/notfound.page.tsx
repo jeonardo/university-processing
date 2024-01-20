@@ -1,7 +1,7 @@
 // pkgs:
 import { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, redirect, useNavigate } from 'react-router-dom';
 
 // comps:
 
@@ -11,14 +11,14 @@ import './style.sass';
 // component>>>
 const NotFound = () => {
   // preConfigured hooks:
-  const history = useHistory();
+  const history = useNavigate();
 
   const [redirectionCountDown, setRedirectionCountDown] = useState<number>(5);
 
   useEffect(() => {
     setTimeout(() => setRedirectionCountDown(redirectionCountDown - 1), 1000);
     if (redirectionCountDown === 0) {
-      history.push('/');
+      redirect('/');
     }
 
     // clear the effect

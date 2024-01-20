@@ -1,16 +1,12 @@
 import { Outlet } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../common/authContext";
+import { IAuthState } from "./authState";
 
-const PrivateLayout: React.FC = () => {
-  const { isAuthenticated } = useAuth();
-
-  if (!isAuthenticated)
-    return <Navigate replace to={"/login"} />;
-
-  return (
-    <div className='min-h-screen flex flex-col'>
+const PrivateLayout: React.FC<IAuthState> = ({ isAuthenticated }: IAuthState) => (
+  !isAuthenticated
+    ? <Navigate replace to={"/login"} />
+    : <div className='min-h-screen flex flex-col'>
       <header className='bg-gray-200 text-black sticky top-0 h-14 flex justify-center items-center font-semibold uppercase'>
         Cloudinary Actions
       </header>
@@ -31,7 +27,6 @@ const PrivateLayout: React.FC = () => {
         </main>
       </div>
     </div>
-  );
-};
+);
 
 export default PrivateLayout;
