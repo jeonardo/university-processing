@@ -2,16 +2,13 @@
 
 // utils:
 import './style.sass';
-import { RootState } from '../../../redux/store';
-import { useAppSelector, useAppDispatch } from '../../../redux/hooks';
-import { asyncCall } from '../../../redux/slices/initial/logic/async-call.sliceLogic';
+
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { Container } from 'react-bootstrap';
-import {
-  decrement,
-  increment,
-  incrementByAmount,
-} from '../../../redux/slices/initial/initial.slice';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { RootState } from '../../redux/store';
+import { asyncCall } from '../../redux/slices/logic/async-call.sliceLogic';
+import { decrement, increment, incrementByAmount } from '../../redux/slices/initial.slice';
 
 // comps:
 
@@ -22,7 +19,7 @@ const InitialSliceComponent = () => {
 
   // component's state extractions:
   // InitialSlice => from store, if you asking your self :/
-  const { val, stage } = useAppSelector((state: RootState) => state.InitialSlice);
+  const { val, stage } = useAppSelector((state: RootState) => state.initialSlice);
   return (
     <div className="initial-component">
       <Container>

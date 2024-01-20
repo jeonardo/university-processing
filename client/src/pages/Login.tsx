@@ -12,7 +12,7 @@ import {
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../redux/hooks";
-import { login } from "../redux/slices/authSlice";
+import { login } from "../redux/slices/auth.slice";
 
 const Login = () => {
   const dispatch = useAppDispatch();
