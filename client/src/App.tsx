@@ -2,39 +2,45 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import LoginPage from './features/authentication/signin/signin.page';
+import SignUpPage from './features/authentication/signup/signup.page';
 import Home from './pages/HomePage';
-import './App.css';
 import NotFound from './pages/not-found/notfound.page';
 import { Routes, Route } from 'react-router-dom';
 import PublicOnlyLayout from './layouts/PublicOnlyLayout';
-import PublicLayout from './layouts/PublicLayout';
 import PrivateLayout from './layouts/PrivateLayout';
-import { useAuth } from './common/authContext';
+import { useAppSelector } from './redux/hooks';
 
 const App: React.FC = () => {
-  const { isAuthenticated } = useAuth();
+  const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated);
+  ReadEnvironmentVariables();
   return (
-      <Routes>
+    <Routes>
 
-        <Route path="*" element={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
 
-        <Route element={<PublicOnlyLayout isAuthenticated={isAuthenticated} />} >
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Route>
+      <Route element={<PublicOnlyLayout isAuthenticated={isAuthenticated} />} >
+        <Route path="/signin" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+      </Route>
 
-        <Route element={<PublicLayout />} >
-          <Route path="/" element={<Home />} />
-        </Route>
+      <Route element={<PrivateLayout isAuthenticated={isAuthenticated} />} >
+        <Route path="/" element={<Home />} />
+      </Route>
 
-        <Route element={<PrivateLayout isAuthenticated={isAuthenticated} />} >
-          <Route path="/home" element={<Home />} />
-        </Route>
-
-      </Routes >
+    </Routes >
   );
+}
+
+const ReadEnvironmentVariables = () => {
+  const environment = import.meta.env;
+
+  if (!environment.VITE_IS_DEVELOPMENT)
+    return
+
+  console.log("VITE_APP_TITLE", environment.VITE_APP_TITLE);
+  console.log("VITE_IS_DEVELOPMENT", environment.VITE_IS_DEVELOPMENT);
+  console.log("VITE_BACKEND_BASEURL", environment.VITE_BACKEND_BASEURL);
 }
 
 export default App;

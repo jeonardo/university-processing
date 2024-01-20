@@ -1,50 +1,33 @@
-// pkgs:
 import { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { Link, redirect, useNavigate } from 'react-router-dom';
-
-// comps:
-
-// utils:
+import { Link, Navigate} from 'react-router-dom';
 import './style.sass';
 
-// component>>>
 const NotFound = () => {
-  // preConfigured hooks:
-  const history = useNavigate();
-
   const [redirectionCountDown, setRedirectionCountDown] = useState<number>(5);
 
   useEffect(() => {
     setTimeout(() => setRedirectionCountDown(redirectionCountDown - 1), 1000);
-    if (redirectionCountDown === 0) {
-      redirect('/');
-    }
-
-    // clear the effect
-    return () => {
-      if (redirectionCountDown === 0) {
-        setRedirectionCountDown(5);
-      }
-    };
-  }, [history, redirectionCountDown]);
+  });
 
   return (
-    <main className="page notfound-page">
-      <Container fluid={false}>
-        <div className="page-wrapper">
-          <div className="flex-shield">
-            <h2 className="notfound-number">404</h2>
-            <p className="notfound-description">
-              <b>Error 404</b> May you hits a broken/not existed route, Sadness
-            </p>
-            <Link to="/" className="redirect-home">
-              Take me back home {redirectionCountDown}
-            </Link>
+    redirectionCountDown < 1
+      ? <Navigate to="/" />
+      : <main className="page notfound-page">
+        <Container fluid={false}>
+          <div className="page-wrapper">
+            <div className="flex-shield">
+              <h2 className="notfound-number">404</h2>
+              <p className="notfound-description">
+                <b>Error 404</b> Page not found
+              </p>
+              <Link to="/" className="redirect-home">
+                Take me back home {redirectionCountDown}
+              </Link>
+            </div>
           </div>
-        </div>
-      </Container>
-    </main>
+        </Container>
+      </main>
   );
 };
 

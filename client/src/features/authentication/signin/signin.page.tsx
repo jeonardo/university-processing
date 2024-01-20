@@ -8,20 +8,23 @@ import {
   TextField,
   Button,
   Grid,
+  CircularProgress,
 } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAppDispatch } from "../redux/hooks";
-import { login } from "../redux/slices/auth.slice";
+import { useAppDispatch } from "../../../redux/hooks";
+import { login } from "../../../redux/slices/auth.slice";
 
-const Login = () => {
+const SignInPage = () => {
   const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
-    // This is only a basic validation of inputs. Improve this as needed.
+    setLoading(true)
+    setTimeout(() => { setLoading(false) }, 1500)
     if (email && password) {
       try {
         await dispatch(
@@ -40,27 +43,26 @@ const Login = () => {
 
   return (
     <>
-      <Container maxWidth="xs">
+      <Container maxWidth="xs" className="flex items-center">
         <CssBaseline />
         <Box
           sx={{
-            mt: 20,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "primary.light" }}>
+          <Avatar sx={{ m: 2, bgcolor: "primary.light" }}>
             <LockOutlined />
           </Avatar>
-          <Typography variant="h5">Login</Typography>
+          <Typography variant="h5">Форма авторизации</Typography>
           <Box sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Почта"
               name="email"
               autoFocus
               value={email}
@@ -73,7 +75,7 @@ const Login = () => {
               fullWidth
               id="password"
               name="password"
-              label="Password"
+              label="Пароль"
               type="password"
               value={password}
               onChange={(e) => {
@@ -82,16 +84,21 @@ const Login = () => {
             />
 
             <Button
+              disabled={loading}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               onClick={handleLogin}
             >
-              Login
+              {
+                loading
+                  ? <CircularProgress size={25} color="inherit" />
+                  : <span>Авторизоваться</span>
+              }
             </Button>
             <Grid container justifyContent={"flex-end"}>
               <Grid item>
-                <Link to="/register">Don't have an account? Register</Link>
+                <Link to="/signup">Нет аккаунта? Зарегистрироваться</Link>
               </Grid>
             </Grid>
           </Box>
@@ -101,4 +108,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignInPage;

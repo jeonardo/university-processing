@@ -1,7 +1,7 @@
 // pkgs:
 import { VFC, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { Link, NavLink, useHistory, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
 // utils:
 import './style.sass';
@@ -12,7 +12,6 @@ import { HeaderInterface } from '../../common/interfaces/comps/header.interface'
 // component>>>
 const Header: VFC<HeaderInterface> = ({ expanded }) => {
   // preConfigured hooks:
-  const history = useHistory();
   const location = useLocation();
 
   // mobile || side menu, you might need to create a redux slice

@@ -6,7 +6,7 @@ builder.AddCustomServices();
 
 var app = builder.Build();
 
-app.MigrateDb();
+//app.MigrateDb();
 
 app.UseCustomServices();
 

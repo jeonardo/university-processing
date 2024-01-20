@@ -5,7 +5,7 @@ import { IAuthState } from "./authState";
 
 const PrivateLayout: React.FC<IAuthState> = ({ isAuthenticated }: IAuthState) => (
   !isAuthenticated
-    ? <Navigate replace to={"/login"} />
+    ? <Navigate replace to={"/signin"} />
     : <div className='min-h-screen flex flex-col'>
       <header className='bg-gray-200 text-black sticky top-0 h-14 flex justify-center items-center font-semibold uppercase'>
         Cloudinary Actions

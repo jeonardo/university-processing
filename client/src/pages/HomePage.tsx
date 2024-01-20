@@ -1,8 +1,10 @@
 import { Button } from "@mui/material";
-import { useAppDispatch,useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { getUser, logout } from "../redux/slices/auth.slice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/header/header.component";
+import MenuAppBar from "../components/header/menuAppBar";
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -27,7 +29,7 @@ const Home = () => {
   };
 
   return (
-    <>
+    <>    
       <h1>Home</h1>
       <h4>Name: {userProfileInfo?.name}</h4>
       <h4>Email: {userProfileInfo?.email}</h4>

@@ -1,9 +1,9 @@
 import axios from "axios";
-import { BACKEND_BASE_URL } from "../constants";
+import { ENV } from "../env";
 
 // Create an Axios instance with default options
 const axiosInstance = axios.create({
-  baseURL: BACKEND_BASE_URL,
+  baseURL: ENV.VITE_BACKEND_BASEURL,
   withCredentials: true,
 });
 

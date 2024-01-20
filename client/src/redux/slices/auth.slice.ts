@@ -22,6 +22,7 @@ type UserProfileData = {
 };
 
 type AuthApiState = {
+  isAuthenticated: boolean;
   basicUserInfo?: UserBasicInfo | null;
   userProfileData?: UserProfileData | null;
   status: "idle" | "loading" | "failed";
@@ -29,6 +30,9 @@ type AuthApiState = {
 };
 
 const initialState: AuthApiState = {
+  isAuthenticated: localStorage.getItem("userInfo")
+    ? true
+    : false,
   basicUserInfo: localStorage.getItem("userInfo")
     ? JSON.parse(localStorage.getItem("userInfo") as string)
     : null,
