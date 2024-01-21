@@ -1,16 +1,10 @@
 // pkgs:
-import { VFC, useState } from 'react';
+import { FC, VFC, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
-// utils:
-import './style.sass';
-import { HeaderInterface } from '../../common/interfaces/comps/header.interface';
-
-// comps:
-
 // component>>>
-const Header: VFC<HeaderInterface> = ({ expanded }) => {
+const Header: FC = () => {
   // preConfigured hooks:
   const location = useLocation();
 
@@ -20,7 +14,7 @@ const Header: VFC<HeaderInterface> = ({ expanded }) => {
   return (
     // depending on {expanded} so wether to view a default header or the minimal one.
     <header className="default-header">
-      <Container fluid={expanded} style={{ height: `inherit` }}>
+      <Container style={{ height: `inherit` }}>
         <div className="header-wrapper">
           <section className="left-wing">
             <div className="logo">

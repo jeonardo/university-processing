@@ -1,8 +1,13 @@
 ﻿using AutoMapper.Internal;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using UniversityProcessing.API.Automapper;
+using UniversityProcessing.API.Domain.DTOs;
 using UniversityProcessing.API.Infrastructure;
 using UniversityProcessing.API.Infrastructure.Entities;
 using UniversityProcessing.API.Infrastructure.Repositories;
@@ -15,6 +20,10 @@ namespace UniversityProcessing.API
     {
         public static void AddCustomServices(this WebApplicationBuilder builder)
         {
+            var authOptions = new AuthOptions();
+            builder.Configuration.Bind(authOptions);
+            builder.Services.AddSingleton(authOptions);
+
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -36,11 +45,22 @@ namespace UniversityProcessing.API
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddApiEndpoints();
 
-            builder.Services
-                .AddAuthentication(IdentityConstants.ApplicationScheme)
-            .AddIdentityCookies();
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = authOptions.ValidateIssuer,
+                        ValidateAudience = authOptions.ValidateAudience,
+                        ValidateIssuerSigningKey = authOptions.ValidateIssuerSigningKey,
+                        ValidIssuer = authOptions.ValidIssuer,
+                        ValidAudience = authOptions.ValidAudience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authOptions.Key))
+                    };
+                });
 
             builder.Services.AddAuthorizationBuilder();
+            builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddScoped<IUniversityRepository, UniversityRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -75,9 +95,10 @@ namespace UniversityProcessing.API
 
             app.UseHttpsRedirection();
 
-            //app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
-            app.MapIdentityApi<UserEntity>();
+            //app.MapIdentityApi<UserEntity>();
             app.MapControllers();
 
             app.MapFallbackToFile("/index.html");

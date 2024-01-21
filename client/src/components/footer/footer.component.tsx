@@ -1,28 +1,18 @@
-// pkgs:
-import { FaHeart } from 'react-icons/fa';
-import { AiOutlineCoffee } from 'react-icons/ai';
-import { VFC } from 'react';
+import { FC } from 'react';
 import { Container } from 'react-bootstrap';
 
-// utils:
-import './style.sass';
-import { FooterInterface } from '../../common/interfaces/comps/footer.interface';
-
-// comps:
-
-// component>>>
-const Footer: VFC<FooterInterface> = ({ expanded }) => {
+const Footer: FC = () => {
   return (
     <footer className="default-footer">
-      <Container fluid={expanded}>
+      <Container>
         <p className="author">
           Built with
           <span className="icon">
-            <FaHeart />
+            {/* <FaHeart /> */}
           </span>
           and
           <span className="icon">
-            <AiOutlineCoffee />
+            {/* <AiOutlineCoffee /> */}
           </span>
           in
           <span className="icon">

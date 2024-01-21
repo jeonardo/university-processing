@@ -10,6 +10,10 @@ namespace UniversityProcessing.API.Infrastructure.Entities
         [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+        public string? RefreshToken { get; set; }
+
+        public DateTime? RefreshTokenExpiryTimeUTC { get; set; }
+
         public virtual UserProfileEntity UserProfile { get; set; } = default!;
 
         public virtual ICollection<GraduateWorkEntity> GraduateWorks { get; set; } = new List<GraduateWorkEntity>();

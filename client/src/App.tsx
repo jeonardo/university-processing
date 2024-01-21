@@ -2,14 +2,14 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import LoginPage from './features/authentication/signin/signin.page';
-import SignUpPage from './features/authentication/signup/signup.page';
-import Home from './pages/HomePage';
-import NotFound from './pages/not-found/notfound.page';
+import LoginPage from './features/authentication/signin/SignInPage';
+import SignUpPage from './features/authentication/signup/SignUpPage';
+import Home from './features/home/HomePage';
+import NotFound from './features/notFound/NotFoundPage';
 import { Routes, Route } from 'react-router-dom';
-import PublicOnlyLayout from './layouts/PublicOnlyLayout';
-import PrivateLayout from './layouts/PrivateLayout';
-import { useAppSelector } from './redux/hooks';
+import PublicOnlyLayout from './components/layouts/PublicOnlyLayout';
+import PrivateLayout from './components/layouts/PrivateLayout';
+import { useAppSelector } from './core/hooks';
 
 const App: React.FC = () => {
   const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated);
