@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace UniversityProcessing.API.Infrastructure.Entities
+namespace UniversityProcessing.API.Domain.Entities
 {
     public class DepartmentEntity : BaseEntity
     {

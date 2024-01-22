@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.NameTranslation;
-using UniversityProcessing.API.Infrastructure.Entities;
+using UniversityProcessing.API.Domain.Entities;
 
 namespace UniversityProcessing.API.Infrastructure
 {

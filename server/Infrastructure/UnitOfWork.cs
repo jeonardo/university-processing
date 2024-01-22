@@ -1,5 +1,4 @@
 ﻿using UniversityProcessing.API.Infrastructure.Repositories;
-using UniversityProcessing.API.Interfaces.Infrastructure;
 
 namespace UniversityProcessing.API.Infrastructure
 {

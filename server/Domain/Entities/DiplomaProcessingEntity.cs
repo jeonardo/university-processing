@@ -1,4 +1,4 @@
-﻿namespace UniversityProcessing.API.Infrastructure.Entities
+﻿namespace UniversityProcessing.API.Domain.Entities
 {
     public class DiplomaProcessingEntity : BaseEntity
     {

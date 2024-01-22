@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-using UniversityProcessing.API.Interfaces.Entities;
 
-namespace UniversityProcessing.API.Infrastructure.Entities
+namespace UniversityProcessing.API.Domain.Entities
 {
     public class UserRoleEntity : IdentityRole<Guid>, IBaseEntity
     {

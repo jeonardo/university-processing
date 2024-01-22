@@ -1,4 +1,4 @@
-﻿namespace UniversityProcessing.API.Interfaces.Entities
+﻿namespace UniversityProcessing.API.Domain.Entities
 {
     public interface IBaseEntity
     {

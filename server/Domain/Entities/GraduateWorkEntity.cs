@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace UniversityProcessing.API.Infrastructure.Entities
+namespace UniversityProcessing.API.Domain.Entities
 {
     public class GraduateWorkEntity : BaseEntity
     {
@@ -10,7 +10,7 @@ namespace UniversityProcessing.API.Infrastructure.Entities
         public required string Title { get; set; }
 
         [AllowNull]
-        [Range(0,10)]
+        [Range(0, 10)]
         public int? Grade { get; set; }
 
         public required Guid StatusId { get; set; }

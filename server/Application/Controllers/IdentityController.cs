@@ -9,11 +9,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using UniversityProcessing.API.Domain.API.Identity;
 using UniversityProcessing.API.Domain.DTOs;
-using UniversityProcessing.API.Infrastructure.Entities;
+using UniversityProcessing.API.Domain.Entities;
 
-namespace UniversityProcessing.API.Controllers
+namespace UniversityProcessing.API.Application.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -75,8 +74,8 @@ namespace UniversityProcessing.API.Controllers
             if (userEntity is null)
                 return NotFound($"User with email = {email} not found!");
 
-            if (userEntity is null 
-                || userEntity.RefreshToken != request.RefreshValue 
+            if (userEntity is null
+                || userEntity.RefreshToken != request.RefreshValue
                 || userEntity.RefreshTokenExpiryTimeUTC <= DateTime.UtcNow)
                 return Unauthorized("Refresh token is invalid or expired!");
 

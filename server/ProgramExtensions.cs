@@ -8,11 +8,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using UniversityProcessing.API.Automapper;
 using UniversityProcessing.API.Domain.DTOs;
+using UniversityProcessing.API.Domain.Entities;
 using UniversityProcessing.API.Infrastructure;
-using UniversityProcessing.API.Infrastructure.Entities;
 using UniversityProcessing.API.Infrastructure.Repositories;
 using UniversityProcessing.API.Infrastructure.Seeds;
-using UniversityProcessing.API.Interfaces.Infrastructure;
 
 namespace UniversityProcessing.API
 {

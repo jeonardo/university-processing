@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using UniversityProcessing.API.Interfaces.Entities;
-using UniversityProcessing.API.Interfaces.Infrastructure;
+using UniversityProcessing.API.Domain.Entities;
 
 namespace UniversityProcessing.API.Infrastructure.Repositories
 {

@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Immutable;
-using UniversityProcessing.API.Infrastructure.Entities;
-using UniversityProcessing.API.Interfaces.Infrastructure;
+using UniversityProcessing.API.Domain.Entities;
 
 namespace UniversityProcessing.API.Infrastructure.Seeds
 {

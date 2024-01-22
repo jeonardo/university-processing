@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UniversityProcessing.API.Infrastructure.Entities
+namespace UniversityProcessing.API.Domain.Entities
 {
     public class StatusEntity : BaseEntity
     {

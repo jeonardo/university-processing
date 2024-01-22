@@ -1,4 +1,6 @@
-﻿namespace UniversityProcessing.API.Interfaces.Infrastructure
+﻿using UniversityProcessing.API.Infrastructure.Repositories;
+
+namespace UniversityProcessing.API.Infrastructure
 {
     public interface IUnitOfWork
     {
