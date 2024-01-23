@@ -2,11 +2,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using UniversityProcessing.API.Automapper;
+using UniversityProcessing.API.Application.Automapper;
 using UniversityProcessing.API.Domain.DTOs;
 using UniversityProcessing.API.Domain.Entities;
 using UniversityProcessing.API.Infrastructure;
@@ -20,16 +18,15 @@ namespace UniversityProcessing.API
         public static void AddCustomServices(this WebApplicationBuilder builder)
         {
             var authOptions = new AuthOptions();
-            builder.Configuration.Bind(authOptions);
+            builder.Configuration.GetSection("AuthOptions").Bind(authOptions);
             builder.Services.AddSingleton(authOptions);
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddAutoMapper(cfg => cfg.Internal().MethodMappingEnabled = false, typeof(AutomapperProfile).Assembly);
+            builder.Services.AddAutoMapper(cfg => cfg.Internal().MethodMappingEnabled = false, typeof(AutoMapperProfile).Assembly);
 
             // Added configuration for PostgreSQL
             var configuration = builder.Configuration;
@@ -39,23 +36,32 @@ namespace UniversityProcessing.API
                 .UseSnakeCaseNamingConvention());
 
             builder.Services
-                .AddIdentityCore<UserEntity>()
+                .AddIdentityCore<UserEntity>(x =>
+                {
+                    x.Password.RequireUppercase = false;
+                    x.Password.RequireLowercase = false;
+                    x.Password.RequiredLength = 4;                    
+                    x.Password.RequireNonAlphanumeric = false;
+                    x.Password.RequireDigit = false;
+                })
                 .AddRoles<UserRoleEntity>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddApiEndpoints();
 
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = authOptions.ValidateIssuer,
+                ValidateAudience = authOptions.ValidateAudience,
+                ValidateIssuerSigningKey = authOptions.ValidateIssuerSigningKey,
+                ValidIssuer = authOptions.ValidIssuer,
+                ValidAudience = authOptions.ValidAudience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authOptions.Key))
+            };
+            builder.Services.AddSingleton(tokenValidationParameters);
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = authOptions.ValidateIssuer,
-                        ValidateAudience = authOptions.ValidateAudience,
-                        ValidateIssuerSigningKey = authOptions.ValidateIssuerSigningKey,
-                        ValidIssuer = authOptions.ValidIssuer,
-                        ValidAudience = authOptions.ValidAudience,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authOptions.Key))
-                    };
+                    options.TokenValidationParameters = tokenValidationParameters;
                 });
 
             builder.Services.AddAuthorizationBuilder();
@@ -72,14 +78,14 @@ namespace UniversityProcessing.API
                      .AllowAnyHeader()
                      .AllowAnyMethod())
             );
+            builder.Services.AddControllers();
         }
 
         public static void UseCustomServices(this WebApplication app)
         {
-            app.UseCors(options => options
-                              .AllowAnyOrigin()
-                              .AllowAnyMethod()
-                              .AllowAnyHeader());
+            app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseCors();
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
@@ -91,8 +97,6 @@ namespace UniversityProcessing.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
-            app.UseHttpsRedirection();
 
             app.UseAuthentication();
             app.UseAuthorization();

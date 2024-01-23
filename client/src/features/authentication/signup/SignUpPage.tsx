@@ -13,31 +13,28 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../../core/hooks";
 import { register } from "../auth.slice";
+import { ENV } from "../../../env";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 const SignUpPage = () => {
   const dispatch = useAppDispatch();
 
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleRegister = async () => {
-    // This is only a basic validation of inputs. Improve this as needed.
-    if (name && email && password) {
-      try {
-        await dispatch(
-          register({
-            name,
-            email,
-            password,
-          })
-        ).unwrap();
-      } catch (e) {
-        console.error(e);
-      }
-    } else {
-      // Show an error message.
-    }
+    if (!name || !password)
+      return
+
+    dispatch(register({ userName: name, password: password }))
+      .then(unwrapResult)
+      .then((originalPromiseResult) => {
+        // handle result here
+      })
+      .catch((rejectedValueOrSerializedError) => {
+        if (ENV.VITE_IS_DEVELOPMENT)
+          console.log(rejectedValueOrSerializedError);
+      })
   };
 
   return (
@@ -67,17 +64,6 @@ const SignUpPage = () => {
                   autoFocus
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Почта"
-                  name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>

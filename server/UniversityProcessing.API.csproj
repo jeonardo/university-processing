@@ -44,10 +44,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Domain\API\Identity\" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\client\UniversityProcessing.WebApp.esproj">
 			<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
 		</ProjectReference>

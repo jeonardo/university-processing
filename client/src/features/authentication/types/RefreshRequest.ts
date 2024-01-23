@@ -1,3 +1,6 @@
 export type RefreshRequest = {
-    RefreshToken: string;
+    Value: string;
+    Expiration: Date;
+    RefreshValue: string;
+    RefreshExpiration: Date;
 };

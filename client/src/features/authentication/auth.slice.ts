@@ -1,25 +1,26 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../core/axiosInstance";
-import { LoginRequest } from "./types/LoginRequest";
-import { Result } from "../../core/common/Result";
+import { LoginRequest } from "./signin/LoginRequest";
 import { Token } from "./types/Token";
-import { AxiosResponse } from "axios";
-import { RegisterRequest } from "./types/RegisterRequest";
-import { AuthState } from "./types/AuthState";
+import axios, { AxiosResponse } from "axios";
+import { RegisterRequest } from "./signup/RegisterRequest";
+import { AuthState } from "./AuthState";
 import { localStorageGetObject, localStorageSetData } from "../../core/utilities/localstorage";
-import { UserTokenData } from "./types/UserTokenData";
+import { TokenData } from "./types/TokenData";
 import { ENV } from "../../env";
 import { Status } from "../../core/common/Status";
+import { JwtPayload, jwtDecode } from "jwt-decode";
 
-const getUserTokenData = (): UserTokenData | null => {
+const getUserTokenData = (): TokenData | null => {
   const token = getTokenLocalStorage()
 
   if (token == null)
     return null
 
   try {
-    const decodedToken = {  } //decode(token.Value)
-    const userTokenData: UserTokenData = JSON.parse(decodedToken as string);
+    const decodedToken = jwtDecode<JwtPayload>(token.Value, { header: true });
+    console.log(decodedToken)
+    const userTokenData: TokenData = { email_: "", id_: "", userName_: "" } // JSON.parse(decodedToken as string);
     return userTokenData
   } catch (error) {
     if (ENV.VITE_IS_DEVELOPMENT)
@@ -34,51 +35,47 @@ export const resetTokenLocalStorage = (): boolean => localStorageSetData("bntu_t
 
 const initialState: AuthState = {
   isAuthenticated: getTokenLocalStorage() ? true : false,
-  basicUserInfo: getUserTokenData(),
+  tokenData: getUserTokenData(),
   status: Status.NONE,
   error: null,
 };
 
-export const refresh = createAsyncThunk("refresh", async (): Promise<Result> => {
+export const refresh = createAsyncThunk(
+  "refresh", 
+  async ({}, { rejectWithValue }) => {
   const token = getTokenLocalStorage()
 
   if (token == null)
-    return Result.Fail();
+    return false
 
-  const result = await axiosInstance
-    .post('refresh', token)
+    return await axiosInstance
+    .post('api/Identity/refresh', token)
     .then((res: AxiosResponse<Token>) => {
       setTokenLocalStorage(res.data)
-      return Result.Success();
+      return true
     })
-    .catch((res: AxiosResponse) => {
-      return Result.Fail()
-    })
-
-  return result;
+    .catch((err) => rejectWithValue(err.response.data))
 });
 
-export const login = createAsyncThunk("login", async (req: LoginRequest): Promise<Result> =>
+export const login = createAsyncThunk(
+  "login", 
+  async (req: LoginRequest, { rejectWithValue }) =>
   await axiosInstance
-    .post("/login", req)
+    .post("api/Identity/login", req)
     .then((res: AxiosResponse<Token>) => {
       setTokenLocalStorage(res.data)
-      return Result.Success()
+      return true
     })
-    .catch((res: AxiosResponse) => {
-      return Result.Fail()
-    })
+    .catch((err) => rejectWithValue(err.response.data))
 );
 
-export const register = createAsyncThunk("register", async (req: RegisterRequest): Promise<Result> =>
-  await axiosInstance
-    .post("/register", req)
-    .then((res: AxiosResponse) => {
-      return Result.Success()
-    })
-    .catch((res: AxiosResponse) => {
-      return Result.Fail()
-    })
+export const register = createAsyncThunk(
+  "register",
+  async (req: RegisterRequest, { rejectWithValue }) =>
+    await axiosInstance
+      .post("api/Identity/register", req)
+      .then(() => true)
+      .catch((err) => rejectWithValue(err.response.data))
 );
 
 const authSlice = createSlice({

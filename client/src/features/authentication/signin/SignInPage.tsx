@@ -18,18 +18,18 @@ import { login } from "../auth.slice";
 const SignInPage = () => {
   const dispatch = useAppDispatch();
 
-  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     setLoading(true)
     setTimeout(() => { setLoading(false) }, 1500)
-    if (email && password) {
+    if (userName && password) {
       try {
         await dispatch(
           login({
-            email,
+            userName,
             password,
           })
         ).unwrap();
@@ -65,8 +65,8 @@ const SignInPage = () => {
               label="Почта"
               name="email"
               autoFocus
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
             />
 
             <TextField
