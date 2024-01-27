@@ -9,9 +9,9 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["client/nuget.config", "UniversityProcessing.WebApp/"]
-COPY ["server/UniversityProcessing.API.csproj", "UniversityProcessing.API/"]
-COPY ["client/UniversityProcessing.WebApp.esproj", "UniversityProcessing.WebApp/"]
+COPY ["UniversityProcessing.WebApp/nuget.config", "UniversityProcessing.WebApp/"]
+COPY ["UniversityProcessing.API/UniversityProcessing.API.csproj", "UniversityProcessing.API/"]
+COPY ["UniversityProcessing.WebApp/UniversityProcessing.WebApp.esproj", "UniversityProcessing.WebApp/"]
 RUN dotnet restore "./UniversityProcessing.API/./UniversityProcessing.API.csproj"
 COPY . .
 WORKDIR "/src/UniversityProcessing.API"
