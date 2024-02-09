@@ -2,9 +2,9 @@
 
 namespace UniversityProcessing.Infrastructure
 {
-    public class UnitOfWork(ApplicationDbContext dbContext, IUniversityRepository universityRepository) : IUnitOfWork
+    public class UnitOfWork(ApplicationDbContext dbContext) : IUnitOfWork
     {
-        public IUniversityRepository UniversityRepository => universityRepository ??= new UniversityRepository(dbContext);
+       // public IUniversityRepository UniversityRepository => universityRepository ??= new UniversityRepository(dbContext);
 
         public async Task CommitAsync()
             => await dbContext.SaveChangesAsync();

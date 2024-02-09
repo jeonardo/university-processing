@@ -1,4 +1,4 @@
-﻿using UniversityProcessing.Shared.Entities;
+﻿using UniversityProcessing.Domain.Entities;
 
 namespace UniversityProcessing.Infrastructure.Seeds
 {
