@@ -1,4 +1,5 @@
 ﻿using Ardalis.Specification.EntityFrameworkCore;
+using UniversityProcessing.Domain.Entities;
 
 namespace UniversityProcessing.Infrastructure.Repositories
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json;
 
-namespace UniversityProcessing.API;
+namespace UniversityProcessing.Domain.API;
 
 /// <summary>
 /// Base class used by API responses
@@ -18,29 +18,29 @@ public abstract record BaseResponse : BaseMessage
 
     public void SetResult(bool success, int statusCode, string message)
     {
-        this.Success = success;
-        this.StatusCode = statusCode;
-        this.Message = message;
+        Success = success;
+        StatusCode = statusCode;
+        Message = message;
     }
 
     public void SetSuccessResult(int statusCode, string message)
     {
-        this.Success = true;
+        Success = true;
 
         //TODO Validate StatusCode
 
-        this.StatusCode = statusCode;
-        this.Message = message;
+        StatusCode = statusCode;
+        Message = message;
     }
 
     public void SetErrorResult(int statusCode, string message)
     {
-        this.Success = false;
+        Success = false;
 
         //TODO Validate StatusCode
 
-        this.StatusCode = statusCode;
-        this.Message = message;
+        StatusCode = statusCode;
+        Message = message;
     }
 
     public override string ToString()

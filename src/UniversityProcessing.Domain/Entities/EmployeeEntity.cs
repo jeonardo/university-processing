@@ -2,7 +2,7 @@
 
 namespace UniversityProcessing.Domain.Entities
 {
-    public class EmployeeEntity : UserEntity
+    public class EmployeeEntity : UserEntity, IAggregateRoot
     {
         public required Guid UniversityPositionId { get; set; }
 

@@ -1,10 +1,12 @@
 ﻿using Ardalis.Result;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -14,21 +16,47 @@ using UniversityProcessing.Domain.Exceptions;
 
 namespace UniversityProcessing.Domain.Identity
 {
-    public class IdentityTokenClaimService(UserManager<UserEntity> userManager) : ITokenClaimsService
+    public class IdentityTokenClaimService(UserManager<UserEntity> userManager,
+                                           SignInManager<UserEntity> signInManager,
+                                           TokenValidationParameters tokenValidationParameters,
+                                           AuthOptions authOptions)
+        : ITokenClaimsService
     {
-        public async Task<Result<Token>> RefreshAsync(string token, string refreshToken, CancellationToken cancellationToken = default)
+
+        public async Task<Token> GetTokenAsync(string userName, string password, CancellationToken cancellationToken = default)
+        {
+            var userEntity = await userManager.FindByNameAsync(userName)
+                ?? throw new UserNotFoundException.ByUserName(userName);
+
+            var signInResult = await signInManager.PasswordSignInAsync(userEntity, password, false, false);
+
+            if (!signInResult.Succeeded)
+                throw new HandledException(HttpStatusCode.Unauthorized, signInResult.ToString());
+
+            var token = GenerateAccessToken(userEntity);
+
+            userEntity.RefreshToken = token.RefreshValue;
+            userEntity.RefreshTokenExpiryTimeUTC = token.RefreshExpiration;
+
+            var identityResult = await userManager.UpdateAsync(userEntity);
+
+            if (!identityResult.Succeeded)
+                throw new HandledException(HttpStatusCode.Unauthorized, string.Join(", ", identityResult.Errors));
+
+            return token;
+        }
+
+        public async Task<Token> RefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken = default)
         {
             var principal = GetClaimsPrincipalFromExpiredToken(token);
             var email = principal.Claims.First(x => x.ValueType == "email_").Value;
-            var userEntity = await userManager.FindByEmailAsync(email);
 
-            if (userEntity is null)
-                return Result.NotFound($"User with email = {email} not found!");
+            var userEntity = await userManager.FindByEmailAsync(email)
+                ?? throw new UserNotFoundException.ByEmail(email);
 
-            if (userEntity is null
-                || userEntity.RefreshToken != refreshToken
+            if (userEntity.RefreshToken != refreshToken
                 || userEntity.RefreshTokenExpiryTimeUTC <= DateTime.UtcNow)
-                return Result.Error("Refresh token is invalid or expired!");
+                throw new RefreshTokenInvalidException();
 
             var newToken = GenerateAccessToken(userEntity);
 
@@ -38,33 +66,10 @@ namespace UniversityProcessing.Domain.Identity
             var identityResult = await userManager.UpdateAsync(userEntity);
 
             if (!identityResult.Succeeded)
-                return Result.Error(identityResult.Errors.ToString());
+                throw new HandledException(HttpStatusCode.BadRequest,
+                                           identityResult.Errors.ToString() ?? string.Empty);
 
-            return Result<Token>.Success(newToken);
-        }
-
-        public async Task<string> GetTokenAsync(string userName)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("");
-            var user = await userManager.FindByNameAsync(userName);
-            if (user == null) throw new UserNotFoundException(userName);
-            var roles = await userManager.GetRolesAsync(user);
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, userName) };
-
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims.ToArray()),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            return newToken;
         }
 
         private Token GenerateAccessToken(UserEntity userEntity)
@@ -79,7 +84,7 @@ namespace UniversityProcessing.Domain.Identity
             return GenerateAccessToken(claims);
         }
 
-        private string GenerateRefreshToken()
+        private static string GenerateRefreshToken()
         {
             var randomNumber = new byte[32];
             using var rng = RandomNumberGenerator.Create();
@@ -95,9 +100,8 @@ namespace UniversityProcessing.Domain.Identity
                                            audience: authOptions.ValidAudience,
                                            claims: claims,
                                            expires: exp,
-            signingCredentials: new SigningCredentials(
-                                               new SymmetricSecurityKey(Convert.FromBase64String(authOptions.Key)),
-                                               SecurityAlgorithms.HmacSha256));
+                                           signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Convert.FromBase64String(authOptions.Key)),
+                                                                                      SecurityAlgorithms.HmacSha256));
             return new Token(new JwtSecurityTokenHandler().WriteToken(jwt), exp, GenerateRefreshToken(), refreshExp);
         }
 

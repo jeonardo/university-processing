@@ -4,7 +4,7 @@ using UniversityProcessing.Domain.Entities;
 
 namespace UniversityProcessing.Domain.Identity
 {
-    public class UserEntity : IdentityUser<Guid>, IBaseEntity
+    public class UserEntity : IdentityUser<Guid>, IBaseEntity, IAggregateRoot
     {
         [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

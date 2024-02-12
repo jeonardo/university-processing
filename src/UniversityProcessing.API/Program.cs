@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Text;
-using UniversityProcessing.API;
 using UniversityProcessing.API.Extensions;
+using UniversityProcessing.API.Filters;
 using UniversityProcessing.API.Middleware;
 using UniversityProcessing.API.Utils;
+using UniversityProcessing.Domain;
 using UniversityProcessing.Domain.DTOs;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.Infrastructure;
@@ -15,6 +17,12 @@ using UniversityProcessing.Infrastructure.Repositories;
 using UniversityProcessing.Infrastructure.Seeds;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add Serilog
+Log.Logger = new LoggerConfiguration()
+.WriteTo.Console()
+.WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+.CreateLogger();
 
 builder.Services.AddCorrelationIdGeneratorService();
 
@@ -122,6 +130,9 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var app = builder.Build();
+
+// Add Serilog middleware
+app.UseSerilogRequestLogging();
 
 app.UseCorrelationIdMiddleware();
 app.UseMiddleware<ExceptionMiddleware>();

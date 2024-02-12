@@ -1,4 +1,4 @@
-﻿namespace UniversityProcessing.API
+﻿namespace UniversityProcessing.Domain.API
 {
     public record BadResponse : BaseResponse
     {

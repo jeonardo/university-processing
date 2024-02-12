@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace UniversityProcessing.API;
+namespace UniversityProcessing.Domain;
 
 public class MappingProfile : Profile
 {
