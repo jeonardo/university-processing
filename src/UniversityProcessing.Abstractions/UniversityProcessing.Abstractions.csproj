@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <Folder Include="Http\Universities\"/>
+    <Folder Include="Http\Users\"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UniversityProcessing.GenericSubdomain\UniversityProcessing.GenericSubdomain.csproj"/>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\UniversityProcessing.Domain\UniversityProcessing.Domain.csproj"/>
+    <ProjectReference Include="..\UniversityProcessing.GenericSubdomain\UniversityProcessing.GenericSubdomain.csproj"/>
+    <ProjectReference Include="..\UniversityProcessing.Repository\UniversityProcessing.Repository.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Features\"/>
+    <Folder Include="Features\Identity\Login\Converters\"/>
+    <Folder Include="Features\Identity\Login\Validators\"/>
+    <Folder Include="Features\Identity\Refresh\Converters\"/>
+    <Folder Include="Features\Identity\Refresh\Validators\"/>
+    <Folder Include="Features\Identity\Register\Validators\"/>
+  </ItemGroup>
+</Project>
