@@ -10,7 +10,10 @@
     <DockerServiceName>universityprocessing.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="docker-compose.yml" />
-    <None Include=".dockerignore" />
+    <None Include="docker-compose.yml"/>
+    <None Include=".dockerignore"/>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="launchSettings.json"/>
   </ItemGroup>
 </Project>

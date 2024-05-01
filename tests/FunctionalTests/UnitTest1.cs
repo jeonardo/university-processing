@@ -1,11 +1,9 @@
-namespace FunctionalTests
-{
-    public class UnitTest1
-    {
-        [Fact]
-        public void Test1()
-        {
+namespace FunctionalTests;
 
-        }
+public class UnitTest1
+{
+    [Fact]
+    public void Test1()
+    {
     }
 }

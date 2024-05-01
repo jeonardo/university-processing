@@ -1,0 +1,51 @@
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using UniversityProcessing.Abstractions.Http.Authenticate;
+using UniversityProcessing.API.Converters;
+using UniversityProcessing.GenericSubdomain.Attributes;
+using UniversityProcessing.GenericSubdomain.Http;
+
+namespace UniversityProcessing.API.Controllers;
+
+[ApiController]
+[Route("api/v1/[controller]/[action]")]
+public class IdentityController(IMediator mediator) : ControllerBase
+{
+    [HttpPost]
+    [ProducesResponseType(typeof(LoginResponseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ValidateModel]
+    public async Task<LoginResponseDto> Login(
+        [FromBody] LoginRequestDto request,
+        CancellationToken cancellationToken = default)
+    {
+        var response = await mediator.Send(LoginRequestConverter.ToInternal(request), cancellationToken);
+        return LoginResponseConverter.ToDto(response);
+    }
+
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ValidateModel]
+    public Task Register([FromBody] RegisterRequestDto request, CancellationToken cancellationToken = default)
+    {
+        return mediator.Send(RegisterRequestConverter.ToInternal(request), cancellationToken);
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(LoginResponseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ValidateModel]
+    [Authorize]
+    public async Task<RefreshResponseDto> Refresh(CancellationToken cancellationToken = default)
+    {
+        // var user = tokenService.GetAuthorizationTokenClaims(User);
+        var token = HttpContext.Request.Headers.Authorization;
+        var response = await mediator.Send(RefreshRequestConverter.ToInternal(token.ToString()), cancellationToken);
+        return RefreshResponseConverter.ToDto(response);
+    }
+}

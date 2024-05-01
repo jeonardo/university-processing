@@ -1,54 +1,54 @@
 // pkgs:
-import { useState, VFC } from 'react';
+import {useState, VFC} from 'react';
 
 // utils:
 import './style.sass';
-import { NotifyerInterface } from '../../../common/interfaces/comps/notifyer.interface';
+import {NotifyerInterface} from '../../../common/interfaces/comps/notifyer.interface';
 
 // comps:
 
 // component>>>
-const Notifyer: VFC<NotifyerInterface> = ({ type, title, msg }) => {
-  // comp's locals:
-  const stylesSchema = { colors: undefined, borders: undefined };
-  const [styles, setStyles] =
-    useState<{ colors: string | undefined; borders: string | undefined }>(stylesSchema);
+const Notifyer: VFC<NotifyerInterface> = ({type, title, msg}) => {
+    // comp's locals:
+    const stylesSchema = {colors: undefined, borders: undefined};
+    const [styles, setStyles] =
+        useState<{ colors: string | undefined; borders: string | undefined }>(stylesSchema);
 
-  // change the notifier box theme AKA `colors, borders`
-  switch (type) {
-    case `info`:
-      setStyles({ colors: `#bdf7bd`, borders: `#8cdf8c` });
-      break;
+    // change the notifier box theme AKA `colors, borders`
+    switch (type) {
+        case `info`:
+            setStyles({colors: `#bdf7bd`, borders: `#8cdf8c`});
+            break;
 
-    case `warning`:
-      setStyles({ colors: `#ecdfac`, borders: `#dac676` });
-      break;
+        case `warning`:
+            setStyles({colors: `#ecdfac`, borders: `#dac676`});
+            break;
 
-    case `error`:
-      setStyles({ colors: `#f5adad`, borders: `#e78787` });
-      break;
+        case `error`:
+            setStyles({colors: `#f5adad`, borders: `#e78787`});
+            break;
 
-    default:
-      setStyles({ colors: `#fff`, borders: `#ddd` });
-      break;
-  }
+        default:
+            setStyles({colors: `#fff`, borders: `#ddd`});
+            break;
+    }
 
-  return (
-    <section
-      className="notifyer"
-      style={{ backgroundColor: styles.colors, borderColor: styles.borders }}
-    >
-      {/* the wrapper */}
-      <div className="notifyer-wrapper">
-        <h2 className="heading" style={{ color: styles.colors }}>
-          {title}
-        </h2>
-        <p className="msg" style={{ color: styles.colors }}>
-          {msg}
-        </p>
-      </div>
-    </section>
-  );
+    return (
+        <section
+            className="notifyer"
+            style={{backgroundColor: styles.colors, borderColor: styles.borders}}
+        >
+            {/* the wrapper */}
+            <div className="notifyer-wrapper">
+                <h2 className="heading" style={{color: styles.colors}}>
+                    {title}
+                </h2>
+                <p className="msg" style={{color: styles.colors}}>
+                    {msg}
+                </p>
+            </div>
+        </section>
+    );
 };
 
 export default Notifyer;

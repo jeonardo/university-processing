@@ -1,9 +1,9 @@
-import { Navigate, Outlet } from "react-router-dom";
+import {Navigate, Outlet} from "react-router-dom";
 
-const PublicOnlyLayout: React.FC<{ isAuthenticated: boolean }> = ({ isAuthenticated }) => (
+const PublicOnlyLayout: React.FC<{ isAuthenticated: boolean }> = ({isAuthenticated}) => (
     isAuthenticated
-        ? <Navigate replace to={"/"} />
-        : <Outlet />
+        ? <Navigate replace to={"/"}/>
+        : <Outlet/>
 );
 
 export default PublicOnlyLayout;

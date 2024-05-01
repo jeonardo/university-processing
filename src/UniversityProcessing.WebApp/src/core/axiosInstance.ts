@@ -1,17 +1,17 @@
 import axios from "axios";
-import { ENV } from "../env";
-import { getTokenLocalStorage } from "../features/authentication/auth.slice";
+import {ENV} from "../env";
+import {getTokenLocalStorage} from "../features/authentication/auth.slice";
 
 export const axiosInstance = axios.create({
-  baseURL: ENV.VITE_BACKEND_BASEURL
+    baseURL: ENV.VITE_BACKEND_BASEURL
 });
 
 axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = getTokenLocalStorage()
-    config.headers.Authorization = `Bearer ${token == null ? "" : token.Value}`
-    return config
-  }
+    (config) => {
+        const token = getTokenLocalStorage()
+        config.headers.Authorization = `Bearer ${token == null ? "" : token.Value}`
+        return config
+    }
 )
 // TODO
 // axiosInstance.interceptors.response.use(
