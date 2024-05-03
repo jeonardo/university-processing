@@ -4,6 +4,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore"/>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UniversityProcessing.Abstractions\UniversityProcessing.Abstractions.csproj"/>
     <ProjectReference Include="..\UniversityProcessing.Domain\UniversityProcessing.Domain.csproj"/>
   </ItemGroup>
 </Project>

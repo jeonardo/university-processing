@@ -1,9 +1,11 @@
+using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UniversityProcessing.Infrastructure.Base;
+using UniversityProcessing.Infrastructure.Queries;
 using UniversityProcessing.Infrastructure.Seeds;
-using UniversityProcessing.Repository.Base;
+using UniversityProcessing.Repository.Queries;
 
 namespace UniversityProcessing.Infrastructure;
 
@@ -13,6 +15,8 @@ public static class InfrastructureRegistrar
     {
         AddDbContext(configuration, services);
         AddRepositories(services);
+
+        services.AddScoped<UniversitySeed>();
     }
 
     private static void AddDbContext(IConfiguration configuration, IServiceCollection services)
@@ -36,9 +40,6 @@ public static class InfrastructureRegistrar
     {
         services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
         services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
-
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-        services.AddScoped<UniversitySeed>();
+        services.AddScoped<IUniversityQueries, UniversityQueries>();
     }
 }

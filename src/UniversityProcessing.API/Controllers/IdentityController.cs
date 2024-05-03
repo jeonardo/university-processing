@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UniversityProcessing.Abstractions.Http.Authenticate;
+using UniversityProcessing.Abstractions.Http.Identity;
 using UniversityProcessing.API.Converters;
 using UniversityProcessing.GenericSubdomain.Attributes;
 using UniversityProcessing.GenericSubdomain.Http;
@@ -39,13 +39,21 @@ public class IdentityController(IMediator mediator) : ControllerBase
     [ProducesResponseType(typeof(LoginResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ValidateModel]
     [Authorize]
     public async Task<RefreshResponseDto> Refresh(CancellationToken cancellationToken = default)
     {
-        // var user = tokenService.GetAuthorizationTokenClaims(User);
         var token = HttpContext.Request.Headers.Authorization;
-        var response = await mediator.Send(RefreshRequestConverter.ToInternal(token.ToString()), cancellationToken);
+        var response = await mediator.Send(RefreshRequestConverter.ToInternal(token), cancellationToken);
         return RefreshResponseConverter.ToDto(response);
+    }
+
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [Authorize]
+    public Task Logout(CancellationToken cancellationToken = default)
+    {
+        return mediator.Send(LogoutRequestConverter.ToInternal(), cancellationToken);
     }
 }

@@ -1,24 +1,24 @@
-﻿using UniversityProcessing.Infrastructure.Entities;
+﻿using UniversityProcessing.Domain.Universities;
 
 namespace UniversityProcessing.Infrastructure.Seeds;
 
 public class UniversitySeed
 {
-    public List<UniversityEntity> UniversityValues { get; set; } = [];
+    public List<University> UniversityValues { get; set; } = [];
 
-    public List<FacultyEntity> FacultyValues { get; set; } = [];
+    public List<Faculty> FacultyValues { get; set; } = [];
 
-    public List<DepartmentEntity> DepartmentValues { get; set; } = [];
+    public List<Department> DepartmentValues { get; set; } = [];
 
-    public List<StudentEntity> StudentValues { get; set; } = [];
+    public List<Student> StudentValues { get; set; } = [];
 
-    public List<EmployeeEntity> EmployeeValues { get; set; } = [];
+    public List<Employee> EmployeeValues { get; set; } = [];
 
-    public List<UniversityPositionEntity> UniversityPositionValues { get; set; } = [];
+    public List<UniversityPosition> UniversityPositionValues { get; set; } = [];
 
-    public List<StudyGroupEntity> StudyGroupValues { get; set; } = [];
+    public List<StudyGroup> StudyGroupValues { get; set; } = [];
 
-    public List<SpecialtyEntity> SpecialtyValues { get; set; } = [];
+    public List<Specialty> SpecialtyValues { get; set; } = [];
 
     public void Seed()
     {
@@ -150,9 +150,9 @@ public class UniversitySeed
         }
     }
 
-    private UniversityEntity AddUniversity(string name, string shortName)
+    private University AddUniversity(string name, string shortName)
     {
-        var result = new UniversityEntity
+        var result = new University
         {
             Name = name,
             ShortName = shortName
@@ -161,9 +161,9 @@ public class UniversitySeed
         return result;
     }
 
-    private FacultyEntity AddFaculty(string name, string shortName, UniversityEntity university)
+    private Faculty AddFaculty(string name, string shortName, University university)
     {
-        var result = new FacultyEntity
+        var result = new Faculty
         {
             Name = name,
             ShortName = shortName,
@@ -174,9 +174,9 @@ public class UniversitySeed
         return result;
     }
 
-    private DepartmentEntity AddDepartment(string name, string shortName, FacultyEntity faculty)
+    private Department AddDepartment(string name, string shortName, Faculty faculty)
     {
-        var result = new DepartmentEntity
+        var result = new Department
         {
             Name = name,
             ShortName = shortName,
@@ -187,9 +187,9 @@ public class UniversitySeed
         return result;
     }
 
-    private SpecialtyEntity AddSpecialty(string name, string shortName, string code, FacultyEntity faculty)
+    private Specialty AddSpecialty(string name, string shortName, string code, Faculty faculty)
     {
-        var result = new SpecialtyEntity
+        var result = new Specialty
         {
             Faculty = faculty,
             FacultyId = faculty.Id,
@@ -201,13 +201,13 @@ public class UniversitySeed
         return result;
     }
 
-    private StudyGroupEntity AddStudyGroup(
+    private StudyGroup AddStudyGroup(
         string groupNumber,
-        SpecialtyEntity specialty,
+        Specialty specialty,
         DateOnly startDate,
         DateOnly endDate)
     {
-        var result = new StudyGroupEntity
+        var result = new StudyGroup
         {
             GroupNumber = groupNumber,
             StartDate = startDate,
@@ -219,9 +219,9 @@ public class UniversitySeed
         return result;
     }
 
-    private StudentEntity AddStudent(string username, StudyGroupEntity studyGroup)
+    private Student AddStudent(string username, StudyGroup studyGroup)
     {
-        var result = new StudentEntity
+        var result = new Student
         {
             Email = username + "@gmail.com",
             UserName = username,
@@ -234,13 +234,13 @@ public class UniversitySeed
         return result;
     }
 
-    private EmployeeEntity AddEmployee(
+    private Employee AddEmployee(
         string username,
-        UniversityEntity employer,
-        UniversityPositionEntity position,
-        DepartmentEntity? department = null)
+        University employer,
+        UniversityPosition position,
+        Department? department = null)
     {
-        var result = new EmployeeEntity
+        var result = new Employee
         {
             Email = username + "@gmail.com",
             UserName = username,
@@ -258,9 +258,9 @@ public class UniversitySeed
         return result;
     }
 
-    private UniversityPositionEntity AddUniversityPosition(string name, UniversityEntity university)
+    private UniversityPosition AddUniversityPosition(string name, University university)
     {
-        var result = new UniversityPositionEntity
+        var result = new UniversityPosition
         {
             Name = name,
             University = university,

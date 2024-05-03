@@ -1,4 +1,4 @@
-using UniversityProcessing.Domain;
+using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.DomainServices.Features.Identity.Register.Contracts;
 
 namespace UniversityProcessing.DomainServices.Features.Identity.Register.Converters;

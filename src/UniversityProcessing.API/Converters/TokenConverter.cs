@@ -1,5 +1,5 @@
-using UniversityProcessing.Abstractions.Http.Authenticate;
-using UniversityProcessing.Domain;
+using UniversityProcessing.Abstractions.Http.Identity;
+using UniversityProcessing.Domain.Identity;
 
 namespace UniversityProcessing.API.Converters;
 

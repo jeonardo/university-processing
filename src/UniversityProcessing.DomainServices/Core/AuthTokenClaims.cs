@@ -1,4 +1,4 @@
-using UniversityProcessing.Domain;
+using UniversityProcessing.Domain.Identity.Enums;
 
 namespace UniversityProcessing.DomainServices.Core;
 

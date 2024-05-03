@@ -1,38 +1,52 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Ardalis.SharedKernel;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.NameTranslation;
-using UniversityProcessing.Domain;
-using UniversityProcessing.Infrastructure.Entities;
+using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.Domain.Universities;
 
 namespace UniversityProcessing.Infrastructure;
 
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDomainEventDispatcher? dispatcher)
     : IdentityDbContext<User, UserRole, Guid>(options)
 {
-#pragma warning disable CS8618 // Required by Entity Framework
+    public DbSet<Employee> Employees => Set<Employee>();
+    public DbSet<Student> Students => Set<Student>();
+    public DbSet<Department> Departments => Set<Department>();
+    public DbSet<DiplomaProcessing> DiplomaProcessings => Set<DiplomaProcessing>();
+    public DbSet<Faculty> Faculties => Set<Faculty>();
+    public DbSet<GraduateWork> GraduateWorks => Set<GraduateWork>();
+    public DbSet<Specialty> Specialties => Set<Specialty>();
+    public DbSet<Status> Statuses => Set<Status>();
+    public DbSet<StudyGroup> StudyGroups => Set<StudyGroup>();
+    public DbSet<University> Universities => Set<University>();
 
-    public DbSet<EmployeeEntity> Employees { get; set; }
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
+    {
+        var result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
-    public DbSet<StudentEntity> Students { get; set; }
+        // ignore events if no dispatcher provided
+        if (dispatcher == null)
+        {
+            return result;
+        }
 
-    public DbSet<DepartmentEntity> Departments { get; set; }
+        // dispatch events only if save was successful
+        var entitiesWithEvents = ChangeTracker.Entries<EntityBase>()
+            .Select(e => e.Entity)
+            .Where(e => e.DomainEvents.Any())
+            .ToArray();
 
-    public DbSet<DiplomaProcessingEntity> DiplomaProcessings { get; set; }
+        await dispatcher.DispatchAndClearEvents(entitiesWithEvents);
 
-    public DbSet<FacultyEntity> Faculties { get; set; }
+        return result;
+    }
 
-    public DbSet<GraduateWorkEntity> GraduateWorks { get; set; }
-
-    public DbSet<SpecialtyEntity> Specialties { get; set; }
-
-    public DbSet<StatusEntity> Statuses { get; set; }
-
-    public DbSet<StudyGroupEntity> StudyGroups { get; set; }
-
-    public DbSet<UniversityEntity> Universities { get; set; }
-
-    public DbSet<UserProfileEntity> UserProfiles { get; set; }
+    public override int SaveChanges()
+    {
+        return SaveChangesAsync().GetAwaiter().GetResult();
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
