@@ -1,0 +1,48 @@
+using System.ComponentModel.DataAnnotations;
+using Ardalis.GuardClauses;
+using UniversityProcessing.Domain.Bases;
+using UniversityProcessing.Domain.Identity;
+
+namespace UniversityProcessing.Domain.UniversityStructure;
+
+public sealed class University : BaseEntity
+{
+    [StringLength(50, MinimumLength = 1)]
+    public string Name { get; private set; } = null!;
+
+    [StringLength(25, MinimumLength = 1)]
+    public string ShortName { get; private set; } = null!;
+
+    public Guid? AdminId { get; private set; }
+
+    public User? Admin { get; private set; }
+
+    public ICollection<Faculty> Faculties { get; private set; } = [];
+
+    public ICollection<Department> Departments { get; private set; } = [];
+
+    public ICollection<Specialty> Specialties { get; private set; } = [];
+
+    public ICollection<Group> Groups { get; private set; } = [];
+
+    public ICollection<Student> Students { get; private set; } = [];
+
+    public ICollection<Employee> Employees { get; private set; } = [];
+
+    public University(string name, string shortName)
+    {
+        Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
+        ShortName = Guard.Against.NullOrWhiteSpace(shortName, nameof(shortName));
+    }
+
+    //Parameterless constructor used by EF Core
+    private University()
+    {
+    }
+
+    public void SetAdmin(User user)
+    {
+        Admin = user;
+        AdminId = user.Id;
+    }
+}

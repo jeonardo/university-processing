@@ -19,7 +19,7 @@ public class IdentityController(IMediator mediator) : ControllerBase
     [ValidateModel]
     public async Task<LoginResponseDto> Login(
         [FromBody] LoginRequestDto request,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken)
     {
         var response = await mediator.Send(LoginRequestConverter.ToInternal(request), cancellationToken);
         return LoginResponseConverter.ToDto(response);
@@ -30,7 +30,7 @@ public class IdentityController(IMediator mediator) : ControllerBase
     [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ValidateModel]
-    public Task Register([FromBody] RegisterRequestDto request, CancellationToken cancellationToken = default)
+    public Task Register([FromBody] RegisterRequestDto request, CancellationToken cancellationToken)
     {
         return mediator.Send(RegisterRequestConverter.ToInternal(request), cancellationToken);
     }
@@ -40,7 +40,7 @@ public class IdentityController(IMediator mediator) : ControllerBase
     [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [Authorize]
-    public async Task<RefreshResponseDto> Refresh(CancellationToken cancellationToken = default)
+    public async Task<RefreshResponseDto> Refresh(CancellationToken cancellationToken)
     {
         var token = HttpContext.Request.Headers.Authorization;
         var response = await mediator.Send(RefreshRequestConverter.ToInternal(token), cancellationToken);
@@ -52,7 +52,7 @@ public class IdentityController(IMediator mediator) : ControllerBase
     [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [Authorize]
-    public Task Logout(CancellationToken cancellationToken = default)
+    public Task Logout(CancellationToken cancellationToken)
     {
         return mediator.Send(LogoutRequestConverter.ToInternal(), cancellationToken);
     }

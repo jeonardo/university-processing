@@ -3,9 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UniversityProcessing.Infrastructure.Base;
-using UniversityProcessing.Infrastructure.Queries;
 using UniversityProcessing.Infrastructure.Seeds;
-using UniversityProcessing.Repository.Queries;
 
 namespace UniversityProcessing.Infrastructure;
 
@@ -16,7 +14,7 @@ public static class InfrastructureRegistrar
         AddDbContext(configuration, services);
         AddRepositories(services);
 
-        services.AddScoped<UniversitySeed>();
+        services.AddTransient<UniversitySeed>();
     }
 
     private static void AddDbContext(IConfiguration configuration, IServiceCollection services)
@@ -25,14 +23,16 @@ public static class InfrastructureRegistrar
         {
             services.AddDbContext<ApplicationDbContext>(
                 options =>
-                    options.UseSqlite("Data Source=ApplicationDbContext.db")
+                    options
+                        .UseSqlite("Data Source=ApplicationDbContext.db")
                         .UseSnakeCaseNamingConvention());
             return;
         }
 
         services.AddDbContext<ApplicationDbContext>(
             options =>
-                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
+                options
+                    .UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
                     .UseSnakeCaseNamingConvention());
     }
 
@@ -40,6 +40,5 @@ public static class InfrastructureRegistrar
     {
         services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
         services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
-        services.AddScoped<IUniversityQueries, UniversityQueries>();
     }
 }

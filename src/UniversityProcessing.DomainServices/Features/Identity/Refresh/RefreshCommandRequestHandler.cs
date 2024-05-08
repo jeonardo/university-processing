@@ -7,7 +7,7 @@ using UniversityProcessing.DomainServices.Features.Identity.Refresh.Contracts;
 
 namespace UniversityProcessing.DomainServices.Features.Identity.Refresh;
 
-public sealed class RefreshCommandRequestHandler(
+internal sealed class RefreshCommandRequestHandler(
     UserManager<User> userManager,
     ITokenService tokenService) : IRequestHandler<RefreshCommandRequest, RefreshCommandResponse>
 {

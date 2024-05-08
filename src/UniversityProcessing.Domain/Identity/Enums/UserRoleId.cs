@@ -4,7 +4,6 @@ public enum UserRoleId
 {
     None = 0,
     ApplicationAdmin = 1,
-    UniversityAdmin = 2,
-    Employee = 3,
-    Student = 4
+    Employee = 2,
+    Student = 3
 }

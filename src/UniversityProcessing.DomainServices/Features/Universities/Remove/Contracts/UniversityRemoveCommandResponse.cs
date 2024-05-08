@@ -1,3 +1,0 @@
-namespace UniversityProcessing.DomainServices.Features.Universities.Remove.Contracts;
-
-public sealed record UniversityRemoveCommandResponse;

@@ -4,22 +4,22 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.NameTranslation;
 using UniversityProcessing.Domain.Identity;
-using UniversityProcessing.Domain.Universities;
+using UniversityProcessing.Domain.UniversityStructure;
 
 namespace UniversityProcessing.Infrastructure;
 
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDomainEventDispatcher? dispatcher)
+#pragma warning disable CS8618 // Required by Entity Framework
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDomainEventDispatcher? dispatcher = null)
     : IdentityDbContext<User, UserRole, Guid>(options)
 {
     public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<Student> Students => Set<Student>();
     public DbSet<Department> Departments => Set<Department>();
-    public DbSet<DiplomaProcessing> DiplomaProcessings => Set<DiplomaProcessing>();
+    public DbSet<DiplomaPeriod> DiplomaProcessings => Set<DiplomaPeriod>();
     public DbSet<Faculty> Faculties => Set<Faculty>();
-    public DbSet<GraduateWork> GraduateWorks => Set<GraduateWork>();
+    public DbSet<Diploma> GraduateWorks => Set<Diploma>();
     public DbSet<Specialty> Specialties => Set<Specialty>();
-    public DbSet<Status> Statuses => Set<Status>();
-    public DbSet<StudyGroup> StudyGroups => Set<StudyGroup>();
+    public DbSet<Group> Groups => Set<Group>();
     public DbSet<University> Universities => Set<University>();
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())

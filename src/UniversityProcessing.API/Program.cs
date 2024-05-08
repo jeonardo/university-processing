@@ -107,13 +107,11 @@ public static partial class Program
 
             logger.LogInformation("Migrating database...");
 
+            dbContext.Database.Migrate();
+
             if (app.Environment.IsDevelopment())
             {
-                serviceScope.ServiceProvider.GetRequiredService<UniversitySeed>().Seed();
-            }
-            else
-            {
-                dbContext.Database.Migrate();
+                serviceScope.ServiceProvider.GetRequiredService<UniversitySeed>().Seed().GetAwaiter().GetResult();
             }
 
             logger.LogInformation("Database migrated successfully");
@@ -121,6 +119,7 @@ public static partial class Program
         catch (Exception ex)
         {
             logger.LogError(ex, "An error occurred while migrating the database");
+            throw new ApplicationException(ex.Message);
         }
 
         app.Logger.LogInformation("Launching UniversityProcessing.API...");
@@ -197,7 +196,7 @@ public static partial class Program
                     {
                         OnMessageReceived = context =>
                         {
-                            if (string.IsNullOrEmpty(context.Request.Headers.Authorization))
+                            if (string.IsNullOrWhiteSpace(context.Request.Headers.Authorization))
                             {
                                 context.Token = context.Request.Cookies["AccessToken"];
                             }
@@ -216,7 +215,7 @@ public static partial class Program
         services.AddSwaggerGen(
             c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "University project API", Version = "v1" });
                 c.EnableAnnotations();
                 c.SchemaFilter<CorrelationIdSchemaFilter>();
 
@@ -265,7 +264,7 @@ public static partial class Program
 
         // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
         // specifying the Swagger JSON endpoint.
-        app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"); });
+        app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "University project API V1"); });
     }
 
     private static void UseAuthentication(IApplicationBuilder app)

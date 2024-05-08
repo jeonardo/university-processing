@@ -1,0 +1,5 @@
+using UniversityProcessing.Abstractions.Http.Universities;
+
+namespace UniversityProcessing.DomainServices.Features.UniversityPositions.Get.Contracts;
+
+public sealed record UniversityPositionGetQueryResponse(UniversityPositionDto UniversityPosition);

@@ -2,12 +2,14 @@ namespace UniversityProcessing.Abstractions.Http.Universities;
 
 public sealed class UniversityDto
 {
+    public Guid Id { get; set; }
     public string Name { get; set; }
 
     public string ShortName { get; set; }
 
-    public UniversityDto(string name, string shortName)
+    public UniversityDto(Guid id, string name, string shortName)
     {
+        Id = id;
         Name = name;
         ShortName = shortName;
     }

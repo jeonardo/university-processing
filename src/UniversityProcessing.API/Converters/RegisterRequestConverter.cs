@@ -7,6 +7,14 @@ internal static class RegisterRequestConverter
 {
     public static RegisterCommandRequest ToInternal(RegisterRequestDto input)
     {
-        return new RegisterCommandRequest(input.UserName, input.Password);
+        return new RegisterCommandRequest(
+            UserRoleIdConverter.ToInternal(input.UserRole),
+            input.UserName,
+            input.Password,
+            input.FirstName,
+            input.LastName,
+            input.MiddleName,
+            input.Email,
+            input.Birthday);
     }
 }

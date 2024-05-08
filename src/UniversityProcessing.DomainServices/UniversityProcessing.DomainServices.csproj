@@ -5,20 +5,19 @@
     <ProjectReference Include="..\UniversityProcessing.Repository\UniversityProcessing.Repository.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Features\Identity\Login\Converters\"/>
-    <Folder Include="Features\Identity\Login\Validators\"/>
-    <Folder Include="Features\Identity\Logout\Converters\"/>
-    <Folder Include="Features\Identity\Logout\Validators\"/>
-    <Folder Include="Features\Identity\Refresh\Converters\"/>
-    <Folder Include="Features\Identity\Refresh\Validators\"/>
-    <Folder Include="Features\Identity\Register\Validators\"/>
-    <Folder Include="Features\Universities\Add\Converters\"/>
-    <Folder Include="Features\Universities\Add\Validators\"/>
-    <Folder Include="Features\Universities\List\Converters\"/>
-    <Folder Include="Features\Universities\List\Validators\"/>
-    <Folder Include="Features\Universities\Remove\Converters\"/>
-    <Folder Include="Features\Universities\Remove\Validators\"/>
-    <Folder Include="Features\Universities\Update\Converters\"/>
-    <Folder Include="Features\Universities\Update\Validators\"/>
+    <Folder Include="Features\DiplomaPeriods\Create\"/>
+    <Folder Include="Features\DiplomaPeriods\Delete\"/>
+    <Folder Include="Features\DiplomaPeriods\Enroll\" />
+    <Folder Include="Features\DiplomaPeriods\GetActual\"/>
+    <Folder Include="Features\DiplomaPeriods\GetTeachers\" />
+    <Folder Include="Features\DiplomaPeriods\Get\"/>
+    <Folder Include="Features\DiplomaPeriods\Leave\" />
+    <Folder Include="Features\DiplomaPeriods\SetExamDay\" />
+    <Folder Include="Features\Diplomas\AcceptTopic\" />
+    <Folder Include="Features\Diplomas\Create\" />
+    <Folder Include="Features\Diplomas\DeclineTopic\" />
+    <Folder Include="Features\Diplomas\FreezeTopic\" />
+    <Folder Include="Features\Diplomas\RequestTopic\" />
+    <Folder Include="Features\Diplomas\SetSupervisor\" />
   </ItemGroup>
 </Project>

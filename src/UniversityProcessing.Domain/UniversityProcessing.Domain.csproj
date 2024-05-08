@@ -11,6 +11,6 @@
     <PackageReference Include="Ardalis.SharedKernel"/>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Aggregates\"/>
+    <ProjectReference Include="..\UniversityProcessing.GenericSubdomain\UniversityProcessing.GenericSubdomain.csproj"/>
   </ItemGroup>
 </Project>

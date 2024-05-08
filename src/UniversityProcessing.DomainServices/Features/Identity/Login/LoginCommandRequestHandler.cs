@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using UniversityProcessing.Domain.Identity;
@@ -7,7 +8,7 @@ using UniversityProcessing.DomainServices.Features.Identity.Login.Contracts;
 
 namespace UniversityProcessing.DomainServices.Features.Identity.Login;
 
-public sealed class LoginCommandHandler(
+internal sealed class LoginCommandHandler(
     UserManager<User> userManager,
     SignInManager<User> signInManager,
     ITokenService tokenService)
@@ -29,16 +30,25 @@ public sealed class LoginCommandHandler(
             throw new ConflictException(signInResult.ToString());
         }
 
-        var claims = await userManager.GetClaimsAsync(user);
+        var userRoles = await userManager.GetRolesAsync(user);
 
-        if (!claims.Any())
-        {
-            throw new ConflictException("User's claims not found");
-        }
+        var claims = GetDefaultClaims(user, userRoles.First());
+        var additionalClaims = await userManager.GetClaimsAsync(user);
+        claims.AddRange(additionalClaims);
 
-        var accessToken = tokenService.GenerateAccessToken(claims);
-        var refreshToken = tokenService.GenerateRefreshToken(claims);
+        var accessToken = tokenService.GenerateAccessToken(additionalClaims);
+        var refreshToken = tokenService.GenerateRefreshToken(additionalClaims);
 
         return new LoginCommandResponse(accessToken, refreshToken);
+    }
+
+    private List<Claim> GetDefaultClaims(User user, string role)
+    {
+        return
+        [
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Role, role),
+            new Claim(nameof(user.Approved), user.Approved.ToString())
+        ];
     }
 }

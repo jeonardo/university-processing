@@ -58,7 +58,7 @@ internal sealed class TokenService(IOptions<AuthOptions> authOptions) : ITokenSe
         return new AuthTokenClaims(
             GetUserId(claims),
             GetUserRole(claims),
-            GetUserEmail(claims));
+            GetUserApproved(claims));
     }
 
     private Token GetAuthorizationToken(IEnumerable<Claim> claims, DateTime expires, string key)
@@ -97,15 +97,15 @@ internal sealed class TokenService(IOptions<AuthOptions> authOptions) : ITokenSe
         return role;
     }
 
-    private static string GetUserEmail(IEnumerable<Claim> claims)
+    private static bool GetUserApproved(IEnumerable<Claim> claims)
     {
-        var claimValue = claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+        var claimValue = claims.FirstOrDefault(x => x.Type == "Approved")?.Value;
 
-        if (string.IsNullOrEmpty(claimValue))
+        if (claimValue is null || !bool.TryParse(claimValue, out var role))
         {
             throw new InvalidTokenException();
         }
 
-        return claimValue;
+        return role;
     }
 }

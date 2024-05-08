@@ -1,9 +1,8 @@
 using Ardalis.SharedKernel;
 using Ardalis.Specification.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using UniversityProcessing.Repository.Base;
 
 namespace UniversityProcessing.Infrastructure.Base;
 
-public sealed class EfRepository<T>(DbContext dbContext) : RepositoryBase<T>(dbContext), IEfRepository<T>
+// ReSharper disable once SuggestBaseTypeForParameterInConstructor
+public sealed class EfRepository<T>(ApplicationDbContext dbContext) : RepositoryBase<T>(dbContext), IReadRepository<T>, IRepository<T>
     where T : class, IAggregateRoot;
