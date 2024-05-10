@@ -3,13 +3,14 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.Domain.UniversityStructure;
-using UniversityProcessing.DomainServices.Exceptions;
 using UniversityProcessing.DomainServices.Features.Universities.SetAdmin.Contracts;
+using UniversityProcessing.GenericSubdomain.Exceptions;
+using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.DomainServices.Features.Universities.SetAdmin;
 
 internal sealed class UniversitySetAdminCommandHandler(
-    IRepository<University> repository,
+    IEfRepository<University> repository,
     UserManager<User> userManager) : IRequestHandler<UniversitySetAdminCommandRequest>
 {
     public async Task Handle(UniversitySetAdminCommandRequest request, CancellationToken cancellationToken)

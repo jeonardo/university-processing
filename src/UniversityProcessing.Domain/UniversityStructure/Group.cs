@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Ardalis.GuardClauses;
 using UniversityProcessing.Domain.Bases;
+using UniversityProcessing.Domain.Identity;
 
 namespace UniversityProcessing.Domain.UniversityStructure;
 
@@ -20,7 +21,7 @@ public sealed class Group : BaseEntity
     public Guid SpecialtyId { get; private set; }
     public Specialty Specialty { get; private set; } = null!;
 
-    public ICollection<Student> Students { get; private set; } = [];
+    public ICollection<User> Students { get; private set; } = [];
 
     public Group(string groupNumber, DateOnly startDate, DateOnly endDate, Specialty specialty, Faculty faculty)
     {

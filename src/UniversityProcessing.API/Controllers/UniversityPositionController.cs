@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using UniversityProcessing.Abstractions.Http.Universities;
+using UniversityProcessing.Abstractions.Http.Universities.University;
 using UniversityProcessing.DomainServices.Features.UniversityPositions.Get.Contracts;
 using UniversityProcessing.DomainServices.Features.UniversityPositions.List.Contracts;
 using UniversityProcessing.GenericSubdomain.Http;

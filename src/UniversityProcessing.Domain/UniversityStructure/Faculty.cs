@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Ardalis.GuardClauses;
 using UniversityProcessing.Domain.Bases;
+using UniversityProcessing.Domain.Identity;
 
 namespace UniversityProcessing.Domain.UniversityStructure;
 
@@ -20,9 +21,9 @@ public sealed class Faculty : BaseEntity
 
     public ICollection<Specialty> Specialties { get; private set; } = [];
 
-    public ICollection<Student> Students { get; private set; } = [];
+    public ICollection<User> Students { get; private set; } = [];
 
-    public ICollection<Employee> Employees { get; private set; } = [];
+    public ICollection<User> Employees { get; private set; } = [];
 
     public ICollection<Group> Groups { get; private set; } = [];
 

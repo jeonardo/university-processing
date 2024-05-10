@@ -1,10 +1,11 @@
 using UniversityProcessing.Abstractions.Http.Universities;
+using UniversityProcessing.Abstractions.Http.Universities.Group;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.GenericSubdomain.Pagination;
 
 namespace UniversityProcessing.DomainServices.Features.Converters;
 
-internal static class GroupConverter
+public static class GroupConverter
 {
     public static PagedList<GroupDto> ToPagedDto(IEnumerable<Group> input, int totalCount, int pageNumber, int pageSize)
     {

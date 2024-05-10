@@ -31,5 +31,8 @@ public sealed class RegisterRequestDto
     [DataType(DataType.Date)]
     public DateOnly? Birthday { get; set; }
 
-    //TODO info for other roles
+    public Guid? UniversityId { get; set; }
+
+    public Guid? UniversityPositionId { get; set; }
+    public Guid? GroupId { get; set; }
 }

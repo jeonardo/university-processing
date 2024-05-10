@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UniversityProcessing.Infrastructure.Base;
 using UniversityProcessing.Infrastructure.Seeds;
+using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.Infrastructure;
 
@@ -38,7 +39,7 @@ public static class InfrastructureRegistrar
 
     private static void AddRepositories(IServiceCollection services)
     {
-        services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-        services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
+        services.AddScoped(typeof(IEfRepository<>), typeof(EfRepository<>));
+        services.AddScoped(typeof(IEfReadRepository<>), typeof(EfRepository<>));
     }
 }

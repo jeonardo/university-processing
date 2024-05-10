@@ -3,11 +3,12 @@ using MediatR;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.DomainServices.Features.Converters;
 using UniversityProcessing.DomainServices.Features.UniversityPositions.List.Contracts;
+using UniversityProcessing.Repository.Repositories;
 using UniversityProcessing.Repository.Specifications;
 
 namespace UniversityProcessing.DomainServices.Features.UniversityPositions.List;
 
-internal sealed class UniversityPositionListQueryHandler(IReadRepository<UniversityPosition> repository)
+internal sealed class UniversityPositionListQueryHandler(IEfReadRepository<UniversityPosition> repository)
     : IRequestHandler<UniversityPositionListQueryRequest, UniversityPositionListQueryResponse>
 {
     public async Task<UniversityPositionListQueryResponse> Handle(UniversityPositionListQueryRequest request, CancellationToken cancellationToken)

@@ -1,12 +1,12 @@
-using Ardalis.SharedKernel;
 using MediatR;
 using UniversityProcessing.Domain.UniversityStructure;
-using UniversityProcessing.DomainServices.Exceptions;
 using UniversityProcessing.DomainServices.Features.Faculties.Create.Contracts;
+using UniversityProcessing.GenericSubdomain.Exceptions;
+using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.DomainServices.Features.Faculties.Create;
 
-internal sealed class FacultyCreateCommandHandler(IRepository<University> universityRepository, IRepository<Faculty> facultyRepository)
+internal sealed class FacultyCreateCommandHandler(IEfRepository<University> universityRepository, IEfRepository<Faculty> facultyRepository)
     : IRequestHandler<FacultyCreateCommandRequest, FacultyCreateCommandResponse>
 {
     public async Task<FacultyCreateCommandResponse> Handle(FacultyCreateCommandRequest request, CancellationToken cancellationToken)

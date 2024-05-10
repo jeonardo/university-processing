@@ -2,8 +2,8 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.DomainServices.Core;
-using UniversityProcessing.DomainServices.Exceptions;
 using UniversityProcessing.DomainServices.Features.Identity.Refresh.Contracts;
+using UniversityProcessing.GenericSubdomain.Exceptions;
 
 namespace UniversityProcessing.DomainServices.Features.Identity.Refresh;
 

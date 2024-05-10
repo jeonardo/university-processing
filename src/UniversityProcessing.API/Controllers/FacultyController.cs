@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Abstractions.Http.Universities;
+using UniversityProcessing.Abstractions.Http.Universities.Faculty;
 using UniversityProcessing.DomainServices.Features.Faculties.Create.Contracts;
 using UniversityProcessing.DomainServices.Features.Faculties.Delete.Contracts;
 using UniversityProcessing.DomainServices.Features.Faculties.Get.Contracts;

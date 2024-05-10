@@ -1,18 +1,18 @@
-﻿using Ardalis.SharedKernel;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.Domain.Identity.Enums;
 using UniversityProcessing.Domain.UniversityStructure;
+using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.Infrastructure.Seeds;
 
 public class UniversitySeed(
-    IRepository<University> repositoryUniversity,
-    IRepository<Faculty> repositoryFaculty,
-    IRepository<Department> repositoryDepartment,
-    IRepository<UniversityPosition> repositoryUniversityPosition,
-    IRepository<Group> repositoryGroup,
-    IRepository<Specialty> repositorySpecialty,
+    IEfRepository<University> repositoryUniversity,
+    IEfRepository<Faculty> repositoryFaculty,
+    IEfRepository<Department> repositoryDepartment,
+    IEfRepository<UniversityPosition> repositoryUniversityPosition,
+    IEfRepository<Group> repositoryGroup,
+    IEfRepository<Specialty> repositorySpecialty,
     UserManager<User> userManager,
     RoleManager<UserRole> roleManager)
 {
@@ -22,9 +22,11 @@ public class UniversitySeed(
 
     private List<Department> DepartmentValues { get; set; } = [];
 
-    private List<Student> StudentValues { get; set; } = [];
+    private List<User> StudentValues { get; set; } = [];
 
-    private List<Employee> EmployeeValues { get; set; } = [];
+    private List<User> EmployeeValues { get; set; } = [];
+
+    private List<User> AdminValues { get; set; } = [];
 
     private List<UniversityPosition> UniversityPositionValues { get; set; } = [];
 
@@ -147,33 +149,37 @@ public class UniversitySeed(
 
         for (var i = 0; i < 30; i++)
         {
-            _ = await AddStudent($"StudentUsername_{bntu_studyGroup1.Number + 100}_{i}", bntu_studyGroup1);
+            _ = await AddStudent($"Student_{bntu_studyGroup1.Number + 100}_{i}", bntu_studyGroup1);
         }
 
         for (var i = 0; i < 30; i++)
         {
-            _ = await AddStudent($"StudentUsername_{bntu_studyGroup2.Number + 100}_{i}", bntu_studyGroup2);
+            _ = await AddStudent($"Student_{bntu_studyGroup2.Number + 100}_{i}", bntu_studyGroup2);
         }
 
         for (var i = 0; i < 30; i++)
         {
-            _ = await AddStudent($"StudentUsername_{bntu_studyGroup3.Number + 100}_{i}", bntu_studyGroup3);
+            _ = await AddStudent($"Student_{bntu_studyGroup3.Number + 100}_{i}", bntu_studyGroup3);
         }
 
         for (var i = 0; i < 30; i++)
         {
-            _ = await AddStudent($"StudentUsername_{bntu_studyGroup4.Number + 100}_{i}", bntu_studyGroup4);
+            _ = await AddStudent($"Student_{bntu_studyGroup4.Number + 100}_{i}", bntu_studyGroup4);
         }
 
         for (var i = 0; i < 30; i++)
         {
-            _ = await AddStudent($"StudentUsername_{bntu_studyGroup5.Number + 100}_{i}", bntu_studyGroup5);
+            _ = await AddStudent($"Student_{bntu_studyGroup5.Number + 100}_{i}", bntu_studyGroup5);
         }
 
         for (var i = 0; i < 30; i++)
         {
-            _ = await AddStudent($"StudentUsername_{bntu_studyGroup6.Number + 100}_{i}", bntu_studyGroup6);
+            _ = await AddStudent($"Student_{bntu_studyGroup6.Number + 100}_{i}", bntu_studyGroup6);
         }
+
+        await AddAdmin("Admin");
+        await AddStudent("Student", bntu_studyGroup1);
+        await AddEmployee("Admin", bntu_pos_1, bntu_faculty_fitr_poisit);
     }
 
     private async Task<University> AddUniversity(string name, string shortName)
@@ -220,24 +226,33 @@ public class UniversitySeed(
         return result;
     }
 
-    private async Task<Student> AddStudent(string username, Group group)
+    private async Task<User> AddAdmin(string username)
     {
-        var result = new Student(group, username, username);
-        StudentValues.Add(result);
-        await userManager.CreateAsync(result);
-        await userManager.AddToRoleAsync(result, nameof(UserRoleId.Student));
+        var result = new User(username, username);
+        await userManager.CreateAsync(result, username);
+        await userManager.AddToRoleAsync(result, nameof(UserRoleId.ApplicationAdmin));
+        AdminValues.Add(result);
         return result;
     }
 
-    private async Task<Employee> AddEmployee(
+    private async Task<User> AddStudent(string username, Group group)
+    {
+        var result = new User(group.Faculty.University, group, username, username);
+        await userManager.CreateAsync(result, username);
+        await userManager.AddToRoleAsync(result, nameof(UserRoleId.Student));
+        StudentValues.Add(result);
+        return result;
+    }
+
+    private async Task<User> AddEmployee(
         string username,
         UniversityPosition position,
         Department department)
     {
-        var result = new Employee(position, department, username, username);
-        EmployeeValues.Add(result);
-        await userManager.CreateAsync(result);
+        var result = new User(department.Faculty.University, position, department, username, username);
+        await userManager.CreateAsync(result, username);
         await userManager.AddToRoleAsync(result, nameof(UserRoleId.Employee));
+        EmployeeValues.Add(result);
         return result;
     }
 

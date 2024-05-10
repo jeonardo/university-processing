@@ -25,9 +25,9 @@ public sealed class University : BaseEntity
 
     public ICollection<Group> Groups { get; private set; } = [];
 
-    public ICollection<Student> Students { get; private set; } = [];
+    public ICollection<User> Students { get; private set; } = [];
 
-    public ICollection<Employee> Employees { get; private set; } = [];
+    public ICollection<User> Employees { get; private set; } = [];
 
     public University(string name, string shortName)
     {

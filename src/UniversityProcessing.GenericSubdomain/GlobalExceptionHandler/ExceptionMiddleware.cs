@@ -16,13 +16,15 @@ public sealed class ExceptionMiddleware(RequestDelegate next)
         }
         catch (HandledException handledEx)
         {
-            await HandleExceptionAsync(httpContext, handledEx)
-                .ConfigureAwait(false);
+            await HandleExceptionAsync(httpContext, handledEx);
+        }
+        catch (ArgumentException argumentEx)
+        {
+            await HandleExceptionAsync(httpContext, argumentEx);
         }
         catch (Exception ex)
         {
-            await HandleExceptionAsync(httpContext, ex)
-                .ConfigureAwait(false);
+            await HandleExceptionAsync(httpContext, ex);
         }
     }
 
@@ -32,6 +34,15 @@ public sealed class ExceptionMiddleware(RequestDelegate next)
     {
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)exception.StatusCode;
+        await context.Response.WriteAsJsonAsync(new FailResponse(exception.Message));
+    }
+
+    private static async Task HandleExceptionAsync(
+        HttpContext context,
+        ArgumentException exception)
+    {
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = StatusCodes.Status400BadRequest;
         await context.Response.WriteAsJsonAsync(new FailResponse(exception.Message));
     }
 

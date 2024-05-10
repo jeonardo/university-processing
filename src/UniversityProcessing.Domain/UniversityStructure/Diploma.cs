@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 using Ardalis.GuardClauses;
 using UniversityProcessing.Domain.Bases;
+using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.Domain.UniversityStructure.Enums;
 
 namespace UniversityProcessing.Domain.UniversityStructure;
@@ -12,20 +13,19 @@ public sealed class Diploma : BaseEntity
     public string Title { get; private set; } = null!;
 
     [Range(0, 10)]
-    public int? Grade { get; }
+    public int? Grade { get; set; }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public GraduateWorkStatusId StatusId { get; private set; } = GraduateWorkStatusId.Created;
+    public DiplomaStatusId StatusId { get; private set; } = DiplomaStatusId.Created;
 
     public Guid StudentId { get; private set; }
+    public User Student { get; private set; } = null!;
 
-    public Student Student { get; private set; } = null!;
+    public Guid? SupervisorId { get; set; }
 
-    public Guid? SupervisorId { get; }
+    public User? Supervisor { get; set; }
 
-    public Employee? Supervisor { get; }
-
-    public Diploma(string title, Student student)
+    public Diploma(string title, User student)
     {
         Title = Guard.Against.NullOrWhiteSpace(title);
         StudentId = Guard.Against.Null(student).Id;

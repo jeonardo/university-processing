@@ -1,4 +1,4 @@
-using UniversityProcessing.Abstractions.Http.Universities;
+using UniversityProcessing.Abstractions.Http.Universities.Specialty;
 
 namespace UniversityProcessing.DomainServices.Features.Specialties.Get.Contracts;
 

@@ -7,17 +7,16 @@
   <ItemGroup>
     <Folder Include="Features\DiplomaPeriods\Create\"/>
     <Folder Include="Features\DiplomaPeriods\Delete\"/>
-    <Folder Include="Features\DiplomaPeriods\Enroll\" />
+    <Folder Include="Features\DiplomaPeriods\Enroll\"/>
     <Folder Include="Features\DiplomaPeriods\GetActual\"/>
-    <Folder Include="Features\DiplomaPeriods\GetTeachers\" />
-    <Folder Include="Features\DiplomaPeriods\Get\"/>
-    <Folder Include="Features\DiplomaPeriods\Leave\" />
-    <Folder Include="Features\DiplomaPeriods\SetExamDay\" />
-    <Folder Include="Features\Diplomas\AcceptTopic\" />
-    <Folder Include="Features\Diplomas\Create\" />
-    <Folder Include="Features\Diplomas\DeclineTopic\" />
-    <Folder Include="Features\Diplomas\FreezeTopic\" />
-    <Folder Include="Features\Diplomas\RequestTopic\" />
-    <Folder Include="Features\Diplomas\SetSupervisor\" />
+    <Folder Include="Features\DiplomaPeriods\GetActualTeachers\"/>
+    <Folder Include="Features\DiplomaPeriods\Leave\"/>
+    <Folder Include="Features\DiplomaPeriods\SetExamDay\"/>
+    <Folder Include="Features\Diplomas\AcceptTopic\"/>
+    <Folder Include="Features\Diplomas\Create\"/>
+    <Folder Include="Features\Diplomas\DeclineTopic\"/>
+    <Folder Include="Features\Diplomas\FreezeTopic\"/>
+    <Folder Include="Features\Diplomas\RequestTopic\"/>
+    <Folder Include="Features\Diplomas\SetSupervisor\"/>
   </ItemGroup>
 </Project>

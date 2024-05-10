@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Ardalis.GuardClauses;
 using UniversityProcessing.Domain.Bases;
+using UniversityProcessing.Domain.Identity;
 
 namespace UniversityProcessing.Domain.UniversityStructure;
 
@@ -12,23 +13,23 @@ public sealed class DiplomaPeriod : BaseEntity
     [DataType(DataType.DateTime)]
     public DateOnly EndDate { get; private set; }
 
-    public Guid FacultyId { get; }
+    public Guid FacultyId { get; private set; }
 
     public Faculty Faculty { get; private set; } = null!;
 
     public Guid SecretaryId { get; private set; }
 
-    public Employee Secretary { get; private set; } = null!;
+    public User Secretary { get; private set; } = null!;
 
     public ICollection<string> RequiredTitles { get; private set; } = [];
 
     public ICollection<Diploma> GraduateWorks { get; private set; } = [];
 
-    public ICollection<Student> Students { get; private set; } = [];
+    public ICollection<User> Students { get; private set; } = [];
 
-    public ICollection<Employee> Employees { get; private set; } = [];
+    public ICollection<User> Employees { get; private set; } = [];
 
-    public DiplomaPeriod(Faculty faculty, Employee secretary, DateOnly startDate, DateOnly endDate)
+    public DiplomaPeriod(Faculty faculty, User secretary, DateOnly startDate, DateOnly endDate)
     {
         StartDate = Guard.Against.Default(startDate);
         EndDate = Guard.Against.Default(endDate);

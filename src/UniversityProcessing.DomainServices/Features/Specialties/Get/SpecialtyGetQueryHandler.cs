@@ -1,21 +1,19 @@
-using Ardalis.SharedKernel;
 using MediatR;
 using UniversityProcessing.Domain.UniversityStructure;
-using UniversityProcessing.DomainServices.Exceptions;
 using UniversityProcessing.DomainServices.Features.Converters;
 using UniversityProcessing.DomainServices.Features.Specialties.Get.Contracts;
+using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.DomainServices.Features.Specialties.Get;
 
-internal sealed class SpecialtyGetQueryHandler(IReadRepository<Specialty> repository)
+internal sealed class SpecialtyGetQueryHandler(IEfReadRepository<Specialty> repository)
     : IRequestHandler<SpecialtyGetQueryRequest, SpecialtyGetQueryResponse>
 {
     public async Task<SpecialtyGetQueryResponse> Handle(
         SpecialtyGetQueryRequest request,
         CancellationToken cancellationToken)
     {
-        var record = await repository.GetByIdAsync(request.Id, cancellationToken)
-            ?? throw new NotFoundException($"{nameof(Specialty)} with id = {request.Id} not found");
+        var record = await repository.GetByIdRequiredAsync(request.Id, cancellationToken);
 
         return new SpecialtyGetQueryResponse(SpecialtyConverter.ToDto(record));
     }

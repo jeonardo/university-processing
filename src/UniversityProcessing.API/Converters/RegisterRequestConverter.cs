@@ -1,4 +1,5 @@
 using UniversityProcessing.Abstractions.Http.Identity;
+using UniversityProcessing.DomainServices.Features.Converters;
 using UniversityProcessing.DomainServices.Features.Identity.Register.Contracts;
 
 namespace UniversityProcessing.API.Converters;
@@ -15,6 +16,9 @@ internal static class RegisterRequestConverter
             input.LastName,
             input.MiddleName,
             input.Email,
-            input.Birthday);
+            input.Birthday,
+            input.UniversityId,
+            input.UniversityPositionId,
+            input.GroupId);
     }
 }

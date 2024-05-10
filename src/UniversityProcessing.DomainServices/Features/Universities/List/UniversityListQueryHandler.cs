@@ -1,13 +1,13 @@
-using Ardalis.SharedKernel;
 using MediatR;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.DomainServices.Features.Converters;
 using UniversityProcessing.DomainServices.Features.Universities.List.Contracts;
+using UniversityProcessing.Repository.Repositories;
 using UniversityProcessing.Repository.Specifications;
 
 namespace UniversityProcessing.DomainServices.Features.Universities.List;
 
-public sealed class UniversityListQueryHandler(IReadRepository<University> repository)
+public sealed class UniversityListQueryHandler(IEfReadRepository<University> repository)
     : IRequestHandler<UniversityListQueryRequest, UniversityListQueryResponse>
 {
     public async Task<UniversityListQueryResponse> Handle(UniversityListQueryRequest request, CancellationToken cancellationToken)

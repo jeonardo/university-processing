@@ -12,12 +12,10 @@ namespace UniversityProcessing.Infrastructure;
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDomainEventDispatcher? dispatcher = null)
     : IdentityDbContext<User, UserRole, Guid>(options)
 {
-    public DbSet<Employee> Employees => Set<Employee>();
-    public DbSet<Student> Students => Set<Student>();
     public DbSet<Department> Departments => Set<Department>();
-    public DbSet<DiplomaPeriod> DiplomaProcessings => Set<DiplomaPeriod>();
+    public DbSet<DiplomaPeriod> DiplomaPeriods => Set<DiplomaPeriod>();
     public DbSet<Faculty> Faculties => Set<Faculty>();
-    public DbSet<Diploma> GraduateWorks => Set<Diploma>();
+    public DbSet<Diploma> Diplomas => Set<Diploma>();
     public DbSet<Specialty> Specialties => Set<Specialty>();
     public DbSet<Group> Groups => Set<Group>();
     public DbSet<University> Universities => Set<University>();
@@ -88,5 +86,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     private static void AddInitData(ModelBuilder modelBuilder)
     {
         //Can be filled by the real migration
+        
+        modelBuilder.Entity<Diploma>()
+            .HasOne(x=>x.Supervisor)
+            .Ha
     }
 }

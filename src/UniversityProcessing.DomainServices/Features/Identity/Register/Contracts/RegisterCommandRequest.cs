@@ -8,7 +8,10 @@ public sealed record RegisterCommandRequest(
     string UserName,
     string Password,
     string FirstName,
-    string? LastName,
-    string? MiddleName,
-    string? Email,
-    DateOnly? Birthday) : IRequest;
+    string? LastName = null,
+    string? MiddleName = null,
+    string? Email = null,
+    DateOnly? Birthday = null,
+    Guid? UniversityId = null,
+    Guid? UniversityPositionId = null,
+    Guid? GroupId = null) : IRequest;

@@ -1,10 +1,10 @@
-using UniversityProcessing.Abstractions.Http.Universities;
+using UniversityProcessing.Abstractions.Http.Universities.Faculty;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.GenericSubdomain.Pagination;
 
 namespace UniversityProcessing.DomainServices.Features.Converters;
 
-internal static class FacultyConverter
+public static class FacultyConverter
 {
     public static PagedList<FacultyDto> ToPagedDto(IEnumerable<Faculty> input, int totalCount, int pageNumber, int pageSize)
     {
