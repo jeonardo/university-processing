@@ -71,7 +71,6 @@ internal sealed class RegisterCommandRequestHandler(
         var user = new User(
             university,
             universityPosition,
-            null,
             request.UserName,
             request.FirstName,
             request.LastName,
@@ -105,7 +104,6 @@ internal sealed class RegisterCommandRequestHandler(
     {
         var group = await groupRepository.GetByIdRequiredAsync(Guard.Against.NullOrDefault(request.GroupId), cancellationToken);
         var user = new User(
-            group.Faculty.University,
             group,
             request.UserName,
             request.FirstName,

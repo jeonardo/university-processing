@@ -17,13 +17,13 @@ public sealed class Faculty : BaseEntity
 
     public University University { get; private set; } = null!;
 
+    public ICollection<DiplomaPeriod> DiplomaPeriods { get; private set; } = [];
+
     public ICollection<Department> Departments { get; private set; } = [];
 
     public ICollection<Specialty> Specialties { get; private set; } = [];
 
-    public ICollection<User> Students { get; private set; } = [];
-
-    public ICollection<User> Employees { get; private set; } = [];
+    public ICollection<User> Users { get; private set; } = [];
 
     public ICollection<Group> Groups { get; private set; } = [];
 

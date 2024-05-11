@@ -21,7 +21,7 @@ public sealed class Group : BaseEntity
     public Guid SpecialtyId { get; private set; }
     public Specialty Specialty { get; private set; } = null!;
 
-    public ICollection<User> Students { get; private set; } = [];
+    public ICollection<User> Users { get; private set; } = [];
 
     public Group(string groupNumber, DateOnly startDate, DateOnly endDate, Specialty specialty, Faculty faculty)
     {

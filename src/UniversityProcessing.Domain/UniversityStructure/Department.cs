@@ -17,7 +17,7 @@ public sealed class Department : BaseEntity
 
     public Faculty Faculty { get; private set; } = null!;
 
-    public ICollection<User> Employees { get; private set; } = [];
+    public ICollection<User> Users { get; private set; } = [];
 
     public Department(string name, string shortName, Faculty faculty)
     {

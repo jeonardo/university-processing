@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Ardalis.GuardClauses;
 using UniversityProcessing.Domain.Bases;
+using UniversityProcessing.Domain.Identity;
 
 namespace UniversityProcessing.Domain.UniversityStructure;
 
@@ -12,6 +13,8 @@ public sealed class UniversityPosition : BaseEntity
     public Guid UniversityId { get; private set; }
 
     public University University { get; private set; } = null!;
+
+    public ICollection<User> Users { get; private set; } = [];
 
     public UniversityPosition(string name, University university)
     {

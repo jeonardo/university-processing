@@ -33,23 +33,29 @@ public class User : IdentityUser<Guid>, IAggregateRoot
     [DataType(DataType.Date)]
     public DateOnly? Birthday { get; private set; }
 
-    public Guid UniversityId { get; private set; }
+    public Guid? UniversityId { get; private set; }
 
-    public University University { get; private set; } = null!;
+    public University? University { get; private set; }
 
     public Guid? GroupId { get; private set; }
 
     public Group? Group { get; private set; }
 
-    public ICollection<Diploma> GraduateWorks { get; private set; } = [];
-
     public Guid? UniversityPositionId { get; private set; }
 
     public UniversityPosition? UniversityPosition { get; private set; }
 
+    public Guid? FacultyId { get; private set; }
+
+    public Faculty? Faculty { get; private set; }
+
     public Guid? DepartmentId { get; private set; }
 
     public Department? Department { get; private set; }
+
+    public ICollection<Diploma> Diplomas { get; private set; } = [];
+
+    public ICollection<DiplomaPeriod> DiplomaPeriods { get; private set; } = [];
 
     public User(
         string username,
@@ -68,7 +74,6 @@ public class User : IdentityUser<Guid>, IAggregateRoot
     }
 
     public User(
-        University university,
         Group group,
         string username,
         string firstName,
@@ -84,8 +89,10 @@ public class User : IdentityUser<Guid>, IAggregateRoot
         Email = Guard.Against.NotNullAndWhiteSpace(email, nameof(email));
         Birthday = birthday;
 
-        UniversityId = Guard.Against.Null(university).Id;
-        University = Guard.Against.Null(university);
+        FacultyId = Guard.Against.Null(group.Faculty).Id;
+        Faculty = Guard.Against.Null(group.Faculty);
+        UniversityId = Guard.Against.Null(group.Faculty.University).Id;
+        University = Guard.Against.Null(group.Faculty.University);
         GroupId = Guard.Against.Null(group).Id;
         Group = Guard.Against.Null(group);
     }
@@ -93,7 +100,6 @@ public class User : IdentityUser<Guid>, IAggregateRoot
     public User(
         University university,
         UniversityPosition? universityPosition,
-        Department? department,
         string username,
         string firstName,
         string? lastName = null,
@@ -112,8 +118,6 @@ public class User : IdentityUser<Guid>, IAggregateRoot
         University = Guard.Against.Null(university);
         UniversityPositionId = Guard.Against.Null(universityPosition).Id;
         UniversityPosition = Guard.Against.Null(universityPosition);
-        DepartmentId = department?.Id;
-        Department = department;
     }
 
     //Parameterless constructor used by EF Core

@@ -177,9 +177,9 @@ public class UniversitySeed(
             _ = await AddStudent($"Student_{bntu_studyGroup6.Number + 100}_{i}", bntu_studyGroup6);
         }
 
-        await AddAdmin("Admin");
-        await AddStudent("Student", bntu_studyGroup1);
-        await AddEmployee("Admin", bntu_pos_1, bntu_faculty_fitr_poisit);
+        await AddAdmin("test_admin");
+        await AddStudent("test_student", bntu_studyGroup1);
+        await AddEmployee("test_employee", bntu_pos_1, bntu_faculty_fitr_poisit);
     }
 
     private async Task<University> AddUniversity(string name, string shortName)
@@ -237,7 +237,7 @@ public class UniversitySeed(
 
     private async Task<User> AddStudent(string username, Group group)
     {
-        var result = new User(group.Faculty.University, group, username, username);
+        var result = new User(group, username, username);
         await userManager.CreateAsync(result, username);
         await userManager.AddToRoleAsync(result, nameof(UserRoleId.Student));
         StudentValues.Add(result);
@@ -249,7 +249,7 @@ public class UniversitySeed(
         UniversityPosition position,
         Department department)
     {
-        var result = new User(department.Faculty.University, position, department, username, username);
+        var result = new User(department.Faculty.University, position, username, username);
         await userManager.CreateAsync(result, username);
         await userManager.AddToRoleAsync(result, nameof(UserRoleId.Employee));
         EmployeeValues.Add(result);

@@ -15,19 +15,11 @@ public sealed class University : BaseEntity
 
     public Guid? AdminId { get; private set; }
 
-    public User? Admin { get; private set; }
+    public ICollection<UniversityPosition> UniversityPositions { get; private set; } = [];
 
     public ICollection<Faculty> Faculties { get; private set; } = [];
 
-    public ICollection<Department> Departments { get; private set; } = [];
-
-    public ICollection<Specialty> Specialties { get; private set; } = [];
-
-    public ICollection<Group> Groups { get; private set; } = [];
-
-    public ICollection<User> Students { get; private set; } = [];
-
-    public ICollection<User> Employees { get; private set; } = [];
+    public ICollection<User> Users { get; private set; } = [];
 
     public University(string name, string shortName)
     {
@@ -42,7 +34,6 @@ public sealed class University : BaseEntity
 
     public void SetAdmin(User user)
     {
-        Admin = user;
         AdminId = user.Id;
     }
 }

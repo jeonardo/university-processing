@@ -86,9 +86,5 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     private static void AddInitData(ModelBuilder modelBuilder)
     {
         //Can be filled by the real migration
-        
-        modelBuilder.Entity<Diploma>()
-            .HasOne(x=>x.Supervisor)
-            .Ha
     }
 }

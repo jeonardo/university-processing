@@ -18,18 +18,21 @@ public sealed class Diploma : BaseEntity
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public DiplomaStatusId StatusId { get; private set; } = DiplomaStatusId.Created;
 
+    public Guid DiplomaPeriodId { get; private set; }
+
+    public DiplomaPeriod DiplomaPeriod { get; private set; } = null!;
     public Guid StudentId { get; private set; }
-    public User Student { get; private set; } = null!;
 
     public Guid? SupervisorId { get; set; }
 
-    public User? Supervisor { get; set; }
+    public ICollection<User> Users { get; private set; } = [];
 
-    public Diploma(string title, User student)
+    public Diploma(DiplomaPeriod diplomaPeriod, string title, User student)
     {
         Title = Guard.Against.NullOrWhiteSpace(title);
         StudentId = Guard.Against.Null(student).Id;
-        Student = Guard.Against.Null(student);
+        DiplomaPeriodId = Guard.Against.Null(diplomaPeriod).Id;
+        DiplomaPeriod = Guard.Against.Null(diplomaPeriod);
     }
 
     //Parameterless constructor used by EF Core
