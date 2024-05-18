@@ -3,6 +3,7 @@
     <Folder Include="Http\Users\"/>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UniversityProcessing.Domain\UniversityProcessing.Domain.csproj"/>
     <ProjectReference Include="..\UniversityProcessing.GenericSubdomain\UniversityProcessing.GenericSubdomain.csproj"/>
   </ItemGroup>
 </Project>

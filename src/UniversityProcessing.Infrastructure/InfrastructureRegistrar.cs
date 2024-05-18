@@ -1,8 +1,7 @@
-using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using UniversityProcessing.Infrastructure.Base;
+using UniversityProcessing.Infrastructure.Repositories;
 using UniversityProcessing.Infrastructure.Seeds;
 using UniversityProcessing.Repository.Repositories;
 

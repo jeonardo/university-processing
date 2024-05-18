@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace UniversityProcessing.Abstractions.Http.Identity;
 
 public sealed class RegisterRequestDto
 {
     [Required]
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public required UserRoleIdDto UserRole { get; set; }
 
     [Required]

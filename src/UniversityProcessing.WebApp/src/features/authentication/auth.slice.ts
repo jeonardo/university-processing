@@ -1,9 +1,9 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {axiosInstance} from "../../core/axiosInstance";
-import {LoginRequest} from "./signin/LoginRequest";
-import {Token} from "./types/Token";
+import {LoginRequestDto} from "./types/LoginRequestDto";
+import {TokenDto} from "./types/TokenDto";
 import {AxiosResponse} from "axios";
-import {RegisterRequest} from "./signup/RegisterRequest";
+import {RegisterRequestDto} from "./types/RegisterRequestDto";
 import {AuthState} from "./AuthState";
 import {localStorageGetObject, localStorageSetData} from "../../core/utilities/localstorage";
 import {TokenData} from "./types/TokenData";
@@ -29,8 +29,8 @@ const getUserTokenData = (): TokenData | null => {
     }
 }
 
-export const getTokenLocalStorage = (): Token | null => localStorageGetObject<Token>("bntu_token")
-export const setTokenLocalStorage = (req: Token): boolean => localStorageSetData("bntu_token", req)
+export const getTokenLocalStorage = (): TokenDto | null => localStorageGetObject<TokenDto>("bntu_token")
+export const setTokenLocalStorage = (req: TokenDto): boolean => localStorageSetData("bntu_token", req)
 export const resetTokenLocalStorage = (): boolean => localStorageSetData("bntu_token", "")
 
 const initialState: AuthState = {
@@ -49,8 +49,8 @@ export const refresh = createAsyncThunk(
             return false
 
         return await axiosInstance
-            .post('api/Identity/refresh', token)
-            .then((res: AxiosResponse<Token>) => {
+            .post('api/v1/Identity/Refresh', token)
+            .then((res: AxiosResponse<TokenDto>) => {
                 setTokenLocalStorage(res.data)
                 return true
             })
@@ -59,10 +59,10 @@ export const refresh = createAsyncThunk(
 
 export const login = createAsyncThunk(
     "login",
-    async (req: LoginRequest, {rejectWithValue}) =>
+    async (req: LoginRequestDto, {rejectWithValue}) =>
         await axiosInstance
-            .post("api/Identity/login", req)
-            .then((res: AxiosResponse<Token>) => {
+            .post("api/v1/Identity/Login", req)
+            .then((res: AxiosResponse<TokenDto>) => {
                 setTokenLocalStorage(res.data)
                 return true
             })
@@ -71,9 +71,9 @@ export const login = createAsyncThunk(
 
 export const register = createAsyncThunk(
     "register",
-    async (req: RegisterRequest, {rejectWithValue}) =>
+    async (req: RegisterRequestDto, {rejectWithValue}) =>
         await axiosInstance
-            .post("api/Identity/register", req)
+            .post("api/v1/Identity/Register", req)
             .then(() => true)
             .catch((err) => rejectWithValue(err.response.data))
 );

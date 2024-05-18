@@ -1,8 +1,7 @@
-using UniversityProcessing.Abstractions.Http.Universities;
 using UniversityProcessing.Abstractions.Http.Universities.Diploma;
 using UniversityProcessing.Domain.UniversityStructure.Enums;
 
-namespace UniversityProcessing.DomainServices.Features.Converters;
+namespace UniversityProcessing.Abstractions.Http.Converters;
 
 public static class DiplomaStatusIdConverter
 {

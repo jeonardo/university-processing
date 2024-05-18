@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using UniversityProcessing.Abstractions.Http.Universities;
 using UniversityProcessing.Abstractions.Http.Universities.Department;
 using UniversityProcessing.DomainServices.Features.Departments.Create.Contracts;
 using UniversityProcessing.DomainServices.Features.Departments.Delete.Contracts;
@@ -17,7 +16,7 @@ public class DepartmentController(IMediator mediator) : ControllerBase
 {
     [HttpGet("{Id}")]
     [ProducesResponseType(typeof(DepartmentGetResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<DepartmentGetResponseDto> Get([FromRoute] DepartmentGetRequestDto request, CancellationToken cancellationToken)
     {
@@ -27,7 +26,7 @@ public class DepartmentController(IMediator mediator) : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(typeof(DepartmentListResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<DepartmentListResponseDto> List([FromQuery] DepartmentListRequestDto request, CancellationToken cancellationToken)
     {
@@ -39,7 +38,7 @@ public class DepartmentController(IMediator mediator) : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(typeof(DepartmentCreateResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ValidateModel]
     public async Task<DepartmentCreateResponseDto> Create([FromQuery] DepartmentCreateRequestDto request, CancellationToken cancellationToken)
@@ -50,7 +49,7 @@ public class DepartmentController(IMediator mediator) : ControllerBase
 
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ValidateModel]
     public Task Delete([FromBody] DepartmentDeleteRequestDto request, CancellationToken cancellationToken)

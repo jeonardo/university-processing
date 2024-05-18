@@ -1,32 +1,28 @@
 import {useEffect, useState} from 'react';
-import {Container} from 'react-bootstrap';
 import {Link, Navigate} from 'react-router-dom';
 
 const NotFoundPage = () => {
     const [redirectionCountDown, setRedirectionCountDown] = useState<number>(5);
 
     useEffect(() => {
-        setTimeout(() => setRedirectionCountDown(redirectionCountDown - 1), 1000);
+        setTimeout(() => setRedirectionCountDown(redirectionCountDown - 1), 1000000);
     });
 
     return (
         redirectionCountDown < 1
             ? <Navigate to="/"/>
-            : <main className="page notfound-page">
-                <Container fluid={false}>
-                    <div className="page-wrapper">
-                        <div className="flex-shield">
-                            <h2 className="notfound-number">404</h2>
-                            <p className="notfound-description">
-                                <b>Error 404</b> Page not found
-                            </p>
-                            <Link to="/" className="redirect-home">
-                                Take me back home {redirectionCountDown}
-                            </Link>
-                        </div>
-                    </div>
-                </Container>
-            </main>
+            : <div className="flex grow h-svh flex-col items-center justify-center bg-gray-100">
+                <h1 className="text-4xl font-bold text-gray-800">404 - Page Not Found</h1>
+                <p className="text-lg text-gray-600 mt-2">
+                    Oops! The page you're looking for doesn't exist.
+                </p>
+                <Link to="/" className="text-blue-500 font-semibold mt-4 hover:underline">
+                    Go back to the home page
+                </Link>
+                <p className="font-semibold">
+                    auto redirect after {redirectionCountDown}...
+                </p>
+            </div>
     );
 };
 

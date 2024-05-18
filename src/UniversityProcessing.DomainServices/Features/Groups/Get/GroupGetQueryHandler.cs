@@ -1,7 +1,7 @@
 using Ardalis.SharedKernel;
 using MediatR;
+using UniversityProcessing.Abstractions.Http.Converters;
 using UniversityProcessing.Domain.UniversityStructure;
-using UniversityProcessing.DomainServices.Features.Converters;
 using UniversityProcessing.DomainServices.Features.Groups.Get.Contracts;
 using UniversityProcessing.GenericSubdomain.Exceptions;
 using UniversityProcessing.Repository.Repositories;

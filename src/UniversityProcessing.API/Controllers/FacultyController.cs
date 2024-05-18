@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using UniversityProcessing.Abstractions.Http.Universities;
 using UniversityProcessing.Abstractions.Http.Universities.Faculty;
 using UniversityProcessing.DomainServices.Features.Faculties.Create.Contracts;
 using UniversityProcessing.DomainServices.Features.Faculties.Delete.Contracts;
@@ -17,7 +16,7 @@ public class FacultyController(IMediator mediator) : ControllerBase
 {
     [HttpGet("{Id}")]
     [ProducesResponseType(typeof(FacultyGetResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<FacultyGetResponseDto> Get([FromRoute] FacultyGetRequestDto request, CancellationToken cancellationToken)
     {
@@ -27,7 +26,7 @@ public class FacultyController(IMediator mediator) : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(typeof(FacultyListResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<FacultyListResponseDto> List([FromQuery] FacultyListRequestDto request, CancellationToken cancellationToken)
     {
@@ -39,7 +38,7 @@ public class FacultyController(IMediator mediator) : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(typeof(FacultyCreateResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ValidateModel]
     public async Task<FacultyCreateResponseDto> Create([FromQuery] FacultyCreateRequestDto request, CancellationToken cancellationToken)
@@ -50,7 +49,7 @@ public class FacultyController(IMediator mediator) : ControllerBase
 
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ValidateModel]
     public Task Delete([FromBody] FacultyDeleteRequestDto request, CancellationToken cancellationToken)

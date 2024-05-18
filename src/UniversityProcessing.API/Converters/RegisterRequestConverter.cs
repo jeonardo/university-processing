@@ -1,5 +1,5 @@
+using UniversityProcessing.Abstractions.Http.Converters;
 using UniversityProcessing.Abstractions.Http.Identity;
-using UniversityProcessing.DomainServices.Features.Converters;
 using UniversityProcessing.DomainServices.Features.Identity.Register.Contracts;
 
 namespace UniversityProcessing.API.Converters;

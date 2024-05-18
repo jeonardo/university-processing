@@ -1,7 +1,7 @@
 using UniversityProcessing.Abstractions.Http.Identity;
 using UniversityProcessing.Domain.Identity.Enums;
 
-namespace UniversityProcessing.DomainServices.Features.Converters;
+namespace UniversityProcessing.Abstractions.Http.Converters;
 
 public static class UserRoleIdConverter
 {

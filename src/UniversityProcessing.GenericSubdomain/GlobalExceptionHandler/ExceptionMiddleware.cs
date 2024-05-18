@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Http;
 using UniversityProcessing.GenericSubdomain.CorrelationId.Contracts;
-using UniversityProcessing.GenericSubdomain.GlobalExceptionHandler.Contracts;
+using UniversityProcessing.GenericSubdomain.ExceptionHandlers.Contracts;
 using UniversityProcessing.GenericSubdomain.Http;
 
 namespace UniversityProcessing.GenericSubdomain.GlobalExceptionHandler;
@@ -34,7 +34,7 @@ public sealed class ExceptionMiddleware(RequestDelegate next)
     {
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)exception.StatusCode;
-        await context.Response.WriteAsJsonAsync(new FailResponse(exception.Message));
+        await context.Response.WriteAsJsonAsync(new FailResponseDto(exception.Message));
     }
 
     private static async Task HandleExceptionAsync(
@@ -43,7 +43,7 @@ public sealed class ExceptionMiddleware(RequestDelegate next)
     {
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = StatusCodes.Status400BadRequest;
-        await context.Response.WriteAsJsonAsync(new FailResponse(exception.Message));
+        await context.Response.WriteAsJsonAsync(new FailResponseDto(exception.Message));
     }
 
     private static async Task HandleExceptionAsync(
@@ -52,6 +52,6 @@ public sealed class ExceptionMiddleware(RequestDelegate next)
     {
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-        await context.Response.WriteAsJsonAsync(new FailResponse(exception.Message));
+        await context.Response.WriteAsJsonAsync(new FailResponseDto(exception.Message));
     }
 }

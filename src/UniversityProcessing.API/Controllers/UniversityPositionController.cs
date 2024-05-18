@@ -13,7 +13,7 @@ public class UniversityPositionController(IMediator mediator) : ControllerBase
 {
     [HttpGet("{Id}")]
     [ProducesResponseType(typeof(UniversityPositionGetResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<UniversityPositionGetResponseDto> Get([FromRoute] UniversityPositionGetRequestDto request, CancellationToken cancellationToken)
     {
@@ -23,7 +23,7 @@ public class UniversityPositionController(IMediator mediator) : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(typeof(UniversityPositionListResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<UniversityPositionListResponseDto> List([FromQuery] UniversityPositionListRequestDto request, CancellationToken cancellationToken)
     {

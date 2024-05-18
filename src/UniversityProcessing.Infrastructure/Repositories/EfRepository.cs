@@ -3,7 +3,7 @@ using Ardalis.Specification.EntityFrameworkCore;
 using UniversityProcessing.GenericSubdomain.Exceptions;
 using UniversityProcessing.Repository.Repositories;
 
-namespace UniversityProcessing.Infrastructure.Base;
+namespace UniversityProcessing.Infrastructure.Repositories;
 
 // ReSharper disable once SuggestBaseTypeForParameterInConstructor
 public sealed class EfRepository<T>(ApplicationDbContext dbContext) : RepositoryBase<T>(dbContext), IEfRepository<T>

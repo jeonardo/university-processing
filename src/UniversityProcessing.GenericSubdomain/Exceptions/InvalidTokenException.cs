@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using UniversityProcessing.GenericSubdomain.GlobalExceptionHandler.Contracts;
+using UniversityProcessing.GenericSubdomain.ExceptionHandlers.Contracts;
 
 namespace UniversityProcessing.GenericSubdomain.Exceptions;
 

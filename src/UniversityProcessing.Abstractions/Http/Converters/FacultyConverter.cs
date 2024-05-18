@@ -2,7 +2,7 @@ using UniversityProcessing.Abstractions.Http.Universities.Faculty;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.GenericSubdomain.Pagination;
 
-namespace UniversityProcessing.DomainServices.Features.Converters;
+namespace UniversityProcessing.Abstractions.Http.Converters;
 
 public static class FacultyConverter
 {

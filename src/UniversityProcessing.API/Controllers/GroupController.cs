@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using UniversityProcessing.Abstractions.Http.Universities;
 using UniversityProcessing.Abstractions.Http.Universities.Group;
 using UniversityProcessing.DomainServices.Features.Groups.Create.Contracts;
 using UniversityProcessing.DomainServices.Features.Groups.Delete.Contracts;
@@ -17,7 +16,7 @@ public class GroupController(IMediator mediator) : ControllerBase
 {
     [HttpGet("{Id}")]
     [ProducesResponseType(typeof(GroupGetResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<GroupGetResponseDto> Get([FromRoute] GroupGetRequestDto request, CancellationToken cancellationToken)
     {
@@ -27,7 +26,7 @@ public class GroupController(IMediator mediator) : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(typeof(GroupListResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<GroupListResponseDto> List([FromQuery] GroupListRequestDto request, CancellationToken cancellationToken)
     {
@@ -39,7 +38,7 @@ public class GroupController(IMediator mediator) : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(typeof(GroupCreateResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ValidateModel]
     public async Task<GroupCreateResponseDto> Create([FromQuery] GroupCreateRequestDto request, CancellationToken cancellationToken)
@@ -52,7 +51,7 @@ public class GroupController(IMediator mediator) : ControllerBase
 
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ValidateModel]
     public Task Delete([FromBody] GroupDeleteRequestDto request, CancellationToken cancellationToken)

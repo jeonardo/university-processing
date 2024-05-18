@@ -11,6 +11,7 @@ using UniversityProcessing.DomainServices;
 using UniversityProcessing.DomainServices.Options;
 using UniversityProcessing.GenericSubdomain.CorrelationId;
 using UniversityProcessing.GenericSubdomain.CorrelationId.Extensions;
+using UniversityProcessing.GenericSubdomain.GlobalExceptionHandler;
 using UniversityProcessing.GenericSubdomain.GlobalExceptionHandler.Extensions;
 using UniversityProcessing.Infrastructure;
 using UniversityProcessing.Infrastructure.Seeds;
@@ -46,11 +47,12 @@ public static partial class Program
 
         var app = builder.Build();
 
-        app.UseSerilogRequestLogging();
-
+        //TODO middleware doesn't catch an exception
         app
             .UseCorrelationIdMiddleware()
             .UseGlobalExceptionMiddleware();
+
+        app.UseSerilogRequestLogging();
 
         app.MapControllers();
         app.UseHttpsRedirection();

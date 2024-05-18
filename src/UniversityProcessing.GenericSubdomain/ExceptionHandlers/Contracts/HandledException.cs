@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace UniversityProcessing.GenericSubdomain.GlobalExceptionHandler.Contracts;
+namespace UniversityProcessing.GenericSubdomain.ExceptionHandlers.Contracts;
 
 /// <summary>
 ///     Use HandledException when you need manually stop method execution
