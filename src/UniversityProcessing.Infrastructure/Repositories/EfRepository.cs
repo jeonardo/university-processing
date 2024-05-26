@@ -1,6 +1,6 @@
 using Ardalis.SharedKernel;
 using Ardalis.Specification.EntityFrameworkCore;
-using UniversityProcessing.GenericSubdomain.Exceptions;
+using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
 using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.Infrastructure.Repositories;

@@ -1,0 +1,331 @@
+2024-05-25 13:26:25.029 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-25 13:26:25.525 +03:00 [INF] Database prepearing
+2024-05-25 13:26:25.526 +03:00 [INF] Migrating database...
+2024-05-25 13:26:26.645 +03:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 13:26:26.657 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 13:26:26.669 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-25 13:26:26.688 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-25 13:26:26.969 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-25 13:26:27.225 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-25 13:26:27.237 +03:00 [INF] Database migrated successfully
+2024-05-25 13:26:27.238 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-25 13:26:27.736 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-25 13:26:27.847 +03:00 [INF] Now listening on: http://localhost:5158
+2024-05-25 13:26:27.848 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-25 13:26:27.849 +03:00 [INF] Hosting environment: Development
+2024-05-25 13:26:27.850 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-25 13:26:28.107 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger - null null
+2024-05-25 13:26:28.132 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-05-25 13:26:28.357 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger - 301 0 null 250.8757ms
+2024-05-25 13:26:28.366 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-25 13:26:28.461 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 95.0672ms
+2024-05-25 13:26:28.549 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui.css - null null
+2024-05-25 13:26:28.549 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui-bundle.js - null null
+2024-05-25 13:26:28.552 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui-standalone-preset.js - null null
+2024-05-25 13:26:28.645 +03:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2024-05-25 13:26:28.645 +03:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2024-05-25 13:26:28.660 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui.css - 200 144929 text/css 110.9014ms
+2024-05-25 13:26:28.660 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui-standalone-preset.js - 200 312163 text/javascript 108.0867ms
+2024-05-25 13:26:28.669 +03:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2024-05-25 13:26:28.671 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui-bundle.js - 200 1061536 text/javascript 121.9518ms
+2024-05-25 13:26:28.827 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-05-25 13:26:28.861 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/favicon-32x32.png - null null
+2024-05-25 13:26:28.868 +03:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2024-05-25 13:26:28.869 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/favicon-32x32.png - 200 628 image/png 8.6695ms
+2024-05-25 13:26:29.072 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 244.9741ms
+2024-05-25 13:26:31.694 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-25 13:28:33.792 +03:00 [ERR] Unable to connect to the SPA development server at 'https://localhost:5173'.
+2024-05-25 13:39:57.298 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-25 13:39:57.528 +03:00 [INF] Database prepearing
+2024-05-25 13:39:57.530 +03:00 [INF] Migrating database...
+2024-05-25 13:39:58.290 +03:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 13:39:58.304 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 13:39:58.317 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-25 13:39:58.340 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-25 13:39:58.401 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-25 13:39:58.589 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-25 13:39:58.595 +03:00 [INF] Database migrated successfully
+2024-05-25 13:39:58.596 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-25 13:39:58.739 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-25 13:39:58.775 +03:00 [INF] Now listening on: http://localhost:5158
+2024-05-25 13:39:58.777 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-25 13:39:58.778 +03:00 [INF] Hosting environment: Development
+2024-05-25 13:39:58.779 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-25 13:39:58.962 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-25 13:39:58.981 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-05-25 13:39:59.263 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 302.0842ms
+2024-05-25 13:39:59.561 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-05-25 13:39:59.764 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 202.8386ms
+2024-05-25 13:40:02.796 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-25 13:53:28.775 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-25 13:53:28.977 +03:00 [INF] Database prepearing
+2024-05-25 13:53:28.979 +03:00 [INF] Migrating database...
+2024-05-25 13:53:29.719 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 13:53:29.730 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 13:53:29.741 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-25 13:53:29.754 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-25 13:53:29.805 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-25 13:53:29.969 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-25 13:53:29.978 +03:00 [INF] Database migrated successfully
+2024-05-25 13:53:29.980 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-25 13:53:30.114 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-25 13:53:30.150 +03:00 [INF] Now listening on: http://localhost:5158
+2024-05-25 13:53:30.151 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-25 13:53:30.153 +03:00 [INF] Hosting environment: Development
+2024-05-25 13:53:30.153 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-25 13:53:30.608 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-25 13:53:30.624 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-05-25 13:53:30.874 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 267.5657ms
+2024-05-25 13:53:31.009 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-05-25 13:53:31.201 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 192.53ms
+2024-05-25 13:53:34.178 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-25 13:55:36.159 +03:00 [ERR] Unable to connect to the SPA development server at 'https://localhost:5173'.
+2024-05-25 16:36:00.521 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-25 16:36:00.799 +03:00 [INF] Database prepearing
+2024-05-25 16:36:00.801 +03:00 [INF] Migrating database...
+2024-05-25 16:36:01.620 +03:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 16:36:01.633 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 16:36:01.646 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-25 16:36:01.663 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-25 16:36:01.732 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-25 16:36:01.934 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-25 16:36:01.943 +03:00 [INF] Database migrated successfully
+2024-05-25 16:36:01.943 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-25 16:36:02.205 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-25 16:36:02.254 +03:00 [INF] Now listening on: http://localhost:5158
+2024-05-25 16:36:02.256 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-25 16:36:02.257 +03:00 [INF] Hosting environment: Development
+2024-05-25 16:36:02.258 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-25 16:36:02.382 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-25 16:36:02.402 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-05-25 16:36:02.622 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 241.0208ms
+2024-05-25 16:36:02.768 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-05-25 16:36:02.937 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 169.7704ms
+2024-05-25 16:36:06.272 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-25 16:38:08.251 +03:00 [ERR] Unable to connect to the SPA development server at 'https://localhost:5173'.
+2024-05-25 16:46:51.702 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-25 16:46:51.917 +03:00 [INF] Database prepearing
+2024-05-25 16:46:51.920 +03:00 [INF] Migrating database...
+2024-05-25 16:46:52.747 +03:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 16:46:52.758 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 16:46:52.769 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-25 16:46:52.786 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-25 16:46:52.835 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-25 16:46:53.044 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-25 16:46:53.054 +03:00 [INF] Database migrated successfully
+2024-05-25 16:46:53.055 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-25 16:46:53.205 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-25 16:46:53.266 +03:00 [INF] Now listening on: http://localhost:5158
+2024-05-25 16:46:53.268 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-25 16:46:53.271 +03:00 [INF] Hosting environment: Development
+2024-05-25 16:46:53.272 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-25 16:46:53.565 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-25 16:46:53.605 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-05-25 16:46:53.982 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 422.9791ms
+2024-05-25 16:46:54.146 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-05-25 16:46:54.378 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 231.2975ms
+2024-05-25 16:46:57.270 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-25 16:48:59.335 +03:00 [ERR] Unable to connect to the SPA development server at 'https://localhost:5173'.
+2024-05-25 18:13:56.860 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-25 18:13:57.584 +03:00 [INF] Database prepearing
+2024-05-25 18:13:57.585 +03:00 [INF] Migrating database...
+2024-05-25 18:13:59.500 +03:00 [INF] Executed DbCommand (26ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 18:13:59.518 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 18:13:59.537 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-25 18:13:59.564 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-25 18:13:59.859 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-25 18:14:00.416 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-25 18:14:00.426 +03:00 [INF] Database migrated successfully
+2024-05-25 18:14:00.427 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-25 18:14:01.048 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-25 18:14:01.228 +03:00 [INF] Now listening on: http://localhost:5158
+2024-05-25 18:14:01.236 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-25 18:14:01.237 +03:00 [INF] Hosting environment: Development
+2024-05-25 18:14:01.238 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-25 18:14:02.762 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-25 18:14:02.802 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-05-25 18:14:03.317 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 556.907ms
+2024-05-25 18:14:03.575 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-05-25 18:14:03.701 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/favicon-32x32.png - null null
+2024-05-25 18:14:03.743 +03:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2024-05-25 18:14:03.748 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/favicon-32x32.png - 200 628 image/png 47.1764ms
+2024-05-25 18:14:03.876 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 300.3782ms
+2024-05-25 18:14:05.093 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-25 18:14:11.475 +03:00 [INF] SPA development server running at 'https://localhost:5173'
+2024-05-25 23:26:07.259 +03:00 [INF] Database prepearing
+2024-05-25 23:26:07.304 +03:00 [INF] Migrating database...
+2024-05-25 23:26:08.773 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 23:26:08.789 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 23:26:08.804 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-25 23:26:08.826 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-25 23:26:08.897 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-25 23:26:09.159 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-25 23:26:09.168 +03:00 [INF] Database migrated successfully
+2024-05-25 23:26:09.169 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-25 23:26:09.414 +03:00 [INF] Now listening on: http://localhost:5158
+2024-05-25 23:26:09.415 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-25 23:26:09.416 +03:00 [INF] Hosting environment: Development
+2024-05-25 23:26:09.416 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-25 23:26:09.618 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-25 23:26:09.651 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-05-25 23:26:09.941 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 323.3934ms
+2024-05-25 23:26:10.266 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-05-25 23:26:10.554 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 288.5695ms
+2024-05-25 23:26:13.450 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-25 23:26:18.709 +03:00 [INF] SPA development server running at 'https://localhost:5173'
+2024-05-25 23:27:35.041 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/wwwroot/client/404-page.jpg - null null
+2024-05-25 23:27:35.087 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/wwwroot/client/404-page.jpg - 404 0 null 47.404ms
+2024-05-25 23:27:35.095 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5158/wwwroot/client/404-page.jpg, Response status code: 404
+2024-05-25 23:27:43.060 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/wwwroot/404-page.jpg - null null
+2024-05-25 23:27:43.064 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/wwwroot/404-page.jpg - 404 0 null 3.406ms
+2024-05-25 23:27:43.068 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5158/wwwroot/404-page.jpg, Response status code: 404
+2024-05-25 23:29:18.366 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/404-page.jpg - null null
+2024-05-25 23:29:18.391 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/404-page.jpg - 404 0 null 27.7562ms
+2024-05-25 23:29:18.404 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5158/404-page.jpg, Response status code: 404
+2024-05-25 23:29:23.706 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/client/404-page.jpg - null null
+2024-05-25 23:29:23.763 +03:00 [INF] Sending file. Request path: '/client/404-page.jpg'. Physical path: 'C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot\client\404-page.jpg'
+2024-05-25 23:29:23.766 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/client/404-page.jpg - 200 342182 image/jpeg 60.8954ms
+2024-05-25 23:29:23.846 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/favicon.ico - null null
+2024-05-25 23:29:23.849 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/favicon.ico - 404 0 null 2.2074ms
+2024-05-25 23:29:23.851 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5158/favicon.ico, Response status code: 404
+2024-05-25 23:30:59.885 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-25 23:30:59.897 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 12.8617ms
+2024-05-25 23:31:00.058 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-05-25 23:31:00.105 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 47.0738ms
+2024-05-25 23:33:45.919 +03:00 [INF] Request starting HTTP/1.1 DELETE http://localhost:5158/api/v1/Department/Delete - application/json 50
+2024-05-25 23:33:45.933 +03:00 [INF] CORS policy execution successful.
+2024-05-25 23:33:45.938 +03:00 [INF] Executing endpoint 'UniversityProcessing.API.Controllers.DepartmentController.Delete (UniversityProcessing.API)'
+2024-05-25 23:33:45.966 +03:00 [INF] Route matched with {action = "Delete", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task Delete(UniversityProcessing.Abstractions.Http.Universities.Department.DepartmentDeleteRequestDto, System.Threading.CancellationToken) on controller UniversityProcessing.API.Controllers.DepartmentController (UniversityProcessing.API).
+2024-05-25 23:33:46.008 +03:00 [INF] Executing action method UniversityProcessing.API.Controllers.DepartmentController.Delete (UniversityProcessing.API) - Validation state: "Valid"
+2024-05-25 23:33:46.150 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT "d"."id", "d"."created_at", "d"."faculty_id", "d"."name", "d"."short_name"
+FROM "departments" AS "d"
+WHERE "d"."id" = @__get_Item_0
+LIMIT 1
+2024-05-25 23:33:46.576 +03:00 [INF] Executed action UniversityProcessing.API.Controllers.DepartmentController.Delete (UniversityProcessing.API) in 603.4687ms
+2024-05-25 23:33:46.579 +03:00 [INF] Executed endpoint 'UniversityProcessing.API.Controllers.DepartmentController.Delete (UniversityProcessing.API)'
+2024-05-25 23:33:46.613 +03:00 [INF] Request finished HTTP/1.1 DELETE http://localhost:5158/api/v1/Department/Delete - 404 null application/json; charset=utf-8 693.4617ms
+2024-05-25 23:42:29.194 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/ - null null
+2024-05-25 23:42:29.232 +03:00 [INF] SPA proxy is ready. Redirecting to https://localhost:5173.
+2024-05-25 23:42:29.234 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/ - 302 0 null 39.9804ms
+2024-05-25 23:42:46.930 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/ - null null
+2024-05-25 23:42:46.954 +03:00 [INF] SPA proxy is ready. Redirecting to https://localhost:5173.
+2024-05-25 23:42:46.955 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/ - 302 0 null 25.4503ms
+2024-05-25 23:43:37.236 +03:00 [INF] Database prepearing
+2024-05-25 23:43:37.266 +03:00 [INF] Migrating database...
+2024-05-25 23:43:38.066 +03:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 23:43:38.080 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 23:43:38.091 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-25 23:43:38.111 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-25 23:43:38.341 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-25 23:43:38.537 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-25 23:43:38.545 +03:00 [INF] Database migrated successfully
+2024-05-25 23:43:38.546 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-25 23:43:38.982 +03:00 [INF] Now listening on: http://localhost:5158
+2024-05-25 23:43:38.983 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-25 23:43:38.984 +03:00 [INF] Hosting environment: Development
+2024-05-25 23:43:38.985 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-25 23:43:39.113 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-25 23:43:39.149 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-05-25 23:43:39.442 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 330.1247ms
+2024-05-25 23:43:39.584 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-05-25 23:43:39.766 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 182.1696ms
+2024-05-25 23:43:42.906 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-25 23:43:48.233 +03:00 [INF] SPA development server running at 'https://localhost:5173'
+2024-05-25 23:55:33.400 +03:00 [INF] Database prepearing
+2024-05-25 23:55:33.447 +03:00 [INF] Migrating database...
+2024-05-25 23:55:34.258 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 23:55:34.271 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-25 23:55:34.283 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-25 23:55:34.297 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-25 23:55:34.350 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-25 23:55:34.537 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-25 23:55:34.548 +03:00 [INF] Database migrated successfully
+2024-05-25 23:55:34.549 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-25 23:55:34.787 +03:00 [INF] Now listening on: http://localhost:5158
+2024-05-25 23:55:34.788 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-25 23:55:34.789 +03:00 [INF] Hosting environment: Development
+2024-05-25 23:55:34.790 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-25 23:55:34.981 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-25 23:55:35.059 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-05-25 23:55:35.249 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 269.0957ms
+2024-05-25 23:55:35.391 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-05-25 23:55:35.582 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 190.6486ms
+2024-05-25 23:55:38.829 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-25 23:55:44.095 +03:00 [INF] SPA development server running at 'https://localhost:5173'
+2024-05-25 23:56:14.523 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-25 23:56:14.535 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 12.7428ms
+2024-05-25 23:56:14.710 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-05-25 23:56:14.768 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 57.1443ms

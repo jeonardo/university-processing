@@ -6,8 +6,8 @@ using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.Domain.Identity.Enums;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.DomainServices.Features.Identity.Register.Contracts;
-using UniversityProcessing.GenericSubdomain.Exceptions;
 using UniversityProcessing.GenericSubdomain.Guards;
+using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
 using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.DomainServices.Features.Identity.Register;

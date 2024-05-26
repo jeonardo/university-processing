@@ -3,16 +3,15 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.DomainServices;
 using UniversityProcessing.DomainServices.Options;
-using UniversityProcessing.GenericSubdomain.CorrelationId;
-using UniversityProcessing.GenericSubdomain.CorrelationId.Extensions;
-using UniversityProcessing.GenericSubdomain.GlobalExceptionHandler;
-using UniversityProcessing.GenericSubdomain.GlobalExceptionHandler.Extensions;
+using UniversityProcessing.GenericSubdomain.Middlewares;
+using UniversityProcessing.GenericSubdomain.Middlewares.Extensions;
 using UniversityProcessing.Infrastructure;
 using UniversityProcessing.Infrastructure.Seeds;
 
@@ -47,20 +46,15 @@ public static partial class Program
 
         var app = builder.Build();
 
-        //TODO middleware doesn't catch an exception
-        app
-            .UseCorrelationIdMiddleware()
-            .UseGlobalExceptionMiddleware();
-
+        app.UseProtectedMiddleware();
         app.UseSerilogRequestLogging();
 
         app.MapControllers();
-        app.UseHttpsRedirection();
         app.UseRouting();
         app.UseCors();
+        app.UseHttpsRedirection();
 
-        app.UseDefaultFiles();
-        app.UseStaticFiles();
+        app.UseFileServer();
         app.MapFallbackToFile("/index.html");
 
         UseAuthentication(app);
@@ -68,6 +62,10 @@ public static partial class Program
         if (app.Environment.IsDevelopment())
         {
             UseSwagger(app);
+        }
+        else
+        {
+            app.UseHsts();
         }
 
         app
@@ -259,8 +257,6 @@ public static partial class Program
 
     private static void UseSwagger(IApplicationBuilder app)
     {
-        app.UseDeveloperExceptionPage();
-
         // Enable middleware to serve generated Swagger as a JSON endpoint.
         app.UseSwagger();
 

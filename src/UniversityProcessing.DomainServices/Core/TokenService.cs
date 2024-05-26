@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.Domain.Identity.Enums;
 using UniversityProcessing.DomainServices.Options;
-using UniversityProcessing.GenericSubdomain.Exceptions;
+using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
 
 namespace UniversityProcessing.DomainServices.Core;
 

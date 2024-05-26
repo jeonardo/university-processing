@@ -1,0 +1,301 @@
+2024-05-18 17:11:36.097 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-18 17:11:36.559 +03:00 [INF] Database prepearing
+2024-05-18 17:11:36.559 +03:00 [INF] Migrating database...
+2024-05-18 17:11:38.161 +03:00 [INF] Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-18 17:11:38.174 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-18 17:11:38.189 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-18 17:11:38.212 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-18 17:11:38.485 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-18 17:11:38.743 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-18 17:11:38.755 +03:00 [INF] Database migrated successfully
+2024-05-18 17:11:38.757 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-18 17:11:39.190 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-18 17:11:39.250 +03:00 [INF] Now listening on: http://localhost:5158
+2024-05-18 17:11:39.251 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-18 17:11:39.252 +03:00 [INF] Hosting environment: Development
+2024-05-18 17:11:39.253 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-18 17:11:43.234 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-18 17:11:49.026 +03:00 [INF] SPA development server running at 'https://localhost:5173'
+2024-05-18 18:22:20.529 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-18 18:22:20.980 +03:00 [INF] Database prepearing
+2024-05-18 18:22:20.981 +03:00 [INF] Migrating database...
+2024-05-18 18:22:21.965 +03:00 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-18 18:22:21.985 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-18 18:22:22.006 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-18 18:22:22.033 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-18 18:22:22.134 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-18 18:22:22.460 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-18 18:22:22.473 +03:00 [INF] Database migrated successfully
+2024-05-18 18:22:22.474 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-18 18:22:22.816 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-18 18:22:22.849 +03:00 [INF] Now listening on: http://localhost:5158
+2024-05-18 18:22:22.850 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-18 18:22:22.851 +03:00 [INF] Hosting environment: Development
+2024-05-18 18:22:22.851 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-18 18:22:23.331 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-18 18:22:23.354 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-05-18 18:22:23.698 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 368.0004ms
+2024-05-18 18:22:24.020 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-05-18 18:22:24.064 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/favicon-32x32.png - null null
+2024-05-18 18:22:24.099 +03:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2024-05-18 18:22:24.100 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/favicon-32x32.png - 200 628 image/png 35.7509ms
+2024-05-18 18:22:24.403 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 383.6115ms
+2024-05-18 18:22:26.853 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-18 18:22:32.646 +03:00 [INF] SPA development server running at 'https://localhost:5173'
+2024-05-18 18:37:33.218 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-18 18:37:33.448 +03:00 [INF] Database prepearing
+2024-05-18 18:37:33.449 +03:00 [INF] Migrating database...
+2024-05-18 18:37:34.640 +03:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-18 18:37:34.654 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-18 18:37:34.669 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-18 18:37:34.689 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-18 18:37:34.750 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-18 18:37:35.018 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-18 18:37:35.027 +03:00 [INF] Database migrated successfully
+2024-05-18 18:37:35.028 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-18 18:37:35.200 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-18 18:37:35.230 +03:00 [INF] Now listening on: http://localhost:5158
+2024-05-18 18:37:35.231 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-18 18:37:35.232 +03:00 [INF] Hosting environment: Development
+2024-05-18 18:37:35.233 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-18 18:37:35.364 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-18 18:37:35.385 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-05-18 18:37:35.753 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 391.9413ms
+2024-05-18 18:37:36.045 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-05-18 18:37:36.372 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 326.5902ms
+2024-05-18 18:37:39.257 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-18 18:37:44.545 +03:00 [INF] SPA development server running at 'https://localhost:5173'
+2024-05-18 18:44:21.374 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5158/api/v1/Identity/Login - application/json 50
+2024-05-18 18:44:21.390 +03:00 [INF] CORS policy execution successful.
+2024-05-18 18:44:21.396 +03:00 [INF] Executing endpoint 'UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API)'
+2024-05-18 18:44:21.427 +03:00 [INF] Route matched with {action = "Login", controller = "Identity"}. Executing controller action with signature System.Threading.Tasks.Task`1[UniversityProcessing.Abstractions.Http.Identity.LoginResponseDto] Login(UniversityProcessing.Abstractions.Http.Identity.LoginRequestDto, System.Threading.CancellationToken) on controller UniversityProcessing.API.Controllers.IdentityController (UniversityProcessing.API).
+2024-05-18 18:44:21.577 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[@__normalizedUserName_0='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."id", "u"."access_failed_count", "u"."approved", "u"."birthday", "u"."concurrency_stamp", "u"."created_at", "u"."department_id", "u"."email", "u"."email_confirmed", "u"."faculty_id", "u"."first_name", "u"."group_id", "u"."last_name", "u"."lockout_enabled", "u"."lockout_end", "u"."middle_name", "u"."normalized_email", "u"."normalized_user_name", "u"."password_hash", "u"."phone_number", "u"."phone_number_confirmed", "u"."security_stamp", "u"."two_factor_enabled", "u"."university_id", "u"."university_position_id", "u"."user_name", "u"."user_role_id"
+FROM "users" AS "u"
+WHERE "u"."normalized_user_name" = @__normalizedUserName_0
+LIMIT 1
+2024-05-18 18:44:21.985 +03:00 [INF] Executed action UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API) in 552.6829ms
+2024-05-18 18:44:21.990 +03:00 [INF] Executed endpoint 'UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API)'
+2024-05-18 18:44:21.992 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+UniversityProcessing.GenericSubdomain.Exceptions.NotFoundException: User with username = string not found
+   at UniversityProcessing.DomainServices.Features.Identity.Login.LoginCommandHandler.Handle(LoginCommandRequest request, CancellationToken cancellationToken) in C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.DomainServices\Features\Identity\Login\LoginCommandRequestHandler.cs:line 19
+   at UniversityProcessing.API.Controllers.IdentityController.Login(LoginRequestDto request, CancellationToken cancellationToken) in C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\Controllers\IdentityController.cs:line 24
+   at lambda_method17(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-05-18 18:44:22.070 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5158/api/v1/Identity/Login - 500 null text/plain; charset=utf-8 695.5422ms
+2024-05-18 23:17:53.926 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-18 23:17:54.167 +03:00 [INF] Database prepearing
+2024-05-18 23:17:54.169 +03:00 [INF] Migrating database...
+2024-05-18 23:17:55.008 +03:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-18 23:17:55.021 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-18 23:17:55.031 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-18 23:17:55.048 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-18 23:17:55.100 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-18 23:17:55.299 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-18 23:17:55.310 +03:00 [INF] Database migrated successfully
+2024-05-18 23:17:55.311 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-18 23:17:55.640 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-18 23:17:55.689 +03:00 [INF] Now listening on: http://localhost:5158
+2024-05-18 23:17:55.690 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-18 23:17:55.691 +03:00 [INF] Hosting environment: Development
+2024-05-18 23:17:55.692 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-18 23:17:55.879 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-18 23:17:55.899 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Unable to resolve service for type 'System.Threading.CancellationToken' while attempting to Invoke middleware 'UniversityProcessing.GenericSubdomain.Middlewares.ProtectedMiddleware'.
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.GetService(IServiceProvider sp, Type type, Type middleware)
+   at lambda_method12(Closure, Object, HttpContext, IServiceProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-05-18 23:17:56.000 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 500 null text/html; charset=utf-8 123.8134ms
+2024-05-18 23:17:56.110 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/favicon.ico - null null
+2024-05-18 23:17:56.115 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Unable to resolve service for type 'System.Threading.CancellationToken' while attempting to Invoke middleware 'UniversityProcessing.GenericSubdomain.Middlewares.ProtectedMiddleware'.
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.GetService(IServiceProvider sp, Type type, Type middleware)
+   at lambda_method12(Closure, Object, HttpContext, IServiceProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-05-18 23:17:56.119 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/favicon.ico - 500 null text/plain; charset=utf-8 8.3733ms
+2024-05-18 23:17:59.644 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-18 23:18:04.994 +03:00 [INF] SPA development server running at 'https://localhost:5173'
+2024-05-18 23:19:47.982 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-18 23:19:48.220 +03:00 [INF] Database prepearing
+2024-05-18 23:19:48.222 +03:00 [INF] Migrating database...
+2024-05-18 23:19:49.050 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-18 23:19:49.061 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-18 23:19:49.073 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-18 23:19:49.088 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-18 23:19:49.139 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-18 23:19:49.364 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-18 23:19:49.372 +03:00 [INF] Database migrated successfully
+2024-05-18 23:19:49.373 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-18 23:19:49.613 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-18 23:19:49.643 +03:00 [INF] Now listening on: http://localhost:5158
+2024-05-18 23:19:49.644 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-18 23:19:49.648 +03:00 [INF] Hosting environment: Development
+2024-05-18 23:19:49.649 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-18 23:19:49.784 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-18 23:19:49.806 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-05-18 23:19:50.178 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 393.3747ms
+2024-05-18 23:19:50.423 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-05-18 23:19:50.893 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 470.3803ms
+2024-05-18 23:19:53.698 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-18 23:19:58.995 +03:00 [INF] SPA development server running at 'https://localhost:5173'
+2024-05-18 23:21:37.650 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5158/api/v1/Identity/Login - application/json 50
+2024-05-18 23:21:37.661 +03:00 [INF] CORS policy execution successful.
+2024-05-18 23:21:37.667 +03:00 [INF] Executing endpoint 'UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API)'
+2024-05-18 23:21:37.688 +03:00 [INF] Route matched with {action = "Login", controller = "Identity"}. Executing controller action with signature System.Threading.Tasks.Task`1[UniversityProcessing.Abstractions.Http.Identity.LoginResponseDto] Login(UniversityProcessing.Abstractions.Http.Identity.LoginRequestDto, System.Threading.CancellationToken) on controller UniversityProcessing.API.Controllers.IdentityController (UniversityProcessing.API).
+2024-05-18 23:21:37.732 +03:00 [INF] Executing action method UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API) - Validation state: "Valid"
+2024-05-18 23:21:37.846 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedUserName_0='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."id", "u"."access_failed_count", "u"."approved", "u"."birthday", "u"."concurrency_stamp", "u"."created_at", "u"."department_id", "u"."email", "u"."email_confirmed", "u"."faculty_id", "u"."first_name", "u"."group_id", "u"."last_name", "u"."lockout_enabled", "u"."lockout_end", "u"."middle_name", "u"."normalized_email", "u"."normalized_user_name", "u"."password_hash", "u"."phone_number", "u"."phone_number_confirmed", "u"."security_stamp", "u"."two_factor_enabled", "u"."university_id", "u"."university_position_id", "u"."user_name", "u"."user_role_id"
+FROM "users" AS "u"
+WHERE "u"."normalized_user_name" = @__normalizedUserName_0
+LIMIT 1
+2024-05-18 23:21:38.209 +03:00 [INF] Executed action UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API) in 514.1019ms
+2024-05-18 23:21:38.213 +03:00 [INF] Executed endpoint 'UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API)'
+2024-05-18 23:21:38.215 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+UniversityProcessing.GenericSubdomain.Middlewares.Exceptions.NotFoundException: User with username = string not found
+   at UniversityProcessing.DomainServices.Features.Identity.Login.LoginCommandHandler.Handle(LoginCommandRequest request, CancellationToken cancellationToken) in C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.DomainServices\Features\Identity\Login\LoginCommandRequestHandler.cs:line 19
+   at UniversityProcessing.API.Controllers.IdentityController.Login(LoginRequestDto request, CancellationToken cancellationToken) in C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\Controllers\IdentityController.cs:line 26
+   at lambda_method16(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-05-18 23:21:38.244 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5158/api/v1/Identity/Login - 500 null text/plain; charset=utf-8 593.8189ms
+2024-05-18 23:23:21.302 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5158/api/v1/Identity/Login - application/json 50
+2024-05-18 23:23:26.084 +03:00 [INF] CORS policy execution successful.
+2024-05-18 23:23:26.085 +03:00 [INF] Executing endpoint 'UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API)'
+2024-05-18 23:23:26.088 +03:00 [INF] Route matched with {action = "Login", controller = "Identity"}. Executing controller action with signature System.Threading.Tasks.Task`1[UniversityProcessing.Abstractions.Http.Identity.LoginResponseDto] Login(UniversityProcessing.Abstractions.Http.Identity.LoginRequestDto, System.Threading.CancellationToken) on controller UniversityProcessing.API.Controllers.IdentityController (UniversityProcessing.API).
+2024-05-18 23:23:26.095 +03:00 [INF] Executing action method UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API) - Validation state: "Valid"
+2024-05-18 23:23:26.113 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."id", "u"."access_failed_count", "u"."approved", "u"."birthday", "u"."concurrency_stamp", "u"."created_at", "u"."department_id", "u"."email", "u"."email_confirmed", "u"."faculty_id", "u"."first_name", "u"."group_id", "u"."last_name", "u"."lockout_enabled", "u"."lockout_end", "u"."middle_name", "u"."normalized_email", "u"."normalized_user_name", "u"."password_hash", "u"."phone_number", "u"."phone_number_confirmed", "u"."security_stamp", "u"."two_factor_enabled", "u"."university_id", "u"."university_position_id", "u"."user_name", "u"."user_role_id"
+FROM "users" AS "u"
+WHERE "u"."normalized_user_name" = @__normalizedUserName_0
+LIMIT 1
+2024-05-18 23:23:26.168 +03:00 [INF] Executed action UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API) in 79.3779ms
+2024-05-18 23:23:26.171 +03:00 [INF] Executed endpoint 'UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API)'
+2024-05-18 23:23:26.172 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+UniversityProcessing.GenericSubdomain.Middlewares.Exceptions.NotFoundException: User with username = string not found
+   at UniversityProcessing.DomainServices.Features.Identity.Login.LoginCommandHandler.Handle(LoginCommandRequest request, CancellationToken cancellationToken) in C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.DomainServices\Features\Identity\Login\LoginCommandRequestHandler.cs:line 19
+   at UniversityProcessing.API.Controllers.IdentityController.Login(LoginRequestDto request, CancellationToken cancellationToken) in C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\Controllers\IdentityController.cs:line 26
+   at lambda_method16(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-05-18 23:24:26.304 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5158/api/v1/Identity/Login - 500 null text/plain; charset=utf-8 65004.7645ms
+2024-05-18 23:26:09.765 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-18 23:26:10.028 +03:00 [INF] Database prepearing
+2024-05-18 23:26:10.029 +03:00 [INF] Migrating database...
+2024-05-18 23:26:10.925 +03:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-18 23:26:10.943 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-18 23:26:10.963 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-18 23:26:10.994 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-18 23:26:11.134 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-18 23:26:11.353 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-18 23:26:11.366 +03:00 [INF] Database migrated successfully
+2024-05-18 23:26:11.368 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-18 23:26:11.534 +03:00 [WRN] The WebRootPath was not found: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API\wwwroot. Static files may be unavailable.
+2024-05-18 23:26:11.577 +03:00 [INF] Now listening on: http://localhost:5158
+2024-05-18 23:26:11.580 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-18 23:26:11.581 +03:00 [INF] Hosting environment: Development
+2024-05-18 23:26:11.583 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-18 23:26:11.635 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-18 23:26:34.174 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-18 23:26:34.176 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-05-18 23:26:44.946 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 33311.507ms
+2024-05-18 23:26:44.984 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-05-18 23:26:50.165 +03:00 [INF] SPA development server running at 'https://localhost:5173'
+2024-05-18 23:27:01.681 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 16696.9817ms
+2024-05-18 23:27:10.760 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5158/api/v1/Identity/Login - application/json 50
+2024-05-18 23:27:10.778 +03:00 [INF] CORS policy execution successful.
+2024-05-18 23:27:10.784 +03:00 [INF] Executing endpoint 'UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API)'
+2024-05-18 23:27:10.800 +03:00 [INF] Route matched with {action = "Login", controller = "Identity"}. Executing controller action with signature System.Threading.Tasks.Task`1[UniversityProcessing.Abstractions.Http.Identity.LoginResponseDto] Login(UniversityProcessing.Abstractions.Http.Identity.LoginRequestDto, System.Threading.CancellationToken) on controller UniversityProcessing.API.Controllers.IdentityController (UniversityProcessing.API).
+2024-05-18 23:27:10.836 +03:00 [INF] Executing action method UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API) - Validation state: "Valid"
+2024-05-18 23:27:10.940 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedUserName_0='?' (Size = 6)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."id", "u"."access_failed_count", "u"."approved", "u"."birthday", "u"."concurrency_stamp", "u"."created_at", "u"."department_id", "u"."email", "u"."email_confirmed", "u"."faculty_id", "u"."first_name", "u"."group_id", "u"."last_name", "u"."lockout_enabled", "u"."lockout_end", "u"."middle_name", "u"."normalized_email", "u"."normalized_user_name", "u"."password_hash", "u"."phone_number", "u"."phone_number_confirmed", "u"."security_stamp", "u"."two_factor_enabled", "u"."university_id", "u"."university_position_id", "u"."user_name", "u"."user_role_id"
+FROM "users" AS "u"
+WHERE "u"."normalized_user_name" = @__normalizedUserName_0
+LIMIT 1
+2024-05-18 23:27:11.072 +03:00 [INF] Executed action UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API) in 265.7382ms
+2024-05-18 23:27:11.076 +03:00 [INF] Executed endpoint 'UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API)'
+2024-05-18 23:27:11.113 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5158/api/v1/Identity/Login - 404 null application/json; charset=utf-8 352.8779ms

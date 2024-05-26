@@ -1,10 +1,9 @@
-using Ardalis.SharedKernel;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.DomainServices.Features.Universities.SetAdmin.Contracts;
-using UniversityProcessing.GenericSubdomain.Exceptions;
+using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
 using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.DomainServices.Features.Universities.SetAdmin;

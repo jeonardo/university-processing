@@ -1,7 +1,7 @@
 using MediatR;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.DomainServices.Features.Specialties.Create.Contracts;
-using UniversityProcessing.GenericSubdomain.Exceptions;
+using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
 using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.DomainServices.Features.Specialties.Create;

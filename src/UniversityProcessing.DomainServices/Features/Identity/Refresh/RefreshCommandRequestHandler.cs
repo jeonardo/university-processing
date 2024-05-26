@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.DomainServices.Core;
 using UniversityProcessing.DomainServices.Features.Identity.Refresh.Contracts;
-using UniversityProcessing.GenericSubdomain.Exceptions;
+using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
 
 namespace UniversityProcessing.DomainServices.Features.Identity.Refresh;
 
