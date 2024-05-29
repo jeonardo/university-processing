@@ -1,4 +1,4 @@
-import { TokenDto, UserRoleIdDto } from "../../apis/backendApi";
+import { TokenDto, UserRoleIdDto } from "../../api/backendApi";
 
 export type AuthTokens = {
     accessToken?: TokenDto;

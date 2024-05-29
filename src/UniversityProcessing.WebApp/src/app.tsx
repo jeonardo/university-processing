@@ -1,50 +1,14 @@
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
-import LoginPage from './features/authentication/login.page';
-import RegisterPage from './features/authentication/register.page';
-import Home from './features/home/HomePage';
-import NotFound from './features/notFound/NotFoundPage';
-import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
-import PublicOnlyLayout from './core/layouts/public.only.layout';
-import PrivateLayout from './core/layouts/private.layout';
-import { useAppSelector } from './core/hooks';
-import SidebarLayout from './tokyo-free-white-react-admin-dashboard-main/src';
+import { CssBaseline, StyledEngineProvider } from '@mui/material';
+import { RouterProvider } from 'react-router-dom';
+import AppRouter from './routes/AppRouter';
 
 const App: React.FC = () => {
-    const isAuthenticated = useAppSelector(state => state.auth.authorized);
-    ReadEnvironmentVariables();
-
     return (
-        <BrowserRouter>
-            <Routes>
-
-                <Route path="*" element={<NotFound />} />
-
-                <Route element={<PublicOnlyLayout isAuthenticated={isAuthenticated} />}>
-                    <Route path="/signin" element={<LoginPage />} />
-                    <Route path="/signup" element={<RegisterPage />} />
-                </Route>
-
-                <Route element={<PrivateLayout isAuthenticated={isAuthenticated} />}>
-                    <Route path="/" element={<Home />} />
-                </Route>
-
-            </Routes>
-        </BrowserRouter>
+        <StyledEngineProvider injectFirst>
+            <CssBaseline />
+            <RouterProvider router={AppRouter} />
+        </StyledEngineProvider>
     );
-}
-
-const ReadEnvironmentVariables = () => {
-    const environment = import.meta.env;
-
-    if (!environment.VITE_IS_DEVELOPMENT)
-        return
-
-    console.log("VITE_APP_TITLE", environment.VITE_APP_TITLE);
-    console.log("VITE_IS_DEVELOPMENT", environment.VITE_IS_DEVELOPMENT);
-    console.log("VITE_BACKEND_BASEURL", environment.VITE_BACKEND_BASEURL);
 }
 
 export default App;

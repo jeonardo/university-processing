@@ -15,44 +15,26 @@ import {
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../core/hooks";
-import { GetApiV1FacultyGetByIdApiArg, backendApi, useGetApiV1DepartmentListQuery } from "../../apis/backendApi";
+import { LoginRequestDto, usePostApiV1IdentityLoginMutation } from "../../api/backendApi";
 import { login } from "./auth.slice";
 
 const LoginPage = () => {
-
-    const req: GetApiV1FacultyGetByIdApiArg = { id: "fasfsa" }
-    const { isLoading, data } = backendApi.useGetApiV1FacultyGetByIdQuery(req);
-
-
     const dispatch = useAppDispatch();
 
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
+
+    const [trylogin, { isLoading, isSuccess }] = usePostApiV1IdentityLoginMutation()
 
     const handleLogin = async () => {
-        setLoading(true)
-        setTimeout(() => {
-            setLoading(false)
-        }, 1500)
-        if (userName && password) {
-            try {
-                // await dispatch(
-                //     login({
-                //         userName,
-                //         password,
-                //     })
-                // ).unwrap();
-            } catch (e) {
-                console.error(e);
-            }
-        } else {
-            // Show an error message.
-        }
-    };
+        const result = await trylogin({ loginRequestDto: { password: password, userName: userName } })
 
-    const handleFakeLogin = async () => {
-        dispatch(login({}))
+        if (isSuccess && result.data?.accessToken && result.data?.refreshToken) {
+            dispatch(login({
+                accessToken: result.data.accessToken,
+                refreshToken: result.data.refreshToken,
+            }))
+        }
     };
 
     return (
@@ -73,7 +55,7 @@ const LoginPage = () => {
                     <Stack spacing={2}>
 
                         <TextField
-                            disabled={loading}
+                            disabled={isLoading}
                             margin="normal"
                             required
                             fullWidth
@@ -86,7 +68,7 @@ const LoginPage = () => {
                         />
 
                         <TextField
-                            disabled={loading}
+                            disabled={isLoading}
                             margin="normal"
                             required
                             fullWidth
@@ -101,31 +83,17 @@ const LoginPage = () => {
                         />
 
                         <Button
-                            disabled={loading}
+                            disabled={isLoading}
                             fullWidth
                             variant="contained"
                             onClick={handleLogin}
                         >
                             {
-                                loading
+                                isLoading
                                     ? <CircularProgress size={25} color="inherit" />
                                     : <span>Авторизоваться</span>
                             }
                         </Button>
-
-                        <Button
-                            disabled={loading}
-                            fullWidth
-                            variant="contained"
-                            onClick={handleFakeLogin}
-                        >
-                            {
-                                loading
-                                    ? <CircularProgress size={25} color="inherit" />
-                                    : <span>Fake login</span>
-                            }
-                        </Button>
-
                     </Stack>
 
                     <Box sx={{ p: 3, textAlign: "center" }}>

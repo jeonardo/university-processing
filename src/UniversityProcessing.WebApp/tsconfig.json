@@ -15,8 +15,11 @@
     ],
     "module": "ESNext",
     "skipLibCheck": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "Bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -26,13 +29,37 @@
     "strict": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "src/*": [
+        "./src/*"
+      ],
+      "@/*": [
+        "./src/*"
+      ],
+      "/src/*": [
+        "src/*"
+      ],
+      "/@src/*": [
+        "src/*"
+      ],
+      "/@status/*": [
+        "src/packages/status/*"
+      ],
+      "/@cli/*": [
+        "src/packages/cli/*"
+      ],
+    }
   },
   "include": [
     "src",
     "vite-env.d.ts",
     "frontend",
     "openapi-config.cts"
+  ],
+  "exclude": [
+    "node_modules"
   ],
   "references": [
     {

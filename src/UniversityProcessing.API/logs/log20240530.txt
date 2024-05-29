@@ -1,0 +1,104 @@
+2024-05-30 02:22:53.555 +03:00 [INF] Database prepearing
+2024-05-30 02:22:53.595 +03:00 [INF] Migrating database...
+2024-05-30 02:22:54.485 +03:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-30 02:22:54.499 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-30 02:22:54.514 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-30 02:22:54.533 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-30 02:22:54.802 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-30 02:22:55.021 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-30 02:22:55.032 +03:00 [INF] Database migrated successfully
+2024-05-30 02:22:55.032 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-30 02:22:55.764 +03:00 [INF] Now listening on: https://localhost:7197
+2024-05-30 02:22:55.766 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-30 02:22:55.767 +03:00 [INF] Hosting environment: Development
+2024-05-30 02:22:55.768 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-30 02:22:59.405 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-30 02:23:01.187 +03:00 [INF] SPA development server running at 'https://localhost:5173'
+2024-05-30 02:26:28.007 +03:00 [INF] Database prepearing
+2024-05-30 02:26:28.037 +03:00 [INF] Migrating database...
+2024-05-30 02:26:28.736 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-30 02:26:28.748 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-30 02:26:28.757 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-30 02:26:28.771 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-30 02:26:28.817 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-30 02:26:28.980 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-30 02:26:28.989 +03:00 [INF] Database migrated successfully
+2024-05-30 02:26:28.990 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-30 02:26:29.147 +03:00 [INF] Now listening on: http://localhost:5158
+2024-05-30 02:26:29.149 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-30 02:26:29.150 +03:00 [INF] Hosting environment: Development
+2024-05-30 02:26:29.150 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-30 02:26:29.617 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger - null null
+2024-05-30 02:26:29.657 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-05-30 02:26:29.841 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger - 301 0 null 225.8521ms
+2024-05-30 02:26:29.853 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-30 02:26:29.974 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 120.1812ms
+2024-05-30 02:26:30.016 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui-bundle.js - null null
+2024-05-30 02:26:30.016 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui-standalone-preset.js - null null
+2024-05-30 02:26:30.016 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui.css - null null
+2024-05-30 02:26:30.093 +03:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2024-05-30 02:26:30.093 +03:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2024-05-30 02:26:30.094 +03:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2024-05-30 02:26:30.101 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui-standalone-preset.js - 200 312163 text/javascript 85.2908ms
+2024-05-30 02:26:30.101 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui.css - 200 144929 text/css 85.3531ms
+2024-05-30 02:26:30.101 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui-bundle.js - 200 1061536 text/javascript 85.3549ms
+2024-05-30 02:26:30.288 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-05-30 02:26:30.660 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 371.6888ms
+2024-05-30 02:26:33.160 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-30 02:26:34.841 +03:00 [INF] SPA development server running at 'https://localhost:5173'
+2024-05-30 02:28:47.833 +03:00 [INF] Database prepearing
+2024-05-30 02:28:47.866 +03:00 [INF] Migrating database...
+2024-05-30 02:28:48.679 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-30 02:28:48.693 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-05-30 02:28:48.703 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-05-30 02:28:48.719 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-05-30 02:28:48.772 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-05-30 02:28:48.942 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-05-30 02:28:48.950 +03:00 [INF] Database migrated successfully
+2024-05-30 02:28:48.951 +03:00 [INF] Launching UniversityProcessing.API...
+2024-05-30 02:28:49.115 +03:00 [INF] Now listening on: http://localhost:5158
+2024-05-30 02:28:49.117 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-05-30 02:28:49.118 +03:00 [INF] Hosting environment: Development
+2024-05-30 02:28:49.119 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-05-30 02:28:49.191 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-05-30 02:28:49.225 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-05-30 02:28:49.403 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 213.408ms
+2024-05-30 02:28:49.612 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-05-30 02:28:49.777 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 164.7919ms
+2024-05-30 02:28:53.163 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-05-30 02:28:55.054 +03:00 [INF] SPA development server running at 'https://localhost:5173'
+2024-05-30 02:29:46.194 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://127.0.0.1:5158/api/v1/Identity/Login - null null
+2024-05-30 02:29:46.213 +03:00 [INF] CORS policy execution successful.
+2024-05-30 02:29:46.214 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://127.0.0.1:5158/api/v1/Identity/Login - 204 null null 19.9407ms
+2024-05-30 02:29:46.225 +03:00 [INF] Request starting HTTP/1.1 POST http://127.0.0.1:5158/api/v1/Identity/Login - application/json 35
+2024-05-30 02:29:46.228 +03:00 [INF] CORS policy execution successful.
+2024-05-30 02:29:46.232 +03:00 [INF] Executing endpoint 'UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API)'
+2024-05-30 02:29:46.251 +03:00 [INF] Route matched with {action = "Login", controller = "Identity"}. Executing controller action with signature System.Threading.Tasks.Task`1[UniversityProcessing.Abstractions.Http.Identity.LoginResponseDto] Login(UniversityProcessing.Abstractions.Http.Identity.LoginRequestDto, System.Threading.CancellationToken) on controller UniversityProcessing.API.Controllers.IdentityController (UniversityProcessing.API).
+2024-05-30 02:29:46.285 +03:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2024-05-30 02:29:46.318 +03:00 [INF] Executed action UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API) in 61.4135ms
+2024-05-30 02:29:46.321 +03:00 [INF] Executed endpoint 'UniversityProcessing.API.Controllers.IdentityController.Login (UniversityProcessing.API)'
+2024-05-30 02:29:46.322 +03:00 [INF] Request finished HTTP/1.1 POST http://127.0.0.1:5158/api/v1/Identity/Login - 400 null application/problem+json; charset=utf-8 97.7806ms

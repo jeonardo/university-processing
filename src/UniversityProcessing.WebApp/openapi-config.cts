@@ -6,7 +6,7 @@ const config: ConfigFile = {
   schemaFile: 'http://localhost:5158/swagger/v1/swagger.json',
   apiFile: './src/core/emptyApi.ts',
   apiImport: 'emptySplitApi',
-  outputFile: `./src/apis/${feature}.ts`,
+  outputFile: `./src/api/${feature}.ts`,
   exportName: feature,
   hooks: true,
 }
