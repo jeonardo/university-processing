@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Ardalis.GuardClauses;
 using UniversityProcessing.Domain.Bases;
 using UniversityProcessing.Domain.Identity;
 
@@ -16,22 +15,22 @@ public sealed class Group : BaseEntity
     [DataType(DataType.DateTime)]
     public DateOnly EndDate { get; private set; }
 
-    public Guid FacultyId { get; private set; }
-    public Faculty Faculty { get; private set; } = null!;
-    public Guid SpecialtyId { get; private set; }
-    public Specialty Specialty { get; private set; } = null!;
+    public Guid? FacultyId { get; private set; }
+    public Faculty? Faculty { get; private set; }
+    public Guid? SpecialtyId { get; private set; }
+    public Specialty? Specialty { get; private set; }
 
     public ICollection<User> Users { get; private set; } = [];
 
-    public Group(string groupNumber, DateOnly startDate, DateOnly endDate, Specialty specialty, Faculty faculty)
+    public Group(string groupNumber, DateOnly startDate, DateOnly endDate, Specialty specialty)
     {
-        Number = Guard.Against.NullOrWhiteSpace(groupNumber);
-        StartDate = Guard.Against.Default(startDate);
-        EndDate = Guard.Against.Default(endDate);
-        SpecialtyId = Guard.Against.Null(specialty).Id;
-        Specialty = Guard.Against.Null(specialty);
-        FacultyId = Guard.Against.Null(faculty).Id;
-        Faculty = Guard.Against.Null(faculty);
+        Number = groupNumber;
+        StartDate = startDate;
+        EndDate = endDate;
+        SpecialtyId = specialty.Id;
+        Specialty = specialty;
+        FacultyId = specialty.Faculty?.Id;
+        Faculty = specialty.Faculty;
     }
 
     //Parameterless constructor used by EF Core

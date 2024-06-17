@@ -297,10 +297,6 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("user_name");
 
-                    b.Property<int>("UserRoleId")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("user_role_id");
-
                     b.HasKey("Id")
                         .HasName("pk_users");
 
@@ -383,7 +379,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("created_at");
 
-                    b.Property<Guid>("FacultyId")
+                    b.Property<Guid?>("FacultyId")
                         .HasColumnType("TEXT")
                         .HasColumnName("faculty_id");
 
@@ -419,7 +415,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("created_at");
 
-                    b.Property<Guid>("DiplomaPeriodId")
+                    b.Property<Guid?>("DiplomaPeriodId")
                         .HasColumnType("TEXT")
                         .HasColumnName("diploma_period_id");
 
@@ -431,7 +427,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("status_id");
 
-                    b.Property<Guid>("StudentId")
+                    b.Property<Guid?>("StudentId")
                         .HasColumnType("TEXT")
                         .HasColumnName("student_id");
 
@@ -469,7 +465,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("end_date");
 
-                    b.Property<Guid>("FacultyId")
+                    b.Property<Guid?>("FacultyId")
                         .HasColumnType("TEXT")
                         .HasColumnName("faculty_id");
 
@@ -478,7 +474,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("required_titles");
 
-                    b.Property<Guid>("SecretaryId")
+                    b.Property<Guid?>("SecretaryId")
                         .HasColumnType("TEXT")
                         .HasColumnName("secretary_id");
 
@@ -518,7 +514,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("short_name");
 
-                    b.Property<Guid>("UniversityId")
+                    b.Property<Guid?>("UniversityId")
                         .HasColumnType("TEXT")
                         .HasColumnName("university_id");
 
@@ -546,7 +542,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("end_date");
 
-                    b.Property<Guid>("FacultyId")
+                    b.Property<Guid?>("FacultyId")
                         .HasColumnType("TEXT")
                         .HasColumnName("faculty_id");
 
@@ -556,7 +552,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("number");
 
-                    b.Property<Guid>("SpecialtyId")
+                    b.Property<Guid?>("SpecialtyId")
                         .HasColumnType("TEXT")
                         .HasColumnName("specialty_id");
 
@@ -593,7 +589,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("created_at");
 
-                    b.Property<Guid>("FacultyId")
+                    b.Property<Guid?>("FacultyId")
                         .HasColumnType("TEXT")
                         .HasColumnName("faculty_id");
 
@@ -668,7 +664,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("name");
 
-                    b.Property<Guid>("UniversityId")
+                    b.Property<Guid?>("UniversityId")
                         .HasColumnType("TEXT")
                         .HasColumnName("university_id");
 
@@ -795,7 +791,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasConstraintName("fk_users_universities_university_id");
 
                     b.HasOne("UniversityProcessing.Domain.UniversityStructure.UniversityPosition", "UniversityPosition")
-                        .WithMany("Users")
+                        .WithMany()
                         .HasForeignKey("UniversityPositionId")
                         .HasConstraintName("fk_users_university_position_university_position_id");
 
@@ -815,8 +811,6 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.UniversityStructure.Faculty", "Faculty")
                         .WithMany("Departments")
                         .HasForeignKey("FacultyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_departments_faculties_faculty_id");
 
                     b.Navigation("Faculty");
@@ -827,8 +821,6 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.UniversityStructure.DiplomaPeriod", "DiplomaPeriod")
                         .WithMany("Diplomas")
                         .HasForeignKey("DiplomaPeriodId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_diplomas_diploma_periods_diploma_period_id");
 
                     b.Navigation("DiplomaPeriod");
@@ -839,8 +831,6 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.UniversityStructure.Faculty", "Faculty")
                         .WithMany("DiplomaPeriods")
                         .HasForeignKey("FacultyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_diploma_periods_faculties_faculty_id");
 
                     b.Navigation("Faculty");
@@ -851,8 +841,6 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.UniversityStructure.University", "University")
                         .WithMany("Faculties")
                         .HasForeignKey("UniversityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_faculties_universities_university_id");
 
                     b.Navigation("University");
@@ -863,15 +851,11 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.UniversityStructure.Faculty", "Faculty")
                         .WithMany("Groups")
                         .HasForeignKey("FacultyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_groups_faculties_faculty_id");
 
                     b.HasOne("UniversityProcessing.Domain.UniversityStructure.Specialty", "Specialty")
                         .WithMany("Groups")
                         .HasForeignKey("SpecialtyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_groups_specialties_specialty_id");
 
                     b.Navigation("Faculty");
@@ -884,8 +868,6 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.UniversityStructure.Faculty", "Faculty")
                         .WithMany("Specialties")
                         .HasForeignKey("FacultyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_specialties_faculties_faculty_id");
 
                     b.Navigation("Faculty");
@@ -893,14 +875,10 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.UniversityPosition", b =>
                 {
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.University", "University")
+                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.University", null)
                         .WithMany("UniversityPositions")
                         .HasForeignKey("UniversityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_university_position_universities_university_id");
-
-                    b.Navigation("University");
                 });
 
             modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.Department", b =>
@@ -942,11 +920,6 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
                     b.Navigation("UniversityPositions");
 
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.UniversityPosition", b =>
-                {
                     b.Navigation("Users");
                 });
 #pragma warning restore 612, 618

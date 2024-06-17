@@ -15,7 +15,7 @@ internal sealed class GroupCreateCommandHandler(
     {
         var specialty = await specialtyRepository.GetByIdRequiredAsync(request.SpecialtyId, cancellationToken);
 
-        var newEntity = new Group(request.GroupNumber, request.StartDate, request.EndDate, specialty, specialty.Faculty);
+        var newEntity = new Group(request.GroupNumber, request.StartDate, request.EndDate, specialty);
 
         await groupRepository.AddAsync(newEntity, cancellationToken);
 

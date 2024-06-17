@@ -41,7 +41,7 @@ public class UniversityController(IMediator mediator) : ControllerBase
     [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ValidateModel]
-    public async Task<UniversityCreateResponseDto> Create([FromQuery] UniversityCreateRequestDto request, CancellationToken cancellationToken)
+    public async Task<UniversityCreateResponseDto> Create([FromBody] UniversityCreateRequestDto request, CancellationToken cancellationToken)
     {
         var response = await mediator.Send(new UniversityCreateCommandRequest(request.Name, request.ShortName), cancellationToken);
         return new UniversityCreateResponseDto(response.Id);

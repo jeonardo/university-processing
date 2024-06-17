@@ -54,17 +54,17 @@ public class UniversitySeed(
         var bntu = await AddUniversity("Белорусский национальный технологический университет", "БНТУ");
         var bsuir = await AddUniversity("Белорусский государственный университет информатики и радиоэлектроники", "БГУИР");
 
-        var bntu_pos_1 = await AddUniversityPosition("лаборант", bntu);
-        var bntu_pos_2 = await AddUniversityPosition("старший лаборант", bntu);
-        var bntu_pos_3 = await AddUniversityPosition("ассистент", bntu);
-        var bntu_pos_4 = await AddUniversityPosition("преподаватель", bntu);
-        var bntu_pos_5 = await AddUniversityPosition("старший преподаватель", bntu);
-        var bntu_pos_6 = await AddUniversityPosition("доцент", bntu);
-        var bntu_pos_7 = await AddUniversityPosition("профессор", bntu);
-        var bntu_pos_8 = await AddUniversityPosition("завкафедрой", bntu);
-        var bntu_pos_9 = await AddUniversityPosition("декан", bntu);
-        var bntu_pos_10 = await AddUniversityPosition("проректор", bntu);
-        var bntu_pos_11 = await AddUniversityPosition("ректор", bntu);
+        var bntu_pos_1 = await AddUniversityPosition("лаборант");
+        var bntu_pos_2 = await AddUniversityPosition("старший лаборант");
+        var bntu_pos_3 = await AddUniversityPosition("ассистент");
+        var bntu_pos_4 = await AddUniversityPosition("преподаватель");
+        var bntu_pos_5 = await AddUniversityPosition("старший преподаватель");
+        var bntu_pos_6 = await AddUniversityPosition("доцент");
+        var bntu_pos_7 = await AddUniversityPosition("профессор");
+        var bntu_pos_8 = await AddUniversityPosition("завкафедрой");
+        var bntu_pos_9 = await AddUniversityPosition("декан");
+        var bntu_pos_10 = await AddUniversityPosition("проректор");
+        var bntu_pos_11 = await AddUniversityPosition("ректор");
 
         var bntu_faculty_atf = await AddFaculty("Автотракторный факультет", "АТФ", bntu);
         var bntu_faculty_fgdie = await AddFaculty("Факультет горного дела и инженерной экологии", "ФГДИЭ", bntu);
@@ -125,20 +125,20 @@ public class UniversitySeed(
             "6-05-0713-05",
             bntu_faculty_fitr);
 
-        var bntu_polozkov = await AddEmployee("Polozkov_Yuri_Vladimirovich", bntu_pos_8, bntu_faculty_fitr_poisit);
-        var bntu_shchukin = await AddEmployee("Shchukin_Mikhail_Vladimirovich", bntu_pos_8, bntu_faculty_fitr_vm);
-        var bntu_khorunzhiy = await AddEmployee("Khorunzhiy_Igor_Anatolievich", bntu_pos_8, bntu_faculty_fitr_tf);
-        var bntu_borodulya = await AddEmployee("Borodulya_Alexey_Valentinovich", bntu_pos_8, bntu_faculty_fitr_rts);
-        var bntu_pavlyukovets = await AddEmployee("Pavlyukovets_Sergey_Anatolievich", bntu_pos_8, bntu_faculty_fitr_zaputk);
+        var bntu_polozkov = await AddEmployee("Polozkov_Yuri_Vladimirovich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_8);
+        var bntu_shchukin = await AddEmployee("Shchukin_Mikhail_Vladimirovich", bntu_faculty_fitr_vm.Faculty!.University!, bntu_pos_8);
+        var bntu_khorunzhiy = await AddEmployee("Khorunzhiy_Igor_Anatolievich", bntu_faculty_fitr_tf.Faculty!.University!, bntu_pos_8);
+        var bntu_borodulya = await AddEmployee("Borodulya_Alexey_Valentinovich", bntu_faculty_fitr_rts.Faculty!.University!, bntu_pos_8);
+        var bntu_pavlyukovets = await AddEmployee("Pavlyukovets_Sergey_Anatolievich", bntu_faculty_fitr_zaputk.Faculty!.University!, bntu_pos_8);
 
-        var bntu_prikhozhy = await AddEmployee("Prikhozhy_Anatoly_Alekseevich", bntu_pos_7, bntu_faculty_fitr_poisit);
-        var bntu_gursky = await AddEmployee("Gursky_Nikolai_Nikolaevich", bntu_pos_6, bntu_faculty_fitr_poisit);
-        var bntu_kovaleva = await AddEmployee("Kovaleva_Irina_Lvovna", bntu_pos_6, bntu_faculty_fitr_poisit);
-        var bntu_kunkevich = await AddEmployee("Kunkevich_Dmitry_Petrovich", bntu_pos_6, bntu_faculty_fitr_poisit);
-        var bntu_kupriyanov = await AddEmployee("Kupriyanov_Andrey_Borisovich", bntu_pos_6, bntu_faculty_fitr_poisit);
-        var bntu_naprasnikov = await AddEmployee("Naprasnikov_Vladimir_Vladimirovich", bntu_pos_6, bntu_faculty_fitr_poisit);
-        var bntu_sidorik = await AddEmployee("Sidorik_Valery_Vladimirovich", bntu_pos_6, bntu_faculty_fitr_poisit);
-        var bntu_yudenkov = await AddEmployee("Yudenkov_Viktor_Stepanovich", bntu_pos_6, bntu_faculty_fitr_poisit);
+        var bntu_prikhozhy = await AddEmployee("Prikhozhy_Anatoly_Alekseevich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_7);
+        var bntu_gursky = await AddEmployee("Gursky_Nikolai_Nikolaevich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_6);
+        var bntu_kovaleva = await AddEmployee("Kovaleva_Irina_Lvovna", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_6);
+        var bntu_kunkevich = await AddEmployee("Kunkevich_Dmitry_Petrovich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_6);
+        var bntu_kupriyanov = await AddEmployee("Kupriyanov_Andrey_Borisovich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_6);
+        var bntu_naprasnikov = await AddEmployee("Naprasnikov_Vladimir_Vladimirovich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_6);
+        var bntu_sidorik = await AddEmployee("Sidorik_Valery_Vladimirovich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_6);
+        var bntu_yudenkov = await AddEmployee("Yudenkov_Viktor_Stepanovich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_6);
 
         var bntu_studyGroup1 = await AddGroup("1", bntu_faculty_fitr_sp1, new DateOnly(2023, 9, 1), new DateOnly(2027, 9, 1));
         var bntu_studyGroup2 = await AddGroup("2", bntu_faculty_fitr_sp2, new DateOnly(2023, 9, 1), new DateOnly(2027, 9, 1));
@@ -179,7 +179,7 @@ public class UniversitySeed(
 
         await AddAdmin("test_admin");
         await AddStudent("test_student", bntu_studyGroup1);
-        await AddEmployee("test_employee", bntu_pos_1, bntu_faculty_fitr_poisit);
+        await AddEmployee("test_employee", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_1);
     }
 
     private async Task<University> AddUniversity(string name, string shortName)
@@ -220,7 +220,7 @@ public class UniversitySeed(
         DateOnly startDate,
         DateOnly endDate)
     {
-        var result = new Group(groupNumber, startDate, endDate, specialty, specialty.Faculty);
+        var result = new Group(groupNumber, startDate, endDate, specialty);
         GroupValues.Add(result);
         await repositoryGroup.AddAsync(result);
         return result;
@@ -246,19 +246,19 @@ public class UniversitySeed(
 
     private async Task<User> AddEmployee(
         string username,
-        UniversityPosition position,
-        Department department)
+        University university,
+        UniversityPosition universityPosition)
     {
-        var result = new User(department.Faculty.University, position, username, username);
+        var result = new User(university, universityPosition, username, username);
         await userManager.CreateAsync(result, username);
         await userManager.AddToRoleAsync(result, nameof(UserRoleId.Employee));
         EmployeeValues.Add(result);
         return result;
     }
 
-    private async Task<UniversityPosition> AddUniversityPosition(string name, University university)
+    private async Task<UniversityPosition> AddUniversityPosition(string name)
     {
-        var result = new UniversityPosition(name, university);
+        var result = new UniversityPosition(name);
         UniversityPositionValues.Add(result);
         await repositoryUniversityPosition.AddAsync(result);
         return result;

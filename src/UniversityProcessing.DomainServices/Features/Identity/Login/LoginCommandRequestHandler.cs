@@ -32,7 +32,7 @@ internal sealed class LoginCommandHandler(
 
         var userRoles = await userManager.GetRolesAsync(user);
 
-        var claims = GetDefaultClaims(user, userRoles.First());
+        var claims = GetDefaultClaims(user, userRoles);
         var additionalClaims = await userManager.GetClaimsAsync(user);
         claims.AddRange(additionalClaims);
 
@@ -42,13 +42,16 @@ internal sealed class LoginCommandHandler(
         return new LoginCommandResponse(accessToken, refreshToken);
     }
 
-    private List<Claim> GetDefaultClaims(User user, string role)
+    private List<Claim> GetDefaultClaims(User user, IEnumerable<string> roles)
     {
-        return
-        [
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Role, role),
-            new Claim(nameof(user.Approved), user.Approved.ToString())
-        ];
+        var list = new List<Claim>
+        {
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new(nameof(user.Approved), user.Approved.ToString())
+        };
+
+        list.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+
+        return list;
     }
 }

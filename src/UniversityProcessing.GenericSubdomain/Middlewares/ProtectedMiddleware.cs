@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using Ardalis.GuardClauses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 using UniversityProcessing.GenericSubdomain.Http;
@@ -42,7 +41,6 @@ public sealed class ProtectedMiddleware(RequestDelegate next)
             return httpContextCorrelationId.GetAsString();
         }
 
-        Guard.Against.Null(correlationId);
         httpContextCorrelationId.Set(correlationId!);
         return correlationId;
     }

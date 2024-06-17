@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Ardalis.GuardClauses;
 using UniversityProcessing.Domain.Bases;
 using UniversityProcessing.Domain.Identity;
 
@@ -13,9 +12,9 @@ public sealed class Faculty : BaseEntity
     [StringLength(25, MinimumLength = 1)]
     public string ShortName { get; private set; } = null!;
 
-    public Guid UniversityId { get; private set; }
+    public Guid? UniversityId { get; private set; }
 
-    public University University { get; private set; } = null!;
+    public University? University { get; private set; }
 
     public ICollection<DiplomaPeriod> DiplomaPeriods { get; private set; } = [];
 
@@ -29,10 +28,10 @@ public sealed class Faculty : BaseEntity
 
     public Faculty(string name, string shortName, University university)
     {
-        Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
-        ShortName = Guard.Against.NullOrWhiteSpace(shortName, nameof(shortName));
-        UniversityId = Guard.Against.Null(university).Id;
-        University = Guard.Against.Null(university);
+        Name = name;
+        ShortName = shortName;
+        UniversityId = university?.Id;
+        University = university;
     }
 
     //Parameterless constructor used by EF Core

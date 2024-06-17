@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using Ardalis.GuardClauses;
 using UniversityProcessing.Domain.Bases;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.Domain.UniversityStructure.Enums;
@@ -13,26 +12,26 @@ public sealed class Diploma : BaseEntity
     public string Title { get; private set; } = null!;
 
     [Range(0, 10)]
-    public int? Grade { get; set; }
+    public int? Grade { get; private set; }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public DiplomaStatusId StatusId { get; private set; } = DiplomaStatusId.Created;
 
-    public Guid DiplomaPeriodId { get; private set; }
+    public Guid? DiplomaPeriodId { get; private set; }
 
-    public DiplomaPeriod DiplomaPeriod { get; private set; } = null!;
-    public Guid StudentId { get; private set; }
+    public DiplomaPeriod? DiplomaPeriod { get; private set; }
+    public Guid? StudentId { get; private set; }
 
-    public Guid? SupervisorId { get; set; }
+    public Guid? SupervisorId { get; private set; }
 
     public ICollection<User> Users { get; private set; } = [];
 
     public Diploma(DiplomaPeriod diplomaPeriod, string title, User student)
     {
-        Title = Guard.Against.NullOrWhiteSpace(title);
-        StudentId = Guard.Against.Null(student).Id;
-        DiplomaPeriodId = Guard.Against.Null(diplomaPeriod).Id;
-        DiplomaPeriod = Guard.Against.Null(diplomaPeriod);
+        Title = title;
+        StudentId = student.Id;
+        DiplomaPeriodId = diplomaPeriod.Id;
+        DiplomaPeriod = diplomaPeriod;
     }
 
     //Parameterless constructor used by EF Core

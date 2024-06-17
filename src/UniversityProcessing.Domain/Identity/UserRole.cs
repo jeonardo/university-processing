@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Ardalis.GuardClauses;
 using Microsoft.AspNetCore.Identity;
-using UniversityProcessing.GenericSubdomain.Guards;
 
 namespace UniversityProcessing.Domain.Identity;
 
@@ -15,7 +13,7 @@ public sealed class UserRole : IdentityRole<Guid>
 
     public UserRole(string roleName, string? defaultPermissions = null) : base(roleName)
     {
-        DefaultPermissions = Guard.Against.NotNullAndWhiteSpace(defaultPermissions);
+        DefaultPermissions = defaultPermissions;
     }
 
     //Parameterless constructor used by EF Core

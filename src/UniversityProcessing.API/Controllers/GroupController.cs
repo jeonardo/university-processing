@@ -41,7 +41,7 @@ public class GroupController(IMediator mediator) : ControllerBase
     [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ValidateModel]
-    public async Task<GroupCreateResponseDto> Create([FromQuery] GroupCreateRequestDto request, CancellationToken cancellationToken)
+    public async Task<GroupCreateResponseDto> Create([FromBody] GroupCreateRequestDto request, CancellationToken cancellationToken)
     {
         var response = await mediator.Send(
             new GroupCreateCommandRequest(request.GroupNumber, request.StartDate, request.EndDate, request.SpecialtyId),

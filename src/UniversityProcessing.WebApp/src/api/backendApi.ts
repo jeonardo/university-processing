@@ -11,11 +11,7 @@ const injectedRtkApi = api.injectEndpoints({
       })
     }),
     postApiV1DepartmentCreate: build.mutation<PostApiV1DepartmentCreateApiResponse, PostApiV1DepartmentCreateApiArg>({
-      query: (queryArg) => ({
-        url: `/api/v1/Department/Create`,
-        method: 'POST',
-        params: { Name: queryArg.name, ShortName: queryArg.shortName, FacultyId: queryArg.facultyId }
-      })
+      query: (queryArg) => ({ url: `/api/v1/Department/Create`, method: 'POST', body: queryArg.departmentCreateRequestDto })
     }),
     deleteApiV1DepartmentDelete: build.mutation<DeleteApiV1DepartmentDeleteApiResponse, DeleteApiV1DepartmentDeleteApiArg>({
       query: (queryArg) => ({ url: `/api/v1/Department/Delete`, method: 'DELETE', body: queryArg.departmentDeleteRequestDto })
@@ -30,11 +26,7 @@ const injectedRtkApi = api.injectEndpoints({
       })
     }),
     postApiV1FacultyCreate: build.mutation<PostApiV1FacultyCreateApiResponse, PostApiV1FacultyCreateApiArg>({
-      query: (queryArg) => ({
-        url: `/api/v1/Faculty/Create`,
-        method: 'POST',
-        params: { Name: queryArg.name, ShortName: queryArg.shortName, UniversityId: queryArg.universityId }
-      })
+      query: (queryArg) => ({ url: `/api/v1/Faculty/Create`, method: 'POST', body: queryArg.facultyCreateRequestDto })
     }),
     deleteApiV1FacultyDelete: build.mutation<DeleteApiV1FacultyDeleteApiResponse, DeleteApiV1FacultyDeleteApiArg>({
       query: (queryArg) => ({ url: `/api/v1/Faculty/Delete`, method: 'DELETE', body: queryArg.facultyDeleteRequestDto })
@@ -49,25 +41,37 @@ const injectedRtkApi = api.injectEndpoints({
       })
     }),
     postApiV1GroupCreate: build.mutation<PostApiV1GroupCreateApiResponse, PostApiV1GroupCreateApiArg>({
-      query: (queryArg) => ({
-        url: `/api/v1/Group/Create`,
-        method: 'POST',
-        params: {
-          GroupNumber: queryArg.groupNumber,
-          StartDate: queryArg.startDate,
-          EndDate: queryArg.endDate,
-          SpecialtyId: queryArg.specialtyId
-        }
-      })
+      query: (queryArg) => ({ url: `/api/v1/Group/Create`, method: 'POST', body: queryArg.groupCreateRequestDto })
     }),
     deleteApiV1GroupDelete: build.mutation<DeleteApiV1GroupDeleteApiResponse, DeleteApiV1GroupDeleteApiArg>({
       query: (queryArg) => ({ url: `/api/v1/Group/Delete`, method: 'DELETE', body: queryArg.groupDeleteRequestDto })
     }),
+    getApiV1IdentityGetById: build.query<GetApiV1IdentityGetByIdApiResponse, GetApiV1IdentityGetByIdApiArg>({
+      query: (queryArg) => ({ url: `/api/v1/Identity/Get/${queryArg.id}` })
+    }),
+    getApiV1IdentityList: build.query<GetApiV1IdentityListApiResponse, GetApiV1IdentityListApiArg>({
+      query: (queryArg) => ({
+        url: `/api/v1/Identity/List`,
+        params: { Desc: queryArg.desc, OrderBy: queryArg.orderBy, PageNumber: queryArg.pageNumber, PageSize: queryArg.pageSize }
+      })
+    }),
+    deleteApiV1IdentityDelete: build.mutation<DeleteApiV1IdentityDeleteApiResponse, DeleteApiV1IdentityDeleteApiArg>({
+      query: (queryArg) => ({ url: `/api/v1/Identity/Delete`, method: 'DELETE', body: queryArg.userDeleteRequestDto })
+    }),
     postApiV1IdentityLogin: build.mutation<PostApiV1IdentityLoginApiResponse, PostApiV1IdentityLoginApiArg>({
       query: (queryArg) => ({ url: `/api/v1/Identity/Login`, method: 'POST', body: queryArg.loginRequestDto })
     }),
-    postApiV1IdentityRegister: build.mutation<PostApiV1IdentityRegisterApiResponse, PostApiV1IdentityRegisterApiArg>({
-      query: (queryArg) => ({ url: `/api/v1/Identity/Register`, method: 'POST', body: queryArg.registerRequestDto })
+    postApiV1IdentityRegisterEmployee: build.mutation<
+      PostApiV1IdentityRegisterEmployeeApiResponse,
+      PostApiV1IdentityRegisterEmployeeApiArg
+    >({
+      query: (queryArg) => ({ url: `/api/v1/Identity/RegisterEmployee`, method: 'POST', body: queryArg.registerEmployeeRequestDto })
+    }),
+    postApiV1IdentityRegisterAdmin: build.mutation<PostApiV1IdentityRegisterAdminApiResponse, PostApiV1IdentityRegisterAdminApiArg>({
+      query: (queryArg) => ({ url: `/api/v1/Identity/RegisterAdmin`, method: 'POST', body: queryArg.registerAdminRequestDto })
+    }),
+    postApiV1IdentityRegisterStudent: build.mutation<PostApiV1IdentityRegisterStudentApiResponse, PostApiV1IdentityRegisterStudentApiArg>({
+      query: (queryArg) => ({ url: `/api/v1/Identity/RegisterStudent`, method: 'POST', body: queryArg.registerStudentRequestDto })
     }),
     getApiV1IdentityRefresh: build.query<GetApiV1IdentityRefreshApiResponse, GetApiV1IdentityRefreshApiArg>({
       query: () => ({ url: `/api/v1/Identity/Refresh` })
@@ -88,11 +92,7 @@ const injectedRtkApi = api.injectEndpoints({
       })
     }),
     postApiV1SpecialtyCreate: build.mutation<PostApiV1SpecialtyCreateApiResponse, PostApiV1SpecialtyCreateApiArg>({
-      query: (queryArg) => ({
-        url: `/api/v1/Specialty/Create`,
-        method: 'POST',
-        params: { Name: queryArg.name, ShortName: queryArg.shortName, Code: queryArg.code, FacultyId: queryArg.facultyId }
-      })
+      query: (queryArg) => ({ url: `/api/v1/Specialty/Create`, method: 'POST', body: queryArg.specialtyCreateRequestDto })
     }),
     deleteApiV1SpecialtyDelete: build.mutation<DeleteApiV1SpecialtyDeleteApiResponse, DeleteApiV1SpecialtyDeleteApiArg>({
       query: (queryArg) => ({ url: `/api/v1/Specialty/Delete`, method: 'DELETE', body: queryArg.specialtyDeleteRequestDto })
@@ -107,11 +107,7 @@ const injectedRtkApi = api.injectEndpoints({
       })
     }),
     postApiV1UniversityCreate: build.mutation<PostApiV1UniversityCreateApiResponse, PostApiV1UniversityCreateApiArg>({
-      query: (queryArg) => ({
-        url: `/api/v1/University/Create`,
-        method: 'POST',
-        params: { Name: queryArg.name, ShortName: queryArg.shortName }
-      })
+      query: (queryArg) => ({ url: `/api/v1/University/Create`, method: 'POST', body: queryArg.universityCreateRequestDto })
     }),
     deleteApiV1UniversityDelete: build.mutation<DeleteApiV1UniversityDeleteApiResponse, DeleteApiV1UniversityDeleteApiArg>({
       query: (queryArg) => ({ url: `/api/v1/University/Delete`, method: 'DELETE', body: queryArg.universityDeleteRequestDto })
@@ -142,9 +138,7 @@ export type GetApiV1DepartmentListApiArg = {
 };
 export type PostApiV1DepartmentCreateApiResponse = /** status 200 Success */ DepartmentCreateResponseDto;
 export type PostApiV1DepartmentCreateApiArg = {
-  name: string;
-  shortName: string;
-  facultyId?: string;
+  departmentCreateRequestDto: DepartmentCreateRequestDto;
 };
 export type DeleteApiV1DepartmentDeleteApiResponse = /** status 200 Success */ void;
 export type DeleteApiV1DepartmentDeleteApiArg = {
@@ -163,9 +157,7 @@ export type GetApiV1FacultyListApiArg = {
 };
 export type PostApiV1FacultyCreateApiResponse = /** status 200 Success */ FacultyCreateResponseDto;
 export type PostApiV1FacultyCreateApiArg = {
-  name: string;
-  shortName: string;
-  universityId?: string;
+  facultyCreateRequestDto: FacultyCreateRequestDto;
 };
 export type DeleteApiV1FacultyDeleteApiResponse = /** status 200 Success */ void;
 export type DeleteApiV1FacultyDeleteApiArg = {
@@ -184,22 +176,42 @@ export type GetApiV1GroupListApiArg = {
 };
 export type PostApiV1GroupCreateApiResponse = /** status 200 Success */ GroupCreateResponseDto;
 export type PostApiV1GroupCreateApiArg = {
-  groupNumber: string;
-  startDate?: string;
-  endDate?: string;
-  specialtyId?: string;
+  groupCreateRequestDto: GroupCreateRequestDto;
 };
 export type DeleteApiV1GroupDeleteApiResponse = /** status 200 Success */ void;
 export type DeleteApiV1GroupDeleteApiArg = {
   groupDeleteRequestDto: GroupDeleteRequestDto;
 };
+export type GetApiV1IdentityGetByIdApiResponse = /** status 200 Success */ UserGetResponseDto;
+export type GetApiV1IdentityGetByIdApiArg = {
+  id: string;
+};
+export type GetApiV1IdentityListApiResponse = /** status 200 Success */ UserListResponseDtoRead;
+export type GetApiV1IdentityListApiArg = {
+  desc?: boolean;
+  orderBy?: string;
+  pageNumber?: number;
+  pageSize?: number;
+};
+export type DeleteApiV1IdentityDeleteApiResponse = /** status 200 Success */ void;
+export type DeleteApiV1IdentityDeleteApiArg = {
+  userDeleteRequestDto: UserDeleteRequestDto;
+};
 export type PostApiV1IdentityLoginApiResponse = /** status 200 Success */ LoginResponseDto;
 export type PostApiV1IdentityLoginApiArg = {
   loginRequestDto: LoginRequestDto;
 };
-export type PostApiV1IdentityRegisterApiResponse = /** status 200 Success */ void;
-export type PostApiV1IdentityRegisterApiArg = {
-  registerRequestDto: RegisterRequestDto;
+export type PostApiV1IdentityRegisterEmployeeApiResponse = /** status 200 Success */ void;
+export type PostApiV1IdentityRegisterEmployeeApiArg = {
+  registerEmployeeRequestDto: RegisterEmployeeRequestDto;
+};
+export type PostApiV1IdentityRegisterAdminApiResponse = /** status 200 Success */ void;
+export type PostApiV1IdentityRegisterAdminApiArg = {
+  registerAdminRequestDto: RegisterAdminRequestDto;
+};
+export type PostApiV1IdentityRegisterStudentApiResponse = /** status 200 Success */ void;
+export type PostApiV1IdentityRegisterStudentApiArg = {
+  registerStudentRequestDto: RegisterStudentRequestDto;
 };
 export type GetApiV1IdentityRefreshApiResponse = /** status 200 Success */ LoginResponseDto;
 export type GetApiV1IdentityRefreshApiArg = void;
@@ -220,10 +232,7 @@ export type GetApiV1SpecialtyListApiArg = {
 };
 export type PostApiV1SpecialtyCreateApiResponse = /** status 200 Success */ SpecialtyCreateResponseDto;
 export type PostApiV1SpecialtyCreateApiArg = {
-  name: string;
-  shortName: string;
-  code: string;
-  facultyId?: string;
+  specialtyCreateRequestDto: SpecialtyCreateRequestDto;
 };
 export type DeleteApiV1SpecialtyDeleteApiResponse = /** status 200 Success */ void;
 export type DeleteApiV1SpecialtyDeleteApiArg = {
@@ -242,8 +251,7 @@ export type GetApiV1UniversityListApiArg = {
 };
 export type PostApiV1UniversityCreateApiResponse = /** status 200 Success */ UniversityCreateResponseDto;
 export type PostApiV1UniversityCreateApiArg = {
-  name: string;
-  shortName: string;
+  universityCreateRequestDto: UniversityCreateRequestDto;
 };
 export type DeleteApiV1UniversityDeleteApiResponse = /** status 200 Success */ void;
 export type DeleteApiV1UniversityDeleteApiArg = {
@@ -301,6 +309,11 @@ export type DepartmentListResponseDtoRead = {
 export type DepartmentCreateResponseDto = {
   id?: string;
 };
+export type DepartmentCreateRequestDto = {
+  name: string;
+  shortName: string;
+  facultyId?: string;
+};
 export type DepartmentDeleteRequestDto = {
   id?: string;
 };
@@ -334,6 +347,11 @@ export type FacultyListResponseDtoRead = {
 export type FacultyCreateResponseDto = {
   id?: string;
 };
+export type FacultyCreateRequestDto = {
+  name: string;
+  shortName: string;
+  universityId?: string;
+};
 export type FacultyDeleteRequestDto = {
   id?: string;
 };
@@ -366,7 +384,46 @@ export type GroupListResponseDtoRead = {
 export type GroupCreateResponseDto = {
   id?: string;
 };
+export type GroupCreateRequestDto = {
+  groupNumber: string;
+  startDate?: string;
+  endDate?: string;
+  specialtyId?: string;
+};
 export type GroupDeleteRequestDto = {
+  id?: string;
+};
+export type UserDto = {
+  id?: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  middleName?: string | null;
+  email?: string | null;
+  birthday?: string | null;
+};
+export type UserGetResponseDto = {
+  user?: UserDto;
+};
+export type UserDtoPagedList = {
+  items?: UserDto[] | null;
+  pageSize?: number;
+};
+export type UserDtoPagedListRead = {
+  items?: UserDto[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
+export type UserListResponseDto = {
+  list?: UserDtoPagedList;
+};
+export type UserListResponseDtoRead = {
+  list?: UserDtoPagedListRead;
+};
+export type UserDeleteRequestDto = {
   id?: string;
 };
 export type TokenDto = {
@@ -382,7 +439,33 @@ export type LoginRequestDto = {
   password: string;
 };
 export type UserRoleIdDto = 'None' | 'ApplicationAdmin' | 'Employee' | 'Student';
-export type RegisterRequestDto = {
+export type RegisterEmployeeRequestDto = {
+  userRole: UserRoleIdDto;
+  userName: string;
+  password: string;
+  firstName: string;
+  lastName?: string | null;
+  middleName?: string | null;
+  email?: string | null;
+  birthday?: string | null;
+  universityId?: string | null;
+  universityPositionId?: string | null;
+  groupId?: string | null;
+};
+export type RegisterAdminRequestDto = {
+  userRole: UserRoleIdDto;
+  userName: string;
+  password: string;
+  firstName: string;
+  lastName?: string | null;
+  middleName?: string | null;
+  email?: string | null;
+  birthday?: string | null;
+  universityId?: string | null;
+  universityPositionId?: string | null;
+  groupId?: string | null;
+};
+export type RegisterStudentRequestDto = {
   userRole: UserRoleIdDto;
   userName: string;
   password: string;
@@ -431,6 +514,12 @@ export type SpecialtyListResponseDtoRead = {
 export type SpecialtyCreateResponseDto = {
   id?: string;
 };
+export type SpecialtyCreateRequestDto = {
+  name: string;
+  shortName: string;
+  code: string;
+  facultyId?: string;
+};
 export type SpecialtyDeleteRequestDto = {
   id?: string;
 };
@@ -463,6 +552,10 @@ export type UniversityListResponseDtoRead = {
 };
 export type UniversityCreateResponseDto = {
   id?: string;
+};
+export type UniversityCreateRequestDto = {
+  name: string;
+  shortName: string;
 };
 export type UniversityDeleteRequestDto = {
   id?: string;
@@ -506,8 +599,13 @@ export const {
   useGetApiV1GroupListQuery,
   usePostApiV1GroupCreateMutation,
   useDeleteApiV1GroupDeleteMutation,
+  useGetApiV1IdentityGetByIdQuery,
+  useGetApiV1IdentityListQuery,
+  useDeleteApiV1IdentityDeleteMutation,
   usePostApiV1IdentityLoginMutation,
-  usePostApiV1IdentityRegisterMutation,
+  usePostApiV1IdentityRegisterEmployeeMutation,
+  usePostApiV1IdentityRegisterAdminMutation,
+  usePostApiV1IdentityRegisterStudentMutation,
   useGetApiV1IdentityRefreshQuery,
   useGetApiV1IdentityLogoutQuery,
   useGetApiV1IdentityInfoQuery,

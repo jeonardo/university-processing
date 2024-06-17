@@ -1,5 +1,8 @@
+using System.Text.Json.Serialization;
+
 namespace UniversityProcessing.Abstractions.Http.Identity;
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum UserRoleIdDto
 {
     None = 0,

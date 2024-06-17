@@ -5,7 +5,12 @@ namespace UniversityProcessing.Abstractions.Http.Converters;
 
 public static class UserRoleIdConverter
 {
-    public static UserRoleIdDto ToDto(UserRoleId input)
+    public static UserRoleIdDto[] ToDto(this UserRoleId[] input)
+    {
+        return input.Select(ToDto).ToArray();
+    }
+
+    public static UserRoleIdDto ToDto(this UserRoleId input)
     {
         return input switch
         {
@@ -16,7 +21,7 @@ public static class UserRoleIdConverter
         };
     }
 
-    public static UserRoleId ToInternal(UserRoleIdDto input)
+    public static UserRoleId ToInternal(this UserRoleIdDto input)
     {
         return input switch
         {

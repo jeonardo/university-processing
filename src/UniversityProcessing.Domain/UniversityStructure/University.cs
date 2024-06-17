@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Ardalis.GuardClauses;
 using UniversityProcessing.Domain.Bases;
 using UniversityProcessing.Domain.Identity;
 
@@ -23,8 +22,8 @@ public sealed class University : BaseEntity
 
     public University(string name, string shortName)
     {
-        Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
-        ShortName = Guard.Against.NullOrWhiteSpace(shortName, nameof(shortName));
+        Name = name;
+        ShortName = shortName;
     }
 
     //Parameterless constructor used by EF Core

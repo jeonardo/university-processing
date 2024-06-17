@@ -1,10 +1,10 @@
-import {ENV} from "../env";
+import { ENV } from "./env";
 
 export function localStorageGetObject<T>(dataKey: string): T | null {
     try {
         const data = localStorage.getItem(dataKey);
 
-        return data !== null
+        return (data != null && data != "")
             ? JSON.parse(data) as T
             : null;
 

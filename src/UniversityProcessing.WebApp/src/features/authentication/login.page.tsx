@@ -13,10 +13,10 @@ import {
     Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../core/hooks";
-import { LoginRequestDto, usePostApiV1IdentityLoginMutation } from "../../api/backendApi";
-import { login } from "./auth.slice";
+import { LoginRequestDto, useGetApiV1IdentityInfoQuery, usePostApiV1IdentityLoginMutation } from "../../api/backendApi";
+import { login, setUser } from "./auth.slice";
 
 const LoginPage = () => {
     const dispatch = useAppDispatch();
@@ -24,17 +24,18 @@ const LoginPage = () => {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
 
-    const [trylogin, { isLoading, isSuccess }] = usePostApiV1IdentityLoginMutation()
+    const [trylogin, { isLoading }] = usePostApiV1IdentityLoginMutation()
 
     const handleLogin = async () => {
         const result = await trylogin({ loginRequestDto: { password: password, userName: userName } })
 
-        if (isSuccess && result.data?.accessToken && result.data?.refreshToken) {
-            dispatch(login({
-                accessToken: result.data.accessToken,
-                refreshToken: result.data.refreshToken,
-            }))
-        }
+        if (result.error)
+            return
+
+        dispatch(login({
+            accessToken: result.data.accessToken,
+            refreshToken: result.data.refreshToken,
+        }))
     };
 
     return (

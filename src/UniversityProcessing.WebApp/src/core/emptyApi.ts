@@ -1,11 +1,11 @@
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { ENV } from 'src/env'
 import axios, { AxiosError, AxiosRequestConfig } from 'axios'
 import { Mutex, MutexInterface, Semaphore, SemaphoreInterface, withTimeout } from 'async-mutex';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { RootState } from './store';
 import { useGetApiV1IdentityRefreshQuery } from 'src/api/backendApi';
 import { login, logout } from 'src/features/authentication/auth.slice';
+import { ENV } from './env';
 
 // create a new mutex
 const mutex = new Mutex()

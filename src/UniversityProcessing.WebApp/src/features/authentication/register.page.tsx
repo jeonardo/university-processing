@@ -3,9 +3,9 @@ import { LockOutlined } from "@mui/icons-material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../core/hooks";
-import { ENV } from "../../env";
+import { ENV } from "../../core/env";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { usePostApiV1IdentityRegisterMutation, UserRoleIdDto } from "src/api/backendApi";
+import { UserRoleIdDto, usePostApiV1IdentityRegisterAdminMutation } from "src/api/backendApi";
 
 const RegisterPage = () => {
     const dispatch = useAppDispatch();
@@ -18,14 +18,14 @@ const RegisterPage = () => {
     const userRoles = ['None', 'ApplicationAdmin', 'Employee', 'Student'];
     const isUserRole = (x: any): x is UserRoleIdDto => userRoles.includes(x);
 
-    const [tryregister, { isLoading, isSuccess }] = usePostApiV1IdentityRegisterMutation()
+    const [tryregister, { isLoading, isSuccess }] = usePostApiV1IdentityRegisterAdminMutation()
 
     const handleRegister = async () => {
         if (!userName || !password || userRole == 'None' || !firstName)
             return
 
         const result = await tryregister({
-            registerRequestDto:
+            registerAdminRequestDto:
             {
                 password: password,
                 userName: userName,

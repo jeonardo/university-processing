@@ -1,17 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Identity;
-using UniversityProcessing.Domain.Identity.Enums;
 using UniversityProcessing.Domain.UniversityStructure;
-using UniversityProcessing.GenericSubdomain.Guards;
 
 namespace UniversityProcessing.Domain.Identity;
 
+//TODO mark as nullable references to prevent cascade delete
 public class User : IdentityUser<Guid>, IAggregateRoot
 {
-    public UserRoleId UserRoleId { get; private set; }
-
     public bool Approved { get; private set; }
 
     [DataType(DataType.DateTime)]
@@ -65,11 +61,10 @@ public class User : IdentityUser<Guid>, IAggregateRoot
         string? email = null,
         DateOnly? birthday = null) : base(username)
     {
-        UserRoleId = UserRoleId.ApplicationAdmin;
-        FirstName = Guard.Against.NullOrWhiteSpace(firstName, nameof(firstName));
-        LastName = Guard.Against.NotNullAndWhiteSpace(lastName, nameof(lastName));
-        MiddleName = Guard.Against.NotNullAndWhiteSpace(middleName, nameof(middleName));
-        Email = Guard.Against.NotNullAndWhiteSpace(email, nameof(email));
+        FirstName = firstName;
+        LastName = lastName;
+        MiddleName = middleName;
+        Email = email;
         Birthday = birthday;
     }
 
@@ -82,24 +77,19 @@ public class User : IdentityUser<Guid>, IAggregateRoot
         string? email = null,
         DateOnly? birthday = null) : base(username)
     {
-        UserRoleId = UserRoleId.Student;
-        FirstName = Guard.Against.NullOrWhiteSpace(firstName, nameof(firstName));
-        LastName = Guard.Against.NotNullAndWhiteSpace(lastName, nameof(lastName));
-        MiddleName = Guard.Against.NotNullAndWhiteSpace(middleName, nameof(middleName));
-        Email = Guard.Against.NotNullAndWhiteSpace(email, nameof(email));
-        Birthday = birthday;
+        GroupId = group.Id;
+        Group = group;
 
-        FacultyId = Guard.Against.Null(group.Faculty).Id;
-        Faculty = Guard.Against.Null(group.Faculty);
-        UniversityId = Guard.Against.Null(group.Faculty.University).Id;
-        University = Guard.Against.Null(group.Faculty.University);
-        GroupId = Guard.Against.Null(group).Id;
-        Group = Guard.Against.Null(group);
+        FirstName = firstName;
+        LastName = lastName;
+        MiddleName = middleName;
+        Email = email;
+        Birthday = birthday;
     }
 
     public User(
         University university,
-        UniversityPosition? universityPosition,
+        UniversityPosition universityPosition,
         string username,
         string firstName,
         string? lastName = null,
@@ -107,17 +97,16 @@ public class User : IdentityUser<Guid>, IAggregateRoot
         string? email = null,
         DateOnly? birthday = null) : base(username)
     {
-        UserRoleId = UserRoleId.Employee;
-        FirstName = Guard.Against.NullOrWhiteSpace(firstName, nameof(firstName));
-        LastName = Guard.Against.NotNullAndWhiteSpace(lastName, nameof(lastName));
-        MiddleName = Guard.Against.NotNullAndWhiteSpace(middleName, nameof(middleName));
-        Email = Guard.Against.NotNullAndWhiteSpace(email, nameof(email));
-        Birthday = birthday;
+        UniversityId = university.Id;
+        University = university;
+        UniversityPositionId = universityPosition.Id;
+        UniversityPosition = universityPosition;
 
-        UniversityId = Guard.Against.Null(university).Id;
-        University = Guard.Against.Null(university);
-        UniversityPositionId = Guard.Against.Null(universityPosition).Id;
-        UniversityPosition = Guard.Against.Null(universityPosition);
+        FirstName = firstName;
+        LastName = lastName;
+        MiddleName = middleName;
+        Email = email;
+        Birthday = birthday;
     }
 
     //Parameterless constructor used by EF Core

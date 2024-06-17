@@ -41,7 +41,7 @@ public class SpecialtyController(IMediator mediator) : ControllerBase
     [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ValidateModel]
-    public async Task<SpecialtyCreateResponseDto> Create([FromQuery] SpecialtyCreateRequestDto request, CancellationToken cancellationToken)
+    public async Task<SpecialtyCreateResponseDto> Create([FromBody] SpecialtyCreateRequestDto request, CancellationToken cancellationToken)
     {
         var response = await mediator.Send(
             new SpecialtyCreateCommandRequest(request.Name, request.ShortName, request.Code, request.FacultyId),

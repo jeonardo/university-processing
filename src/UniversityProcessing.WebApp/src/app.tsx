@@ -4,10 +4,12 @@ import AppRouter from './routes/AppRouter';
 
 const App: React.FC = () => {
     return (
-        <StyledEngineProvider injectFirst>
-            <CssBaseline />
-            <RouterProvider router={AppRouter} />
-        </StyledEngineProvider>
+        <>
+            <StyledEngineProvider injectFirst>
+                <CssBaseline />
+                <RouterProvider router={AppRouter} />
+            </StyledEngineProvider>
+        </>
     );
 }
 
