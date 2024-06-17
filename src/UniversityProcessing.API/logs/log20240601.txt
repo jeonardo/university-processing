@@ -1,0 +1,43 @@
+2024-06-01 16:08:15.663 +03:00 [INF] Database prepearing
+2024-06-01 16:08:15.784 +03:00 [INF] Migrating database...
+2024-06-01 16:08:17.254 +03:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-06-01 16:08:17.269 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-06-01 16:08:17.286 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-06-01 16:08:17.308 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-06-01 16:08:17.772 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-06-01 16:08:18.405 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-06-01 16:08:18.418 +03:00 [INF] Database migrated successfully
+2024-06-01 16:08:18.418 +03:00 [INF] Launching UniversityProcessing.API...
+2024-06-01 16:08:18.973 +03:00 [INF] Now listening on: http://localhost:5158
+2024-06-01 16:08:18.974 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-06-01 16:08:18.976 +03:00 [INF] Hosting environment: Development
+2024-06-01 16:08:18.977 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-06-01 16:08:19.282 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger - null null
+2024-06-01 16:08:19.390 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-06-01 16:08:19.748 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger - 301 0 null 472.0663ms
+2024-06-01 16:08:19.769 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-06-01 16:08:19.903 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 133.8878ms
+2024-06-01 16:08:19.957 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui.css - null null
+2024-06-01 16:08:19.958 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui-standalone-preset.js - null null
+2024-06-01 16:08:19.958 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui-bundle.js - null null
+2024-06-01 16:08:20.254 +03:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2024-06-01 16:08:20.311 +03:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2024-06-01 16:08:20.349 +03:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2024-06-01 16:08:20.393 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui-bundle.js - 200 1061536 text/javascript 434.0334ms
+2024-06-01 16:08:20.387 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui-standalone-preset.js - 200 312163 text/javascript 428.3687ms
+2024-06-01 16:08:20.354 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/swagger-ui.css - 200 144929 text/css 397.6602ms
+2024-06-01 16:08:20.537 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-06-01 16:08:20.569 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/favicon-32x32.png - null null
+2024-06-01 16:08:20.584 +03:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2024-06-01 16:08:20.672 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/favicon-32x32.png - 200 628 image/png 102.3985ms
+2024-06-01 16:08:20.837 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 300.1351ms
+2024-06-01 16:08:22.913 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-06-01 16:10:24.970 +03:00 [ERR] Unable to connect to the SPA development server at 'https://localhost:5173'.
