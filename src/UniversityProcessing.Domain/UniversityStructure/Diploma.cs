@@ -26,16 +26,20 @@ public sealed class Diploma : BaseEntity
 
     public ICollection<User> Users { get; private set; } = [];
 
-    public Diploma(DiplomaPeriod diplomaPeriod, string title, User student)
-    {
-        Title = title;
-        StudentId = student.Id;
-        DiplomaPeriodId = diplomaPeriod.Id;
-        DiplomaPeriod = diplomaPeriod;
-    }
-
-    //Parameterless constructor used by EF Core
+    // Parameterless constructor used by EF Core
+    // ReSharper disable once UnusedMember.Local
     private Diploma()
     {
+    }
+
+    public static Diploma Create(string title, Guid? diplomaPeriodId = null, Guid? studentId = null, Guid? supervisorId = null)
+    {
+        return new Diploma
+        {
+            Title = title,
+            DiplomaPeriodId = diplomaPeriodId,
+            StudentId = studentId,
+            SupervisorId = supervisorId
+        };
     }
 }

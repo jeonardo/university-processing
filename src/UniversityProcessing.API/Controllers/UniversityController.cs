@@ -1,59 +1,53 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Abstractions.Http.Universities.University;
-using UniversityProcessing.DomainServices.Features.Universities.Create.Contracts;
+using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.DomainServices.Features.Universities.Create;
 using UniversityProcessing.DomainServices.Features.Universities.Delete.Contracts;
 using UniversityProcessing.DomainServices.Features.Universities.Get.Contracts;
 using UniversityProcessing.DomainServices.Features.Universities.List.Contracts;
 using UniversityProcessing.GenericSubdomain.Attributes;
-using UniversityProcessing.GenericSubdomain.Http;
 
 namespace UniversityProcessing.API.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]/[action]")]
-public class UniversityController(IMediator mediator) : ControllerBase
+public class UniversityController(ISender mediator) : ControllerBase
 {
-    [HttpGet("{Id}")]
-    [ProducesResponseType(typeof(UniversityGetResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<UniversityGetResponseDto> Get([FromRoute] UniversityGetRequestDto request, CancellationToken cancellationToken)
+    [HttpGet]
+    [ValidateModel]
+    public async Task<UniversityGetResponseDto> Get([FromQuery] UniversityGetRequestDto request, CancellationToken cancellationToken)
     {
-        var response = await mediator.Send(new UniversityGetQueryRequest(request.Id), cancellationToken);
+        var query = new UniversityGetQueryRequest(request.Id);
+        var response = await mediator.Send(query, cancellationToken);
         return new UniversityGetResponseDto(response.University);
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(UniversityListResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<UniversityListResponseDto> List([FromQuery] UniversityListRequestDto request, CancellationToken cancellationToken)
+    public async Task<UniversityListResponseDto> GetList([FromQuery] UniversityListRequestDto request, CancellationToken cancellationToken)
     {
-        var response = await mediator.Send(
-            new UniversityListQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc),
-            cancellationToken);
+        var query = new UniversityListQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
+        var response = await mediator.Send(query, cancellationToken);
         return new UniversityListResponseDto(response.List);
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(UniversityCreateResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [Authorize(Roles = nameof(UserRoles.ApplicationAdmin))]
     [ValidateModel]
     public async Task<UniversityCreateResponseDto> Create([FromBody] UniversityCreateRequestDto request, CancellationToken cancellationToken)
     {
-        var response = await mediator.Send(new UniversityCreateCommandRequest(request.Name, request.ShortName), cancellationToken);
+        var command = new CreateUniversityCommandRequest(request.Name, request.ShortName);
+        var response = await mediator.Send(command, cancellationToken);
         return new UniversityCreateResponseDto(response.Id);
     }
 
     [HttpDelete]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [Authorize(Roles = nameof(UserRoles.ApplicationAdmin))]
     [ValidateModel]
     public Task Delete([FromBody] UniversityDeleteRequestDto request, CancellationToken cancellationToken)
     {
-        return mediator.Send(new UniversityDeleteCommandRequest(request.Id), cancellationToken);
+        var command = new UniversityDeleteCommandRequest(request.Id);
+        return mediator.Send(command, cancellationToken);
     }
 }

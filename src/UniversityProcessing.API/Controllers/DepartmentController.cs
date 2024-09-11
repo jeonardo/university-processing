@@ -1,12 +1,13 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Abstractions.Http.Universities.Department;
-using UniversityProcessing.DomainServices.Features.Departments.Create.Contracts;
+using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.DomainServices.Features.Departments.Create;
 using UniversityProcessing.DomainServices.Features.Departments.Delete.Contracts;
 using UniversityProcessing.DomainServices.Features.Departments.Get.Contracts;
 using UniversityProcessing.DomainServices.Features.Departments.List.Contracts;
 using UniversityProcessing.GenericSubdomain.Attributes;
-using UniversityProcessing.GenericSubdomain.Http;
 
 namespace UniversityProcessing.API.Controllers;
 
@@ -14,46 +15,39 @@ namespace UniversityProcessing.API.Controllers;
 [Route("api/v1/[controller]/[action]")]
 public class DepartmentController(IMediator mediator) : ControllerBase
 {
-    [HttpGet("{Id}")]
-    [ProducesResponseType(typeof(DepartmentGetResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<DepartmentGetResponseDto> Get([FromRoute] DepartmentGetRequestDto request, CancellationToken cancellationToken)
+    [HttpGet]
+    [ValidateModel]
+    public async Task<DepartmentGetResponseDto> Get([FromQuery] DepartmentGetRequestDto request, CancellationToken cancellationToken)
     {
-        var response = await mediator.Send(new DepartmentGetQueryRequest(request.Id), cancellationToken);
+        var query = new DepartmentGetQueryRequest(request.Id);
+        var response = await mediator.Send(query, cancellationToken);
         return new DepartmentGetResponseDto(response.Department);
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(DepartmentListResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<DepartmentListResponseDto> List([FromQuery] DepartmentListRequestDto request, CancellationToken cancellationToken)
+    public async Task<DepartmentListResponseDto> GetList([FromQuery] DepartmentListRequestDto request, CancellationToken cancellationToken)
     {
-        var response = await mediator.Send(
-            new DepartmentListQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc),
-            cancellationToken);
+        var query = new DepartmentListQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
+        var response = await mediator.Send(query, cancellationToken);
         return new DepartmentListResponseDto(response.List);
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(DepartmentCreateResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [Authorize(Roles = nameof(UserRoles.ApplicationAdmin))]
     [ValidateModel]
     public async Task<DepartmentCreateResponseDto> Create([FromBody] DepartmentCreateRequestDto request, CancellationToken cancellationToken)
     {
-        var response = await mediator.Send(new DepartmentCreateCommandRequest(request.Name, request.ShortName, request.FacultyId), cancellationToken);
+        var command = new CreateDepartmentCommandRequest(request.Name, request.ShortName, request.FacultyId);
+        var response = await mediator.Send(command, cancellationToken);
         return new DepartmentCreateResponseDto(response.Id);
     }
 
     [HttpDelete]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [Authorize(Roles = nameof(UserRoles.ApplicationAdmin))]
     [ValidateModel]
     public Task Delete([FromBody] DepartmentDeleteRequestDto request, CancellationToken cancellationToken)
     {
-        return mediator.Send(new DepartmentDeleteCommandRequest(request.Id), cancellationToken);
+        var command = new DepartmentDeleteCommandRequest(request.Id);
+        return mediator.Send(command, cancellationToken);
     }
 }

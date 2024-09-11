@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using UniversityProcessing.Domain.Bases;
 using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.GenericSubdomain.Identity;
 
 namespace UniversityProcessing.Domain.UniversityStructure;
 
-public sealed class Faculty : BaseEntity
+public sealed class Faculty : BaseEntity, IHasId
 {
     [StringLength(50, MinimumLength = 1)]
     public string Name { get; private set; } = null!;
@@ -26,16 +27,19 @@ public sealed class Faculty : BaseEntity
 
     public ICollection<Group> Groups { get; private set; } = [];
 
-    public Faculty(string name, string shortName, University university)
-    {
-        Name = name;
-        ShortName = shortName;
-        UniversityId = university?.Id;
-        University = university;
-    }
-
-    //Parameterless constructor used by EF Core
+    // Parameterless constructor used by EF Core
+    // ReSharper disable once UnusedMember.Local
     private Faculty()
     {
+    }
+
+    public static Faculty Create(string name, string shortName, Guid? universityId = null)
+    {
+        return new Faculty
+        {
+            Name = name,
+            ShortName = shortName,
+            UniversityId = universityId
+        };
     }
 }

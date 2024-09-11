@@ -1,4 +1,5 @@
 import UserSettingsPage from "src/features/UserSettings/UserSettingsPage";
+import SignoutPage from "src/features/authentication/signout.page";
 import ControlPanelPage from "src/features/controlPanel/ControlPanelPage";
 import DepartmentListPage from "src/features/departments/DepartmentListPage";
 import DiplomaPeriodListPage from "src/features/diplomaPeriods/DiplomaPeriodListPage";
@@ -60,6 +61,10 @@ const PrivateRoutes = {
     {
       path: '/users',
       element: <UserListPage />
+    },
+    {
+      path: '/signout',
+      element: <SignoutPage />
     }
   ]
 };

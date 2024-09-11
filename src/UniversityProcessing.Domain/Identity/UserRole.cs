@@ -16,7 +16,8 @@ public sealed class UserRole : IdentityRole<Guid>
         DefaultPermissions = defaultPermissions;
     }
 
-    //Parameterless constructor used by EF Core
+    // Parameterless constructor used by EF Core
+    // ReSharper disable once UnusedMember.Local
     private UserRole()
     {
     }

@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using UniversityProcessing.Domain.Bases;
 using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.GenericSubdomain.Identity;
 
 namespace UniversityProcessing.Domain.UniversityStructure;
 
-public sealed class Group : BaseEntity
+public sealed class Group : BaseEntity, IHasId
 {
     [StringLength(25, MinimumLength = 1)]
     public string Number { get; private set; } = null!;
@@ -15,26 +16,25 @@ public sealed class Group : BaseEntity
     [DataType(DataType.DateTime)]
     public DateOnly EndDate { get; private set; }
 
-    public Guid? FacultyId { get; private set; }
-    public Faculty? Faculty { get; private set; }
     public Guid? SpecialtyId { get; private set; }
     public Specialty? Specialty { get; private set; }
 
     public ICollection<User> Users { get; private set; } = [];
 
-    public Group(string groupNumber, DateOnly startDate, DateOnly endDate, Specialty specialty)
-    {
-        Number = groupNumber;
-        StartDate = startDate;
-        EndDate = endDate;
-        SpecialtyId = specialty.Id;
-        Specialty = specialty;
-        FacultyId = specialty.Faculty?.Id;
-        Faculty = specialty.Faculty;
-    }
-
-    //Parameterless constructor used by EF Core
+    // Parameterless constructor used by EF Core
+    // ReSharper disable once UnusedMember.Local
     private Group()
     {
+    }
+
+    public static Group Create(string number, DateOnly startDate, DateOnly endDate, Guid? specialtyId = null)
+    {
+        return new Group
+        {
+            Number = number,
+            StartDate = startDate,
+            EndDate = endDate,
+            SpecialtyId = specialtyId
+        };
     }
 }

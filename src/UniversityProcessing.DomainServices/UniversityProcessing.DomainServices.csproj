@@ -16,4 +16,8 @@
     <Folder Include="Features\Diplomas\RequestTopic\"/>
     <Folder Include="Features\Diplomas\SetSupervisor\"/>
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation"/>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions"/>
+  </ItemGroup>
 </Project>

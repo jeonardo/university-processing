@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using UniversityProcessing.Domain.Identity;
-using UniversityProcessing.Domain.Identity.Enums;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.Repository.Repositories;
 
@@ -43,11 +42,11 @@ public class UniversitySeed(
             return;
         }
 
-        var role1 = new UserRole(nameof(UserRoleId.ApplicationAdmin));
+        var role1 = new UserRole(nameof(UserRoles.ApplicationAdmin));
         await roleManager.CreateAsync(role1);
-        var role2 = new UserRole(nameof(UserRoleId.Employee));
+        var role2 = new UserRole(nameof(UserRoles.Employee));
         await roleManager.CreateAsync(role2);
-        var role3 = new UserRole(nameof(UserRoleId.Student));
+        var role3 = new UserRole(nameof(UserRoles.Student));
         await roleManager.CreateAsync(role3);
 
         var bsu = await AddUniversity("Белорусский государственный университет", "БГУ");
@@ -184,7 +183,7 @@ public class UniversitySeed(
 
     private async Task<University> AddUniversity(string name, string shortName)
     {
-        var result = new University(name, shortName);
+        var result = University.Create(name, shortName);
         UniversityValues.Add(result);
         await repositoryUniversity.AddAsync(result);
         return result;
@@ -192,7 +191,7 @@ public class UniversitySeed(
 
     private async Task<Faculty> AddFaculty(string name, string shortName, University university)
     {
-        var result = new Faculty(name, shortName, university);
+        var result = Faculty.Create(name, shortName, university.Id);
         FacultyValues.Add(result);
         await repositoryFaculty.AddAsync(result);
         return result;
@@ -200,7 +199,7 @@ public class UniversitySeed(
 
     private async Task<Department> AddDepartment(string name, string shortName, Faculty faculty)
     {
-        var result = new Department(name, shortName, faculty);
+        var result = Department.Create(name, shortName, faculty.Id);
         DepartmentValues.Add(result);
         await repositoryDepartment.AddAsync(result);
         return result;
@@ -208,7 +207,7 @@ public class UniversitySeed(
 
     private async Task<Specialty> AddSpecialty(string name, string shortName, string code, Faculty faculty)
     {
-        var result = new Specialty(name, shortName, faculty, code);
+        var result = Specialty.Create(name, shortName, code, faculty.Id);
         SpecialtyValues.Add(result);
         await repositorySpecialty.AddAsync(result);
         return result;
@@ -220,7 +219,7 @@ public class UniversitySeed(
         DateOnly startDate,
         DateOnly endDate)
     {
-        var result = new Group(groupNumber, startDate, endDate, specialty);
+        var result = Group.Create(groupNumber, startDate, endDate, specialty.Id);
         GroupValues.Add(result);
         await repositoryGroup.AddAsync(result);
         return result;
@@ -228,18 +227,18 @@ public class UniversitySeed(
 
     private async Task<User> AddAdmin(string username)
     {
-        var result = new User(username, username);
+        var result = User.CreateAdmin(username, username, username);
         await userManager.CreateAsync(result, username);
-        await userManager.AddToRoleAsync(result, nameof(UserRoleId.ApplicationAdmin));
+        await userManager.AddToRoleAsync(result, nameof(UserRoles.ApplicationAdmin));
         AdminValues.Add(result);
         return result;
     }
 
     private async Task<User> AddStudent(string username, Group group)
     {
-        var result = new User(group, username, username);
+        var result = User.CreateStudent(username, username, username, groupId: group.Id);
         await userManager.CreateAsync(result, username);
-        await userManager.AddToRoleAsync(result, nameof(UserRoleId.Student));
+        await userManager.AddToRoleAsync(result, nameof(UserRoles.Student));
         StudentValues.Add(result);
         return result;
     }
@@ -249,16 +248,16 @@ public class UniversitySeed(
         University university,
         UniversityPosition universityPosition)
     {
-        var result = new User(university, universityPosition, username, username);
+        var result = User.CreateEmployee(username, username, username, universityId: university.Id, universityPositionId: universityPosition.Id);
         await userManager.CreateAsync(result, username);
-        await userManager.AddToRoleAsync(result, nameof(UserRoleId.Employee));
+        await userManager.AddToRoleAsync(result, nameof(UserRoles.Employee));
         EmployeeValues.Add(result);
         return result;
     }
 
     private async Task<UniversityPosition> AddUniversityPosition(string name)
     {
-        var result = new UniversityPosition(name);
+        var result = UniversityPosition.Create(name);
         UniversityPositionValues.Add(result);
         await repositoryUniversityPosition.AddAsync(result);
         return result;

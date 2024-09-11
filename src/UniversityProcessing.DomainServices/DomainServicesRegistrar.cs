@@ -1,4 +1,5 @@
 ﻿using Ardalis.SharedKernel;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UniversityProcessing.DomainServices.Core;
@@ -16,9 +17,9 @@ public static class DomainServicesRegistrar
 
     private static IServiceCollection RegisterRequestHandlers(this IServiceCollection services)
     {
-        services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
-        return services.AddMediatR(
-            x =>
-                x.RegisterServicesFromAssembly(typeof(DomainServicesRegistrar).Assembly));
+        return services
+            .AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>()
+            .AddMediatR(x => x.RegisterServicesFromAssembly(typeof(DomainServicesRegistrar).Assembly))
+            .AddValidatorsFromAssembly(typeof(DomainServicesRegistrar).Assembly);
     }
 }

@@ -3,33 +3,28 @@ using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Abstractions.Http.Universities.University;
 using UniversityProcessing.DomainServices.Features.UniversityPositions.Get.Contracts;
 using UniversityProcessing.DomainServices.Features.UniversityPositions.List.Contracts;
-using UniversityProcessing.GenericSubdomain.Http;
+using UniversityProcessing.GenericSubdomain.Attributes;
 
 namespace UniversityProcessing.API.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]/[action]")]
-public class UniversityPositionController(IMediator mediator) : ControllerBase
+public class UniversityPositionController(ISender mediator) : ControllerBase
 {
-    [HttpGet("{Id}")]
-    [ProducesResponseType(typeof(UniversityPositionGetResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<UniversityPositionGetResponseDto> Get([FromRoute] UniversityPositionGetRequestDto request, CancellationToken cancellationToken)
+    [HttpGet]
+    [ValidateModel]
+    public async Task<UniversityPositionGetResponseDto> Get([FromQuery] UniversityPositionGetRequestDto request, CancellationToken cancellationToken)
     {
-        var response = await mediator.Send(new UniversityPositionGetQueryRequest(request.Id), cancellationToken);
+        var query = new UniversityPositionGetQueryRequest(request.Id);
+        var response = await mediator.Send(query, cancellationToken);
         return new UniversityPositionGetResponseDto(response.UniversityPosition);
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(UniversityPositionListResponseDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(FailResponseDto), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<UniversityPositionListResponseDto> List([FromQuery] UniversityPositionListRequestDto request, CancellationToken cancellationToken)
+    public async Task<UniversityPositionListResponseDto> GetList([FromQuery] UniversityPositionListRequestDto request, CancellationToken cancellationToken)
     {
-        var response = await mediator.Send(
-            new UniversityPositionListQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc),
-            cancellationToken);
+        var query = new UniversityPositionListQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
+        var response = await mediator.Send(query, cancellationToken);
         return new UniversityPositionListResponseDto(response.List);
     }
 }

@@ -18,16 +18,19 @@ public sealed class Department : BaseEntity
 
     public ICollection<User> Users { get; private set; } = [];
 
-    public Department(string name, string shortName, Faculty faculty)
-    {
-        Name = name;
-        ShortName = shortName;
-        FacultyId = faculty?.Id;
-        Faculty = faculty;
-    }
-
-    //Parameterless constructor used by EF Core
+    // Parameterless constructor used by EF Core
+    // ReSharper disable once UnusedMember.Local
     private Department()
     {
+    }
+
+    public static Department Create(string name, string shortName, Guid? facultyId = null)
+    {
+        return new Department
+        {
+            Name = name,
+            ShortName = shortName,
+            FacultyId = facultyId
+        };
     }
 }

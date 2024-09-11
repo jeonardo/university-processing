@@ -1,9 +1,6 @@
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "src/core/hooks";
-import App from "src/app";
-import AppBar from "./AppBar";
-import SideBar from "./SideBar";
-import { useEffect } from "react";
+import ResponsiveAppBar from "./AppBar";
 import { useGetApiV1IdentityInfoQuery } from "src/api/backendApi";
 import { setUser } from "src/features/authentication/auth.slice";
 
@@ -22,13 +19,9 @@ const PrivateLayout: React.FC = () => {
     return (
         useAppSelector(state => state.auth.authorized)
             ? <div className="flex flex-col h-full w-full bg-[#f8f8f8]">
-                <div className="fixed w-full h-[70px] z-50 bg-[#f8f8f8] shadow-lg items-center">
-                    <AppBar />
-                </div>
-                <div className="flex pt-[70px] flex-row h-full w-full">
-                    <div className="flex h-full w-full p-5">
-                        <Outlet />
-                    </div>
+                <ResponsiveAppBar />
+                <div className="flex h-full w-full p-5">
+                    <Outlet />
                 </div>
             </div>
             : <Navigate replace to={"/signin"} />)

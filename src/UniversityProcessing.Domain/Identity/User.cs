@@ -2,11 +2,12 @@
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Identity;
 using UniversityProcessing.Domain.UniversityStructure;
+using UniversityProcessing.GenericSubdomain.Identity;
 
 namespace UniversityProcessing.Domain.Identity;
 
 //TODO mark as nullable references to prevent cascade delete
-public class User : IdentityUser<Guid>, IAggregateRoot
+public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
 {
     public bool Approved { get; private set; }
 
@@ -22,9 +23,8 @@ public class User : IdentityUser<Guid>, IAggregateRoot
     [StringLength(50, MinimumLength = 1)]
     public string? MiddleName { get; private set; }
 
-    //Override accessor 'string? UniversityProcessing.Domain.Identity.User.Email.set' cannot change access rights
     [StringLength(50, MinimumLength = 1)]
-    public sealed override string? Email { get; set; }
+    public override string? Email { get; set; }
 
     [DataType(DataType.Date)]
     public DateOnly? Birthday { get; private set; }
@@ -53,69 +53,71 @@ public class User : IdentityUser<Guid>, IAggregateRoot
 
     public ICollection<DiplomaPeriod> DiplomaPeriods { get; private set; } = [];
 
-    public User(
-        string username,
-        string firstName,
-        string? lastName = null,
-        string? middleName = null,
-        string? email = null,
-        DateOnly? birthday = null) : base(username)
-    {
-        FirstName = firstName;
-        LastName = lastName;
-        MiddleName = middleName;
-        Email = email;
-        Birthday = birthday;
-    }
-
-    public User(
-        Group group,
-        string username,
-        string firstName,
-        string? lastName = null,
-        string? middleName = null,
-        string? email = null,
-        DateOnly? birthday = null) : base(username)
-    {
-        GroupId = group.Id;
-        Group = group;
-
-        FirstName = firstName;
-        LastName = lastName;
-        MiddleName = middleName;
-        Email = email;
-        Birthday = birthday;
-    }
-
-    public User(
-        University university,
-        UniversityPosition universityPosition,
-        string username,
-        string firstName,
-        string? lastName = null,
-        string? middleName = null,
-        string? email = null,
-        DateOnly? birthday = null) : base(username)
-    {
-        UniversityId = university.Id;
-        University = university;
-        UniversityPositionId = universityPosition.Id;
-        UniversityPosition = universityPosition;
-
-        FirstName = firstName;
-        LastName = lastName;
-        MiddleName = middleName;
-        Email = email;
-        Birthday = birthday;
-    }
-
-    //Parameterless constructor used by EF Core
-    protected User()
+    // Parameterless constructor used by EF Core
+    // ReSharper disable once UnusedMember.Local
+    private User()
     {
     }
 
     public void Approve()
     {
         Approved = true;
+    }
+
+    public static User CreateAdmin(string userName, string firstName, string lastName, string? middleName = null, string? email = null, DateOnly? birthday = null)
+    {
+        return new User
+        {
+            UserName = userName,
+            FirstName = firstName,
+            LastName = lastName,
+            MiddleName = middleName,
+            Email = email,
+            Birthday = birthday
+        };
+    }
+
+    public static User CreateStudent(
+        string userName,
+        string firstName,
+        string lastName,
+        string? middleName = null,
+        string? email = null,
+        DateOnly? birthday = null,
+        Guid? groupId = null)
+    {
+        return new User
+        {
+            UserName = userName,
+            FirstName = firstName,
+            LastName = lastName,
+            MiddleName = middleName,
+            Email = email,
+            Birthday = birthday,
+            GroupId = groupId
+        };
+    }
+
+    public static User CreateEmployee(
+        string userName,
+        string firstName,
+        string lastName,
+        string? middleName = null,
+        string? email = null,
+        DateOnly? birthday = null,
+        Guid? universityId = null,
+        Guid? universityPositionId = null)
+    {
+        return new User
+        {
+            UserName = userName,
+            FirstName = firstName,
+            LastName = lastName,
+            MiddleName = middleName,
+            Email = email,
+            Birthday = birthday,
+            UniversityId = universityId,
+            UniversityPositionId = universityPositionId
+        };
     }
 }

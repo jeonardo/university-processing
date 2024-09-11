@@ -3,10 +3,11 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using UniversityProcessing.API.Options;
+using UniversityProcessing.Domain;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.DomainServices;
 using UniversityProcessing.DomainServices.Options;
@@ -19,6 +20,8 @@ namespace UniversityProcessing.API;
 
 public static partial class Program
 {
+    private const string APPLICATION_CORS_POLICY = nameof(APPLICATION_CORS_POLICY);
+
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
@@ -35,14 +38,7 @@ public static partial class Program
             .AddControllers()
             .AddJsonOptions(o => { o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
 
-        builder.Services.AddCors(
-            x =>
-                x.AddDefaultPolicy(
-                    corsPolicyBuilder =>
-                        corsPolicyBuilder
-                            .AllowAnyOrigin()
-                            .AllowAnyHeader()
-                            .AllowAnyMethod()));
+        builder.AddApplicationCors();
 
         var app = builder.Build();
 
@@ -126,6 +122,29 @@ public static partial class Program
         return app;
     }
 
+    private static void AddApplicationCors(this WebApplicationBuilder builder)
+    {
+        var allowedOrigins = builder.Configuration
+            .Get<CorsOptions>()!
+            .GetAllowedOrigins();
+
+        builder.Services.AddCors(
+            options =>
+            {
+                options.AddPolicy(
+                    APPLICATION_CORS_POLICY,
+                    policyBuilder =>
+                    {
+                        policyBuilder
+                            .WithOrigins(allowedOrigins)
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials()
+                            .SetIsOriginAllowedToAllowWildcardSubdomains();
+                    });
+            });
+    }
+
     private static void AddUtilities(IServiceCollection services)
     {
         services.AddCorrelationIdGeneratorService();
@@ -205,6 +224,22 @@ public static partial class Program
                         }
                     };
                 });
+
+        services.AddAuthorization(
+            options =>
+            {
+                foreach (var policy in Policies.PermissionsByPolicy)
+                {
+                    options.AddPolicy(
+                        policy.Key,
+                        configurePolicy =>
+                        {
+                            configurePolicy.RequireClaim(
+                                policy.Value,
+                                "true");
+                        });
+                }
+            });
 
         services.AddAuthorizationBuilder();
     }

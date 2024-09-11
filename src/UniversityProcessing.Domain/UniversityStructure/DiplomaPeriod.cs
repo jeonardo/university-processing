@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using UniversityProcessing.Domain.Bases;
 using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.GenericSubdomain.Identity;
 
 namespace UniversityProcessing.Domain.UniversityStructure;
 
-public sealed class DiplomaPeriod : BaseEntity
+public sealed class DiplomaPeriod : BaseEntity, IHasId
 {
     [DataType(DataType.DateTime)]
     public DateOnly StartDate { get; private set; }
@@ -24,16 +25,19 @@ public sealed class DiplomaPeriod : BaseEntity
 
     public ICollection<User> Users { get; private set; } = [];
 
-    public DiplomaPeriod(Faculty faculty, DateOnly startDate, DateOnly endDate)
-    {
-        StartDate = startDate;
-        EndDate = endDate;
-        FacultyId = faculty.Id;
-        Faculty = faculty;
-    }
-
-    //Parameterless constructor used by EF Core
+    // Parameterless constructor used by EF Core
+    // ReSharper disable once UnusedMember.Local
     private DiplomaPeriod()
     {
+    }
+
+    public static DiplomaPeriod Create(DateOnly startDate, DateOnly endDate, Guid? facultyId = null)
+    {
+        return new DiplomaPeriod
+        {
+            StartDate = startDate,
+            EndDate = endDate,
+            FacultyId = facultyId
+        };
     }
 }

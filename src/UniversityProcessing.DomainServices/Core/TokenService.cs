@@ -5,7 +5,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using UniversityProcessing.Domain;
 using UniversityProcessing.Domain.Identity;
-using UniversityProcessing.Domain.Identity.Enums;
 using UniversityProcessing.DomainServices.Options;
 using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
 
@@ -86,11 +85,11 @@ internal sealed class TokenService(IOptions<AuthOptions> authOptions) : ITokenSe
         return id;
     }
 
-    private static UserRoleId GetUserRole(IEnumerable<Claim> claims)
+    private static UserRoles GetUserRole(IEnumerable<Claim> claims)
     {
         var claimValue = claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
 
-        if (claimValue is null || !Enum.TryParse<UserRoleId>(claimValue, out var role))
+        if (claimValue is null || !Enum.TryParse<UserRoles>(claimValue, out var role))
         {
             throw new InvalidTokenException();
         }
