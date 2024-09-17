@@ -5,9 +5,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI"/>
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations"/>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
-    <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
-      <Version>8.0.1</Version>
-    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.SpaProxy"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design"/>
   </ItemGroup>
 

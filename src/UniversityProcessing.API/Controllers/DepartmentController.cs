@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Abstractions.Http.Universities.Department;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.DomainServices.Features.Departments.Create;
-using UniversityProcessing.DomainServices.Features.Departments.Delete.Contracts;
-using UniversityProcessing.DomainServices.Features.Departments.Get.Contracts;
-using UniversityProcessing.DomainServices.Features.Departments.List.Contracts;
+using UniversityProcessing.DomainServices.Features.Departments.Delete;
+using UniversityProcessing.DomainServices.Features.Departments.Get;
+using UniversityProcessing.DomainServices.Features.Departments.GetList;
 using UniversityProcessing.GenericSubdomain.Attributes;
 
 namespace UniversityProcessing.API.Controllers;
@@ -19,7 +19,7 @@ public class DepartmentController(IMediator mediator) : ControllerBase
     [ValidateModel]
     public async Task<DepartmentGetResponseDto> Get([FromQuery] DepartmentGetRequestDto request, CancellationToken cancellationToken)
     {
-        var query = new DepartmentGetQueryRequest(request.Id);
+        var query = new GetDepartmentQueryRequest(request.Id);
         var response = await mediator.Send(query, cancellationToken);
         return new DepartmentGetResponseDto(response.Department);
     }
@@ -27,7 +27,7 @@ public class DepartmentController(IMediator mediator) : ControllerBase
     [HttpGet]
     public async Task<DepartmentListResponseDto> GetList([FromQuery] DepartmentListRequestDto request, CancellationToken cancellationToken)
     {
-        var query = new DepartmentListQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
+        var query = new GetDepartmentListQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
         var response = await mediator.Send(query, cancellationToken);
         return new DepartmentListResponseDto(response.List);
     }
@@ -47,7 +47,7 @@ public class DepartmentController(IMediator mediator) : ControllerBase
     [ValidateModel]
     public Task Delete([FromBody] DepartmentDeleteRequestDto request, CancellationToken cancellationToken)
     {
-        var command = new DepartmentDeleteCommandRequest(request.Id);
+        var command = new DeleteDepartmentCommandRequest(request.Id);
         return mediator.Send(command, cancellationToken);
     }
 }

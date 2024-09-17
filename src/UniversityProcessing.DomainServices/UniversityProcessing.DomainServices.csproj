@@ -5,9 +5,6 @@
     <ProjectReference Include="..\UniversityProcessing.Repository\UniversityProcessing.Repository.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Features\DiplomaPeriods\Delete\"/>
-    <Folder Include="Features\DiplomaPeriods\GetActualTeachers\"/>
-    <Folder Include="Features\DiplomaPeriods\Leave\"/>
     <Folder Include="Features\DiplomaPeriods\SetExamDay\"/>
     <Folder Include="Features\Diplomas\AcceptTopic\"/>
     <Folder Include="Features\Diplomas\Create\"/>

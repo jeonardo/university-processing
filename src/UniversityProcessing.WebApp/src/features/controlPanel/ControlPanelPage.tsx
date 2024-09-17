@@ -16,6 +16,8 @@ const arr = [
     ["Пользователи", "Просмотр и регистрация новых пользователей", "/users", 7]
 ]
 
+
+
 const ControlPanelPage = () => {
     const navigate = useNavigate()
     return (

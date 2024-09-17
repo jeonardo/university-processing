@@ -1,10 +1,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using UniversityProcessing.Domain.Identity;
-using UniversityProcessing.DomainServices.Features.Users.Delete.Contracts;
 using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
 
-namespace UniversityProcessing.DomainServices.Features.Users.Delete;
+namespace UniversityProcessing.DomainServices.Features.Identity.Delete;
 
 internal sealed class UserDeleteCommandHandler(UserManager<User> userManager) : IRequestHandler<UserDeleteCommandRequest>
 {

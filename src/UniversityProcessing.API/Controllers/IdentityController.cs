@@ -8,13 +8,13 @@ using UniversityProcessing.API.Converters;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.DomainServices.Core;
 using UniversityProcessing.DomainServices.Features.Identity.Approve.Contracts;
+using UniversityProcessing.DomainServices.Features.Identity.Delete;
 using UniversityProcessing.DomainServices.Features.Identity.Login.Contracts;
 using UniversityProcessing.DomainServices.Features.Identity.Logout.Contracts;
 using UniversityProcessing.DomainServices.Features.Identity.Refresh.Contracts;
 using UniversityProcessing.DomainServices.Features.Identity.RegisterAdmin;
 using UniversityProcessing.DomainServices.Features.Identity.RegisterEmployee;
 using UniversityProcessing.DomainServices.Features.Identity.RegisterStudent;
-using UniversityProcessing.DomainServices.Features.Users.Delete.Contracts;
 using UniversityProcessing.GenericSubdomain.Attributes;
 
 namespace UniversityProcessing.API.Controllers;
