@@ -2,7 +2,7 @@ namespace UniversityProcessing.API.Options;
 
 public sealed class CorsOptions
 {
-    public string AllowedOrigins { get; set; } = string.Empty;
+    public required string AllowedOrigins { get; set; }
 
     public string[] GetAllowedOrigins()
     {

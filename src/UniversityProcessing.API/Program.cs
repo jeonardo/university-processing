@@ -7,7 +7,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using UniversityProcessing.API.Options;
-using UniversityProcessing.Domain;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.DomainServices;
 using UniversityProcessing.DomainServices.Options;
@@ -47,7 +46,7 @@ public static partial class Program
 
         app.MapControllers();
         app.UseRouting();
-        app.UseCors();
+        app.UseCors(APPLICATION_CORS_POLICY);
         app.UseHttpsRedirection();
 
         app.UseFileServer();
@@ -125,6 +124,7 @@ public static partial class Program
     private static void AddApplicationCors(this WebApplicationBuilder builder)
     {
         var allowedOrigins = builder.Configuration
+            .GetSection(nameof(CorsOptions))
             .Get<CorsOptions>()!
             .GetAllowedOrigins();
 
@@ -139,7 +139,7 @@ public static partial class Program
                             .WithOrigins(allowedOrigins)
                             .AllowAnyHeader()
                             .AllowAnyMethod()
-                            .AllowCredentials()
+                            // .AllowCredentials()
                             .SetIsOriginAllowedToAllowWildcardSubdomains();
                     });
             });
