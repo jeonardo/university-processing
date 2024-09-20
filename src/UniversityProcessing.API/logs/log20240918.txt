@@ -1,0 +1,29 @@
+2024-09-18 23:57:41.757 +03:00 [INF] Database prepearing
+2024-09-18 23:57:41.805 +03:00 [INF] Migrating database...
+2024-09-18 23:57:42.905 +03:00 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-09-18 23:57:42.920 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-09-18 23:57:42.940 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-09-18 23:57:42.964 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-09-18 23:57:43.092 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-18 23:57:43.359 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-09-18 23:57:43.371 +03:00 [INF] Database migrated successfully
+2024-09-18 23:57:43.372 +03:00 [INF] Launching UniversityProcessing.API...
+2024-09-18 23:57:43.782 +03:00 [INF] Now listening on: http://localhost:5158
+2024-09-18 23:57:43.783 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-18 23:57:43.784 +03:00 [INF] Hosting environment: Development
+2024-09-18 23:57:43.785 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-09-18 23:57:44.714 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-09-18 23:57:44.749 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-09-18 23:57:44.966 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 253.9572ms
+2024-09-18 23:57:45.592 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-09-18 23:57:45.874 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 281.862ms
+2024-09-18 23:57:47.825 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-09-18 23:59:49.917 +03:00 [ERR] Unable to connect to the SPA development server at 'https://localhost:5173'.
