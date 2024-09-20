@@ -17,35 +17,35 @@ public class DepartmentController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
     [ValidateModel]
-    public async Task<DepartmentGetResponseDto> Get([FromQuery] DepartmentGetRequestDto request, CancellationToken cancellationToken)
+    public async Task<GetDepartmentResponseDto> Get([FromQuery] GetDepartmentRequestDto request, CancellationToken cancellationToken)
     {
         var query = new GetDepartmentQueryRequest(request.Id);
         var response = await mediator.Send(query, cancellationToken);
-        return new DepartmentGetResponseDto(response.Department);
+        return new GetDepartmentResponseDto(response.Department);
     }
 
     [HttpGet]
-    public async Task<DepartmentListResponseDto> GetList([FromQuery] DepartmentListRequestDto request, CancellationToken cancellationToken)
+    public async Task<GetDepartmentsResponseDto> GetList([FromQuery] GetDepartmentsRequestDto request, CancellationToken cancellationToken)
     {
-        var query = new GetDepartmentListQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
+        var query = new GetDepartmentsQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
         var response = await mediator.Send(query, cancellationToken);
-        return new DepartmentListResponseDto(response.List);
+        return new GetDepartmentsResponseDto(response.List);
     }
 
     [HttpPost]
     [Authorize(Roles = nameof(UserRoles.ApplicationAdmin))]
     [ValidateModel]
-    public async Task<DepartmentCreateResponseDto> Create([FromBody] DepartmentCreateRequestDto request, CancellationToken cancellationToken)
+    public async Task<CreateDepartmentResponseDto> Create([FromBody] CreateDepartmentRequestDto request, CancellationToken cancellationToken)
     {
         var command = new CreateDepartmentCommandRequest(request.Name, request.ShortName, request.FacultyId);
         var response = await mediator.Send(command, cancellationToken);
-        return new DepartmentCreateResponseDto(response.Id);
+        return new CreateDepartmentResponseDto(response.Id);
     }
 
     [HttpDelete]
     [Authorize(Roles = nameof(UserRoles.ApplicationAdmin))]
     [ValidateModel]
-    public Task Delete([FromBody] DepartmentDeleteRequestDto request, CancellationToken cancellationToken)
+    public Task Delete([FromBody] DeleteDepartmentRequestDto request, CancellationToken cancellationToken)
     {
         var command = new DeleteDepartmentCommandRequest(request.Id);
         return mediator.Send(command, cancellationToken);

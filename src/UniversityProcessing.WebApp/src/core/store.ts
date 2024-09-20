@@ -1,9 +1,9 @@
-import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
+import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit'
 import authReducer from '../features/authentication/auth.slice'
 import messageReducer from '../features/message/message.slice'
 import customizationReducer from '../features/customization/customization.slice'
-import { backendApi } from '../api/backendApi'
-import { setupListeners } from '@reduxjs/toolkit/query'
+import {backendApi} from '../api/backendApi'
+import {setupListeners} from '@reduxjs/toolkit/query'
 
 export const store = configureStore({
     reducer: {

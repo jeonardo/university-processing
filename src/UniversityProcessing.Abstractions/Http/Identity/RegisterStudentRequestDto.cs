@@ -27,7 +27,7 @@ public sealed class RegisterStudentRequestDto
     public string? Email { get; set; }
 
     [DataType(DataType.Date)]
-    public DateOnly? Birthday { get; set; }
+    public DateTime? Birthday { get; set; }
 
-    public Guid? GroupId { get; set; }
+    public string? GroupNumber { get; set; }
 }

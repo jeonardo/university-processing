@@ -8,10 +8,10 @@ namespace UniversityProcessing.Domain.UniversityStructure;
 public sealed class DiplomaPeriod : BaseEntity, IHasId
 {
     [DataType(DataType.DateTime)]
-    public DateOnly StartDate { get; private set; }
+    public DateTime StartDate { get; private set; }
 
     [DataType(DataType.DateTime)]
-    public DateOnly EndDate { get; private set; }
+    public DateTime EndDate { get; private set; }
 
     public Guid? FacultyId { get; private set; }
 
@@ -35,8 +35,8 @@ public sealed class DiplomaPeriod : BaseEntity, IHasId
     {
         return new DiplomaPeriod
         {
-            StartDate = startDate,
-            EndDate = endDate,
+            StartDate = startDate.ToDateTime(TimeOnly.MinValue),
+            EndDate = endDate.ToDateTime(TimeOnly.MinValue),
             FacultyId = facultyId
         };
     }

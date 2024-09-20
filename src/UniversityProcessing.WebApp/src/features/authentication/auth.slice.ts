@@ -1,6 +1,6 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { AuthState, AuthTokens, AuthUser } from "./auth.contracts";
-import { localStorageGetObject, localStorageSetData } from "src/core/localStorage";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {AuthState, AuthTokens, AuthUser} from "./auth.contracts";
+import {localStorageGetObject, localStorageSetData} from "src/core/localStorage";
 
 const TOKEN_KEY: string = "bntu_token";
 
@@ -31,6 +31,6 @@ const authSlice = createSlice({
     }
 })
 
-export const { logout, login, setUser } = authSlice.actions
+export const {logout, login, setUser} = authSlice.actions
 
 export default authSlice.reducer

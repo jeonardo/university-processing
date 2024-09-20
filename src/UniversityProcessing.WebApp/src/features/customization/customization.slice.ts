@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { CustomizationState } from "./customization.contracts";
+import {createSlice} from "@reduxjs/toolkit";
+import {CustomizationState} from "./customization.contracts";
 
 const initialState: CustomizationState = {
     opened: false
@@ -18,6 +18,6 @@ const customizationSlice = createSlice({
     }
 })
 
-export const { openBar, closeBar } = customizationSlice.actions
+export const {openBar, closeBar} = customizationSlice.actions
 
 export default customizationSlice.reducer

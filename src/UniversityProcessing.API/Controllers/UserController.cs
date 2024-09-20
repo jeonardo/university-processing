@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Abstractions.Http.Universities.User;
-using UniversityProcessing.DomainServices.Features.Users.Get.Contracts;
-using UniversityProcessing.DomainServices.Features.Users.List.Contracts;
+using UniversityProcessing.DomainServices.Features.Users.Get;
+using UniversityProcessing.DomainServices.Features.Users.GetList;
 using UniversityProcessing.GenericSubdomain.Attributes;
 
 namespace UniversityProcessing.API.Controllers;
@@ -15,19 +15,19 @@ public class UserController(ISender mediator) : ControllerBase
     [HttpGet]
     [Authorize]
     [ValidateModel]
-    public async Task<UserGetResponseDto> Get([FromQuery] UserGetRequestDto request, CancellationToken cancellationToken)
+    public async Task<GetUserResponseDto> Get([FromQuery] GetUserRequestDto request, CancellationToken cancellationToken)
     {
-        var query = new UserGetQueryRequest(request.Id);
+        var query = new GetUserQueryRequest(request.Id);
         var response = await mediator.Send(query, cancellationToken);
-        return new UserGetResponseDto(response.User);
+        return new GetUserResponseDto(response.User);
     }
 
     [HttpGet]
     [Authorize]
-    public async Task<UserListResponseDto> GetList([FromQuery] UserListRequestDto request, CancellationToken cancellationToken)
+    public async Task<GetUsersResponseDto> GetList([FromQuery] GetUsersRequestDto request, CancellationToken cancellationToken)
     {
-        var query = new UserListQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
+        var query = new GetUsersQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
         var response = await mediator.Send(query, cancellationToken);
-        return new UserListResponseDto(response.List);
+        return new GetUsersResponseDto(response.List);
     }
 }

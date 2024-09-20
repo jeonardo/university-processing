@@ -14,59 +14,59 @@ import UserListPage from "src/features/users/UserListPage";
 import PrivateLayout from "src/layouts/private.layout";
 
 const PrivateRoutes = {
-  path: '/',
-  element: <PrivateLayout />,
-  errorElement: <NotFoundPage />,
-  children: [
-    {
-      path: 'profile',
-      element: <ProfilePage />
-    },
-    {
-      path: 'settings',
-      element: <UserSettingsPage />
-    },
-    {
-      path: '/',
-      element: <MyProjectsPage />
-    },
-    {
-      path: '/umt',
-      element: <ControlPanelPage />
-    },
-    {
-      path: '/universities',
-      element: <UniversityListPage />
-    },
-    {
-      path: '/faculties',
-      element: <FacultyListPage />
-    },
-    {
-      path: '/departments',
-      element: <DepartmentListPage />
-    },
-    {
-      path: '/diplomaPeriods',
-      element: <DiplomaPeriodListPage />
-    },
-    {
-      path: '/specialties',
-      element: <SpecialtyListPage />
-    },
-    {
-      path: '/groups',
-      element: <GroupListPage />
-    },
-    {
-      path: '/users',
-      element: <UserListPage />
-    },
-    {
-      path: '/signout',
-      element: <SignoutPage />
-    }
-  ]
+    path: '/',
+    element: <PrivateLayout/>,
+    errorElement: <NotFoundPage/>,
+    children: [
+        {
+            path: 'profile',
+            element: <ProfilePage/>
+        },
+        {
+            path: 'settings',
+            element: <UserSettingsPage/>
+        },
+        {
+            path: '/',
+            element: <MyProjectsPage/>
+        },
+        {
+            path: '/umt',
+            element: <ControlPanelPage/>
+        },
+        {
+            path: '/universities',
+            element: <UniversityListPage/>
+        },
+        {
+            path: '/faculties',
+            element: <FacultyListPage/>
+        },
+        {
+            path: '/departments',
+            element: <DepartmentListPage/>
+        },
+        {
+            path: '/diplomaPeriods',
+            element: <DiplomaPeriodListPage/>
+        },
+        {
+            path: '/specialties',
+            element: <SpecialtyListPage/>
+        },
+        {
+            path: '/groups',
+            element: <GroupListPage/>
+        },
+        {
+            path: '/users',
+            element: <UserListPage/>
+        },
+        {
+            path: '/signout',
+            element: <SignoutPage/>
+        }
+    ]
 };
 
 export default PrivateRoutes;

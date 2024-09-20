@@ -10,4 +10,4 @@ public sealed record RegisterStudentCommandRequest(
     string? MiddleName = null,
     string? Email = null,
     DateOnly? Birthday = null,
-    Guid? GroupId = null) : IRequest;
+    string? GroupNumber = null) : IRequest;

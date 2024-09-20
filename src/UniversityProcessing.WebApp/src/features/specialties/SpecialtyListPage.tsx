@@ -2,7 +2,7 @@ const SpecialtyListPage = () => {
     return (
         <>
             <div>
-            SpecialtyListPage
+                SpecialtyListPage
             </div>
         </>)
 }

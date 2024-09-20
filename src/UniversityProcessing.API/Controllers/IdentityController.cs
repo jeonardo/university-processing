@@ -7,11 +7,11 @@ using UniversityProcessing.Abstractions.Http.Universities.User;
 using UniversityProcessing.API.Converters;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.DomainServices.Core;
-using UniversityProcessing.DomainServices.Features.Identity.Approve.Contracts;
+using UniversityProcessing.DomainServices.Features.Identity.Approve;
 using UniversityProcessing.DomainServices.Features.Identity.Delete;
-using UniversityProcessing.DomainServices.Features.Identity.Login.Contracts;
-using UniversityProcessing.DomainServices.Features.Identity.Logout.Contracts;
-using UniversityProcessing.DomainServices.Features.Identity.Refresh.Contracts;
+using UniversityProcessing.DomainServices.Features.Identity.Login;
+using UniversityProcessing.DomainServices.Features.Identity.Logout;
+using UniversityProcessing.DomainServices.Features.Identity.Refresh;
 using UniversityProcessing.DomainServices.Features.Identity.RegisterAdmin;
 using UniversityProcessing.DomainServices.Features.Identity.RegisterEmployee;
 using UniversityProcessing.DomainServices.Features.Identity.RegisterStudent;
@@ -25,9 +25,9 @@ public class IdentityController(ISender mediator, ITokenService tokenService) : 
 {
     [HttpDelete]
     [ValidateModel]
-    public Task Delete([FromBody] UserDeleteRequestDto request, CancellationToken cancellationToken)
+    public Task Delete([FromBody] DeleteUserRequestDto request, CancellationToken cancellationToken)
     {
-        var command = new UserDeleteCommandRequest(request.Id);
+        var command = new DeleteUserCommandRequest(request.Id);
         return mediator.Send(command, cancellationToken);
     }
 
@@ -51,7 +51,9 @@ public class IdentityController(ISender mediator, ITokenService tokenService) : 
             request.LastName,
             request.MiddleName,
             request.Email,
-            request.Birthday,
+            request.Birthday.HasValue
+                ? DateOnly.FromDateTime(request.Birthday.Value)
+                : null,
             request.UniversityId,
             request.UniversityPositionId);
         return mediator.Send(command, cancellationToken);
@@ -68,7 +70,9 @@ public class IdentityController(ISender mediator, ITokenService tokenService) : 
             request.LastName,
             request.MiddleName,
             request.Email,
-            request.Birthday);
+            request.Birthday.HasValue
+                ? DateOnly.FromDateTime(request.Birthday.Value)
+                : null);
         return mediator.Send(command, cancellationToken);
     }
 
@@ -83,8 +87,10 @@ public class IdentityController(ISender mediator, ITokenService tokenService) : 
             request.LastName,
             request.MiddleName,
             request.Email,
-            request.Birthday,
-            request.GroupId);
+            request.Birthday.HasValue
+                ? DateOnly.FromDateTime(request.Birthday.Value)
+                : null,
+            request.GroupNumber);
         return mediator.Send(command, cancellationToken);
     }
 
@@ -119,7 +125,7 @@ public class IdentityController(ISender mediator, ITokenService tokenService) : 
     [ValidateModel]
     public Task Approve([FromBody] ApproveUserRequestDto request, CancellationToken cancellationToken)
     {
-        var command = new UserApproveCommandRequest(request.UserId);
+        var command = new ApproveUserCommandRequest(request.UserId);
         return mediator.Send(command, cancellationToken);
     }
 }

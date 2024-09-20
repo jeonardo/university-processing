@@ -1,4 +1,4 @@
-import { ENV } from "./env";
+import {ENV} from "./env";
 
 export function localStorageGetObject<T>(dataKey: string): T | null {
     try {

@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Abstractions.Http.Universities.University;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.DomainServices.Features.Universities.Create;
-using UniversityProcessing.DomainServices.Features.Universities.Delete.Contracts;
-using UniversityProcessing.DomainServices.Features.Universities.Get.Contracts;
-using UniversityProcessing.DomainServices.Features.Universities.List.Contracts;
+using UniversityProcessing.DomainServices.Features.Universities.Delete;
+using UniversityProcessing.DomainServices.Features.Universities.Get;
+using UniversityProcessing.DomainServices.Features.Universities.GetList;
 using UniversityProcessing.GenericSubdomain.Attributes;
 
 namespace UniversityProcessing.API.Controllers;
@@ -17,37 +17,37 @@ public class UniversityController(ISender mediator) : ControllerBase
 {
     [HttpGet]
     [ValidateModel]
-    public async Task<UniversityGetResponseDto> Get([FromQuery] UniversityGetRequestDto request, CancellationToken cancellationToken)
+    public async Task<GetUniversityResponseDto> Get([FromQuery] GetUniversityRequestDto request, CancellationToken cancellationToken)
     {
-        var query = new UniversityGetQueryRequest(request.Id);
+        var query = new GetUniversityQueryRequest(request.Id);
         var response = await mediator.Send(query, cancellationToken);
-        return new UniversityGetResponseDto(response.University);
+        return new GetUniversityResponseDto(response.University);
     }
 
     [HttpGet]
-    public async Task<UniversityListResponseDto> GetList([FromQuery] UniversityListRequestDto request, CancellationToken cancellationToken)
+    public async Task<GetUniversitiesResponseDto> GetList([FromQuery] GetUniversitiesRequestDto request, CancellationToken cancellationToken)
     {
-        var query = new UniversityListQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
+        var query = new GetUniversitiesQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
         var response = await mediator.Send(query, cancellationToken);
-        return new UniversityListResponseDto(response.List);
+        return new GetUniversitiesResponseDto(response.List);
     }
 
     [HttpPost]
     [Authorize(Roles = nameof(UserRoles.ApplicationAdmin))]
     [ValidateModel]
-    public async Task<UniversityCreateResponseDto> Create([FromBody] UniversityCreateRequestDto request, CancellationToken cancellationToken)
+    public async Task<CreateUniversityResponseDto> Create([FromBody] CreateUniversityRequestDto request, CancellationToken cancellationToken)
     {
         var command = new CreateUniversityCommandRequest(request.Name, request.ShortName);
         var response = await mediator.Send(command, cancellationToken);
-        return new UniversityCreateResponseDto(response.Id);
+        return new CreateUniversityResponseDto(response.Id);
     }
 
     [HttpDelete]
     [Authorize(Roles = nameof(UserRoles.ApplicationAdmin))]
     [ValidateModel]
-    public Task Delete([FromBody] UniversityDeleteRequestDto request, CancellationToken cancellationToken)
+    public Task Delete([FromBody] DeleteUniversityRequestDto request, CancellationToken cancellationToken)
     {
-        var command = new UniversityDeleteCommandRequest(request.Id);
+        var command = new DeleteUniversityCommandRequest(request.Id);
         return mediator.Send(command, cancellationToken);
     }
 }

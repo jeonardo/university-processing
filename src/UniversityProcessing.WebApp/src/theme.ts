@@ -10,6 +10,6 @@ const BgColor = {
     base1: "#f8f8f8"
 }
 
-const Theme = { BgColor, Colors }
+const Theme = {BgColor, Colors}
 
 export default Theme;

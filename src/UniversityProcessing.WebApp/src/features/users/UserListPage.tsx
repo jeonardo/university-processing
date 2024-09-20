@@ -1,11 +1,10 @@
-import { MRT_Localization_RU } from 'material-react-table/locales/ru';
+import {MRT_Localization_RU} from 'material-react-table/locales/ru';
 
-import { useEffect, useMemo, useState } from 'react';
+import {useMemo, useState} from 'react';
 import {
-    MRT_EditActionButtons,
     MaterialReactTable,
-    // createRow,
     type MRT_ColumnDef,
+    MRT_EditActionButtons,
     type MRT_Row,
     type MRT_TableOptions,
     useMaterialReactTable,
@@ -22,11 +21,20 @@ import {
     Select,
     Tooltip,
 } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { RegisterAdminRequestDto, RegisterEmployeeRequestDto, RegisterStudentRequestDto, UserDto, UserRoleIdDto, useDeleteApiV1IdentityDeleteMutation, useGetApiV1IdentityListQuery, usePostApiV1IdentityRegisterAdminMutation, usePostApiV1IdentityRegisterEmployeeMutation, usePostApiV1IdentityRegisterStudentMutation } from 'src/api/backendApi';
-import ValidationRules from 'src/core/ValidationRules';
-import { Switch } from 'src/core/Switch';
+import {
+    RegisterAdminRequestDto,
+    RegisterEmployeeRequestDto,
+    RegisterStudentRequestDto,
+    useDeleteApiV1IdentityDeleteMutation,
+    useGetApiV1UserGetListQuery,
+    usePostApiV1IdentityRegisterAdminMutation,
+    usePostApiV1IdentityRegisterEmployeeMutation,
+    usePostApiV1IdentityRegisterStudentMutation,
+    UserDto,
+    UserRoleIdDto
+} from 'src/api/backendApi';
+import {Switch} from 'src/core/Switch';
 
 function validateUserAdmin(university: RegisterAdminRequestDto) {
     return {
@@ -50,7 +58,7 @@ function validateUserEmployee(university: RegisterEmployeeRequestDto) {
 }
 
 const UserListPage = () => {
-    const dataState = useGetApiV1IdentityListQuery({})
+    const dataState = useGetApiV1UserGetListQuery({})
 
     const [createUserRole, setCreateUserRole] = useState<UserRoleIdDto>('None')
     const userRoles = ['None', 'ApplicationAdmin', 'Employee', 'Student'];
@@ -106,9 +114,9 @@ const UserListPage = () => {
     //CREATE action
 
     const handleCreateUserAdmin: MRT_TableOptions<RegisterAdminRequestDto>['onCreatingRowSave'] = async ({
-        values,
-        table,
-    }) => {
+                                                                                                             values,
+                                                                                                             table,
+                                                                                                         }) => {
         const newValidationErrors = validateUserAdmin(values);
 
         if (Object.values(newValidationErrors).some((error) => error)) {
@@ -125,9 +133,9 @@ const UserListPage = () => {
     }
 
     const handleCreateUserEmployee: MRT_TableOptions<RegisterEmployeeRequestDto>['onCreatingRowSave'] = async ({
-        values,
-        table,
-    }) => {
+                                                                                                                   values,
+                                                                                                                   table,
+                                                                                                               }) => {
         const newValidationErrors = validateUserEmployee(values);
 
         if (Object.values(newValidationErrors).some((error) => error)) {
@@ -143,9 +151,9 @@ const UserListPage = () => {
     };
 
     const handleCreateUserStudent: MRT_TableOptions<RegisterStudentRequestDto>['onCreatingRowSave'] = async ({
-        values,
-        table,
-    }) => {
+                                                                                                                 values,
+                                                                                                                 table,
+                                                                                                             }) => {
         const newValidationErrors = validateUserStudent(values);
 
         if (Object.values(newValidationErrors).some((error) => error)) {
@@ -163,7 +171,7 @@ const UserListPage = () => {
     //DELETE action
     const openDeleteConfirmModal = async (row: MRT_Row<UserDto>) => {
         if (window.confirm('Are you sure you want to delete this university?')) {
-            await handleDelete({ userDeleteRequestDto: { id: row.original.id } })
+            await handleDelete({userDeleteRequestDto: {id: row.original.id}})
         }
     };
 
@@ -199,11 +207,11 @@ const UserListPage = () => {
                                 return handleCreateUserStudent
                         }
                     },
-                    renderCreateRowDialogContent: ({ table, row, internalEditComponents }) => (
+                    renderCreateRowDialogContent: ({table, row, internalEditComponents}) => (
                         <>
                             <DialogTitle variant="h6">Регистрация нового университета</DialogTitle>
                             <DialogContent
-                                sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+                                sx={{display: 'flex', flexDirection: 'column', gap: '1rem'}}
                             >
                                 <InputLabel id="create-user-role-label">Роль нового пользователя</InputLabel>
                                 <Select
@@ -237,20 +245,20 @@ const UserListPage = () => {
                                 {/* {internalEditComponents} or render custom edit components here */}
                             </DialogContent>
                             <DialogActions>
-                                <MRT_EditActionButtons variant="text" table={table} row={row} />
+                                <MRT_EditActionButtons variant="text" table={table} row={row}/>
                             </DialogActions>
                         </>
                     ),
-                    renderRowActions: ({ row, table }) => (
-                        <Box sx={{ display: 'flex', gap: '1rem' }}>
+                    renderRowActions: ({row, table}) => (
+                        <Box sx={{display: 'flex', gap: '1rem'}}>
                             <Tooltip title="Delete">
                                 <IconButton color="error" onClick={() => openDeleteConfirmModal(row)}>
-                                    <DeleteIcon />
+                                    <DeleteIcon/>
                                 </IconButton>
                             </Tooltip>
                         </Box>
                     ),
-                    renderTopToolbarCustomActions: ({ table }) => (
+                    renderTopToolbarCustomActions: ({table}) => (
                         <Button
                             variant="contained"
                             onClick={() => {
@@ -272,7 +280,7 @@ const UserListPage = () => {
                         showAlertBanner: dataState.isError,
                         showProgressBars: dataState.isLoading,
                     },
-                })} />
+                })}/>
         </div>);
 }
 

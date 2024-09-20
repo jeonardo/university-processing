@@ -4,19 +4,19 @@ import NotFoundPage from 'src/features/notFound/NotFoundPage';
 import PublicOnlyLayout from 'src/layouts/public.only.layout';
 
 const PublicOnlyRoutes = {
-  path: '/',
-  element: <PublicOnlyLayout />,
-  errorElement: <NotFoundPage />,
-  children: [
-    {
-      path: 'signin',
-      element: <LoginPage />
-    },
-    {
-      path: 'signup',
-      element: <RegisterPage />
-    }
-  ]
+    path: '/',
+    element: <PublicOnlyLayout/>,
+    errorElement: <NotFoundPage/>,
+    children: [
+        {
+            path: 'signin',
+            element: <LoginPage/>
+        },
+        {
+            path: 'signup',
+            element: <RegisterPage/>
+        }
+    ]
 };
 
 export default PublicOnlyRoutes;

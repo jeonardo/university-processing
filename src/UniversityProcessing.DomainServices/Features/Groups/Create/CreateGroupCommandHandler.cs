@@ -14,13 +14,6 @@ internal sealed class CreateGroupCommandHandler(IEfRepository<Group> groupReposi
 
         await groupRepository.AddAsync(newEntity, cancellationToken);
 
-        var resultCode = await groupRepository.SaveChangesAsync(cancellationToken);
-
-        if (resultCode is not 1)
-        {
-            throw new ConflictException($"{nameof(CreateGroupCommandRequest)} failed");
-        }
-
         return new CreateGroupCommandResponse(newEntity.Id);
     }
 }

@@ -1,4 +1,4 @@
-import { FC, ReactElement, ReactNode } from 'react'
+import {FC, ReactElement, ReactNode} from 'react'
 
 interface CaseProps {
     children?: ReactNode
@@ -13,7 +13,7 @@ interface DefaultProps {
 interface SwitchComponentProps {
     condition: undefined | string | number
     children?:
-    | ReactElement<CaseProps | DefaultProps> | ReactElement<CaseProps | DefaultProps>[]
+        | ReactElement<CaseProps | DefaultProps> | ReactElement<CaseProps | DefaultProps>[]
 }
 
 interface SwitchComponentType extends FC<SwitchComponentProps> {
@@ -21,7 +21,7 @@ interface SwitchComponentType extends FC<SwitchComponentProps> {
     Default: FC<DefaultProps>
 }
 
-export const Switch: SwitchComponentType = ({ condition, children }) => {
+export const Switch: SwitchComponentType = ({condition, children}) => {
     if (!children) {
         return null
     }
@@ -37,10 +37,10 @@ export const Switch: SwitchComponentType = ({ condition, children }) => {
     return cases.length > 0 ? <>{cases}</> : <>{defaultCase}</>
 }
 
-Switch.Case = ({ children }) => {
+Switch.Case = ({children}) => {
     return <>{children}</>
 }
 
-Switch.Default = ({ children }) => {
+Switch.Default = ({children}) => {
     return <>{children}</>
 }

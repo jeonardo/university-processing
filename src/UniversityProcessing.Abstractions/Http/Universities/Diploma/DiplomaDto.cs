@@ -8,13 +8,13 @@ public sealed class DiplomaDto
 
     public int? Grade { get; set; }
 
-    public DiplomaStatusIdDto StatusId { get; set; }
+    public DiplomaStatusDto Status { get; set; }
 
-    public DiplomaDto(Guid id, string title, int? grade, DiplomaStatusIdDto statusId)
+    public DiplomaDto(Guid id, string title, int? grade, DiplomaStatusDto status)
     {
         Id = id;
         Title = title;
         Grade = grade;
-        StatusId = statusId;
+        Status = status;
     }
 }

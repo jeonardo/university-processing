@@ -1,6 +1,4 @@
-﻿using UniversityProcessing.GenericSubdomain.Http;
-
-namespace UniversityProcessing.Abstractions.Http.Identity;
+﻿namespace UniversityProcessing.Abstractions.Http.Identity;
 
 public sealed class LoginResponseDto(TokenDto accessToken, TokenDto refreshToken)
 {

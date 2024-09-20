@@ -1,6 +1,5 @@
 using MediatR;
 using UniversityProcessing.Domain.UniversityStructure;
-using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
 using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.DomainServices.Features.Universities.ChangeUniversityAdmin;
@@ -13,11 +12,6 @@ internal sealed class ChangeUniversityAdminCommandHandler(IEfRepository<Universi
 
         university.Update(adminId: request.UserId);
 
-        var resultCode = await repository.SaveChangesAsync(cancellationToken);
-
-        if (resultCode is not 1)
-        {
-            throw new ConflictException($"{nameof(ChangeUniversityAdminCommandRequest)} failed");
-        }
+        await repository.UpdateAsync(university, cancellationToken);
     }
 }

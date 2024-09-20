@@ -1,10 +1,7 @@
 import * as React from 'react';
-import { experimentalStyled as styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import { ButtonBase, Card, CardContent, CardMedia, Container, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import {ButtonBase, Card, CardContent, Container, Typography} from '@mui/material';
+import {useNavigate} from 'react-router-dom';
 
 const arr = [
     ["Университеты", "Просмотр и регистрация новых университетов", "/universities", 1],
@@ -17,7 +14,6 @@ const arr = [
 ]
 
 
-
 const ControlPanelPage = () => {
     const navigate = useNavigate()
     return (
@@ -27,7 +23,7 @@ const ControlPanelPage = () => {
                     arr.map((el) => (
                         <Grid item key={el[3] as number} xs={12} sm={6} md={4} lg={3}>
                             <ButtonBase onClick={() => navigate(el[2] as string)}>
-                                <Card sx={{ height: 120, width: 250 }}>
+                                <Card sx={{height: 120, width: 250}}>
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div">
                                             {el[0]}

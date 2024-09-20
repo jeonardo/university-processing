@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using UniversityProcessing.Domain;
-using UniversityProcessing.Domain.Identity;
 
 namespace UniversityProcessing.DomainServices.Core;
 

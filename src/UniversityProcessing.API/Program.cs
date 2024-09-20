@@ -10,6 +10,7 @@ using UniversityProcessing.API.Options;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.DomainServices;
 using UniversityProcessing.DomainServices.Options;
+using UniversityProcessing.GenericSubdomain.Configuration;
 using UniversityProcessing.GenericSubdomain.Middlewares;
 using UniversityProcessing.GenericSubdomain.Middlewares.Extensions;
 using UniversityProcessing.Infrastructure;
@@ -124,8 +125,7 @@ public static partial class Program
     private static void AddApplicationCors(this WebApplicationBuilder builder)
     {
         var allowedOrigins = builder.Configuration
-            .GetSection(nameof(CorsOptions))
-            .Get<CorsOptions>()!
+            .GetOptions<CorsOptions>()
             .GetAllowedOrigins();
 
         builder.Services.AddCors(
@@ -139,6 +139,7 @@ public static partial class Program
                             .WithOrigins(allowedOrigins)
                             .AllowAnyHeader()
                             .AllowAnyMethod()
+
                             // .AllowCredentials()
                             .SetIsOriginAllowedToAllowWildcardSubdomains();
                     });
