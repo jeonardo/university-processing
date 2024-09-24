@@ -1,8 +1,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using UniversityProcessing.Abstractions.Http.Universities.University;
-using UniversityProcessing.DomainServices.Features.UniversityPositions.Get;
-using UniversityProcessing.DomainServices.Features.UniversityPositions.GetList;
+using UniversityProcessing.Abstractions.Http.Universities.DiplomaPeriods;
+using UniversityProcessing.DomainServices.Features.DiplomaPeriods.Get;
+using UniversityProcessing.DomainServices.Features.DiplomaPeriods.GetActuals;
+using UniversityProcessing.DomainServices.Features.DiplomaPeriods.GetActualTeachers;
 using UniversityProcessing.GenericSubdomain.Attributes;
 
 namespace UniversityProcessing.API.Controllers;
@@ -13,18 +14,26 @@ public class DiplomaPeriodController(ISender mediator) : ControllerBase
 {
     [HttpGet]
     [ValidateModel]
-    public async Task<GetUniversityPositionResponseDto> Get([FromQuery] GetUniversityPositionRequestDto request, CancellationToken cancellationToken)
+    public async Task<GetDiplomaPeriodResponseDto> Get([FromQuery] GetDiplomaPeriodRequestDto request, CancellationToken cancellationToken)
     {
-        var query = new GetUniversityPositionQueryRequest(request.Id);
+        var query = new GetDiplomaPeriodQueryRequest(request.Id);
         var response = await mediator.Send(query, cancellationToken);
-        return new GetUniversityPositionResponseDto(response.UniversityPosition);
+        return new GetDiplomaPeriodResponseDto(response.DiplomaPeriod);
     }
 
     [HttpGet]
-    public async Task<GetUniversityPositionsResponseDto> GetList([FromQuery] GetUniversityPositionsRequestDto request, CancellationToken cancellationToken)
+    public async Task<GetActualDiplomaPeriodsResponseDto> GetActualList([FromQuery] GetActualDiplomaPeriodsRequestDto request, CancellationToken cancellationToken)
     {
-        var query = new GetUniversityPositionsQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
+        var query = new GetActualDiplomaPeriodsQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
         var response = await mediator.Send(query, cancellationToken);
-        return new GetUniversityPositionsResponseDto(response.List);
+        return new GetActualDiplomaPeriodsResponseDto(response.List);
+    }
+
+    [HttpPost]
+    public async Task<GetActualTeachersResponseDto> GetActualTeachers([FromQuery] GetActualTeachersRequestDto request, CancellationToken cancellationToken)
+    {
+        var query = new GetActualTeachersQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
+        var response = await mediator.Send(query, cancellationToken);
+        return new GetActualTeachersResponseDto(response.List);
     }
 }

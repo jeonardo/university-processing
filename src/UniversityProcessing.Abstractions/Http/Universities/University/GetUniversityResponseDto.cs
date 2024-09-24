@@ -1,11 +1,6 @@
 namespace UniversityProcessing.Abstractions.Http.Universities.University;
 
-public sealed class GetUniversityResponseDto
+public sealed class GetUniversityResponseDto(UniversityDto university)
 {
-    public UniversityDto University { get; set; }
-
-    public GetUniversityResponseDto(UniversityDto university)
-    {
-        University = university;
-    }
+    public UniversityDto University { get; set; } = university;
 }

@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace UniversityProcessing.DomainServices.Features.DiplomaPeriods.GetActualList;
+namespace UniversityProcessing.DomainServices.Features.DiplomaPeriods.GetActuals;
 
 public sealed record GetActualDiplomaPeriodsQueryRequest(
     int PageNumber,

@@ -2,12 +2,7 @@ using UniversityProcessing.GenericSubdomain.Pagination;
 
 namespace UniversityProcessing.Abstractions.Http.Universities.University;
 
-public sealed class GetUniversitiesResponseDto
+public sealed class GetUniversitiesResponseDto(PagedList<UniversityDto> list)
 {
-    public PagedList<UniversityDto> List { get; set; }
-
-    public GetUniversitiesResponseDto(PagedList<UniversityDto> list)
-    {
-        List = list;
-    }
+    public PagedList<UniversityDto> List { get; set; } = list;
 }

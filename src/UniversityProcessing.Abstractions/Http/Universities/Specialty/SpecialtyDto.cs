@@ -1,17 +1,9 @@
 namespace UniversityProcessing.Abstractions.Http.Universities.Specialty;
 
-public sealed class SpecialtyDto
+public sealed class SpecialtyDto(Guid id, string name, string shortName, string code)
 {
-    public Guid Id { get; set; }
-    public string Name { get; set; }
-    public string ShortName { get; set; }
-    public string Code { get; set; }
-
-    public SpecialtyDto(Guid id, string name, string shortName, string code)
-    {
-        Id = id;
-        Name = name;
-        ShortName = shortName;
-        Code = code;
-    }
+    public Guid Id { get; set; } = id;
+    public string Name { get; set; } = name;
+    public string ShortName { get; set; } = shortName;
+    public string Code { get; set; } = code;
 }

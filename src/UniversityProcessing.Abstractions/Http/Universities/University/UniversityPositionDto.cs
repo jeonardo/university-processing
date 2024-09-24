@@ -1,13 +1,7 @@
 namespace UniversityProcessing.Abstractions.Http.Universities.University;
 
-public sealed class UniversityPositionDto
+public sealed class UniversityPositionDto(Guid id, string name)
 {
-    public Guid Id { get; set; }
-    public string Name { get; set; }
-
-    public UniversityPositionDto(Guid id, string name)
-    {
-        Id = id;
-        Name = name;
-    }
+    public Guid Id { get; set; } = id;
+    public string Name { get; set; } = name;
 }

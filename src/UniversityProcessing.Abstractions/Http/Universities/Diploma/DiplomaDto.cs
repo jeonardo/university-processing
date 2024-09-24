@@ -1,20 +1,12 @@
 namespace UniversityProcessing.Abstractions.Http.Universities.Diploma;
 
-public sealed class DiplomaDto
+public sealed class DiplomaDto(Guid id, string title, int? grade, DiplomaStatusDto status)
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = id;
 
-    public string Title { get; set; }
+    public string Title { get; set; } = title;
 
-    public int? Grade { get; set; }
+    public int? Grade { get; set; } = grade;
 
-    public DiplomaStatusDto Status { get; set; }
-
-    public DiplomaDto(Guid id, string title, int? grade, DiplomaStatusDto status)
-    {
-        Id = id;
-        Title = title;
-        Grade = grade;
-        Status = status;
-    }
+    public DiplomaStatusDto Status { get; set; } = status;
 }

@@ -2,7 +2,7 @@ using MediatR;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.Repository.Repositories;
 
-namespace UniversityProcessing.DomainServices.Features.DiplomaPeriods.GetActualList;
+namespace UniversityProcessing.DomainServices.Features.DiplomaPeriods.GetActuals;
 
 internal sealed class GetActualDiplomaPeriodsQueryHandler(IEfReadRepository<DiplomaPeriod> repository)
     : IRequestHandler<GetActualDiplomaPeriodsQueryRequest, GetActualDiplomaPeriodsQueryResponse>

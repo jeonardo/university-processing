@@ -1,11 +1,6 @@
 namespace UniversityProcessing.Abstractions.Http.Universities.University;
 
-public sealed class CreateUniversityResponseDto
+public sealed class CreateUniversityResponseDto(Guid id)
 {
-    public Guid Id { get; set; }
-
-    public CreateUniversityResponseDto(Guid id)
-    {
-        Id = id;
-    }
+    public Guid Id { get; set; } = id;
 }

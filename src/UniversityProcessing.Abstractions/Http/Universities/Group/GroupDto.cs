@@ -1,13 +1,7 @@
 namespace UniversityProcessing.Abstractions.Http.Universities.Group;
 
-public sealed class GroupDto
+public sealed class GroupDto(Guid id, string number)
 {
-    public Guid Id { get; set; }
-    public string Number { get; set; }
-
-    public GroupDto(Guid id, string number)
-    {
-        Id = id;
-        Number = number;
-    }
+    public Guid Id { get; set; } = id;
+    public string Number { get; set; } = number;
 }
