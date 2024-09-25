@@ -14,7 +14,6 @@ public sealed class Faculty : BaseEntity, IHasId
     public string ShortName { get; private set; } = null!;
 
     public Guid? UniversityId { get; private set; }
-
     public University? University { get; private set; }
 
     public ICollection<DiplomaPeriod> DiplomaPeriods { get; private set; } = [];

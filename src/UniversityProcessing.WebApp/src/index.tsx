@@ -6,15 +6,15 @@ import '@fontsource/inter/700.css';
 import './index.css';
 
 import React from "react";
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
 import App from "./app.tsx";
-import {store} from './core/store'
-import {createRoot} from "react-dom/client";
+import { store } from './core/store'
+import { createRoot } from "react-dom/client";
 
 createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <Provider store={store}>
-            <App/>
+            <App />
         </Provider>
     </React.StrictMode>,
 )

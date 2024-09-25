@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 using UniversityProcessing.Domain.Bases;
 using UniversityProcessing.GenericSubdomain.Identity;
 
 namespace UniversityProcessing.Domain.UniversityStructure;
 
+[Index(nameof(Code), IsUnique = true)]
 public sealed class Specialty : BaseEntity, IHasId
 {
     [StringLength(50, MinimumLength = 1)]

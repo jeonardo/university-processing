@@ -121,8 +121,8 @@ namespace UniversityProcessing.Infrastructure.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    start_date = table.Column<DateOnly>(type: "TEXT", nullable: false),
-                    end_date = table.Column<DateOnly>(type: "TEXT", nullable: false),
+                    start_date = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    end_date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     faculty_id = table.Column<Guid>(type: "TEXT", nullable: true),
                     secretary_id = table.Column<Guid>(type: "TEXT", nullable: true),
                     required_titles = table.Column<string>(type: "TEXT", nullable: false),
@@ -166,7 +166,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     id = table.Column<Guid>(type: "TEXT", nullable: false),
                     title = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     grade = table.Column<int>(type: "INTEGER", nullable: true),
-                    status_id = table.Column<int>(type: "INTEGER", nullable: false),
+                    status = table.Column<int>(type: "INTEGER", nullable: false),
                     diploma_period_id = table.Column<Guid>(type: "TEXT", nullable: true),
                     student_id = table.Column<Guid>(type: "TEXT", nullable: true),
                     supervisor_id = table.Column<Guid>(type: "TEXT", nullable: true),
@@ -188,8 +188,8 @@ namespace UniversityProcessing.Infrastructure.Migrations
                 {
                     id = table.Column<Guid>(type: "TEXT", nullable: false),
                     number = table.Column<string>(type: "TEXT", maxLength: 25, nullable: false),
-                    start_date = table.Column<DateOnly>(type: "TEXT", nullable: false),
-                    end_date = table.Column<DateOnly>(type: "TEXT", nullable: false),
+                    start_date = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    end_date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     specialty_id = table.Column<Guid>(type: "TEXT", nullable: true),
                     faculty_id = table.Column<Guid>(type: "TEXT", nullable: true),
                     created_at = table.Column<DateTime>(type: "TEXT", nullable: false)
@@ -217,10 +217,10 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     approved = table.Column<bool>(type: "INTEGER", nullable: false),
                     created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     first_name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    last_name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    last_name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     middle_name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
                     email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    birthday = table.Column<DateOnly>(type: "TEXT", nullable: true),
+                    birthday = table.Column<DateTime>(type: "TEXT", nullable: true),
                     university_id = table.Column<Guid>(type: "TEXT", nullable: true),
                     group_id = table.Column<Guid>(type: "TEXT", nullable: true),
                     university_position_id = table.Column<Guid>(type: "TEXT", nullable: true),
@@ -439,6 +439,12 @@ namespace UniversityProcessing.Infrastructure.Migrations
                 column: "faculty_id");
 
             migrationBuilder.CreateIndex(
+                name: "ix_groups_number",
+                table: "groups",
+                column: "number",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "ix_groups_specialty_id",
                 table: "groups",
                 column: "specialty_id");
@@ -452,6 +458,12 @@ namespace UniversityProcessing.Infrastructure.Migrations
                 name: "RoleNameIndex",
                 table: "roles",
                 column: "normalized_name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "ix_specialties_code",
+                table: "specialties",
+                column: "code",
                 unique: true);
 
             migrationBuilder.CreateIndex(

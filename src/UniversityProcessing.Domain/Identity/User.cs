@@ -6,37 +6,31 @@ using UniversityProcessing.GenericSubdomain.Identity;
 
 namespace UniversityProcessing.Domain.Identity;
 
-//TODO mark as nullable references to prevent cascade delete
 public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
 {
     public bool Approved { get; private set; }
 
-    [DataType(DataType.DateTime)]
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 
     [StringLength(50, MinimumLength = 1)]
     public string FirstName { get; private set; } = null!;
 
     [StringLength(50, MinimumLength = 1)]
-    public string? LastName { get; private set; }
+    public string LastName { get; private set; } = null!;
 
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(50)]
     public string? MiddleName { get; private set; }
 
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(50)]
     public override string? Email { get; set; }
 
-    [DataType(DataType.Date)]
-    public DateOnly? Birthday { get; private set; }
-
+    public DateTime? Birthday { get; private set; }
     public Guid? UniversityId { get; private set; }
 
     public University? University { get; private set; }
-
     public Guid? GroupId { get; private set; }
 
     public Group? Group { get; private set; }
-
     public Guid? UniversityPositionId { get; private set; }
 
     public UniversityPosition? UniversityPosition { get; private set; }
@@ -73,7 +67,7 @@ public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
             LastName = lastName,
             MiddleName = middleName,
             Email = email,
-            Birthday = birthday
+            Birthday = birthday?.ToDateTime(TimeOnly.MinValue)
         };
     }
 
@@ -93,7 +87,7 @@ public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
             LastName = lastName,
             MiddleName = middleName,
             Email = email,
-            Birthday = birthday,
+            Birthday = birthday?.ToDateTime(TimeOnly.MinValue),
             GroupId = groupId
         };
     }
@@ -115,7 +109,7 @@ public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
             LastName = lastName,
             MiddleName = middleName,
             Email = email,
-            Birthday = birthday,
+            Birthday = birthday?.ToDateTime(TimeOnly.MinValue),
             UniversityId = universityId,
             UniversityPositionId = universityPositionId
         };

@@ -1,0 +1,161 @@
+2024-09-25 00:18:23.954 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/api/v1/Identity/Info - null null
+2024-09-25 00:18:24.122 +03:00 [INF] CORS policy execution successful.
+2024-09-25 00:18:24.154 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-09-25 00:18:24.155 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-25 00:18:24.156 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/api/v1/Identity/Info - 401 0 null 201.8188ms
+2024-09-25 00:27:44.222 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5158/api/v1/Identity/RegisterAdmin - null null
+2024-09-25 00:27:44.230 +03:00 [INF] CORS policy execution successful.
+2024-09-25 00:27:44.231 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5158/api/v1/Identity/RegisterAdmin - 204 null null 9.0238ms
+2024-09-25 00:27:44.234 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5158/api/v1/Identity/RegisterAdmin - application/json 220
+2024-09-25 00:27:44.238 +03:00 [INF] CORS policy execution successful.
+2024-09-25 00:27:44.238 +03:00 [INF] Executing endpoint 'UniversityProcessing.API.Controllers.IdentityController.RegisterAdmin (UniversityProcessing.API)'
+2024-09-25 00:27:44.239 +03:00 [INF] Route matched with {action = "RegisterAdmin", controller = "Identity"}. Executing controller action with signature System.Threading.Tasks.Task RegisterAdmin(UniversityProcessing.Abstractions.Http.Identity.RegisterAdminRequestDto, System.Threading.CancellationToken) on controller UniversityProcessing.API.Controllers.IdentityController (UniversityProcessing.API).
+2024-09-25 00:27:44.241 +03:00 [INF] Executing action method UniversityProcessing.API.Controllers.IdentityController.RegisterAdmin (UniversityProcessing.API) - Validation state: "Valid"
+2024-09-25 00:27:44.328 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@__normalizedUserName_0='?' (Size = 13)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."id", "u"."access_failed_count", "u"."approved", "u"."birthday", "u"."concurrency_stamp", "u"."created_at", "u"."department_id", "u"."email", "u"."email_confirmed", "u"."faculty_id", "u"."first_name", "u"."group_id", "u"."last_name", "u"."lockout_enabled", "u"."lockout_end", "u"."middle_name", "u"."normalized_email", "u"."normalized_user_name", "u"."password_hash", "u"."phone_number", "u"."phone_number_confirmed", "u"."security_stamp", "u"."two_factor_enabled", "u"."university_id", "u"."university_position_id", "u"."user_name"
+FROM "users" AS "u"
+WHERE "u"."normalized_user_name" = @__normalizedUserName_0
+LIMIT 1
+2024-09-25 00:27:44.395 +03:00 [INF] Executed action UniversityProcessing.API.Controllers.IdentityController.RegisterAdmin (UniversityProcessing.API) in 154.8919ms
+2024-09-25 00:27:44.398 +03:00 [INF] Executed endpoint 'UniversityProcessing.API.Controllers.IdentityController.RegisterAdmin (UniversityProcessing.API)'
+2024-09-25 00:27:44.422 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5158/api/v1/Identity/RegisterAdmin - 409 null application/json; charset=utf-8 187.9337ms
+2024-09-25 00:28:02.926 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5158/api/v1/Identity/RegisterAdmin - null null
+2024-09-25 00:28:02.929 +03:00 [INF] CORS policy execution successful.
+2024-09-25 00:28:02.931 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5158/api/v1/Identity/RegisterAdmin - 204 null null 4.921ms
+2024-09-25 00:28:02.935 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5158/api/v1/Identity/RegisterAdmin - application/json 220
+2024-09-25 00:28:02.938 +03:00 [INF] CORS policy execution successful.
+2024-09-25 00:28:02.940 +03:00 [INF] Executing endpoint 'UniversityProcessing.API.Controllers.IdentityController.RegisterAdmin (UniversityProcessing.API)'
+2024-09-25 00:28:02.942 +03:00 [INF] Route matched with {action = "RegisterAdmin", controller = "Identity"}. Executing controller action with signature System.Threading.Tasks.Task RegisterAdmin(UniversityProcessing.Abstractions.Http.Identity.RegisterAdminRequestDto, System.Threading.CancellationToken) on controller UniversityProcessing.API.Controllers.IdentityController (UniversityProcessing.API).
+2024-09-25 00:28:02.945 +03:00 [INF] Executing action method UniversityProcessing.API.Controllers.IdentityController.RegisterAdmin (UniversityProcessing.API) - Validation state: "Valid"
+2024-09-25 00:28:03.022 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 13)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."id", "u"."access_failed_count", "u"."approved", "u"."birthday", "u"."concurrency_stamp", "u"."created_at", "u"."department_id", "u"."email", "u"."email_confirmed", "u"."faculty_id", "u"."first_name", "u"."group_id", "u"."last_name", "u"."lockout_enabled", "u"."lockout_end", "u"."middle_name", "u"."normalized_email", "u"."normalized_user_name", "u"."password_hash", "u"."phone_number", "u"."phone_number_confirmed", "u"."security_stamp", "u"."two_factor_enabled", "u"."university_id", "u"."university_position_id", "u"."user_name"
+FROM "users" AS "u"
+WHERE "u"."normalized_user_name" = @__normalizedUserName_0
+LIMIT 1
+2024-09-25 00:28:03.030 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (DbType = Boolean), @p3='?' (DbType = Date), @p4='?' (Size = 36), @p5='?' (DbType = DateTime), @p6='?' (DbType = Guid), @p7='?' (Size = 23), @p8='?' (DbType = Boolean), @p9='?' (DbType = Guid), @p10='?' (Size = 9), @p11='?' (DbType = Guid), @p12='?' (Size = 9), @p13='?' (DbType = Boolean), @p14='?' (DbType = DateTimeOffset), @p15='?' (Size = 9), @p16='?' (Size = 23), @p17='?' (Size = 13), @p18='?' (Size = 84), @p19='?', @p20='?' (DbType = Boolean), @p21='?' (Size = 32), @p22='?' (DbType = Boolean), @p23='?' (DbType = Guid), @p24='?' (DbType = Guid), @p25='?' (Size = 13)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "users" ("id", "access_failed_count", "approved", "birthday", "concurrency_stamp", "created_at", "department_id", "email", "email_confirmed", "faculty_id", "first_name", "group_id", "last_name", "lockout_enabled", "lockout_end", "middle_name", "normalized_email", "normalized_user_name", "password_hash", "phone_number", "phone_number_confirmed", "security_stamp", "two_factor_enabled", "university_id", "university_position_id", "user_name")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21, @p22, @p23, @p24, @p25);
+2024-09-25 00:28:03.035 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 16)], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."id", "r"."concurrency_stamp", "r"."created_at", "r"."default_permissions", "r"."name", "r"."normalized_name"
+FROM "roles" AS "r"
+WHERE "r"."normalized_name" = @__normalizedRoleName_0
+LIMIT 2
+2024-09-25 00:28:03.038 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Guid), @__get_Item_1='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."user_id", "u"."role_id"
+FROM "user_roles" AS "u"
+WHERE "u"."user_id" = @__get_Item_0 AND "u"."role_id" = @__get_Item_1
+LIMIT 1
+2024-09-25 00:28:03.040 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 16)], CommandType='"Text"', CommandTimeout='30']
+SELECT "r"."id", "r"."concurrency_stamp", "r"."created_at", "r"."default_permissions", "r"."name", "r"."normalized_name"
+FROM "roles" AS "r"
+WHERE "r"."normalized_name" = @__normalizedRoleName_0
+LIMIT 2
+2024-09-25 00:28:03.043 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedUserName_0='?' (Size = 13)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."id", "u"."access_failed_count", "u"."approved", "u"."birthday", "u"."concurrency_stamp", "u"."created_at", "u"."department_id", "u"."email", "u"."email_confirmed", "u"."faculty_id", "u"."first_name", "u"."group_id", "u"."last_name", "u"."lockout_enabled", "u"."lockout_end", "u"."middle_name", "u"."normalized_email", "u"."normalized_user_name", "u"."password_hash", "u"."phone_number", "u"."phone_number_confirmed", "u"."security_stamp", "u"."two_factor_enabled", "u"."university_id", "u"."university_position_id", "u"."user_name"
+FROM "users" AS "u"
+WHERE "u"."normalized_user_name" = @__normalizedUserName_0
+LIMIT 1
+2024-09-25 00:28:03.046 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "user_roles" ("role_id", "user_id")
+VALUES (@p0, @p1);
+2024-09-25 00:28:03.048 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[@p25='?' (DbType = Guid), @p0='?' (DbType = Int32), @p1='?' (DbType = Boolean), @p2='?' (DbType = Date), @p3='?' (Size = 36), @p26='?' (Size = 36), @p4='?' (DbType = DateTime), @p5='?' (DbType = Guid), @p6='?' (Size = 23), @p7='?' (DbType = Boolean), @p8='?' (DbType = Guid), @p9='?' (Size = 9), @p10='?' (DbType = Guid), @p11='?' (Size = 9), @p12='?' (DbType = Boolean), @p13='?' (DbType = DateTimeOffset), @p14='?' (Size = 9), @p15='?' (Size = 23), @p16='?' (Size = 13), @p17='?' (Size = 84), @p18='?', @p19='?' (DbType = Boolean), @p20='?' (Size = 32), @p21='?' (DbType = Boolean), @p22='?' (DbType = Guid), @p23='?' (DbType = Guid), @p24='?' (Size = 13)], CommandType='"Text"', CommandTimeout='30']
+UPDATE "users" SET "access_failed_count" = @p0, "approved" = @p1, "birthday" = @p2, "concurrency_stamp" = @p3, "created_at" = @p4, "department_id" = @p5, "email" = @p6, "email_confirmed" = @p7, "faculty_id" = @p8, "first_name" = @p9, "group_id" = @p10, "last_name" = @p11, "lockout_enabled" = @p12, "lockout_end" = @p13, "middle_name" = @p14, "normalized_email" = @p15, "normalized_user_name" = @p16, "password_hash" = @p17, "phone_number" = @p18, "phone_number_confirmed" = @p19, "security_stamp" = @p20, "two_factor_enabled" = @p21, "university_id" = @p22, "university_position_id" = @p23, "user_name" = @p24
+WHERE "id" = @p25 AND "concurrency_stamp" = @p26
+RETURNING 1;
+2024-09-25 00:28:03.052 +03:00 [INF] Executed action method UniversityProcessing.API.Controllers.IdentityController.RegisterAdmin (UniversityProcessing.API), returned result Microsoft.AspNetCore.Mvc.EmptyResult in 105.2347ms.
+2024-09-25 00:28:03.053 +03:00 [INF] Executed action UniversityProcessing.API.Controllers.IdentityController.RegisterAdmin (UniversityProcessing.API) in 109.6656ms
+2024-09-25 00:28:03.054 +03:00 [INF] Executed endpoint 'UniversityProcessing.API.Controllers.IdentityController.RegisterAdmin (UniversityProcessing.API)'
+2024-09-25 00:28:03.055 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5158/api/v1/Identity/RegisterAdmin - 200 0 null 120.5475ms
+2024-09-25 00:28:15.056 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/api/v1/Identity/Info - null null
+2024-09-25 00:28:15.068 +03:00 [INF] CORS policy execution successful.
+2024-09-25 00:28:15.071 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-09-25 00:28:15.072 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-25 00:28:15.074 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/api/v1/Identity/Info - 401 0 null 17.5071ms
+2024-09-25 21:38:15.768 +03:00 [INF] Database prepearing
+2024-09-25 21:38:15.836 +03:00 [INF] Migrating database...
+2024-09-25 21:38:17.201 +03:00 [INF] Executed DbCommand (20ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-09-25 21:38:17.219 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-09-25 21:38:17.239 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-09-25 21:38:17.269 +03:00 [INF] No migrations were applied. The database is already up to date.
+2024-09-25 21:38:17.407 +03:00 [INF] User profile is available. Using 'C:\Users\AsusTufLord\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-09-25 21:38:17.798 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "universities" AS "u")
+2024-09-25 21:38:17.806 +03:00 [INF] Database migrated successfully
+2024-09-25 21:38:17.807 +03:00 [INF] Launching UniversityProcessing.API...
+2024-09-25 21:38:18.346 +03:00 [INF] Now listening on: http://localhost:5158
+2024-09-25 21:38:18.348 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-25 21:38:18.349 +03:00 [INF] Hosting environment: Development
+2024-09-25 21:38:18.358 +03:00 [INF] Content root path: C:\Users\AsusTufLord\Documents\GitHub\university-processing\src\UniversityProcessing.API
+2024-09-25 21:38:18.463 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/index.html - null null
+2024-09-25 21:38:18.508 +03:00 [WRN] Failed to determine the https port for redirect.
+2024-09-25 21:38:18.794 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/index.html - 200 null text/html;charset=utf-8 332.2013ms
+2024-09-25 21:38:19.678 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - null null
+2024-09-25 21:38:20.067 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 389.7097ms
+2024-09-25 21:38:22.345 +03:00 [INF] No SPA development server running at https://localhost:5173 found.
+2024-09-25 21:38:32.333 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/api/v1/Identity/Info - null null
+2024-09-25 21:38:32.364 +03:00 [INF] CORS policy execution successful.
+2024-09-25 21:38:32.399 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-09-25 21:38:32.413 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-25 21:38:32.416 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/api/v1/Identity/Info - 401 0 null 85.1821ms
+2024-09-25 21:39:27.035 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-09-25 21:39:27.077 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-09-25 21:39:27.086 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-09-25 21:39:27.089 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2024-09-25 21:39:27.093 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "migration_id", "product_version"
+FROM "__EFMigrationsHistory"
+ORDER BY "migration_id";
+2024-09-25 21:39:27.101 +03:00 [INF] Reverting migration '20240924170311_Initial'.
+2024-09-25 21:39:27.126 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE "diploma_period_user";
+2024-09-25 21:39:27.129 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE "diploma_user";
+2024-09-25 21:39:27.131 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE "role_claims";
+2024-09-25 21:39:27.133 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE "user_claims";
+2024-09-25 21:39:27.135 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE "user_logins";
+2024-09-25 21:39:27.137 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE "user_roles";
+2024-09-25 21:39:27.140 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE "user_tokens";
+2024-09-25 21:39:27.146 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE "diplomas";
+2024-09-25 21:39:27.148 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE "roles";
+2024-09-25 21:39:27.152 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE "users";
+2024-09-25 21:39:27.154 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE "diploma_periods";
+2024-09-25 21:39:27.156 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE "departments";
+2024-09-25 21:39:27.158 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE "groups";
+2024-09-25 21:39:27.162 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE "university_position";
+2024-09-25 21:39:27.164 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE "specialties";
+2024-09-25 21:39:27.166 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE "faculties";
+2024-09-25 21:39:27.168 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP TABLE "universities";
+2024-09-25 21:39:27.171 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "__EFMigrationsHistory"
+WHERE "migration_id" = '20240924170311_Initial';

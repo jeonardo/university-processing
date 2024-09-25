@@ -196,7 +196,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("approved");
 
-                    b.Property<DateOnly?>("Birthday")
+                    b.Property<DateTime?>("Birthday")
                         .HasColumnType("TEXT")
                         .HasColumnName("birthday");
 
@@ -237,6 +237,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnName("group_id");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("TEXT")
                         .HasColumnName("last_name");
@@ -423,9 +424,9 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("grade");
 
-                    b.Property<int>("StatusId")
+                    b.Property<int>("Status")
                         .HasColumnType("INTEGER")
-                        .HasColumnName("status_id");
+                        .HasColumnName("status");
 
                     b.Property<Guid?>("StudentId")
                         .HasColumnType("TEXT")
@@ -461,7 +462,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("created_at");
 
-                    b.Property<DateOnly>("EndDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("TEXT")
                         .HasColumnName("end_date");
 
@@ -478,7 +479,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("secretary_id");
 
-                    b.Property<DateOnly>("StartDate")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("TEXT")
                         .HasColumnName("start_date");
 
@@ -538,7 +539,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("created_at");
 
-                    b.Property<DateOnly>("EndDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("TEXT")
                         .HasColumnName("end_date");
 
@@ -556,7 +557,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("specialty_id");
 
-                    b.Property<DateOnly>("StartDate")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("TEXT")
                         .HasColumnName("start_date");
 
@@ -565,6 +566,10 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
                     b.HasIndex("FacultyId")
                         .HasDatabaseName("ix_groups_faculty_id");
+
+                    b.HasIndex("Number")
+                        .IsUnique()
+                        .HasDatabaseName("ix_groups_number");
 
                     b.HasIndex("SpecialtyId")
                         .HasDatabaseName("ix_groups_specialty_id");
@@ -607,6 +612,10 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_specialties");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ix_specialties_code");
 
                     b.HasIndex("FacultyId")
                         .HasDatabaseName("ix_specialties_faculty_id");

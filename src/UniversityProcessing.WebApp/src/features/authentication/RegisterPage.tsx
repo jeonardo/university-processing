@@ -36,7 +36,7 @@ const RegisterPage = () => {
                         setUserRole(isUserRole(e.target.value) ? e.target.value : "None")
                     }
                 >
-                    <MenuItem value={'None'}>Не выбрана</MenuItem>
+                    <MenuItem disabled value={'None'}>Не выбрана</MenuItem>
                     <MenuItem value={'Student'}>Студент</MenuItem>
                     <MenuItem value={'ApplicationAdmin'}>Администратор</MenuItem>
                     <MenuItem value={'Employee'}>Сотрудник университета</MenuItem>

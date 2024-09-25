@@ -15,13 +15,12 @@ public sealed class Diploma : BaseEntity
     public int? Grade { get; private set; }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public DiplomaStatusId StatusId { get; private set; } = DiplomaStatusId.Created;
+    public DiplomaStatus Status { get; private set; } = DiplomaStatus.Created;
 
     public Guid? DiplomaPeriodId { get; private set; }
 
     public DiplomaPeriod? DiplomaPeriod { get; private set; }
     public Guid? StudentId { get; private set; }
-
     public Guid? SupervisorId { get; private set; }
 
     public ICollection<User> Users { get; private set; } = [];

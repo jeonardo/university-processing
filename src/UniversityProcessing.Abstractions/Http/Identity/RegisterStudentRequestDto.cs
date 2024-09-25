@@ -20,10 +20,10 @@ public sealed class RegisterStudentRequestDto
     [StringLength(50, MinimumLength = 1)]
     public required string LastName { get; set; }
 
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(50)]
     public string? MiddleName { get; set; }
 
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(50)]
     public string? Email { get; set; }
 
     [DataType(DataType.Date)]

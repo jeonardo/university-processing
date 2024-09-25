@@ -1,6 +1,6 @@
 namespace UniversityProcessing.Domain.UniversityStructure.Enums;
 
-public enum DiplomaStatusId
+public enum DiplomaStatus
 {
     None = 0,
     Created = 1,

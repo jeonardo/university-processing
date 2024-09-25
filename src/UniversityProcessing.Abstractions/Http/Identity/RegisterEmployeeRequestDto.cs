@@ -20,16 +20,15 @@ public sealed class RegisterEmployeeRequestDto
     [StringLength(50, MinimumLength = 1)]
     public required string LastName { get; set; }
 
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(50)]
     public string? MiddleName { get; set; }
 
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(50)]
     public string? Email { get; set; }
 
     [DataType(DataType.Date)]
     public DateTime? Birthday { get; set; }
 
     public Guid? UniversityId { get; set; }
-
     public Guid? UniversityPositionId { get; set; }
 }

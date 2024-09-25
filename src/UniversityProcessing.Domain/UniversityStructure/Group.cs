@@ -12,12 +12,8 @@ public sealed class Group : BaseEntity, IHasId
     [StringLength(25, MinimumLength = 1)]
     public string Number { get; private set; } = null!;
 
-    [DataType(DataType.DateTime)]
-    public DateOnly StartDate { get; private set; }
-
-    [DataType(DataType.DateTime)]
-    public DateOnly EndDate { get; private set; }
-
+    public DateTime StartDate { get; private set; }
+    public DateTime EndDate { get; private set; }
     public Guid? SpecialtyId { get; private set; }
     public Specialty? Specialty { get; private set; }
 
@@ -34,8 +30,8 @@ public sealed class Group : BaseEntity, IHasId
         return new Group
         {
             Number = number,
-            StartDate = startDate,
-            EndDate = endDate,
+            StartDate = startDate.ToDateTime(TimeOnly.MinValue),
+            EndDate = endDate.ToDateTime(TimeOnly.MinValue),
             SpecialtyId = specialtyId
         };
     }

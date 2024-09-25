@@ -42,11 +42,11 @@ public class UniversitySeed(
             return;
         }
 
-        var role1 = new UserRole(nameof(UserRoles.ApplicationAdmin));
+        var role1 = UserRole.Create(nameof(UserRoles.ApplicationAdmin));
         await roleManager.CreateAsync(role1);
-        var role2 = new UserRole(nameof(UserRoles.Employee));
+        var role2 = UserRole.Create(nameof(UserRoles.Employee));
         await roleManager.CreateAsync(role2);
-        var role3 = new UserRole(nameof(UserRoles.Student));
+        var role3 = UserRole.Create(nameof(UserRoles.Student));
         await roleManager.CreateAsync(role3);
 
         var bsu = await AddUniversity("Белорусский государственный университет", "БГУ");

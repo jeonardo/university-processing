@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using UniversityProcessing.Domain.Bases;
+﻿using UniversityProcessing.Domain.Bases;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.GenericSubdomain.Identity;
 
@@ -7,12 +6,8 @@ namespace UniversityProcessing.Domain.UniversityStructure;
 
 public sealed class DiplomaPeriod : BaseEntity, IHasId
 {
-    [DataType(DataType.DateTime)]
     public DateTime StartDate { get; private set; }
-
-    [DataType(DataType.DateTime)]
     public DateTime EndDate { get; private set; }
-
     public Guid? FacultyId { get; private set; }
 
     public Faculty? Faculty { get; private set; }

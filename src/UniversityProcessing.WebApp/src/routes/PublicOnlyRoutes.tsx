@@ -5,16 +5,16 @@ import PublicOnlyLayout from 'src/layouts/public.only.layout';
 
 const PublicOnlyRoutes = {
     path: '/',
-    element: <PublicOnlyLayout/>,
-    errorElement: <NotFoundPage/>,
+    element: <PublicOnlyLayout />,
+    errorElement: <NotFoundPage />,
     children: [
         {
             path: 'signin',
-            element: <LoginPage/>
+            element: <LoginPage />
         },
         {
             path: 'signup',
-            element: <RegisterPage/>
+            element: <RegisterPage />
         }
     ]
 };

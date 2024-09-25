@@ -1,45 +1,47 @@
-import {Button, CircularProgress, FormControl, Stack, TextField,} from "@mui/material";
-import {useState} from "react";
-import {useAppDispatch} from "../../core/hooks";
-import {usePostApiV1IdentityRegisterAdminMutation} from "src/api/backendApi";
-import {DatePicker} from "@mui/x-date-pickers";
+import { Button, CircularProgress, FormControl, Stack, TextField, } from "@mui/material";
+import { useState } from "react";
+import { usePostApiV1IdentityRegisterAdminMutation } from "src/api/backendApi";
+import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
+import RegisterResultModal from "./RegisterResultModal";
 
 const RegisterAdminForm = () => {
-    const dispatch = useAppDispatch();
-
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [firstName, setFirstName] = useState("");
     const [middleName, setMiddleName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [birthday, setBirthday] = useState(new Date());
+    const [birthday, setBirthday] = useState(dayjs());
     const [email, setEmail] = useState("");
 
-    const [tryregister, {isLoading, isSuccess}] = usePostApiV1IdentityRegisterAdminMutation()
+    const [tryregister, { isLoading, isSuccess }] = usePostApiV1IdentityRegisterAdminMutation()
 
     const handleRegister = async () => {
         if (!userName || !password || !firstName)
             return
 
-        const result = await tryregister({
+        await tryregister({
             registerAdminRequestDto:
-                {
-                    password: password,
-                    userName: userName,
-                    firstName: firstName,
-                    lastName: lastName,
-                    middleName: middleName,
-                    birthday: birthday.toISOString(),
-                    email: email
-                }
+            {
+                password: password,
+                userName: userName,
+                firstName: firstName,
+                lastName: lastName,
+                middleName: middleName,
+                birthday: birthday.toISOString(),
+                email: email
+            }
         })
-
-        if (isSuccess) {
-        }
     };
 
+    if (isSuccess) {
+        return (
+            <RegisterResultModal />
+        )
+    }
+
     return (
-        <FormControl fullWidth sx={{pt: 2}}>
+        <FormControl fullWidth sx={{ pt: 2 }}>
             <Stack spacing={2}>
 
                 <TextField
@@ -64,7 +66,7 @@ const RegisterAdminForm = () => {
                     id="lastName"
                     label="Фамилия"
                     autoFocus
-                    value={firstName}
+                    value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                 />
 
@@ -109,17 +111,27 @@ const RegisterAdminForm = () => {
                     }}
                 />
 
-                <DatePicker
-                    defaultValue={null}
+                <TextField
                     disabled={isLoading}
-                    // margin="normal"
+                    margin="normal"
+                    name="email"
+                    fullWidth
+                    id="email"
+                    label="Почта"
+                    autoFocus
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+
+                <DatePicker
+                    disabled={isLoading}
                     name="birthday"
-                    // fullWidth
-                    // id="birthday"
                     label="Дата рождения"
                     autoFocus
-                    // value={birthday}
-                    // onChange={(e) => setBirthday(e.target.value)}
+                    value={birthday}
+                    onChange={(e) => e == null
+                        ? setBirthday(dayjs())
+                        : setBirthday(e)}
                 />
 
                 <Button
@@ -130,7 +142,7 @@ const RegisterAdminForm = () => {
                 >
                     {
                         isLoading
-                            ? <CircularProgress size={25} color="inherit"/>
+                            ? <CircularProgress size={25} color="inherit" />
                             : <span>Зарегистрироваться</span>
                     }
                 </Button>

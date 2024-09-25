@@ -4,7 +4,7 @@ using UniversityProcessing.GenericSubdomain.Pagination;
 
 namespace UniversityProcessing.Abstractions.Http.Converters;
 
-public sealed class UserConverter
+public static class UserConverter
 {
     public static PagedList<UserDto> ToPagedDto(IEnumerable<User> input, int totalCount, int pageNumber, int pageSize)
     {
@@ -24,6 +24,8 @@ public sealed class UserConverter
             input.LastName,
             input.MiddleName,
             input.Email,
-            input.Birthday);
+            input.Birthday.HasValue
+                ? DateOnly.FromDateTime(input.Birthday.Value)
+                : null);
     }
 }
