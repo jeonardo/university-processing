@@ -1,0 +1,5 @@
+using MediatR;
+
+namespace UniversityProcessing.DomainServices.Features.Identity.RegisterStudent.GetRegisterStudentAvailableGroups;
+
+public sealed record GetRegisterStudentAvailableGroupsQueryRequest(string Number) : IRequest<GetRegisterStudentAvailableGroupsQueryResponse>;

@@ -1,5 +1,4 @@
 using MediatR;
-using UniversityProcessing.Abstractions.Http.Converters;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.Repository.Repositories;
 
@@ -12,8 +11,7 @@ internal sealed class GetGroupQueryHandler(IEfReadRepository<Group> repository)
         GetGroupQueryRequest request,
         CancellationToken cancellationToken)
     {
-        var record = await repository.GetByIdRequiredAsync(request.Id, cancellationToken);
-
-        return new GetGroupQueryResponse(GroupConverter.ToDto(record));
+        var entity = await repository.GetByIdRequiredAsync(request.Id, cancellationToken);
+        return new GetGroupQueryResponse(entity);
     }
 }

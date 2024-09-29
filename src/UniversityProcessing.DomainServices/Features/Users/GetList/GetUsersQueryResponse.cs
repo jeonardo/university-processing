@@ -1,6 +1,6 @@
-using UniversityProcessing.Abstractions.Http.Universities.User;
+using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.GenericSubdomain.Pagination;
 
 namespace UniversityProcessing.DomainServices.Features.Users.GetList;
 
-public sealed record GetUsersQueryResponse(PagedList<UserDto> List);
+public sealed record GetUsersQueryResponse(PagedList<User> List);

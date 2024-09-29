@@ -1,5 +1,4 @@
 using MediatR;
-using UniversityProcessing.Abstractions.Http.Converters;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.Repository.Repositories;
 
@@ -11,7 +10,6 @@ internal sealed class GetDiplomaPeriodQueryHandler(IEfReadRepository<DiplomaPeri
     public async Task<GetDiplomaPeriodQueryResponse> Handle(GetDiplomaPeriodQueryRequest request, CancellationToken cancellationToken)
     {
         var entity = await repository.GetByIdRequiredAsync(request.Id, cancellationToken);
-
-        return new GetDiplomaPeriodQueryResponse(DiplomaPeriodConverter.ToDto(entity));
+        return new GetDiplomaPeriodQueryResponse(entity);
     }
 }

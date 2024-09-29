@@ -1,5 +1,4 @@
 using MediatR;
-using UniversityProcessing.Abstractions.Http.Converters;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.Repository.Repositories;
 
@@ -9,8 +8,7 @@ internal sealed class GetFacultyQueryHandler(IEfReadRepository<Faculty> reposito
 {
     public async Task<GetFacultyQueryResponse> Handle(GetFacultyQueryRequest request, CancellationToken cancellationToken)
     {
-        var record = await repository.GetByIdRequiredAsync(request.Id, cancellationToken);
-
-        return new GetFacultyQueryResponse(FacultyConverter.ToDto(record));
+        var entity = await repository.GetByIdRequiredAsync(request.Id, cancellationToken);
+        return new GetFacultyQueryResponse(entity);
     }
 }

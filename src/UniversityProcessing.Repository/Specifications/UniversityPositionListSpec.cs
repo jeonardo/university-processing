@@ -2,10 +2,8 @@ using UniversityProcessing.Domain.UniversityStructure;
 
 namespace UniversityProcessing.Repository.Specifications;
 
-public sealed class UniversityPositionListSpec : BaseListSpec<UniversityPosition>
+public sealed class UniversityPositionListSpec(int pageNumber, int pageSize, string orderBy, bool desc)
+    : BaseListSpec<UniversityPosition>(pageNumber, pageSize, orderBy, desc)
 {
-    public UniversityPositionListSpec(int pageNumber, int pageSize, string orderBy, bool desc)
-        : base(["id", "name"], pageNumber, pageSize, orderBy, desc)
-    {
-    }
+    protected override string[] AvailableProperties => ["id", "name"];
 }

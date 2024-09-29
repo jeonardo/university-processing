@@ -1,0 +1,5 @@
+using UniversityProcessing.Abstractions.Http.Identity.RegisterEmployee;
+
+namespace UniversityProcessing.DomainServices.Features.Identity.RegisterEmployee.GetRegisterEmployeeAvailableUniversityPositions;
+
+public sealed record GetRegisterEmployeeAvailableUniversityPositionsQueryResponse(RegisterEmployeeUniversityPositionDto[] UniversityPositions);

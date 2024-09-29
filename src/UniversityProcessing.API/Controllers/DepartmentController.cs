@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Abstractions.Http.Universities.Department;
+using UniversityProcessing.API.Converters;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.DomainServices.Features.Departments.Create;
 using UniversityProcessing.DomainServices.Features.Departments.Delete;
@@ -21,7 +22,7 @@ public class DepartmentController(IMediator mediator) : ControllerBase
     {
         var query = new GetDepartmentQueryRequest(request.Id);
         var response = await mediator.Send(query, cancellationToken);
-        return new GetDepartmentResponseDto(response.Department);
+        return new GetDepartmentResponseDto(DepartmentConverter.ToDto(response.Department));
     }
 
     [HttpGet]
@@ -29,7 +30,7 @@ public class DepartmentController(IMediator mediator) : ControllerBase
     {
         var query = new GetDepartmentsQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
         var response = await mediator.Send(query, cancellationToken);
-        return new GetDepartmentsResponseDto(response.List);
+        return new GetDepartmentsResponseDto(DepartmentConverter.ToDto(response.List));
     }
 
     [HttpPost]

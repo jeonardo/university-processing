@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Abstractions.Http.Universities.University;
+using UniversityProcessing.API.Converters;
 using UniversityProcessing.DomainServices.Features.UniversityPositions.Get;
 using UniversityProcessing.DomainServices.Features.UniversityPositions.GetList;
 using UniversityProcessing.GenericSubdomain.Attributes;
@@ -17,7 +18,7 @@ public class UniversityPositionController(ISender mediator) : ControllerBase
     {
         var query = new GetUniversityPositionQueryRequest(request.Id);
         var response = await mediator.Send(query, cancellationToken);
-        return new GetUniversityPositionResponseDto(response.UniversityPosition);
+        return new GetUniversityPositionResponseDto(UniversityPositionConverter.ToDto(response.UniversityPosition));
     }
 
     [HttpGet]
@@ -25,6 +26,6 @@ public class UniversityPositionController(ISender mediator) : ControllerBase
     {
         var query = new GetUniversityPositionsQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
         var response = await mediator.Send(query, cancellationToken);
-        return new GetUniversityPositionsResponseDto(response.List);
+        return new GetUniversityPositionsResponseDto(UniversityPositionConverter.ToDto(response.List));
     }
 }

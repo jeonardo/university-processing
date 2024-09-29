@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UniversityProcessing.Infrastructure.Repositories;
 using UniversityProcessing.Infrastructure.Seeds;
+using UniversityProcessing.Repository.Context;
 using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.Infrastructure;
@@ -21,7 +22,7 @@ public static class InfrastructureRegistrar
     {
         if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
         {
-            services.AddDbContext<ApplicationDbContext>(
+            services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(
                 options =>
                     options
                         .UseSqlite("Data Source=ApplicationDbContext.db")
@@ -29,7 +30,7 @@ public static class InfrastructureRegistrar
             return;
         }
 
-        services.AddDbContext<ApplicationDbContext>(
+        services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(
             options =>
                 options
                     .UseNpgsql(configuration.GetConnectionString("DefaultConnection"))

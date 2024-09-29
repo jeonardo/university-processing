@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using Npgsql.NameTranslation;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.Domain.UniversityStructure;
+using UniversityProcessing.Repository.Context;
 
 namespace UniversityProcessing.Infrastructure;
 
 #pragma warning disable CS8618 // Required by Entity Framework
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDomainEventDispatcher? dispatcher = null)
-    : IdentityDbContext<User, UserRole, Guid>(options)
+    : IdentityDbContext<User, UserRole, Guid>(options), IApplicationDbContext
 {
     public DbSet<Department> Departments => Set<Department>();
     public DbSet<DiplomaPeriod> DiplomaPeriods => Set<DiplomaPeriod>();

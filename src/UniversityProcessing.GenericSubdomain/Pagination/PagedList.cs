@@ -1,3 +1,6 @@
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedMember.Global
+
 namespace UniversityProcessing.GenericSubdomain.Pagination;
 
 public sealed class PagedList<T>(IEnumerable<T> items, int count, int pageNumber, int pageSize)

@@ -2,10 +2,11 @@ using UniversityProcessing.Domain.UniversityStructure;
 
 namespace UniversityProcessing.Repository.Specifications;
 
-public sealed class DiplomaPeriodActualListSpec : BaseListSpec<DiplomaPeriod>
+public sealed class DiplomaPeriodActualListSpec(int pageNumber, int pageSize, string orderBy, bool desc) : BaseListSpec<DiplomaPeriod>(
+    pageNumber,
+    pageSize,
+    orderBy,
+    desc)
 {
-    public DiplomaPeriodActualListSpec(int pageNumber, int pageSize, string orderBy, bool desc, Guid userId)
-        : base(["id", "start_date", "end_date"], pageNumber, pageSize, orderBy, desc)
-    {
-    }
+    protected override string[] AvailableProperties => ["id", "start_date", "end_date"];
 }

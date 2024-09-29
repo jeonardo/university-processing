@@ -1,6 +1,6 @@
 using MediatR;
-using UniversityProcessing.Abstractions.Http.Converters;
 using UniversityProcessing.Domain.UniversityStructure;
+using UniversityProcessing.GenericSubdomain.Pagination;
 using UniversityProcessing.Repository.Repositories;
 using UniversityProcessing.Repository.Specifications;
 
@@ -14,8 +14,8 @@ internal sealed class GetGroupsQueryHandler(IEfReadRepository<Group> repository)
         var count = await repository.CountAsync(cancellationToken);
 
         var specification = new GroupListSpec(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
-        var records = await repository.ListAsync(specification, cancellationToken);
+        var entities = await repository.ListAsync(specification, cancellationToken);
 
-        return new GetGroupsQueryResponse(GroupConverter.ToPagedDto(records, count, request.PageNumber, request.PageSize));
+        return new GetGroupsQueryResponse(new PagedList<Group>(entities, count, request.PageNumber, request.PageSize));
     }
 }

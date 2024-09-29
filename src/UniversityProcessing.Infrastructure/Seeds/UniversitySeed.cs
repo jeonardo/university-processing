@@ -100,17 +100,17 @@ public class UniversitySeed(
         var bntu_faculty_fitr_sp1 = await AddSpecialty(
             "Автоматизация технологических процессов и производств в энергетике",
             "Short",
-            "6-05-0713-04",
+            "6-05-0713-03",
             bntu_faculty_fitr);
         var bntu_faculty_fitr_sp2 = await AddSpecialty(
             "Автоматизация технологических процессов и производств в приборостроении и радиоэлектронике",
             "Short",
-            "6-05-0713-04",
+            "6-05-0713-02",
             bntu_faculty_fitr);
         var bntu_faculty_fitr_sp3 = await AddSpecialty(
             "Автоматизированные электроприводы",
             "Short",
-            "6-05-0713-04",
+            "6-05-0713-11",
             bntu_faculty_fitr);
         var bntu_faculty_fitr_sp4 = await AddSpecialty(
             "Информационные системы и технологии в проектировании и производстве",

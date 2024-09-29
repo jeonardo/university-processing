@@ -1,8 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using UniversityProcessing.Abstractions.Http.Converters;
 using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.GenericSubdomain.Pagination;
 
 namespace UniversityProcessing.DomainServices.Features.Users.GetList;
 
@@ -17,6 +17,6 @@ internal sealed class GetUsersQueryHandler(UserManager<User> userManager)
             .Take(request.PageSize);
 
         //TODO add sorting and filters
-        return new GetUsersQueryResponse(UserConverter.ToPagedDto(users, count, request.PageNumber, request.PageSize));
+        return new GetUsersQueryResponse(new PagedList<User>(users, count, request.PageNumber, request.PageSize));
     }
 }

@@ -1,7 +1,7 @@
 import {createBrowserRouter} from 'react-router-dom';
-import LoginRoutes from './PrivateRoutes';
+import PrivateRoutes from './PrivateRoutes';
 import PublicOnlyRoutes from './PublicOnlyRoutes';
 import PublicRoutes from './PublicRoutes';
 
-const AppRouter = createBrowserRouter([LoginRoutes, PublicOnlyRoutes, PublicRoutes]);
+const AppRouter = createBrowserRouter([PrivateRoutes, PublicOnlyRoutes, PublicRoutes]);
 export default AppRouter;

@@ -1,6 +1,6 @@
-using UniversityProcessing.Abstractions.Http.Universities.University;
+using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.GenericSubdomain.Pagination;
 
 namespace UniversityProcessing.DomainServices.Features.UniversityPositions.GetList;
 
-public sealed record GetUniversityPositionsQueryResponse(PagedList<UniversityPositionDto> List);
+public sealed record GetUniversityPositionsQueryResponse(PagedList<UniversityPosition> List);

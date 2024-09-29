@@ -1,4 +1,4 @@
-import {ConfigFile} from '@rtk-query/codegen-openapi'
+import { ConfigFile } from '@rtk-query/codegen-openapi'
 
 const feature: string = "backendApi"
 
@@ -8,7 +8,9 @@ const config: ConfigFile = {
     apiImport: 'emptySplitApi',
     outputFile: `./src/api/${feature}.ts`,
     exportName: feature,
-    hooks: true,
+    hooks: { lazyQueries: true, mutations: true, queries: true },
+    useEnumType: true,
+
 }
 
 export default config

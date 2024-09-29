@@ -1,6 +1,6 @@
-using UniversityProcessing.Abstractions.Http.Universities.Specialty;
+using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.GenericSubdomain.Pagination;
 
 namespace UniversityProcessing.DomainServices.Features.Specialties.GetList;
 
-public sealed record GetSpecialtiesQueryResponse(PagedList<SpecialtyDto> List);
+public sealed record GetSpecialtiesQueryResponse(PagedList<Specialty> List);

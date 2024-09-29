@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Abstractions.Http.Universities.User;
+using UniversityProcessing.API.Converters;
 using UniversityProcessing.DomainServices.Features.Users.Get;
 using UniversityProcessing.DomainServices.Features.Users.GetList;
 using UniversityProcessing.GenericSubdomain.Attributes;
@@ -19,7 +20,7 @@ public class UserController(ISender mediator) : ControllerBase
     {
         var query = new GetUserQueryRequest(request.Id);
         var response = await mediator.Send(query, cancellationToken);
-        return new GetUserResponseDto(response.User);
+        return new GetUserResponseDto(UserConverter.ToDto(response.User));
     }
 
     [HttpGet]
@@ -28,6 +29,6 @@ public class UserController(ISender mediator) : ControllerBase
     {
         var query = new GetUsersQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
         var response = await mediator.Send(query, cancellationToken);
-        return new GetUsersResponseDto(response.List);
+        return new GetUsersResponseDto(UserConverter.ToDto(response.List));
     }
 }

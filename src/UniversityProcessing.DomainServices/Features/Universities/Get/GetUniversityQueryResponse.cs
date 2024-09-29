@@ -1,5 +1,5 @@
-using UniversityProcessing.Abstractions.Http.Universities.University;
+using UniversityProcessing.Domain.UniversityStructure;
 
 namespace UniversityProcessing.DomainServices.Features.Universities.Get;
 
-public sealed record GetUniversityQueryResponse(UniversityDto University);
+public sealed record GetUniversityQueryResponse(University University);

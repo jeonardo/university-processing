@@ -1,6 +1,6 @@
 using MediatR;
-using UniversityProcessing.Abstractions.Http.Converters;
 using UniversityProcessing.Domain.UniversityStructure;
+using UniversityProcessing.GenericSubdomain.Pagination;
 using UniversityProcessing.Repository.Repositories;
 using UniversityProcessing.Repository.Specifications;
 
@@ -14,8 +14,8 @@ public sealed class GetUniversitiesQueryHandler(IEfReadRepository<University> re
         var count = await repository.CountAsync(cancellationToken);
 
         var specification = new UniversityListSpec(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
-        var records = await repository.ListAsync(specification, cancellationToken);
+        var entities = await repository.ListAsync(specification, cancellationToken);
 
-        return new GetUniversitiesQueryResponse(UniversityConverter.ToPagedDto(records, count, request.PageNumber, request.PageSize));
+        return new GetUniversitiesQueryResponse(new PagedList<University>(entities, count, request.PageNumber, request.PageSize));
     }
 }

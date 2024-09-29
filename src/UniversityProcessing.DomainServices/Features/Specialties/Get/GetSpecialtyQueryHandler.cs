@@ -1,5 +1,4 @@
 using MediatR;
-using UniversityProcessing.Abstractions.Http.Converters;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.Repository.Repositories;
 
@@ -12,8 +11,7 @@ internal sealed class GetSpecialtyQueryHandler(IEfReadRepository<Specialty> repo
         GetSpecialtyQueryRequest request,
         CancellationToken cancellationToken)
     {
-        var record = await repository.GetByIdRequiredAsync(request.Id, cancellationToken);
-
-        return new GetSpecialtyQueryResponse(SpecialtyConverter.ToDto(record));
+        var entity = await repository.GetByIdRequiredAsync(request.Id, cancellationToken);
+        return new GetSpecialtyQueryResponse(entity);
     }
 }

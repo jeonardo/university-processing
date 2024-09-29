@@ -37,4 +37,6 @@ public abstract class BaseGetListQueryParameters
                 ? MAX_PAGE_SIZE
                 : value;
     }
+
+    public string? Filter { get; set; }
 }

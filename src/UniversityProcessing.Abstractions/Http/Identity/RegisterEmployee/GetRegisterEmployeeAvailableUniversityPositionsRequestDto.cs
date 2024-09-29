@@ -1,0 +1,3 @@
+namespace UniversityProcessing.Abstractions.Http.Identity.RegisterEmployee;
+
+public sealed class GetRegisterEmployeeAvailableUniversityPositionsRequestDto;

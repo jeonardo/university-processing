@@ -1,5 +1,5 @@
-using UniversityProcessing.Abstractions.Http.Universities.Group;
+using UniversityProcessing.Domain.UniversityStructure;
 
 namespace UniversityProcessing.DomainServices.Features.Groups.Get;
 
-public sealed record GetGroupQueryResponse(GroupDto Group);
+public sealed record GetGroupQueryResponse(Group Group);

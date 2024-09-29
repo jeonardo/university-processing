@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Abstractions.Http.Universities.University;
+using UniversityProcessing.API.Converters;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.DomainServices.Features.Universities.Create;
 using UniversityProcessing.DomainServices.Features.Universities.Delete;
@@ -21,7 +22,7 @@ public class UniversityController(ISender mediator) : ControllerBase
     {
         var query = new GetUniversityQueryRequest(request.Id);
         var response = await mediator.Send(query, cancellationToken);
-        return new GetUniversityResponseDto(response.University);
+        return new GetUniversityResponseDto(UniversityConverter.ToDto(response.University));
     }
 
     [HttpGet]
@@ -29,7 +30,7 @@ public class UniversityController(ISender mediator) : ControllerBase
     {
         var query = new GetUniversitiesQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
         var response = await mediator.Send(query, cancellationToken);
-        return new GetUniversitiesResponseDto(response.List);
+        return new GetUniversitiesResponseDto(UniversityConverter.ToDto(response.List));
     }
 
     [HttpPost]

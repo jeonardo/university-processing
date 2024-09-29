@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Abstractions.Http.Universities.Specialty;
+using UniversityProcessing.API.Converters;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.DomainServices.Features.Specialties.Create;
 using UniversityProcessing.DomainServices.Features.Specialties.Delete;
@@ -21,7 +22,7 @@ public class SpecialtyController(IMediator mediator) : ControllerBase
     {
         var query = new GetSpecialtyQueryRequest(request.Id);
         var response = await mediator.Send(query, cancellationToken);
-        return new GetSpecialtyResponseDto(response.Specialty);
+        return new GetSpecialtyResponseDto(SpecialtyConverter.ToDto(response.Specialty));
     }
 
     [HttpGet]
@@ -29,7 +30,7 @@ public class SpecialtyController(IMediator mediator) : ControllerBase
     {
         var query = new GetSpecialtiesQueryRequest(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
         var response = await mediator.Send(query, cancellationToken);
-        return new GetSpecialtiesResponseDto(response.List);
+        return new GetSpecialtiesResponseDto(SpecialtyConverter.ToDto(response.List));
     }
 
     [HttpPost]

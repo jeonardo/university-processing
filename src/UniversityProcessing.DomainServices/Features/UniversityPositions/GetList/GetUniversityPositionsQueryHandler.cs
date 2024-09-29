@@ -1,6 +1,6 @@
 using MediatR;
-using UniversityProcessing.Abstractions.Http.Converters;
 using UniversityProcessing.Domain.UniversityStructure;
+using UniversityProcessing.GenericSubdomain.Pagination;
 using UniversityProcessing.Repository.Repositories;
 using UniversityProcessing.Repository.Specifications;
 
@@ -14,8 +14,8 @@ internal sealed class GetUniversityPositionsQueryHandler(IEfReadRepository<Unive
         var count = await repository.CountAsync(cancellationToken);
 
         var specification = new UniversityPositionListSpec(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
-        var records = await repository.ListAsync(specification, cancellationToken);
+        var entities = await repository.ListAsync(specification, cancellationToken);
 
-        return new GetUniversityPositionsQueryResponse(UniversityPositionConverter.ToPagedDto(records, count, request.PageNumber, request.PageSize));
+        return new GetUniversityPositionsQueryResponse(new PagedList<UniversityPosition>(entities, count, request.PageNumber, request.PageSize));
     }
 }

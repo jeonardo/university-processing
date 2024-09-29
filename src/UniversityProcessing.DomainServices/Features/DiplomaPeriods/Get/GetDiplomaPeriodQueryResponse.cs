@@ -1,5 +1,5 @@
-using UniversityProcessing.Abstractions.Http.Universities.Diploma;
+using UniversityProcessing.Domain.UniversityStructure;
 
 namespace UniversityProcessing.DomainServices.Features.DiplomaPeriods.Get;
 
-public sealed record GetDiplomaPeriodQueryResponse(DiplomaPeriodDto DiplomaPeriod);
+public sealed record GetDiplomaPeriodQueryResponse(DiplomaPeriod DiplomaPeriod);
