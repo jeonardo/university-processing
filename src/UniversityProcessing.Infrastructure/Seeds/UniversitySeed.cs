@@ -228,6 +228,7 @@ public class UniversitySeed(
     private async Task<User> AddAdmin(string username)
     {
         var result = User.CreateAdmin(username, username, username);
+        result.UpdateIsApprovedStatus(true);
         await userManager.CreateAsync(result, username);
         await userManager.AddToRoleAsync(result, nameof(UserRoles.ApplicationAdmin));
         AdminValues.Add(result);
@@ -237,6 +238,7 @@ public class UniversitySeed(
     private async Task<User> AddStudent(string username, Group group)
     {
         var result = User.CreateStudent(username, username, username, groupId: group.Id);
+        result.UpdateIsApprovedStatus(true);
         await userManager.CreateAsync(result, username);
         await userManager.AddToRoleAsync(result, nameof(UserRoles.Student));
         StudentValues.Add(result);
@@ -249,6 +251,7 @@ public class UniversitySeed(
         UniversityPosition universityPosition)
     {
         var result = User.CreateEmployee(username, username, username, universityId: university.Id, universityPositionId: universityPosition.Id);
+        result.UpdateIsApprovedStatus(true);
         await userManager.CreateAsync(result, username);
         await userManager.AddToRoleAsync(result, nameof(UserRoles.Employee));
         EmployeeValues.Add(result);

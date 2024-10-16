@@ -35,8 +35,8 @@ internal sealed class LoginCommandHandler(
         var additionalClaims = await userManager.GetClaimsAsync(user);
         claims.AddRange(additionalClaims);
 
-        var accessToken = tokenService.GenerateAccessToken(additionalClaims);
-        var refreshToken = tokenService.GenerateRefreshToken(additionalClaims);
+        var accessToken = tokenService.GenerateAccessToken(claims);
+        var refreshToken = tokenService.GenerateRefreshToken(claims);
 
         return new LoginCommandResponse(accessToken, refreshToken);
     }

@@ -1,36 +1,61 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "src/core/hooks";
 import ResponsiveAppBar from "./AppBar";
-import { useGetApiV1IdentityInfoQuery, useGetApiV1RegistrationGetAvailableUniversityPositionsQuery, useLazyGetApiV1IdentityInfoQuery } from "src/api/backendApi";
 import { setUser } from "src/features/authentication/auth.slice";
 import { useEffect } from "react";
+import { useGetApiV1IdentityInfoQuery } from "src/api/backendApi";
+import { Alert, Box, Modal, Typography } from "@mui/material";
 
 const PrivateLayout: React.FC = () => {
-    const isAuthorized = useAppSelector(state => state.auth.authorized)
+    const authState = useAppSelector(state => state.auth)
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+    const { data, isLoading, isSuccess } = useGetApiV1IdentityInfoQuery()
 
-    if (!isAuthorized)
-        return <Navigate replace to={"/signin"} />
+    useEffect(() => {
+        if (!authState.authorized) [
+            navigate("/signin")
+        ]
 
-    const user = useAppSelector(state => state.auth.user)
-
-
-    //TODO specific hook error     Error: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
-    // 1. You might have mismatching versions of React and the renderer (such as React DOM)
-    // 2. You might be breaking the Rules of Hooks
-    // 3. You might have more than one copy of React in the same app
-    // const { data, isSuccess } = useGetApiV1IdentityInfoQuery()
-
-    // const dispatch = useAppDispatch()
+        if (!authState.user && isSuccess) {
+            dispatch(setUser({
+                approved: data.approved,
+                roleId: data.roleId,
+                userId: data.userId
+            }))
+        }
+    })
 
     // useEffect(() => {
-    //     if (user && isSuccess && data) {
+    //     if (!user) {
     //         dispatch(setUser({
-    //             approved: data.approved,
-    //             roleId: data.roleId,
-    //             userId: data.userId
+    //             approved: true,
+    //             roleId: UserRoleIdDto.ApplicationAdmin,
+    //             userId: "666",
+    //             email: "user@example.com",
+    //             userName: "JohnDoeSmith2000"
     //         }))
     //     }
-    // }, [user, isSuccess, data, dispatch])
+    // })
+
+    // if (!authState.authorized)
+    //     return <Navigate replace to={"/signin"} />
+
+    if (isLoading || !authState.user) {
+        return <div>loading...</div>
+    }
+
+    if (!authState.user.approved) {
+        return (
+            <>
+                <Modal open={true} onClose={() => { }} className="flex flex-col h-full w-full justify-center items-center text-center text-2xl font-bold">
+                    <Box sx={{ width: 400, padding: 7, bgcolor: 'white', margin: '100px auto' }}>
+                        <Typography>Отказано в доступе:<br /><br />Ваш аккаунт {authState.user.userName} проходит верификацию и еще не был подтвержден. Обратитесь к администратору.</Typography>
+                    </Box>
+                </Modal>
+            </>
+        )
+    }
 
     return (
         <div className="flex flex-col h-full w-full bg-[#f8f8f8]">

@@ -3,10 +3,11 @@
 
 namespace UniversityProcessing.GenericSubdomain.Pagination;
 
-public sealed class PagedList<T>(IEnumerable<T> items, int count, int pageNumber, int pageSize)
+public sealed class PagedList<T>(IEnumerable<T> items, int count, int currentPage, int pageSize)
 {
+    //TODO mark as array
     public IEnumerable<T> Items { get; private set; } = items;
-    public int CurrentPage { get; private set; } = pageNumber;
+    public int CurrentPage { get; private set; } = currentPage;
     public int TotalPages { get; private set; } = (int)Math.Ceiling(count / (double)pageSize);
     public int PageSize { get; private set; } = pageSize;
     public int TotalCount { get; private set; } = count;

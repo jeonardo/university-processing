@@ -1,6 +1,24 @@
-import { emptySplitApi as api } from '../core/emptyApi';
+import { emptySplitApi as api } from './emptyApi';
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
+    getApiV1AdminGetUsers: build.query<GetApiV1AdminGetUsersApiResponse, GetApiV1AdminGetUsersApiArg>({
+      query: (queryArg) => ({
+        url: `/api/v1/Admin/GetUsers`,
+        params: {
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter
+        }
+      })
+    }),
+    putApiV1AdminUpdateIsApprovedStatus: build.mutation<
+      PutApiV1AdminUpdateIsApprovedStatusApiResponse,
+      PutApiV1AdminUpdateIsApprovedStatusApiArg
+    >({
+      query: (queryArg) => ({ url: `/api/v1/Admin/UpdateIsApprovedStatus`, method: 'PUT', body: queryArg.updateIsApprovedStatusRequestDto })
+    }),
     getApiV1DepartmentGet: build.query<GetApiV1DepartmentGetApiResponse, GetApiV1DepartmentGetApiArg>({
       query: (queryArg) => ({ url: `/api/v1/Department/Get`, params: { Id: queryArg.id } })
     }),
@@ -98,9 +116,6 @@ const injectedRtkApi = api.injectEndpoints({
     deleteApiV1GroupDelete: build.mutation<DeleteApiV1GroupDeleteApiResponse, DeleteApiV1GroupDeleteApiArg>({
       query: (queryArg) => ({ url: `/api/v1/Group/Delete`, method: 'DELETE', body: queryArg.deleteGroupRequestDto })
     }),
-    deleteApiV1IdentityDelete: build.mutation<DeleteApiV1IdentityDeleteApiResponse, DeleteApiV1IdentityDeleteApiArg>({
-      query: (queryArg) => ({ url: `/api/v1/Identity/Delete`, method: 'DELETE', body: queryArg.deleteUserRequestDto })
-    }),
     postApiV1IdentityLogin: build.mutation<PostApiV1IdentityLoginApiResponse, PostApiV1IdentityLoginApiArg>({
       query: (queryArg) => ({ url: `/api/v1/Identity/Login`, method: 'POST', body: queryArg.loginRequestDto })
     }),
@@ -112,9 +127,6 @@ const injectedRtkApi = api.injectEndpoints({
     }),
     getApiV1IdentityInfo: build.query<GetApiV1IdentityInfoApiResponse, GetApiV1IdentityInfoApiArg>({
       query: () => ({ url: `/api/v1/Identity/Info` })
-    }),
-    postApiV1IdentityApprove: build.mutation<PostApiV1IdentityApproveApiResponse, PostApiV1IdentityApproveApiArg>({
-      query: (queryArg) => ({ url: `/api/v1/Identity/Approve`, method: 'POST', body: queryArg.approveUserRequestDto })
     }),
     postApiV1RegistrationRegisterAdmin: build.mutation<
       PostApiV1RegistrationRegisterAdminApiResponse,
@@ -208,26 +220,23 @@ const injectedRtkApi = api.injectEndpoints({
           Filter: queryArg.filter
         }
       })
-    }),
-    getApiV1UserGet: build.query<GetApiV1UserGetApiResponse, GetApiV1UserGetApiArg>({
-      query: (queryArg) => ({ url: `/api/v1/User/Get`, params: { Id: queryArg.id } })
-    }),
-    getApiV1UserGetList: build.query<GetApiV1UserGetListApiResponse, GetApiV1UserGetListApiArg>({
-      query: (queryArg) => ({
-        url: `/api/v1/User/GetList`,
-        params: {
-          Desc: queryArg.desc,
-          OrderBy: queryArg.orderBy,
-          PageNumber: queryArg.pageNumber,
-          PageSize: queryArg.pageSize,
-          Filter: queryArg.filter
-        }
-      })
     })
   }),
   overrideExisting: false
 });
 export { injectedRtkApi as backendApi };
+export type GetApiV1AdminGetUsersApiResponse = /** status 200 Success */ AdminGetUsersResponseDtoRead;
+export type GetApiV1AdminGetUsersApiArg = {
+  desc?: boolean;
+  orderBy?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  filter?: string;
+};
+export type PutApiV1AdminUpdateIsApprovedStatusApiResponse = unknown;
+export type PutApiV1AdminUpdateIsApprovedStatusApiArg = {
+  updateIsApprovedStatusRequestDto: UpdateIsApprovedStatusRequestDto;
+};
 export type GetApiV1DepartmentGetApiResponse = /** status 200 Success */ GetDepartmentResponseDto;
 export type GetApiV1DepartmentGetApiArg = {
   id?: string;
@@ -308,10 +317,6 @@ export type DeleteApiV1GroupDeleteApiResponse = unknown;
 export type DeleteApiV1GroupDeleteApiArg = {
   deleteGroupRequestDto: DeleteGroupRequestDto;
 };
-export type DeleteApiV1IdentityDeleteApiResponse = unknown;
-export type DeleteApiV1IdentityDeleteApiArg = {
-  deleteUserRequestDto: DeleteUserRequestDto;
-};
 export type PostApiV1IdentityLoginApiResponse = /** status 200 Success */ LoginResponseDto;
 export type PostApiV1IdentityLoginApiArg = {
   loginRequestDto: LoginRequestDto;
@@ -322,10 +327,6 @@ export type GetApiV1IdentityLogoutApiResponse = unknown;
 export type GetApiV1IdentityLogoutApiArg = void;
 export type GetApiV1IdentityInfoApiResponse = /** status 200 Success */ InfoResponseDto;
 export type GetApiV1IdentityInfoApiArg = void;
-export type PostApiV1IdentityApproveApiResponse = unknown;
-export type PostApiV1IdentityApproveApiArg = {
-  approveUserRequestDto: ApproveUserRequestDto;
-};
 export type PostApiV1RegistrationRegisterAdminApiResponse = unknown;
 export type PostApiV1RegistrationRegisterAdminApiArg = {
   registerAdminRequestDto: RegisterAdminRequestDto;
@@ -402,17 +403,36 @@ export type GetApiV1UniversityPositionGetListApiArg = {
   pageSize?: number;
   filter?: string;
 };
-export type GetApiV1UserGetApiResponse = /** status 200 Success */ GetUserResponseDto;
-export type GetApiV1UserGetApiArg = {
+export type UserDto = {
   id?: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  middleName?: string | null;
+  approved?: boolean;
 };
-export type GetApiV1UserGetListApiResponse = /** status 200 Success */ GetUsersResponseDtoRead;
-export type GetApiV1UserGetListApiArg = {
-  desc?: boolean;
-  orderBy?: string;
-  pageNumber?: number;
+export type UserDtoPagedList = {
+  items?: UserDto[] | null;
+  currentPage?: number;
   pageSize?: number;
-  filter?: string;
+};
+export type UserDtoPagedListRead = {
+  items?: UserDto[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
+export type AdminGetUsersResponseDto = {
+  list?: UserDtoPagedList;
+};
+export type AdminGetUsersResponseDtoRead = {
+  list?: UserDtoPagedListRead;
+};
+export type UpdateIsApprovedStatusRequestDto = {
+  userId: string;
+  isApproved: boolean;
 };
 export type DepartmentDto = {
   id?: string;
@@ -424,6 +444,7 @@ export type GetDepartmentResponseDto = {
 };
 export type DepartmentDtoPagedList = {
   items?: DepartmentDto[] | null;
+  currentPage?: number;
   pageSize?: number;
 };
 export type DepartmentDtoPagedListRead = {
@@ -462,6 +483,7 @@ export type GetDiplomaPeriodResponseDto = {
 };
 export type DiplomaPeriodDtoPagedList = {
   items?: DiplomaPeriodDto[] | null;
+  currentPage?: number;
   pageSize?: number;
 };
 export type DiplomaPeriodDtoPagedListRead = {
@@ -482,6 +504,7 @@ export type GetActualDiplomaPeriodsResponseDtoRead = {
 export type TeacherDto = object;
 export type TeacherDtoPagedList = {
   items?: TeacherDto[] | null;
+  currentPage?: number;
   pageSize?: number;
 };
 export type TeacherDtoPagedListRead = {
@@ -509,6 +532,7 @@ export type GetFacultyResponseDto = {
 };
 export type FacultyDtoPagedList = {
   items?: FacultyDto[] | null;
+  currentPage?: number;
   pageSize?: number;
 };
 export type FacultyDtoPagedListRead = {
@@ -546,6 +570,7 @@ export type GetGroupResponseDto = {
 };
 export type GroupDtoPagedList = {
   items?: GroupDto[] | null;
+  currentPage?: number;
   pageSize?: number;
 };
 export type GroupDtoPagedListRead = {
@@ -575,9 +600,6 @@ export type CreateGroupRequestDto = {
 export type DeleteGroupRequestDto = {
   id?: string;
 };
-export type DeleteUserRequestDto = {
-  id?: string;
-};
 export type TokenDto = {
   value?: string | null;
   expiration?: string;
@@ -598,9 +620,6 @@ export type InfoResponseDto = {
   userId?: string;
   roleId?: UserRoleIdDto;
   approved?: boolean;
-};
-export type ApproveUserRequestDto = {
-  userId: string;
 };
 export type RegisterAdminRequestDto = {
   userName: string;
@@ -660,6 +679,7 @@ export type GetSpecialtyResponseDto = {
 };
 export type SpecialtyDtoPagedList = {
   items?: SpecialtyDto[] | null;
+  currentPage?: number;
   pageSize?: number;
 };
 export type SpecialtyDtoPagedListRead = {
@@ -699,6 +719,7 @@ export type GetUniversityResponseDto = {
 };
 export type UniversityDtoPagedList = {
   items?: UniversityDto[] | null;
+  currentPage?: number;
   pageSize?: number;
 };
 export type UniversityDtoPagedListRead = {
@@ -735,6 +756,7 @@ export type GetUniversityPositionResponseDto = {
 };
 export type UniversityPositionDtoPagedList = {
   items?: UniversityPositionDto[] | null;
+  currentPage?: number;
   pageSize?: number;
 };
 export type UniversityPositionDtoPagedListRead = {
@@ -752,36 +774,6 @@ export type GetUniversityPositionsResponseDto = {
 export type GetUniversityPositionsResponseDtoRead = {
   list?: UniversityPositionDtoPagedListRead;
 };
-export type UserDto = {
-  id?: string;
-  firstName?: string | null;
-  lastName?: string | null;
-  middleName?: string | null;
-  email?: string | null;
-  birthday?: string | null;
-};
-export type GetUserResponseDto = {
-  user?: UserDto;
-};
-export type UserDtoPagedList = {
-  items?: UserDto[] | null;
-  pageSize?: number;
-};
-export type UserDtoPagedListRead = {
-  items?: UserDto[] | null;
-  currentPage?: number;
-  totalPages?: number;
-  pageSize?: number;
-  totalCount?: number;
-  hasPrevious?: boolean;
-  hasNext?: boolean;
-};
-export type GetUsersResponseDto = {
-  list?: UserDtoPagedList;
-};
-export type GetUsersResponseDtoRead = {
-  list?: UserDtoPagedListRead;
-};
 export enum UserRoleIdDto {
   None = 'None',
   ApplicationAdmin = 'ApplicationAdmin',
@@ -789,6 +781,9 @@ export enum UserRoleIdDto {
   Student = 'Student'
 }
 export const {
+  useGetApiV1AdminGetUsersQuery,
+  useLazyGetApiV1AdminGetUsersQuery,
+  usePutApiV1AdminUpdateIsApprovedStatusMutation,
   useGetApiV1DepartmentGetQuery,
   useLazyGetApiV1DepartmentGetQuery,
   useGetApiV1DepartmentGetListQuery,
@@ -812,7 +807,6 @@ export const {
   useLazyGetApiV1GroupGetListQuery,
   usePostApiV1GroupCreateMutation,
   useDeleteApiV1GroupDeleteMutation,
-  useDeleteApiV1IdentityDeleteMutation,
   usePostApiV1IdentityLoginMutation,
   useGetApiV1IdentityRefreshQuery,
   useLazyGetApiV1IdentityRefreshQuery,
@@ -820,7 +814,6 @@ export const {
   useLazyGetApiV1IdentityLogoutQuery,
   useGetApiV1IdentityInfoQuery,
   useLazyGetApiV1IdentityInfoQuery,
-  usePostApiV1IdentityApproveMutation,
   usePostApiV1RegistrationRegisterAdminMutation,
   usePostApiV1RegistrationRegisterStudentMutation,
   useGetApiV1RegistrationGetAvailableGroupsQuery,
@@ -845,9 +838,5 @@ export const {
   useGetApiV1UniversityPositionGetQuery,
   useLazyGetApiV1UniversityPositionGetQuery,
   useGetApiV1UniversityPositionGetListQuery,
-  useLazyGetApiV1UniversityPositionGetListQuery,
-  useGetApiV1UserGetQuery,
-  useLazyGetApiV1UserGetQuery,
-  useGetApiV1UserGetListQuery,
-  useLazyGetApiV1UserGetListQuery
+  useLazyGetApiV1UniversityPositionGetListQuery
 } = injectedRtkApi;

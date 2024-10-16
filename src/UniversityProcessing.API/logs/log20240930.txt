@@ -1,0 +1,75 @@
+2024-09-30 00:02:12.953 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5158/api/v1/Identity/Info - null null
+2024-09-30 00:02:12.963 +03:00 [INF] CORS policy execution successful.
+2024-09-30 00:02:12.965 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5158/api/v1/Identity/Info - 204 null null 11.5054ms
+2024-09-30 00:02:12.969 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/api/v1/Identity/Info - null null
+2024-09-30 00:02:12.970 +03:00 [INF] CORS policy execution successful.
+2024-09-30 00:02:12.971 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10517: Signature validation failed. The token's kid is missing. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: '1wqGa5SfupvlmJeDpAZ_q3D4oS8Kd7xYj_CHB5FIGCw'. , KeyId: 
+'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(JsonWebToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignatureAndIssuerSecurityKey(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-30 00:02:12.973 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10517: Signature validation failed. The token's kid is missing. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: '1wqGa5SfupvlmJeDpAZ_q3D4oS8Kd7xYj_CHB5FIGCw'. , KeyId: 
+'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+2024-09-30 00:02:12.974 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-09-30 00:02:12.975 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-30 00:02:12.976 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/api/v1/Identity/Info - 401 0 null 6.9948ms
+2024-09-30 00:05:27.674 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5158/api/v1/Identity/Info - null null
+2024-09-30 00:05:27.683 +03:00 [INF] CORS policy execution successful.
+2024-09-30 00:05:27.684 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5158/api/v1/Identity/Info - 204 null null 9.9325ms
+2024-09-30 00:05:27.687 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/api/v1/Identity/Info - null null
+2024-09-30 00:05:27.690 +03:00 [INF] CORS policy execution successful.
+2024-09-30 00:05:27.690 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10517: Signature validation failed. The token's kid is missing. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: '1wqGa5SfupvlmJeDpAZ_q3D4oS8Kd7xYj_CHB5FIGCw'. , KeyId: 
+'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(JsonWebToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignatureAndIssuerSecurityKey(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-30 00:05:27.692 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10517: Signature validation failed. The token's kid is missing. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: '1wqGa5SfupvlmJeDpAZ_q3D4oS8Kd7xYj_CHB5FIGCw'. , KeyId: 
+'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+2024-09-30 00:05:27.693 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-09-30 00:05:27.694 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-30 00:05:27.695 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/api/v1/Identity/Info - 401 0 null 7.5448ms
+2024-09-30 00:05:59.583 +03:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5158/api/v1/Identity/Info - null null
+2024-09-30 00:05:59.596 +03:00 [INF] CORS policy execution successful.
+2024-09-30 00:05:59.597 +03:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5158/api/v1/Identity/Info - 204 null null 13.9116ms
+2024-09-30 00:05:59.608 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5158/api/v1/Identity/Info - null null
+2024-09-30 00:05:59.610 +03:00 [INF] CORS policy execution successful.
+2024-09-30 00:05:59.613 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10517: Signature validation failed. The token's kid is missing. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: '1wqGa5SfupvlmJeDpAZ_q3D4oS8Kd7xYj_CHB5FIGCw'. , KeyId: 
+'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(JsonWebToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignatureAndIssuerSecurityKey(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2024-09-30 00:05:59.617 +03:00 [INF] Bearer was not authenticated. Failure message: IDX10517: Signature validation failed. The token's kid is missing. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: '1wqGa5SfupvlmJeDpAZ_q3D4oS8Kd7xYj_CHB5FIGCw'. , KeyId: 
+'. Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'. 
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+2024-09-30 00:05:59.619 +03:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2024-09-30 00:05:59.620 +03:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-09-30 00:05:59.622 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5158/api/v1/Identity/Info - 401 0 null 14.731ms

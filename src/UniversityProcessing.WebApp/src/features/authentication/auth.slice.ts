@@ -1,36 +1,34 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AuthState, AuthTokens, AuthUser} from "./auth.contracts";
-import {localStorageGetObject, localStorageSetData} from "src/core/localStorage";
-
-const TOKEN_KEY: string = "bntu_token";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AuthState, AuthTokens, AuthUser } from "./auth.contracts";
+import { ClearAuthTokens, GetAuthTokens, SetAuthTokens } from "src/core/localTokenReader";
 
 const initialState: AuthState = {
-    authorized: localStorageGetObject<AuthTokens>(TOKEN_KEY) != null,
+    authorized: GetAuthTokens() != null,
     user: null,
-    tokens: localStorageGetObject<AuthTokens>(TOKEN_KEY)
+    tokens: GetAuthTokens()
 }
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        logout: (state) => {
-            localStorageSetData(TOKEN_KEY, "")
+        logout: (state: AuthState) => {
+            ClearAuthTokens()
             state.authorized = false
             state.user = null
             state.tokens = null
         },
-        login: (state, action: PayloadAction<AuthTokens>) => {
-            console.log(action.payload)
-            localStorageSetData(TOKEN_KEY, action.payload)
+        login: (state: AuthState, action: PayloadAction<AuthTokens>) => {
+            SetAuthTokens(action.payload)
             state.authorized = true
+            state.tokens = action.payload
         },
-        setUser: (state, action: PayloadAction<AuthUser>) => {
+        setUser: (state: AuthState, action: PayloadAction<AuthUser>) => {
             state.user = action.payload
         }
     }
 })
 
-export const {logout, login, setUser} = authSlice.actions
+export const { logout, login, setUser } = authSlice.actions
 
 export default authSlice.reducer

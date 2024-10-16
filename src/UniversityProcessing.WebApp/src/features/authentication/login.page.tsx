@@ -1,4 +1,4 @@
-import {LockOutlined} from "@mui/icons-material";
+import { LockOutlined } from "@mui/icons-material";
 import {
     Avatar,
     Box,
@@ -10,11 +10,11 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import {useState} from "react";
-import {Link} from "react-router-dom";
-import {useAppDispatch} from "../../core/hooks";
-import {usePostApiV1IdentityLoginMutation} from "../../api/backendApi";
-import {login} from "./auth.slice";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../core/hooks";
+import { usePostApiV1IdentityLoginMutation } from "../../api/backendApi";
+import { login } from "./auth.slice";
 
 const LoginPage = () => {
     const dispatch = useAppDispatch();
@@ -22,10 +22,10 @@ const LoginPage = () => {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
 
-    const [trylogin, {isLoading}] = usePostApiV1IdentityLoginMutation()
+    const [trylogin, { isLoading }] = usePostApiV1IdentityLoginMutation()
 
     const handleLogin = async () => {
-        const result = await trylogin({loginRequestDto: {password: password, userName: userName}})
+        const result = await trylogin({ loginRequestDto: { password: password, userName: userName } })
 
         if (result.error)
             return
@@ -44,13 +44,13 @@ const LoginPage = () => {
                 alignItems: "center",
             }}>
 
-                <Avatar sx={{bgcolor: "primary.light"}}>
-                    <LockOutlined/>
+                <Avatar sx={{ bgcolor: "primary.light" }}>
+                    <LockOutlined />
                 </Avatar>
 
-                <Typography sx={{pt: 2}} variant="h5">Форма авторизации</Typography>
+                <Typography sx={{ pt: 2 }} variant="h5">Форма авторизации</Typography>
 
-                <FormControl sx={{p: 3}} fullWidth>
+                <FormControl sx={{ p: 3 }} fullWidth>
                     <Stack spacing={2}>
 
                         <TextField
@@ -89,13 +89,13 @@ const LoginPage = () => {
                         >
                             {
                                 isLoading
-                                    ? <CircularProgress size={25} color="inherit"/>
+                                    ? <CircularProgress size={25} color="inherit" />
                                     : <span>Авторизоваться</span>
                             }
                         </Button>
                     </Stack>
 
-                    <Box sx={{p: 3, textAlign: "center"}}>
+                    <Box sx={{ p: 3, textAlign: "center" }}>
                         <Link to="/signup">Нет аккаунта? Зарегистрироваться</Link>
                     </Box>
 

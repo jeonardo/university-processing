@@ -1,4 +1,3 @@
-using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -18,7 +17,7 @@ using UniversityProcessing.Infrastructure.Seeds;
 
 namespace UniversityProcessing.API;
 
-public static partial class Program
+public static class Program
 {
     private const string APPLICATION_CORS_POLICY = nameof(APPLICATION_CORS_POLICY);
 
@@ -206,7 +205,7 @@ public static partial class Program
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidIssuer = settings.Issuer,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.AccessKey)),
+                        IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(settings.AccessKey)),
                         ValidateIssuerSigningKey = true,
                         ValidateIssuer = true,
                         ValidateAudience = false,
@@ -306,11 +305,4 @@ public static partial class Program
         app.UseAuthentication();
         app.UseAuthorization();
     }
-}
-
-/// <summary>
-///     For tests
-/// </summary>
-public static partial class Program
-{
 }

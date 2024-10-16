@@ -53,9 +53,9 @@ public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
     {
     }
 
-    public void Approve()
+    public void UpdateIsApprovedStatus(bool isApproved)
     {
-        Approved = true;
+        Approved = isApproved;
     }
 
     public static User CreateAdmin(string userName, string firstName, string lastName, string? middleName = null, string? email = null, DateOnly? birthday = null)

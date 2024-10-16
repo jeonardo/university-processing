@@ -1,6 +1,6 @@
 import { MRT_Localization_RU } from 'material-react-table/locales/ru';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
     MaterialReactTable,
     type MRT_ColumnDef,
@@ -15,70 +15,104 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
+    FormControl,
     IconButton,
     InputLabel,
     MenuItem,
     Select,
     Tooltip,
+    Typography,
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import NotInterestedIcon from '@mui/icons-material/NotInterested';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import {
     RegisterAdminRequestDto,
     RegisterEmployeeRequestDto,
     RegisterStudentRequestDto,
-    useDeleteApiV1IdentityDeleteMutation,
-    useGetApiV1UserGetListQuery,
+    useGetApiV1AdminGetUsersQuery,
+    useLazyGetApiV1AdminGetUsersQuery,
     usePostApiV1RegistrationRegisterAdminMutation,
     usePostApiV1RegistrationRegisterEmployeeMutation,
     usePostApiV1RegistrationRegisterStudentMutation,
+    usePutApiV1AdminUpdateIsApprovedStatusMutation,
     UserDto,
     UserRoleIdDto
 } from 'src/api/backendApi';
 import { Switch } from 'src/core/Switch';
+import ValidationRules from 'src/core/ValidationRules';
 
 function validateUserAdmin(university: RegisterAdminRequestDto) {
     return {
-        // name: !ValidationRules.validateRequired(university.name) ? 'First Name is Required' : '',
-        // shortName: !ValidationRules.validateRequired(university.shortName) ? 'Last Name is Required' : ''
+        //name: !ValidationRules.validateRequired(university.name) ? 'First Name is Required' : '',
+        //shortName: !ValidationRules.validateRequired(university.shortName) ? 'Last Name is Required' : ''
     };
 }
 
 function validateUserStudent(university: RegisterStudentRequestDto) {
     return {
-        // name: !ValidationRules.validateRequired(university.name) ? 'First Name is Required' : '',
-        // shortName: !ValidationRules.validateRequired(university.shortName) ? 'Last Name is Required' : ''
+        //  name: !ValidationRules.validateRequired(university.name) ? 'First Name is Required' : '',
+        //  shortName: !ValidationRules.validateRequired(university.shortName) ? 'Last Name is Required' : ''
     };
 }
 
 function validateUserEmployee(university: RegisterEmployeeRequestDto) {
     return {
-        // name: !ValidationRules.validateRequired(university.name) ? 'First Name is Required' : '',
-        // shortName: !ValidationRules.validateRequired(university.shortName) ? 'Last Name is Required' : ''
+        //     name: !ValidationRules.validateRequired(university.name) ? 'First Name is Required' : '',
+        //     shortName: !ValidationRules.validateRequired(university.shortName) ? 'Last Name is Required' : ''
     };
 }
 
 const UserListPage = () => {
-    const dataState = useGetApiV1UserGetListQuery({})
+    const [getDataState, dataState] = useLazyGetApiV1AdminGetUsersQuery({})
 
-    const [createUserRole, setCreateUserRole] = useState<UserRoleIdDto>()
-    const userRoles = ['None', 'ApplicationAdmin', 'Employee', 'Student'];
-    const isUserRole = (x: any): x is UserRoleIdDto => userRoles.includes(x);
+    const [createUserRole, setCreateUserRole] = useState<UserRoleIdDto>(UserRoleIdDto.None)
 
     const [handleCreateAdmin, handleCreateAdminState] = usePostApiV1RegistrationRegisterAdminMutation()
     const [handleCreateStudent, handleCreateStudentState] = usePostApiV1RegistrationRegisterStudentMutation()
     const [handleCreateEmployee, handleCreateEmployeeState] = usePostApiV1RegistrationRegisterEmployeeMutation()
 
-    const [handleDelete, handleDeleteState] = useDeleteApiV1IdentityDeleteMutation()
+    const [handleUpdateApprovement, handleUpdateApprovementState] = usePutApiV1AdminUpdateIsApprovedStatusMutation()
 
     const [validationErrors, setValidationErrors] = useState<
         Record<string, string | undefined>
     >({});
 
+    const [isActual, setIsActual] = useState(false)
+
+    const sendUpdateApprovement = (approved: boolean, user: UserDto) => {
+        handleUpdateApprovement({ updateIsApprovedStatusRequestDto: { isApproved: approved, userId: user.id ?? "" } })
+        setTimeout(() => {
+            setIsActual(false)
+        }, 2000)
+    }
+
+    useEffect(() => {
+        if (!isActual) {
+            getDataState({})
+            setIsActual(true)
+        }
+    })
+
     const columns = useMemo<MRT_ColumnDef<UserDto>[]>(
         () => [
             {
-                accessorKey: 'name',
-                header: 'Name',
+                accessorKey: 'lastName',
+                header: 'Фамилия',
+                muiEditTextFieldProps: {
+                    required: true,
+                    error: !!validationErrors?.shortName,
+                    helperText: validationErrors?.shortName,
+                    //remove any previous validation errors when university focuses on the input
+                    onFocus: () =>
+                        setValidationErrors({
+                            ...validationErrors,
+                            shortName: undefined,
+                        }),
+                },
+            },
+            {
+                accessorKey: 'firstName',
+                header: 'Имя',
                 muiEditTextFieldProps: {
                     required: true,
                     error: !!validationErrors?.name,
@@ -93,8 +127,8 @@ const UserListPage = () => {
                 },
             },
             {
-                accessorKey: 'shortName',
-                header: 'Short name',
+                accessorKey: 'middleName',
+                header: 'Отчество',
                 muiEditTextFieldProps: {
                     required: true,
                     error: !!validationErrors?.shortName,
@@ -106,6 +140,17 @@ const UserListPage = () => {
                             shortName: undefined,
                         }),
                 },
+            },
+            {
+                accessorKey: 'approved',
+                header: 'Статус',
+                Cell: ({ cell }) => (
+                    <div>
+                        {cell.getValue<boolean>()
+                            ? "Подтвержден"
+                            : "Заблокирован"}
+                    </div>
+                ),
             }
         ],
         [validationErrors],
@@ -126,7 +171,17 @@ const UserListPage = () => {
 
         setValidationErrors({});
 
-        //await handleCreateAdmin({ registerAdminRequestDto: { name: values.name, shortName: values.shortName } });
+        await handleCreateAdmin({
+            registerAdminRequestDto: {
+                firstName: values.firstName,
+                middleName: values.middleName,
+                lastName: values.lastName,
+                userName: values.userName,
+                password: values.password,
+                email: values.email,
+                birthday: values.birthday
+            }
+        });
 
         table.setCreatingRow(null); //exit creating mode
 
@@ -145,7 +200,17 @@ const UserListPage = () => {
 
         setValidationErrors({});
 
-        // await handleCreateEmployee({ registerEmployeeRequestDto: { name: values.name, shortName: values.shortName } });
+        await handleCreateEmployee({
+            registerEmployeeRequestDto: {
+                firstName: values.firstName,
+                middleName: values.middleName,
+                lastName: values.lastName,
+                userName: values.userName,
+                password: values.password,
+                email: values.email,
+                birthday: values.birthday
+            }
+        });
 
         table.setCreatingRow(null); //exit creating mode
     };
@@ -163,16 +228,19 @@ const UserListPage = () => {
 
         setValidationErrors({});
 
-        //await handleCreateStudent({ registerStudentRequestDto: { name: values.name, shortName: values.shortName } });
+        await handleCreateStudent({
+            registerStudentRequestDto: {
+                firstName: values.firstName,
+                middleName: values.middleName,
+                lastName: values.lastName,
+                userName: values.userName,
+                password: values.password,
+                email: values.email,
+                birthday: values.birthday
+            }
+        });
 
         table.setCreatingRow(null); //exit creating mode
-    };
-
-    //DELETE action
-    const openDeleteConfirmModal = async (row: MRT_Row<UserDto>) => {
-        if (window.confirm('Are you sure you want to delete this university?')) {
-            await handleDelete({ deleteUserRequestDto: { id: row.original.id } })
-        }
     };
 
     return (
@@ -209,40 +277,41 @@ const UserListPage = () => {
                     },
                     renderCreateRowDialogContent: ({ table, row, internalEditComponents }) => (
                         <>
-                            <DialogTitle variant="h6">Регистрация нового университета</DialogTitle>
+                            <DialogTitle variant="h6">Регистрация нового пользователя</DialogTitle>
+                            <Box sx={{ p: 0.1 }} ></Box>
                             <DialogContent
                                 sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
                             >
-                                <InputLabel id="create-user-role-label">Роль нового пользователя</InputLabel>
-                                <Select
-                                    labelId="create-user-role-label"
-                                    id="create-user-role-select"
-                                    value={createUserRole}
-                                    onChange={(value) => {
-                                        const newRole = value.target.value
-                                        if (isUserRole(newRole))
-                                            setCreateUserRole(newRole)
-                                    }}
-                                >
-                                    <MenuItem value="None">
-                                        <em>Не выбран</em>
-                                    </MenuItem>
-                                    <MenuItem value={'ApplicationAdmin'}>Администратор</MenuItem>
-                                    <MenuItem value={'Employee'}>Сотрудник университета</MenuItem>
-                                    <MenuItem value={'Student'}>Студент</MenuItem>
-                                </Select>
-                                <Switch condition={createUserRole}>
-                                    <Switch.Case when={'ApplicationAdmin'}>
-                                        <div className="case-item">ApplicationAdmin</div>
-                                    </Switch.Case>
-                                    <Switch.Case when={'Employee'}>
-                                        <div className="case-item">Employee</div>
-                                    </Switch.Case>
-                                    <Switch.Case when={'Student'}>
-                                        <div className="case-item">Student</div>
-                                    </Switch.Case>
-                                </Switch>
-                                {/* {internalEditComponents} or render custom edit components here */}
+                                <FormControl fullWidth>
+                                    <InputLabel id="user-role-label">Роль</InputLabel>
+                                    <Select
+                                        labelId="user-role-label"
+                                        id="user-role-select"
+                                        value={createUserRole}
+                                        label="Роль"
+                                        onChange={(e) => {
+                                            switch (e.target.value) {
+                                                case UserRoleIdDto.Student:
+                                                    setCreateUserRole(UserRoleIdDto.Student);
+                                                    break;
+                                                case UserRoleIdDto.ApplicationAdmin:
+                                                    setCreateUserRole(UserRoleIdDto.ApplicationAdmin);
+                                                    break;
+                                                case UserRoleIdDto.Employee:
+                                                    setCreateUserRole(UserRoleIdDto.Employee);
+                                                    break;
+                                                default:
+                                                    setCreateUserRole(UserRoleIdDto.None);
+                                                    break;
+                                            }
+                                        }}
+                                    >
+                                        <MenuItem disabled value={UserRoleIdDto.None}>Не выбрана</MenuItem>
+                                        <MenuItem value={UserRoleIdDto.Student}>Студент</MenuItem>
+                                        <MenuItem value={UserRoleIdDto.ApplicationAdmin}>Администратор</MenuItem>
+                                        <MenuItem value={UserRoleIdDto.Employee}>Сотрудник университета</MenuItem>
+                                    </Select>
+                                </FormControl>
                             </DialogContent>
                             <DialogActions>
                                 <MRT_EditActionButtons variant="text" table={table} row={row} />
@@ -251,11 +320,19 @@ const UserListPage = () => {
                     ),
                     renderRowActions: ({ row, table }) => (
                         <Box sx={{ display: 'flex', gap: '1rem' }}>
-                            <Tooltip title="Delete">
-                                <IconButton color="error" onClick={() => openDeleteConfirmModal(row)}>
-                                    <DeleteIcon />
-                                </IconButton>
-                            </Tooltip>
+                            {
+                                row.getValue<Boolean>("approved")
+                                    ? <Tooltip title="Заблокировать пользователя">
+                                        <IconButton color="error" onClick={() => sendUpdateApprovement(false, row.original)}>
+                                            <NotInterestedIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                    : <Tooltip title="Активировать пользователя">
+                                        <IconButton color="success" onClick={() => sendUpdateApprovement(true, row.original)}>
+                                            <CheckCircleOutlineIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                            }
                         </Box>
                     ),
                     renderTopToolbarCustomActions: ({ table }) => (
@@ -271,12 +348,12 @@ const UserListPage = () => {
                                 // );
                             }}
                         >
-                            Создать
+                            Зарегистрировать пользователя
                         </Button>
                     ),
                     state: {
                         isLoading: dataState.isLoading,
-                        isSaving: handleCreateAdminState.isLoading || handleCreateEmployeeState.isLoading || handleCreateStudentState.isLoading || handleDeleteState.isLoading,
+                        isSaving: handleCreateAdminState.isLoading || handleCreateEmployeeState.isLoading || handleCreateStudentState.isLoading || handleUpdateApprovementState.isLoading,
                         showAlertBanner: dataState.isError,
                         showProgressBars: dataState.isLoading,
                     },
