@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Filters;
 using UniversityProcessing.GenericSubdomain.Pagination;
 using UniversityProcessing.Repository.Repositories;
 using UniversityProcessing.Repository.Specifications;
@@ -14,8 +13,7 @@ internal sealed class GetUniversities : IEndpoint
     {
         app
             .MapGet(nameof(GetUniversities), Handle)
-            .RequireAuthorization()
-            .AddEndpointFilter<ValidationFilter<GetUniversitiesRequestDto>>();
+            .RequireAuthorization();
     }
 
     private static async Task<GetUniversitiesResponseDto> Handle(
