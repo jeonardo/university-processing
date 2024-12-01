@@ -8,7 +8,6 @@ using UniversityProcessing.DomainServices.Features.Departments.Create;
 using UniversityProcessing.DomainServices.Features.Departments.Delete;
 using UniversityProcessing.DomainServices.Features.Departments.Get;
 using UniversityProcessing.DomainServices.Features.Departments.GetList;
-using UniversityProcessing.GenericSubdomain.Attributes;
 
 namespace UniversityProcessing.API.Controllers;
 
@@ -17,7 +16,6 @@ namespace UniversityProcessing.API.Controllers;
 public class DepartmentController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    [ValidateModel]
     public async Task<GetDepartmentResponseDto> Get([FromQuery] GetDepartmentRequestDto request, CancellationToken cancellationToken)
     {
         var query = new GetDepartmentQueryRequest(request.Id);
@@ -35,7 +33,6 @@ public class DepartmentController(IMediator mediator) : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = nameof(UserRoles.ApplicationAdmin))]
-    [ValidateModel]
     public async Task<CreateDepartmentResponseDto> Create([FromBody] CreateDepartmentRequestDto request, CancellationToken cancellationToken)
     {
         var command = new CreateDepartmentCommandRequest(request.Name, request.ShortName, request.FacultyId);
@@ -45,7 +42,6 @@ public class DepartmentController(IMediator mediator) : ControllerBase
 
     [HttpDelete]
     [Authorize(Roles = nameof(UserRoles.ApplicationAdmin))]
-    [ValidateModel]
     public Task Delete([FromBody] DeleteDepartmentRequestDto request, CancellationToken cancellationToken)
     {
         var command = new DeleteDepartmentCommandRequest(request.Id);

@@ -1,3 +1,0 @@
-namespace UniversityProcessing.DomainServices.Features.Identity.RegisterStudent.GetRegisterStudentAvailableGroups;
-
-public sealed record GetRegisterStudentAvailableGroupsQueryResponse(string[] List);

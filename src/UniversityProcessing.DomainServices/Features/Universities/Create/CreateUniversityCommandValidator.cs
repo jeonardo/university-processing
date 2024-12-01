@@ -5,7 +5,7 @@ using UniversityProcessing.Repository.Specifications;
 
 namespace UniversityProcessing.DomainServices.Features.Universities.Create;
 
-internal sealed class CreateUniversityCommandValidator : AbstractValidator<CreateUniversityCommandRequest>
+public sealed class CreateUniversityCommandValidator : AbstractValidator<CreateUniversityCommandRequest>
 {
     public CreateUniversityCommandValidator(IEfReadRepository<User> userRepository)
     {

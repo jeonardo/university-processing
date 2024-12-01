@@ -139,12 +139,12 @@ public class UniversitySeed(
         var bntu_sidorik = await AddEmployee("Sidorik_Valery_Vladimirovich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_6);
         var bntu_yudenkov = await AddEmployee("Yudenkov_Viktor_Stepanovich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_6);
 
-        var bntu_studyGroup1 = await AddGroup("1", bntu_faculty_fitr_sp1, new DateOnly(2023, 9, 1), new DateOnly(2027, 9, 1));
-        var bntu_studyGroup2 = await AddGroup("2", bntu_faculty_fitr_sp2, new DateOnly(2023, 9, 1), new DateOnly(2027, 9, 1));
-        var bntu_studyGroup3 = await AddGroup("3", bntu_faculty_fitr_sp3, new DateOnly(2023, 9, 1), new DateOnly(2027, 9, 1));
-        var bntu_studyGroup4 = await AddGroup("4", bntu_faculty_fitr_sp4, new DateOnly(2023, 9, 1), new DateOnly(2027, 9, 1));
-        var bntu_studyGroup5 = await AddGroup("5", bntu_faculty_fitr_sp5, new DateOnly(2023, 9, 1), new DateOnly(2027, 9, 1));
-        var bntu_studyGroup6 = await AddGroup("6", bntu_faculty_fitr_sp6, new DateOnly(2023, 9, 1), new DateOnly(2027, 9, 1));
+        var bntu_studyGroup1 = await AddGroup("1", bntu_faculty_fitr_sp1, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
+        var bntu_studyGroup2 = await AddGroup("2", bntu_faculty_fitr_sp2, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
+        var bntu_studyGroup3 = await AddGroup("3", bntu_faculty_fitr_sp3, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
+        var bntu_studyGroup4 = await AddGroup("4", bntu_faculty_fitr_sp4, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
+        var bntu_studyGroup5 = await AddGroup("5", bntu_faculty_fitr_sp5, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
+        var bntu_studyGroup6 = await AddGroup("6", bntu_faculty_fitr_sp6, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
 
         for (var i = 0; i < 30; i++)
         {
@@ -216,8 +216,8 @@ public class UniversitySeed(
     private async Task<Group> AddGroup(
         string groupNumber,
         Specialty specialty,
-        DateOnly startDate,
-        DateOnly endDate)
+        DateTime startDate,
+        DateTime endDate)
     {
         var result = Group.Create(groupNumber, startDate, endDate, specialty.Id);
         GroupValues.Add(result);

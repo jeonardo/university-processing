@@ -1,3 +1,3 @@
 export type CustomizationState = {
-    opened: boolean
+  opened: boolean
 }

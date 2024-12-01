@@ -1,10 +1,10 @@
 const DiplomaPeriodListPage = () => {
-    return (
-        <>
-            <div>
-                DiplomaPeriodListPage
-            </div>
-        </>)
-}
+  return (
+    <>
+      <div>
+        DiplomaPeriodListPage
+      </div>
+    </>);
+};
 
-export default DiplomaPeriodListPage
+export default DiplomaPeriodListPage;

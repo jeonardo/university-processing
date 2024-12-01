@@ -1,5 +1,5 @@
 export interface OptionType {
-    label: string;
-    value: string;
+  label: string;
+  value: string;
 }
 

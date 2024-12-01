@@ -8,7 +8,6 @@ using UniversityProcessing.DomainServices.Features.Specialties.Create;
 using UniversityProcessing.DomainServices.Features.Specialties.Delete;
 using UniversityProcessing.DomainServices.Features.Specialties.Get;
 using UniversityProcessing.DomainServices.Features.Specialties.GetList;
-using UniversityProcessing.GenericSubdomain.Attributes;
 
 namespace UniversityProcessing.API.Controllers;
 
@@ -17,7 +16,6 @@ namespace UniversityProcessing.API.Controllers;
 public class SpecialtyController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    [ValidateModel]
     public async Task<GetSpecialtyResponseDto> Get([FromQuery] GetSpecialtyRequestDto request, CancellationToken cancellationToken)
     {
         var query = new GetSpecialtyQueryRequest(request.Id);
@@ -35,7 +33,6 @@ public class SpecialtyController(IMediator mediator) : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = nameof(UserRoles.ApplicationAdmin))]
-    [ValidateModel]
     public async Task<CreateSpecialtyResponseDto> Create([FromBody] CreateSpecialtyRequestDto request, CancellationToken cancellationToken)
     {
         var command = new CreateSpecialtyCommandRequest(request.Name, request.ShortName, request.Code, request.FacultyId);
@@ -45,7 +42,6 @@ public class SpecialtyController(IMediator mediator) : ControllerBase
 
     [HttpDelete]
     [Authorize(Roles = nameof(UserRoles.ApplicationAdmin))]
-    [ValidateModel]
     public Task Delete([FromBody] DeleteSpecialtyRequestDto request, CancellationToken cancellationToken)
     {
         return mediator.Send(new DeleteSpecialtyCommandRequest(request.Id), cancellationToken);

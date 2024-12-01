@@ -8,7 +8,6 @@ using UniversityProcessing.DomainServices.Features.Groups.Create;
 using UniversityProcessing.DomainServices.Features.Groups.Delete;
 using UniversityProcessing.DomainServices.Features.Groups.Get;
 using UniversityProcessing.DomainServices.Features.Groups.GetList;
-using UniversityProcessing.GenericSubdomain.Attributes;
 
 namespace UniversityProcessing.API.Controllers;
 
@@ -17,7 +16,6 @@ namespace UniversityProcessing.API.Controllers;
 public class GroupController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    [ValidateModel]
     public async Task<GetGroupResponseDto> Get([FromQuery] GetGroupRequestDto request, CancellationToken cancellationToken)
     {
         var query = new GetGroupQueryRequest(request.Id);
@@ -35,7 +33,6 @@ public class GroupController(IMediator mediator) : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = nameof(UserRoles.ApplicationAdmin))]
-    [ValidateModel]
     public async Task<CreateGroupResponseDto> Create([FromBody] CreateGroupRequestDto request, CancellationToken cancellationToken)
     {
         var command = new CreateGroupCommandRequest(request.GroupNumber, request.StartDate, request.EndDate, request.SpecialtyId);
@@ -45,7 +42,6 @@ public class GroupController(IMediator mediator) : ControllerBase
 
     [HttpDelete]
     [Authorize(Roles = nameof(UserRoles.ApplicationAdmin))]
-    [ValidateModel]
     public Task Delete([FromBody] DeleteGroupRequestDto request, CancellationToken cancellationToken)
     {
         var command = new DeleteGroupCommandRequest(request.Id);

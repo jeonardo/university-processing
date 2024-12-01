@@ -1,10 +1,10 @@
 const GroupListPage = () => {
-    return (
-        <>
-            <div>
-                GroupListPage
-            </div>
-        </>)
-}
+  return (
+    <>
+      <div>
+        GroupListPage
+      </div>
+    </>);
+};
 
-export default GroupListPage
+export default GroupListPage;

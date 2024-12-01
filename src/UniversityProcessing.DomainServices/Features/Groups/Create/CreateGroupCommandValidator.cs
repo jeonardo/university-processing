@@ -5,7 +5,7 @@ using UniversityProcessing.Repository.Specifications;
 
 namespace UniversityProcessing.DomainServices.Features.Groups.Create;
 
-internal sealed class CreateGroupCommandValidator : AbstractValidator<CreateGroupCommandRequest>
+public sealed class CreateGroupCommandValidator : AbstractValidator<CreateGroupCommandRequest>
 {
     public CreateGroupCommandValidator(IEfReadRepository<Specialty> specialtyRepository)
     {

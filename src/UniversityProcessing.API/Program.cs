@@ -1,71 +1,71 @@
-using System.Text.Json.Serialization;
+using System.Reflection;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using Serilog;
 using UniversityProcessing.API.Options;
+using UniversityProcessing.API.Services.Auth;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.DomainServices;
-using UniversityProcessing.DomainServices.Options;
 using UniversityProcessing.GenericSubdomain.Configuration;
-using UniversityProcessing.GenericSubdomain.Middlewares;
+using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Middlewares.Extensions;
+using UniversityProcessing.GenericSubdomain.Swagger;
 using UniversityProcessing.Infrastructure;
 using UniversityProcessing.Infrastructure.Seeds;
 
 namespace UniversityProcessing.API;
 
-public static class Program
+public static partial class Program
 {
     private const string APPLICATION_CORS_POLICY = nameof(APPLICATION_CORS_POLICY);
 
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddAppSwagger();
+        builder.Services.AddCorrelationIdGeneratorService();
+        builder.Services.AddHttpContextAccessor();
 
         AddSerilog(builder);
         AddIdentity(builder.Services);
         AddAuthentication(builder.Services, builder.Configuration);
-        AddUtilities(builder.Services);
 
         InfrastructureRegistrar.Configure(builder.Configuration, builder.Services);
         DomainServicesRegistrar.Configure(builder.Configuration, builder.Services);
 
-        builder.Services
-            .AddControllers()
-            .AddJsonOptions(o => { o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
-
+        builder.Services.AddControllers();
+        builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        builder.AddEndpoints(Assembly.GetExecutingAssembly());
         builder.AddApplicationCors();
 
         var app = builder.Build();
 
+        app.MapEndpoints();
+        app.MapControllers();
+
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseAppSwagger();
+            app.MigrateDb();
+        }
+
         app.UseProtectedMiddleware();
         app.UseSerilogRequestLogging();
 
-        app.MapControllers();
-        app.UseRouting();
         app.UseCors(APPLICATION_CORS_POLICY);
         app.UseHttpsRedirection();
 
         app.UseFileServer();
         app.MapFallbackToFile("/index.html");
 
-        UseAuthentication(app);
+        app.UseAuthentication();
+        app.UseAuthorization();
 
-        if (app.Environment.IsDevelopment())
-        {
-            UseSwagger(app);
-        }
-        else
-        {
-            app.UseHsts();
-        }
-
-        app
-            .MigrateDb()
-            .Run();
+        await app.RunAsync();
     }
 
     private static WebApplication MigrateDb(this WebApplication app)
@@ -123,6 +123,10 @@ public static class Program
 
     private static void AddApplicationCors(this WebApplicationBuilder builder)
     {
+        builder.Services
+            .AddOptionsWithValidateOnStart<CorsOptions>()
+            .Bind(builder.Configuration.GetSection(nameof(CorsOptions)));
+
         var allowedOrigins = builder.Configuration
             .GetOptions<CorsOptions>()
             .GetAllowedOrigins();
@@ -138,19 +142,9 @@ public static class Program
                             .WithOrigins(allowedOrigins)
                             .AllowAnyHeader()
                             .AllowAnyMethod()
-
-                            // .AllowCredentials()
                             .SetIsOriginAllowedToAllowWildcardSubdomains();
                     });
             });
-    }
-
-    private static void AddUtilities(IServiceCollection services)
-    {
-        services.AddCorrelationIdGeneratorService();
-        services.AddHttpContextAccessor();
-
-        AddSwagger(services);
     }
 
     private static void AddSerilog(WebApplicationBuilder builder)
@@ -184,13 +178,11 @@ public static class Program
     {
         services
             .AddOptionsWithValidateOnStart<AuthOptions>()
-            .Bind(configuration.GetSection(nameof(AuthOptions)))
-            .ValidateDataAnnotations();
+            .Bind(configuration.GetSection(nameof(AuthOptions)));
 
-        var settings = configuration
-                .GetSection(nameof(AuthOptions))
-                .Get<AuthOptions>()
-            ?? throw new ApplicationException($"{nameof(AuthOptions)} must be set");
+        services.AddSingleton<ITokenService, TokenService>();
+
+        var authOptions = configuration.GetOptions<AuthOptions>();
 
         services
             .AddAuthentication(
@@ -204,8 +196,8 @@ public static class Program
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidIssuer = settings.Issuer,
-                        IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(settings.AccessKey)),
+                        ValidIssuer = authOptions.Issuer,
+                        IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(authOptions.AccessKey)),
                         ValidateIssuerSigningKey = true,
                         ValidateIssuer = true,
                         ValidateAudience = false,
@@ -243,66 +235,7 @@ public static class Program
 
         services.AddAuthorizationBuilder();
     }
-
-    private static void AddSwagger(IServiceCollection services)
-    {
-        services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen(
-            c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "University project API", Version = "v1" });
-                c.EnableAnnotations();
-                c.SchemaFilter<CorrelationIdSchemaFilter>();
-
-                c.AddSecurityDefinition(
-                    "Bearer",
-                    new OpenApiSecurityScheme
-                    {
-                        Description = """
-                                      JWT Authorization header using the Bearer scheme. \r\n\r\n
-                                      Enter 'Bearer' [space] and then your token in the text input below.
-                                      \r\n\r\nExample: 'Bearer 12345'
-                                      """,
-                        Name = "Authorization",
-                        In = ParameterLocation.Header,
-                        Type = SecuritySchemeType.ApiKey,
-                        Scheme = "Bearer"
-                    });
-
-                c.AddSecurityRequirement(
-                    new OpenApiSecurityRequirement
-                    {
-                        {
-                            new OpenApiSecurityScheme
-                            {
-                                Reference = new OpenApiReference
-                                {
-                                    Type = ReferenceType.SecurityScheme,
-                                    Id = "Bearer"
-                                },
-                                Scheme = "oauth2",
-                                Name = "Bearer",
-                                In = ParameterLocation.Header
-                            },
-                            new List<string>()
-                        }
-                    });
-            });
-    }
-
-    private static void UseSwagger(IApplicationBuilder app)
-    {
-        // Enable middleware to serve generated Swagger as a JSON endpoint.
-        app.UseSwagger();
-
-        // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-        // specifying the Swagger JSON endpoint.
-        app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "University project API V1"); });
-    }
-
-    private static void UseAuthentication(IApplicationBuilder app)
-    {
-        app.UseAuthentication();
-        app.UseAuthorization();
-    }
 }
+
+// REMARK: Required for functional and integration tests to work.
+public static partial class Program;

@@ -8,7 +8,6 @@ using UniversityProcessing.DomainServices.Features.Faculties.Create;
 using UniversityProcessing.DomainServices.Features.Faculties.Delete;
 using UniversityProcessing.DomainServices.Features.Faculties.Get;
 using UniversityProcessing.DomainServices.Features.Faculties.GetList;
-using UniversityProcessing.GenericSubdomain.Attributes;
 
 namespace UniversityProcessing.API.Controllers;
 
@@ -17,7 +16,6 @@ namespace UniversityProcessing.API.Controllers;
 public class FacultyController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    [ValidateModel]
     public async Task<GetFacultyResponseDto> Get([FromQuery] GetFacultyRequestDto request, CancellationToken cancellationToken)
     {
         var query = new GetFacultyQueryRequest(request.Id);
@@ -35,7 +33,6 @@ public class FacultyController(IMediator mediator) : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = nameof(UserRoles.ApplicationAdmin))]
-    [ValidateModel]
     public async Task<CreateFacultyResponseDto> Create([FromBody] CreateFacultyRequestDto request, CancellationToken cancellationToken)
     {
         var command = new CreateFacultyCommandRequest(request.Name, request.ShortName, request.UniversityId);
@@ -45,7 +42,6 @@ public class FacultyController(IMediator mediator) : ControllerBase
 
     [HttpDelete]
     [Authorize(Roles = nameof(UserRoles.ApplicationAdmin))]
-    [ValidateModel]
     public Task Delete([FromBody] DeleteFacultyRequestDto request, CancellationToken cancellationToken)
     {
         var command = new DeleteFacultyCommandRequest(request.Id);

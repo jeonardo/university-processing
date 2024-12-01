@@ -1,4 +1,4 @@
 const StudentPanelPage = () => {
-    return <></>
-}
+  return <></>;
+};
 export default StudentPanelPage;

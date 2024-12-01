@@ -12,6 +12,7 @@
     <Folder Include="Features\Diplomas\FreezeTopic\"/>
     <Folder Include="Features\Diplomas\RequestTopic\"/>
     <Folder Include="Features\Diplomas\SetSupervisor\"/>
+    <Folder Include="Options\"/>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation"/>

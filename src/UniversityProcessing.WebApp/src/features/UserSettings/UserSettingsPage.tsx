@@ -1,5 +1,5 @@
 const UserSettingsPage = () => (
-    <div>Настройки профиля</div>
-)
+  <div>Настройки профиля</div>
+);
 
-export default UserSettingsPage
+export default UserSettingsPage;

@@ -7,15 +7,15 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import 'dayjs/locale/de';
 
 const App: React.FC = () => {
-    return (
-        <ThemeProvider theme={theme}>
-            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='de'>
-                {/* This resets CSS and applies MUI's baseline styles */}
-                <CssBaseline />
-                <RouterProvider router={AppRouter} />
-            </LocalizationProvider>
-        </ThemeProvider>
-    );
-}
+  return (
+    <ThemeProvider theme={theme}>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
+        {/* This resets CSS and applies MUI's baseline styles */}
+        <CssBaseline />
+        <RouterProvider router={AppRouter} />
+      </LocalizationProvider>
+    </ThemeProvider>
+  );
+};
 
 export default App;

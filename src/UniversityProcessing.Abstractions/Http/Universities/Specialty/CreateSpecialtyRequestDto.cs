@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using UniversityProcessing.GenericSubdomain.Attributes;
 
 namespace UniversityProcessing.Abstractions.Http.Universities.Specialty;
 
@@ -17,6 +16,5 @@ public sealed class CreateSpecialtyRequestDto
     [StringLength(12, MinimumLength = 12)]
     public string Code { get; set; } = string.Empty;
 
-    [NotDefault]
     public Guid FacultyId { get; set; }
 }

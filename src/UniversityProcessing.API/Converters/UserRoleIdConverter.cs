@@ -1,4 +1,4 @@
-using UniversityProcessing.Abstractions.Http.Identity;
+using UniversityProcessing.API.Endpoints.Contracts;
 using UniversityProcessing.Domain.Identity;
 
 namespace UniversityProcessing.API.Converters;

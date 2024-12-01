@@ -5,7 +5,7 @@ using UniversityProcessing.Repository.Specifications;
 
 namespace UniversityProcessing.DomainServices.Features.DiplomaPeriods.Create;
 
-internal sealed class CreateDiplomaPeriodCommandValidator : AbstractValidator<CreateDiplomaPeriodCommandRequest>
+public sealed class CreateDiplomaPeriodCommandValidator : AbstractValidator<CreateDiplomaPeriodCommandRequest>
 {
     public CreateDiplomaPeriodCommandValidator(IEfReadRepository<DiplomaPeriod> diplomaPeriodRepository)
     {

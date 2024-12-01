@@ -1,10 +1,10 @@
 const DepartmentListPage = () => {
-    return (
-        <>
-            <div>
-                DepartmentListPage
-            </div>
-        </>)
-}
+  return (
+    <>
+      <div>
+        DepartmentListPage
+      </div>
+    </>);
+};
 
-export default DepartmentListPage
+export default DepartmentListPage;

@@ -26,12 +26,12 @@ public sealed class DiplomaPeriod : BaseEntity, IHasId
     {
     }
 
-    public static DiplomaPeriod Create(DateOnly startDate, DateOnly endDate, Guid? facultyId = null)
+    public static DiplomaPeriod Create(DateTime startDate, DateTime endDate, Guid? facultyId = null)
     {
         return new DiplomaPeriod
         {
-            StartDate = startDate.ToDateTime(TimeOnly.MinValue),
-            EndDate = endDate.ToDateTime(TimeOnly.MinValue),
+            StartDate = startDate,
+            EndDate = endDate,
             FacultyId = facultyId
         };
     }

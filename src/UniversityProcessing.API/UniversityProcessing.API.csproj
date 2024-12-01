@@ -2,9 +2,6 @@
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore"/>
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI"/>
-    <PackageReference Include="Swashbuckle.AspNetCore.Annotations"/>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design"/>
   </ItemGroup>
@@ -21,6 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Endpoints\Common\"/>
+    <Folder Include="Logs\"/>
     <Folder Include="wwwroot\"/>
     <Folder Include="wwwroot\client\"/>
   </ItemGroup>

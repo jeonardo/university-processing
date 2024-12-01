@@ -58,7 +58,7 @@ public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
         Approved = isApproved;
     }
 
-    public static User CreateAdmin(string userName, string firstName, string lastName, string? middleName = null, string? email = null, DateOnly? birthday = null)
+    public static User CreateAdmin(string userName, string firstName, string lastName, string? middleName = null, string? email = null, DateTime? birthday = null)
     {
         return new User
         {
@@ -67,7 +67,7 @@ public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
             LastName = lastName,
             MiddleName = middleName,
             Email = email,
-            Birthday = birthday?.ToDateTime(TimeOnly.MinValue)
+            Birthday = birthday
         };
     }
 
@@ -77,7 +77,7 @@ public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
         string lastName,
         string? middleName = null,
         string? email = null,
-        DateOnly? birthday = null,
+        DateTime? birthday = null,
         Guid? groupId = null)
     {
         return new User
@@ -87,7 +87,7 @@ public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
             LastName = lastName,
             MiddleName = middleName,
             Email = email,
-            Birthday = birthday?.ToDateTime(TimeOnly.MinValue),
+            Birthday = birthday,
             GroupId = groupId
         };
     }
@@ -98,7 +98,7 @@ public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
         string lastName,
         string? middleName = null,
         string? email = null,
-        DateOnly? birthday = null,
+        DateTime? birthday = null,
         Guid? universityId = null,
         Guid? universityPositionId = null)
     {
@@ -109,7 +109,7 @@ public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
             LastName = lastName,
             MiddleName = middleName,
             Email = email,
-            Birthday = birthday?.ToDateTime(TimeOnly.MinValue),
+            Birthday = birthday,
             UniversityId = universityId,
             UniversityPositionId = universityPositionId
         };

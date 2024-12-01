@@ -5,7 +5,7 @@ using UniversityProcessing.Repository.Specifications;
 
 namespace UniversityProcessing.DomainServices.Features.Specialties.Create;
 
-internal sealed class CreateSpecialtyCommandValidator : AbstractValidator<CreateSpecialtyCommandRequest>
+public sealed class CreateSpecialtyCommandValidator : AbstractValidator<CreateSpecialtyCommandRequest>
 {
     public CreateSpecialtyCommandValidator(IEfReadRepository<Faculty> facultyRepository)
     {

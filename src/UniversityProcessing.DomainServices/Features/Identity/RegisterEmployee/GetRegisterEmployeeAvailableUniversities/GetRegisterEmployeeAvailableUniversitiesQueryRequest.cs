@@ -1,5 +1,0 @@
-using MediatR;
-
-namespace UniversityProcessing.DomainServices.Features.Identity.RegisterEmployee.GetRegisterEmployeeAvailableUniversities;
-
-public sealed record GetRegisterEmployeeAvailableUniversitiesQueryRequest(string Name) : IRequest<GetRegisterEmployeeAvailableUniversitiesQueryResponse>;

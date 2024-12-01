@@ -1,7 +1,7 @@
 const PublicRoutes = {
-    path: '/',
-    element: <></>,
-    children: []
+  path: '/',
+  element: <></>,
+  children: []
 };
 
 export default PublicRoutes;

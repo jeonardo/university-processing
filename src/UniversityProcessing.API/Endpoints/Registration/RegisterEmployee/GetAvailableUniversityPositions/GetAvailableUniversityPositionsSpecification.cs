@@ -1,0 +1,14 @@
+using Ardalis.Specification;
+using UniversityProcessing.Domain.UniversityStructure;
+
+namespace UniversityProcessing.API.Endpoints.Registration.RegisterEmployee.GetAvailableUniversityPositions;
+
+internal sealed class GetAvailableUniversityPositionsSpecification : Specification<UniversityPosition, UniversityPositionDto>
+{
+    public GetAvailableUniversityPositionsSpecification()
+    {
+        Query
+            .Select(x => new UniversityPositionDto(x.Id, x.Name))
+            .AsNoTracking();
+    }
+}

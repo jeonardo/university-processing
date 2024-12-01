@@ -1,4 +1,4 @@
-import {createBrowserRouter} from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import PrivateRoutes from './PrivateRoutes';
 import PublicOnlyRoutes from './PublicOnlyRoutes';
 import PublicRoutes from './PublicRoutes';

@@ -24,8 +24,6 @@ public static class UserConverter
             input.LastName,
             input.MiddleName,
             input.Email,
-            input.Birthday.HasValue
-                ? DateOnly.FromDateTime(input.Birthday.Value)
-                : null);
+            input.Birthday);
     }
 }

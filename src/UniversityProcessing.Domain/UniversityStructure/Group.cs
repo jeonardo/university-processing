@@ -25,13 +25,13 @@ public sealed class Group : BaseEntity, IHasId
     {
     }
 
-    public static Group Create(string number, DateOnly startDate, DateOnly endDate, Guid? specialtyId = null)
+    public static Group Create(string number, DateTime startDate, DateTime endDate, Guid? specialtyId = null)
     {
         return new Group
         {
             Number = number,
-            StartDate = startDate.ToDateTime(TimeOnly.MinValue),
-            EndDate = endDate.ToDateTime(TimeOnly.MinValue),
+            StartDate = startDate,
+            EndDate = endDate,
             SpecialtyId = specialtyId
         };
     }

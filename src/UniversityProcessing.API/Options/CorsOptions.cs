@@ -1,8 +1,11 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace UniversityProcessing.API.Options;
 
 public sealed class CorsOptions
 {
-    public required string AllowedOrigins { get; set; }
+    [Required]
+    public string AllowedOrigins { get; set; } = string.Empty;
 
     public string[] GetAllowedOrigins()
     {

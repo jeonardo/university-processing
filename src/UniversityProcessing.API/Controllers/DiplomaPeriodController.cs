@@ -5,7 +5,6 @@ using UniversityProcessing.API.Converters;
 using UniversityProcessing.DomainServices.Features.DiplomaPeriods.Get;
 using UniversityProcessing.DomainServices.Features.DiplomaPeriods.GetActuals;
 using UniversityProcessing.DomainServices.Features.DiplomaPeriods.GetActualTeachers;
-using UniversityProcessing.GenericSubdomain.Attributes;
 
 namespace UniversityProcessing.API.Controllers;
 
@@ -14,7 +13,6 @@ namespace UniversityProcessing.API.Controllers;
 public class DiplomaPeriodController(ISender mediator) : ControllerBase
 {
     [HttpGet]
-    [ValidateModel]
     public async Task<GetDiplomaPeriodResponseDto> Get([FromQuery] GetDiplomaPeriodRequestDto request, CancellationToken cancellationToken)
     {
         var query = new GetDiplomaPeriodQueryRequest(request.Id);

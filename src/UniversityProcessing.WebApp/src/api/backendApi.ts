@@ -1,4 +1,5 @@
 import { emptySplitApi as api } from './emptyApi';
+
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
     getApiV1AdminGetUsers: build.query<GetApiV1AdminGetUsersApiResponse, GetApiV1AdminGetUsersApiArg>({
@@ -17,7 +18,11 @@ const injectedRtkApi = api.injectEndpoints({
       PutApiV1AdminUpdateIsApprovedStatusApiResponse,
       PutApiV1AdminUpdateIsApprovedStatusApiArg
     >({
-      query: (queryArg) => ({ url: `/api/v1/Admin/UpdateIsApprovedStatus`, method: 'PUT', body: queryArg.updateIsApprovedStatusRequestDto })
+      query: (queryArg) => ({
+        url: `/api/v1/Admin/UpdateIsApprovedStatus`,
+        method: 'PUT',
+        body: queryArg.updateIsApprovedStatusRequestDto
+      })
     }),
     getApiV1DepartmentGet: build.query<GetApiV1DepartmentGetApiResponse, GetApiV1DepartmentGetApiArg>({
       query: (queryArg) => ({ url: `/api/v1/Department/Get`, params: { Id: queryArg.id } })
@@ -35,10 +40,18 @@ const injectedRtkApi = api.injectEndpoints({
       })
     }),
     postApiV1DepartmentCreate: build.mutation<PostApiV1DepartmentCreateApiResponse, PostApiV1DepartmentCreateApiArg>({
-      query: (queryArg) => ({ url: `/api/v1/Department/Create`, method: 'POST', body: queryArg.createDepartmentRequestDto })
+      query: (queryArg) => ({
+        url: `/api/v1/Department/Create`,
+        method: 'POST',
+        body: queryArg.createDepartmentRequestDto
+      })
     }),
     deleteApiV1DepartmentDelete: build.mutation<DeleteApiV1DepartmentDeleteApiResponse, DeleteApiV1DepartmentDeleteApiArg>({
-      query: (queryArg) => ({ url: `/api/v1/Department/Delete`, method: 'DELETE', body: queryArg.deleteDepartmentRequestDto })
+      query: (queryArg) => ({
+        url: `/api/v1/Department/Delete`,
+        method: 'DELETE',
+        body: queryArg.deleteDepartmentRequestDto
+      })
     }),
     getApiV1DiplomaPeriodGet: build.query<GetApiV1DiplomaPeriodGetApiResponse, GetApiV1DiplomaPeriodGetApiArg>({
       query: (queryArg) => ({ url: `/api/v1/DiplomaPeriod/Get`, params: { Id: queryArg.id } })
@@ -132,13 +145,21 @@ const injectedRtkApi = api.injectEndpoints({
       PostApiV1RegistrationRegisterAdminApiResponse,
       PostApiV1RegistrationRegisterAdminApiArg
     >({
-      query: (queryArg) => ({ url: `/api/v1/Registration/RegisterAdmin`, method: 'POST', body: queryArg.registerAdminRequestDto })
+      query: (queryArg) => ({
+        url: `/api/v1/Registration/RegisterAdmin`,
+        method: 'POST',
+        body: queryArg.registerAdminRequestDto
+      })
     }),
     postApiV1RegistrationRegisterStudent: build.mutation<
       PostApiV1RegistrationRegisterStudentApiResponse,
       PostApiV1RegistrationRegisterStudentApiArg
     >({
-      query: (queryArg) => ({ url: `/api/v1/Registration/RegisterStudent`, method: 'POST', body: queryArg.registerStudentRequestDto })
+      query: (queryArg) => ({
+        url: `/api/v1/Registration/RegisterStudent`,
+        method: 'POST',
+        body: queryArg.registerStudentRequestDto
+      })
     }),
     getApiV1RegistrationGetAvailableGroups: build.query<
       GetApiV1RegistrationGetAvailableGroupsApiResponse,
@@ -150,7 +171,11 @@ const injectedRtkApi = api.injectEndpoints({
       PostApiV1RegistrationRegisterEmployeeApiResponse,
       PostApiV1RegistrationRegisterEmployeeApiArg
     >({
-      query: (queryArg) => ({ url: `/api/v1/Registration/RegisterEmployee`, method: 'POST', body: queryArg.registerEmployeeRequestDto })
+      query: (queryArg) => ({
+        url: `/api/v1/Registration/RegisterEmployee`,
+        method: 'POST',
+        body: queryArg.registerEmployeeRequestDto
+      })
     }),
     getApiV1RegistrationGetAvailableUniversities: build.query<
       GetApiV1RegistrationGetAvailableUniversitiesApiResponse,
@@ -180,10 +205,18 @@ const injectedRtkApi = api.injectEndpoints({
       })
     }),
     postApiV1SpecialtyCreate: build.mutation<PostApiV1SpecialtyCreateApiResponse, PostApiV1SpecialtyCreateApiArg>({
-      query: (queryArg) => ({ url: `/api/v1/Specialty/Create`, method: 'POST', body: queryArg.createSpecialtyRequestDto })
+      query: (queryArg) => ({
+        url: `/api/v1/Specialty/Create`,
+        method: 'POST',
+        body: queryArg.createSpecialtyRequestDto
+      })
     }),
     deleteApiV1SpecialtyDelete: build.mutation<DeleteApiV1SpecialtyDeleteApiResponse, DeleteApiV1SpecialtyDeleteApiArg>({
-      query: (queryArg) => ({ url: `/api/v1/Specialty/Delete`, method: 'DELETE', body: queryArg.deleteSpecialtyRequestDto })
+      query: (queryArg) => ({
+        url: `/api/v1/Specialty/Delete`,
+        method: 'DELETE',
+        body: queryArg.deleteSpecialtyRequestDto
+      })
     }),
     getApiV1UniversityGet: build.query<GetApiV1UniversityGetApiResponse, GetApiV1UniversityGetApiArg>({
       query: (queryArg) => ({ url: `/api/v1/University/Get`, params: { Id: queryArg.id } })
@@ -201,10 +234,18 @@ const injectedRtkApi = api.injectEndpoints({
       })
     }),
     postApiV1UniversityCreate: build.mutation<PostApiV1UniversityCreateApiResponse, PostApiV1UniversityCreateApiArg>({
-      query: (queryArg) => ({ url: `/api/v1/University/Create`, method: 'POST', body: queryArg.createUniversityRequestDto })
+      query: (queryArg) => ({
+        url: `/api/v1/University/Create`,
+        method: 'POST',
+        body: queryArg.createUniversityRequestDto
+      })
     }),
     deleteApiV1UniversityDelete: build.mutation<DeleteApiV1UniversityDeleteApiResponse, DeleteApiV1UniversityDeleteApiArg>({
-      query: (queryArg) => ({ url: `/api/v1/University/Delete`, method: 'DELETE', body: queryArg.deleteUniversityRequestDto })
+      query: (queryArg) => ({
+        url: `/api/v1/University/Delete`,
+        method: 'DELETE',
+        body: queryArg.deleteUniversityRequestDto
+      })
     }),
     getApiV1UniversityPositionGet: build.query<GetApiV1UniversityPositionGetApiResponse, GetApiV1UniversityPositionGetApiArg>({
       query: (queryArg) => ({ url: `/api/v1/UniversityPosition/Get`, params: { Id: queryArg.id } })
@@ -344,12 +385,12 @@ export type PostApiV1RegistrationRegisterEmployeeApiArg = {
   registerEmployeeRequestDto: RegisterEmployeeRequestDto;
 };
 export type GetApiV1RegistrationGetAvailableUniversitiesApiResponse =
-  /** status 200 Success */ GetRegisterEmployeeAvailableUniversitiesResponseDto;
+/** status 200 Success */ GetRegisterEmployeeAvailableUniversitiesResponseDto;
 export type GetApiV1RegistrationGetAvailableUniversitiesApiArg = {
   name: string;
 };
 export type GetApiV1RegistrationGetAvailableUniversityPositionsApiResponse =
-  /** status 200 Success */ GetRegisterEmployeeAvailableUniversityPositionsResponseDto;
+/** status 200 Success */ GetRegisterEmployeeAvailableUniversityPositionsResponseDto;
 export type GetApiV1RegistrationGetAvailableUniversityPositionsApiArg = void;
 export type GetApiV1SpecialtyGetApiResponse = /** status 200 Success */ GetSpecialtyResponseDto;
 export type GetApiV1SpecialtyGetApiArg = {
@@ -774,12 +815,14 @@ export type GetUniversityPositionsResponseDto = {
 export type GetUniversityPositionsResponseDtoRead = {
   list?: UniversityPositionDtoPagedListRead;
 };
+
 export enum UserRoleIdDto {
   None = 'None',
   ApplicationAdmin = 'ApplicationAdmin',
   Employee = 'Employee',
   Student = 'Student'
 }
+
 export const {
   useGetApiV1AdminGetUsersQuery,
   useLazyGetApiV1AdminGetUsersQuery,

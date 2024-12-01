@@ -5,7 +5,7 @@ using UniversityProcessing.Repository.Specifications;
 
 namespace UniversityProcessing.DomainServices.Features.Universities.ChangeUniversityAdmin;
 
-internal sealed class ChangeUniversityAdminCommandValidator : AbstractValidator<ChangeUniversityAdminCommandRequest>
+public sealed class ChangeUniversityAdminCommandValidator : AbstractValidator<ChangeUniversityAdminCommandRequest>
 {
     public ChangeUniversityAdminCommandValidator(IEfReadRepository<User> userRepository)
     {

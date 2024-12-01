@@ -1,10 +1,10 @@
 const SpecialtyListPage = () => {
-    return (
-        <>
-            <div>
-                SpecialtyListPage
-            </div>
-        </>)
-}
+  return (
+    <>
+      <div>
+        SpecialtyListPage
+      </div>
+    </>);
+};
 
-export default SpecialtyListPage
+export default SpecialtyListPage;
