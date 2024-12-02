@@ -8,13 +8,15 @@ namespace UniversityProcessing.Domain.UniversityStructure;
 [Index(nameof(Code), IsUnique = true)]
 public sealed class Specialty : BaseEntity, IHasId
 {
+    public const int CODE_LENGTH = 12;
+
     [StringLength(50, MinimumLength = 1)]
     public string Name { get; private set; } = null!;
 
     [StringLength(25, MinimumLength = 1)]
     public string ShortName { get; private set; } = null!;
 
-    [StringLength(12, MinimumLength = 12)]
+    [StringLength(CODE_LENGTH, MinimumLength = CODE_LENGTH)]
     public string Code { get; private set; } = null!;
 
     public Guid? FacultyId { get; private set; }

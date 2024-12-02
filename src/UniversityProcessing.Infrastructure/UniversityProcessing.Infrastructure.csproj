@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UniversityProcessing.Abstractions\UniversityProcessing.Abstractions.csproj"/>
     <ProjectReference Include="..\UniversityProcessing.Domain\UniversityProcessing.Domain.csproj"/>
     <ProjectReference Include="..\UniversityProcessing.Repository\UniversityProcessing.Repository.csproj"/>
   </ItemGroup>

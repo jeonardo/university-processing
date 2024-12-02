@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using UniversityProcessing.API.Converters;
+using UniversityProcessing.API.Endpoints.Converters;
 using UniversityProcessing.API.Services.Auth;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 

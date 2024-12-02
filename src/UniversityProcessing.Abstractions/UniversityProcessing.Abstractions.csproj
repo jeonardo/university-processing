@@ -1,6 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <ProjectReference Include="..\UniversityProcessing.Domain\UniversityProcessing.Domain.csproj"/>
-    <ProjectReference Include="..\UniversityProcessing.GenericSubdomain\UniversityProcessing.GenericSubdomain.csproj"/>
-  </ItemGroup>
-</Project>

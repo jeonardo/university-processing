@@ -7,7 +7,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UniversityProcessing.Abstractions\UniversityProcessing.Abstractions.csproj"/>
     <ProjectReference Include="..\UniversityProcessing.DomainServices\UniversityProcessing.DomainServices.csproj"/>
     <ProjectReference Include="..\UniversityProcessing.GenericSubdomain\UniversityProcessing.GenericSubdomain.csproj"/>
     <ProjectReference Include="..\UniversityProcessing.WebApp\UniversityProcessing.WebApp.esproj">
@@ -18,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Endpoints\Admin\Departments\"/>
     <Folder Include="Endpoints\Admin\Universities\"/>
     <Folder Include="Endpoints\Admin\Users\"/>
     <Folder Include="Logs\"/>

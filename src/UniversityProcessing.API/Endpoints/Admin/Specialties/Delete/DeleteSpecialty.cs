@@ -5,22 +5,22 @@ using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
 using UniversityProcessing.Repository.Repositories;
 
-namespace UniversityProcessing.API.Endpoints.Admin.Faculties.Delete;
+namespace UniversityProcessing.API.Endpoints.Admin.Specialties.Delete;
 
-internal sealed class DeleteFaculty : IEndpoint
+internal sealed class DeleteSpecialty : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app
-            .MapDelete(nameof(DeleteFaculty), Handle)
+            .MapDelete(nameof(DeleteSpecialty), Handle)
             .WithTags(Tags.ADMIN)
             .RequireAuthorization(x => x.RequireRole(nameof(UserRoles.ApplicationAdmin)))
-            .AddEndpointFilter<ValidationFilter<DeleteFacultyRequestDto>>();
+            .AddEndpointFilter<ValidationFilter<DeleteSpecialtyRequestDto>>();
     }
 
     private static async Task Handle(
-        [FromBody] DeleteFacultyRequestDto request,
-        [FromServices] IEfRepository<Faculty> repository,
+        [FromBody] DeleteSpecialtyRequestDto request,
+        [FromServices] IEfRepository<Specialty> repository,
         CancellationToken cancellationToken)
     {
         var record = await repository.GetByIdRequiredAsync(request.Id, cancellationToken);

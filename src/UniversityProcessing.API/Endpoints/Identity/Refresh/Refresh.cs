@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using UniversityProcessing.API.Converters;
+using UniversityProcessing.API.Endpoints.Converters;
 using UniversityProcessing.API.Services.Auth;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.GenericSubdomain.Endpoints;
