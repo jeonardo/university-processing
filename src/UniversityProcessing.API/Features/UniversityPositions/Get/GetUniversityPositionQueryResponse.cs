@@ -1,0 +1,5 @@
+using UniversityProcessing.Domain.UniversityStructure;
+
+namespace UniversityProcessing.API.Features.UniversityPositions.Get;
+
+public sealed record GetUniversityPositionQueryResponse(UniversityPosition UniversityPosition);
