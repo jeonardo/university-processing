@@ -15,7 +15,7 @@ internal sealed class CreateDepartment : IEndpoint
         app
             .MapPost(nameof(CreateDepartment), Handle)
             .WithTags(Tags.ADMIN)
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoles.ApplicationAdmin)))
+            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
             .AddEndpointFilter<ValidationFilter<DeleteDepartmentRequestDto>>();
     }
 

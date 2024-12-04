@@ -14,7 +14,7 @@ internal sealed class CreateUniversity : IEndpoint
         app
             .MapPost(nameof(CreateUniversity), Handle)
             .WithTags(Tags.ADMIN)
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoles.ApplicationAdmin)))
+            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
             .AddEndpointFilter<ValidationFilter<CreateUniversityRequestDto>>();
     }
 

@@ -85,11 +85,11 @@ internal sealed class TokenService(IOptions<AuthOptions> authOptions) : ITokenSe
         return id;
     }
 
-    private static UserRoles GetUserRole(IEnumerable<Claim> claims)
+    private static UserRoleType GetUserRole(IEnumerable<Claim> claims)
     {
         var claimValue = claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
 
-        if (claimValue is null || !Enum.TryParse<UserRoles>(claimValue, out var role))
+        if (claimValue is null || !Enum.TryParse<UserRoleType>(claimValue, out var role))
         {
             throw new InvalidTokenException();
         }

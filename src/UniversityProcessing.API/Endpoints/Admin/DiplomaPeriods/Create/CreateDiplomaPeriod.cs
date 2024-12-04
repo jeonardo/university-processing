@@ -14,7 +14,7 @@ internal sealed class CreateDiplomaPeriod : IEndpoint
         app
             .MapPost(nameof(CreateDiplomaPeriod), Handle)
             .WithTags(Tags.ADMIN)
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoles.ApplicationAdmin)))
+            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
             .AddEndpointFilter<ValidationFilter<CreateDiplomaPeriodRequestDto>>();
     }
 

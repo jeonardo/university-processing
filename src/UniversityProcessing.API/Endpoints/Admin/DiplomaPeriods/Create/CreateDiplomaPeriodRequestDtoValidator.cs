@@ -7,10 +7,10 @@ namespace UniversityProcessing.API.Endpoints.Admin.DiplomaPeriods.Create;
 
 public sealed class CreateDiplomaPeriodRequestDtoValidator : AbstractValidator<CreateDiplomaPeriodRequestDto>
 {
-    public CreateDiplomaPeriodRequestDtoValidator(IEfReadRepository<DiplomaPeriod> diplomaPeriodRepository)
+    public CreateDiplomaPeriodRequestDtoValidator(IEfReadRepository<Faculty> diplomaPeriodRepository)
     {
         RuleFor(x => x.FacultyId)
-            .MustAsync((x, cancellationToken) => diplomaPeriodRepository.AnyAsync(new GetByIdSpec<DiplomaPeriod>(x.GetValueOrDefault()), cancellationToken))
+            .MustAsync((x, cancellationToken) => diplomaPeriodRepository.AnyAsync(new GetByIdSpec<Faculty>(x.GetValueOrDefault()), cancellationToken))
             .When(x => x.FacultyId.HasValue)
             .WithMessage("Faculty not found");
 

@@ -1,6 +1,6 @@
 namespace UniversityProcessing.Domain.Identity;
 
-public enum UserRoles
+public enum UserRoleType
 {
     None = 0,
     ApplicationAdmin = 1,

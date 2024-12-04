@@ -42,11 +42,11 @@ public class UniversitySeed(
             return;
         }
 
-        var role1 = UserRole.Create(nameof(UserRoles.ApplicationAdmin));
+        var role1 = UserRole.Create(nameof(UserRoleType.ApplicationAdmin));
         await roleManager.CreateAsync(role1);
-        var role2 = UserRole.Create(nameof(UserRoles.Employee));
+        var role2 = UserRole.Create(nameof(UserRoleType.Employee));
         await roleManager.CreateAsync(role2);
-        var role3 = UserRole.Create(nameof(UserRoles.Student));
+        var role3 = UserRole.Create(nameof(UserRoleType.Student));
         await roleManager.CreateAsync(role3);
 
         var bsu = await AddUniversity("Белорусский государственный университет", "БГУ");
@@ -230,7 +230,7 @@ public class UniversitySeed(
         var result = User.CreateAdmin(username, username, username);
         result.UpdateIsApprovedStatus(true);
         await userManager.CreateAsync(result, username);
-        await userManager.AddToRoleAsync(result, nameof(UserRoles.ApplicationAdmin));
+        await userManager.AddToRoleAsync(result, nameof(UserRoleType.ApplicationAdmin));
         AdminValues.Add(result);
         return result;
     }
@@ -240,7 +240,7 @@ public class UniversitySeed(
         var result = User.CreateStudent(username, username, username, groupId: group.Id);
         result.UpdateIsApprovedStatus(true);
         await userManager.CreateAsync(result, username);
-        await userManager.AddToRoleAsync(result, nameof(UserRoles.Student));
+        await userManager.AddToRoleAsync(result, nameof(UserRoleType.Student));
         StudentValues.Add(result);
         return result;
     }
@@ -253,7 +253,7 @@ public class UniversitySeed(
         var result = User.CreateEmployee(username, username, username, universityId: university.Id, universityPositionId: universityPosition.Id);
         result.UpdateIsApprovedStatus(true);
         await userManager.CreateAsync(result, username);
-        await userManager.AddToRoleAsync(result, nameof(UserRoles.Employee));
+        await userManager.AddToRoleAsync(result, nameof(UserRoleType.Employee));
         EmployeeValues.Add(result);
         return result;
     }

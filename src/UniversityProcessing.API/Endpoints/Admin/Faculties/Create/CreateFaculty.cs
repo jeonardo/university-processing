@@ -14,7 +14,7 @@ internal sealed class CreateFaculty : IEndpoint
         app
             .MapPost(nameof(CreateFaculty), Handle)
             .WithTags(Tags.ADMIN)
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoles.ApplicationAdmin)))
+            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
             .AddEndpointFilter<ValidationFilter<CreateFacultyRequestDto>>();
     }
 

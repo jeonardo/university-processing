@@ -46,7 +46,7 @@ internal sealed class RegisterStudent : IEndpoint
             throw new ConflictException($"Registration failed. Message = {string.Join("; ", createResult.Errors)}");
         }
 
-        var addToRoleResult = await userManager.AddToRoleAsync(user, nameof(UserRoles.Employee));
+        var addToRoleResult = await userManager.AddToRoleAsync(user, nameof(UserRoleType.Employee));
 
         if (!addToRoleResult.IsFailed())
         {

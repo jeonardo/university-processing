@@ -1,4 +1,5 @@
-﻿using UniversityProcessing.Domain.Bases;
+﻿using System.ComponentModel.DataAnnotations;
+using UniversityProcessing.Domain.Bases;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.GenericSubdomain.Identity;
 
@@ -14,7 +15,8 @@ public sealed class DiplomaPeriod : BaseEntity, IHasId
 
     public Guid? SecretaryId { get; private set; }
 
-    public ICollection<string> RequiredTitles { get; private set; } = [];
+    [StringLength(255)]
+    public string? RequiredTitles { get; private set; }
 
     public ICollection<Diploma> Diplomas { get; private set; } = [];
 

@@ -20,6 +20,6 @@ internal sealed class Info : IEndpoint
         [FromServices] ITokenService tokenService)
     {
         var claims = tokenService.GetAuthorizationTokenClaims(context.User);
-        return Task.FromResult(new InfoResponseDto(claims.UserId, claims.Roles.ToDto(), claims.Approved));
+        return Task.FromResult(new InfoResponseDto(claims.UserId, claims.RoleType.ToDto(), claims.Approved));
     }
 }

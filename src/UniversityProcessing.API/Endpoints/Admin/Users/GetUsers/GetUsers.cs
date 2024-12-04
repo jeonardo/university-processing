@@ -15,7 +15,7 @@ internal sealed class GetUsers : IEndpoint
         app
             .MapGet(nameof(GetUsers), Handle)
             .WithTags(Tags.ADMIN)
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoles.ApplicationAdmin)))
+            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
             .AddEndpointFilter<ValidationFilter<GetUsersRequestDto>>();
     }
 
