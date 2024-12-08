@@ -23,7 +23,7 @@ internal sealed class CreateDiplomaPeriod : IEndpoint
         [FromServices] IEfRepository<DiplomaPeriod> repository,
         CancellationToken cancellationToken)
     {
-        var newEntity = DiplomaPeriod.Create(request.StartDate, request.EndDate, request.FacultyId);
+        var newEntity = DiplomaPeriod.Create(request.StartDate, request.EndDate, request.Name);
 
         await repository.AddAsync(newEntity, cancellationToken);
 

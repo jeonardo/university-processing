@@ -1,19 +1,11 @@
 using FluentValidation;
-using UniversityProcessing.Domain.UniversityStructure;
-using UniversityProcessing.Repository.Repositories;
-using UniversityProcessing.Repository.Specifications;
 
 namespace UniversityProcessing.API.Endpoints.Admin.DiplomaPeriods.Create;
 
 public sealed class CreateDiplomaPeriodRequestDtoValidator : AbstractValidator<CreateDiplomaPeriodRequestDto>
 {
-    public CreateDiplomaPeriodRequestDtoValidator(IEfReadRepository<Faculty> diplomaPeriodRepository)
+    public CreateDiplomaPeriodRequestDtoValidator()
     {
-        RuleFor(x => x.FacultyId)
-            .MustAsync((x, cancellationToken) => diplomaPeriodRepository.AnyAsync(new GetByIdSpec<Faculty>(x.GetValueOrDefault()), cancellationToken))
-            .When(x => x.FacultyId.HasValue)
-            .WithMessage("Faculty not found");
-
         RuleFor(x => x.StartDate)
             .NotEmpty()
             .WithMessage("StartDate is required");
@@ -21,5 +13,9 @@ public sealed class CreateDiplomaPeriodRequestDtoValidator : AbstractValidator<C
         RuleFor(x => x.EndDate)
             .NotEmpty()
             .WithMessage("EndDate is required");
+
+        RuleFor(x => x.Name)
+            .NotEmpty()
+            .WithMessage("Name is required");
     }
 }

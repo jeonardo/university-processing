@@ -1,8 +1,9 @@
 namespace UniversityProcessing.API.Endpoints.Common.GetDiplomaPeriods;
 
-public sealed class DiplomaPeriodDto(Guid id, DateTime startDate, DateTime endDate)
+public sealed class DiplomaPeriodDto(Guid id, string name, DateTime studyPeriodFrom, DateTime studyPeriodTo)
 {
     public Guid Id { get; set; } = id;
-    public DateTime StartDate { get; set; } = startDate;
-    public DateTime EndDate { get; set; } = endDate;
+    public string Name { get; set; } = name;
+    public DateTime StudyPeriodFrom { get; set; } = studyPeriodFrom;
+    public DateTime StudyPeriodTo { get; set; } = studyPeriodTo;
 }

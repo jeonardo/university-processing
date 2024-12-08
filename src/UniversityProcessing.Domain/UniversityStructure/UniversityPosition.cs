@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using UniversityProcessing.Domain.Bases;
+using UniversityProcessing.Domain.Validation;
 using UniversityProcessing.GenericSubdomain.Identity;
 
 namespace UniversityProcessing.Domain.UniversityStructure;
 
 public sealed class UniversityPosition : BaseEntity, IHasId
 {
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string Name { get; private set; } = null!;
 
     // Parameterless constructor used by EF Core

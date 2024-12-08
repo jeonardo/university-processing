@@ -23,7 +23,7 @@ internal sealed class CreateSpecialty : IEndpoint
         [FromServices] IEfRepository<Specialty> repository,
         CancellationToken cancellationToken)
     {
-        var newEntity = Specialty.Create(request.Name, request.ShortName, request.Code, request.FacultyId);
+        var newEntity = Specialty.Create(request.Name, request.ShortName, request.Code, request.DepartmentId);
 
         await repository.AddAsync(newEntity, cancellationToken);
 

@@ -8,7 +8,7 @@ namespace UniversityProcessing.API.Endpoints.Admin.Specialties.Create;
 
 public sealed class CreateSpecialtyRequestDtoValidator : AbstractValidator<CreateSpecialtyRequestDto>
 {
-    public CreateSpecialtyRequestDtoValidator(IEfReadRepository<Faculty> facultyRepository)
+    public CreateSpecialtyRequestDtoValidator(IEfReadRepository<Department> departmentRepository)
     {
         RuleFor(x => x.Name)
             .NotEmpty()
@@ -20,9 +20,9 @@ public sealed class CreateSpecialtyRequestDtoValidator : AbstractValidator<Creat
             .MaximumLength(ValidationConstants.MAX_STRING_LENGTH)
             .WithMessage("ShortName is required. Max length = " + ValidationConstants.MAX_STRING_LENGTH);
 
-        RuleFor(x => x.FacultyId)
-            .MustAsync((x, cancellationToken) => facultyRepository.AnyAsync(new GetByIdSpec<Faculty>(x.GetValueOrDefault()), cancellationToken))
-            .When(x => x.FacultyId.HasValue)
+        RuleFor(x => x.DepartmentId)
+            .MustAsync((x, cancellationToken) => departmentRepository.AnyAsync(new GetByIdSpec<Department>(x.GetValueOrDefault()), cancellationToken))
+            .When(x => x.DepartmentId.HasValue)
             .WithMessage("Faculty not found");
 
         RuleFor(x => x.Code)

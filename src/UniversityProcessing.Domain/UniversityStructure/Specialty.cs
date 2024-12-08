@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using UniversityProcessing.Domain.Bases;
+using UniversityProcessing.Domain.Validation;
 using UniversityProcessing.GenericSubdomain.Identity;
 
 namespace UniversityProcessing.Domain.UniversityStructure;
@@ -10,18 +11,18 @@ public sealed class Specialty : BaseEntity, IHasId
 {
     public const int CODE_LENGTH = 12;
 
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string Name { get; private set; } = null!;
 
-    [StringLength(25, MinimumLength = 1)]
+    [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string ShortName { get; private set; } = null!;
 
     [StringLength(CODE_LENGTH, MinimumLength = CODE_LENGTH)]
     public string Code { get; private set; } = null!;
 
-    public Guid? FacultyId { get; private set; }
+    public Guid? DepartmentId { get; private set; }
 
-    public Faculty? Faculty { get; private set; }
+    public Department? Department { get; private set; }
 
     public ICollection<Group> Groups { get; private set; } = [];
 
@@ -31,14 +32,14 @@ public sealed class Specialty : BaseEntity, IHasId
     {
     }
 
-    public static Specialty Create(string name, string shortName, string code, Guid? facultyId = null)
+    public static Specialty Create(string name, string shortName, string code, Guid? departmentId = null)
     {
         return new Specialty
         {
             Name = name,
             ShortName = shortName,
             Code = code,
-            FacultyId = facultyId
+            DepartmentId = departmentId
         };
     }
 }

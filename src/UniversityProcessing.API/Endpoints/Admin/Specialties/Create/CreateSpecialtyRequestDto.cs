@@ -13,5 +13,5 @@ public sealed class CreateSpecialtyRequestDto
     [Required]
     public string Code { get; set; } = string.Empty;
 
-    public Guid? FacultyId { get; set; }
+    public Guid? DepartmentId { get; set; }
 }

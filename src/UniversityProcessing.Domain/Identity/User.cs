@@ -2,6 +2,7 @@
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Identity;
 using UniversityProcessing.Domain.UniversityStructure;
+using UniversityProcessing.Domain.Validation;
 using UniversityProcessing.GenericSubdomain.Identity;
 
 namespace UniversityProcessing.Domain.Identity;
@@ -12,16 +13,16 @@ public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
 
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string FirstName { get; private set; } = null!;
 
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string LastName { get; private set; } = null!;
 
-    [StringLength(50)]
+    [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string? MiddleName { get; private set; }
 
-    [StringLength(50)]
+    [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public override string? Email { get; set; }
 
     public DateTime? Birthday { get; private set; }

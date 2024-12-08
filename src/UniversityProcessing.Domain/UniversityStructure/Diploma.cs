@@ -3,12 +3,13 @@ using System.Text.Json.Serialization;
 using UniversityProcessing.Domain.Bases;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.Domain.UniversityStructure.Enums;
+using UniversityProcessing.Domain.Validation;
 
 namespace UniversityProcessing.Domain.UniversityStructure;
 
 public sealed class Diploma : BaseEntity
 {
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string Title { get; private set; } = null!;
 
     [Range(0, 10)]

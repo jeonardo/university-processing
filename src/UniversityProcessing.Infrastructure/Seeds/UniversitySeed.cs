@@ -101,28 +101,28 @@ public class UniversitySeed(
             "Автоматизация технологических процессов и производств в энергетике",
             "Short",
             "6-05-0713-03",
-            bntu_faculty_fitr);
+            bntu_faculty_fitr_poisit);
         var bntu_faculty_fitr_sp2 = await AddSpecialty(
             "Автоматизация технологических процессов и производств в приборостроении и радиоэлектронике",
             "Short",
             "6-05-0713-02",
-            bntu_faculty_fitr);
+            bntu_faculty_fitr_poisit);
         var bntu_faculty_fitr_sp3 = await AddSpecialty(
             "Автоматизированные электроприводы",
             "Short",
             "6-05-0713-11",
-            bntu_faculty_fitr);
+            bntu_faculty_fitr_poisit);
         var bntu_faculty_fitr_sp4 = await AddSpecialty(
             "Информационные системы и технологии в проектировании и производстве",
             "Short",
             "6-05-0611-01",
-            bntu_faculty_fitr);
-        var bntu_faculty_fitr_sp5 = await AddSpecialty("Программная инженерия", "Short", "6-05-0612-01", bntu_faculty_fitr);
+            bntu_faculty_fitr_poisit);
+        var bntu_faculty_fitr_sp5 = await AddSpecialty("Программная инженерия", "Short", "6-05-0612-01", bntu_faculty_fitr_poisit);
         var bntu_faculty_fitr_sp6 = await AddSpecialty(
             "Промышленные роботы и робототехнические комплексы",
             "Short",
             "6-05-0713-05",
-            bntu_faculty_fitr);
+            bntu_faculty_fitr_poisit);
 
         var bntu_polozkov = await AddEmployee("Polozkov_Yuri_Vladimirovich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_8);
         var bntu_shchukin = await AddEmployee("Shchukin_Mikhail_Vladimirovich", bntu_faculty_fitr_vm.Faculty!.University!, bntu_pos_8);
@@ -205,9 +205,9 @@ public class UniversitySeed(
         return result;
     }
 
-    private async Task<Specialty> AddSpecialty(string name, string shortName, string code, Faculty faculty)
+    private async Task<Specialty> AddSpecialty(string name, string shortName, string code, Department department)
     {
-        var result = Specialty.Create(name, shortName, code, faculty.Id);
+        var result = Specialty.Create(name, shortName, code, department.Id);
         SpecialtyValues.Add(result);
         await repositorySpecialty.AddAsync(result);
         return result;

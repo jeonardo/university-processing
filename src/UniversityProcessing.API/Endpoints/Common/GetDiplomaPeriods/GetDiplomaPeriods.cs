@@ -31,6 +31,6 @@ internal sealed class GetDiplomaPeriods : IEndpoint
 
     private static DiplomaPeriodDto ToDto(DiplomaPeriod input)
     {
-        return new DiplomaPeriodDto(input.Id, input.StartDate, input.EndDate);
+        return new DiplomaPeriodDto(input.Id, input.Name, input.StudyPeriodFrom, input.StudyPeriodTo);
     }
 }

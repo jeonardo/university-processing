@@ -10,5 +10,6 @@ public sealed record CreateDiplomaPeriodRequestDto
     [Required]
     public DateTime EndDate { get; set; }
 
-    public Guid? FacultyId { get; set; }
+    [Required]
+    public string Name { get; set; } = string.Empty;
 }

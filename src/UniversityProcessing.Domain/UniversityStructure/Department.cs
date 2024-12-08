@@ -1,15 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using UniversityProcessing.Domain.Bases;
 using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.Domain.Validation;
+using UniversityProcessing.GenericSubdomain.Identity;
 
 namespace UniversityProcessing.Domain.UniversityStructure;
 
-public sealed class Department : BaseEntity
+public sealed class Department : BaseEntity, IHasId
 {
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string Name { get; private set; } = null!;
 
-    [StringLength(25, MinimumLength = 1)]
+    [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string ShortName { get; private set; } = null!;
 
     public Guid? FacultyId { get; private set; }
