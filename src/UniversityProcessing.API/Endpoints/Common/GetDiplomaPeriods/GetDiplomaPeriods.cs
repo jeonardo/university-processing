@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using UniversityProcessing.API.Services.Auth;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Pagination;
@@ -13,7 +14,7 @@ internal sealed class GetDiplomaPeriods : IEndpoint
     {
         app
             .MapGet(nameof(GetDiplomaPeriods), Handle)
-            .RequireAuthorization();
+            .RequireAuthorization(x => x.RequireClaim(AppClaimTypes.IS_APPROVED, AppClaimTypes.BOOL_TRUE)); //TODO add to attribute and role check
     }
 
     private static async Task<GetDiplomaPeriodsResponseDto> Handle(

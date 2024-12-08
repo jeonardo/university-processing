@@ -99,7 +99,7 @@ internal sealed class TokenService(IOptions<AuthOptions> authOptions) : ITokenSe
 
     private static bool GetUserApproved(IEnumerable<Claim> claims)
     {
-        var claimValue = claims.FirstOrDefault(x => x.Type == "Approved")?.Value;
+        var claimValue = claims.FirstOrDefault(x => x.Type == AppClaimTypes.IS_APPROVED)?.Value;
 
         if (claimValue is null || !bool.TryParse(claimValue, out var role))
         {
