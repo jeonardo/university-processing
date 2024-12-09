@@ -19,7 +19,7 @@ internal sealed class DeleteDiplomaPeriod : IEndpoint
     }
 
     private static async Task Handle(
-        [FromBody] DeleteDiplomaPeriodRequestDto request,
+        [AsParameters] DeleteDiplomaPeriodRequestDto request,
         [FromServices] IEfRepository<DiplomaPeriod> repository,
         CancellationToken cancellationToken)
     {

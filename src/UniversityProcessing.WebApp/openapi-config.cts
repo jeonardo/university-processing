@@ -8,7 +8,6 @@ const config: ConfigFile = {
   exportName: 'backendApi',
   hooks: { lazyQueries: true, mutations: true, queries: true },
   useEnumType: true
-
 };
 
 export default config;

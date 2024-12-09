@@ -19,7 +19,7 @@ internal sealed class DeleteUniversity : IEndpoint
     }
 
     private static async Task Handle(
-        [FromBody] DeleteUniversityRequestDto request,
+        [AsParameters] DeleteUniversityRequestDto request,
         [FromServices] IEfRepository<University> repository,
         CancellationToken cancellationToken)
     {

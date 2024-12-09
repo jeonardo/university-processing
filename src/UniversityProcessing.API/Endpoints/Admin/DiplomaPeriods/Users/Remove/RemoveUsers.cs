@@ -21,7 +21,7 @@ internal sealed class RemoveUsers : IEndpoint
     }
 
     private static async Task Handle(
-        [FromBody] RemoveUsersRequestDto request,
+        [AsParameters] RemoveUsersRequestDto request,
         [FromServices] IEfRepository<DiplomaPeriod> repository,
         [FromServices] IEfRepository<User> userRepository,
         [FromServices] UserManager<User> userManager,

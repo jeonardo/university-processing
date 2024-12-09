@@ -19,7 +19,7 @@ internal sealed class DeleteDepartment : IEndpoint
     }
 
     private static async Task Handle(
-        [FromBody] DeleteDepartmentRequestDto request,
+        [AsParameters] DeleteDepartmentRequestDto request,
         [FromServices] IEfRepository<Department> repository,
         CancellationToken cancellationToken)
     {

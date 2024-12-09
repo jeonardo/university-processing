@@ -23,7 +23,7 @@ internal sealed class GetDiplomaPeriodUsers : IEndpoint
         [FromServices] UserManager<User> userManager,
         CancellationToken cancellationToken)
     {
-        var users = await userManager.GetUsersInRoleAsync(request.Role.GetDisplayName());
+        var users = await userManager.GetUsersInRoleAsync(request.RoleType.GetDisplayName());
         return new GetDiplomaPeriodUsersResponseDto(users.Select(x => ToDto(x, request)));
     }
 

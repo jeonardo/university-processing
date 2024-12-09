@@ -9,5 +9,5 @@ public sealed class GetDiplomaPeriodUsersRequestDto
     public Guid DiplomaPeriodId { get; set; }
 
     [Required]
-    public UserRoleDto Role { get; set; }
+    public UserRoleTypeDto RoleType { get; set; }
 }

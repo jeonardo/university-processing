@@ -19,7 +19,7 @@ internal sealed class DeleteGroup : IEndpoint
     }
 
     private static async Task Handle(
-        [FromBody] DeleteGroupRequestDto request,
+        [AsParameters] DeleteGroupRequestDto request,
         [FromServices] IEfRepository<Group> repository,
         CancellationToken cancellationToken)
     {
