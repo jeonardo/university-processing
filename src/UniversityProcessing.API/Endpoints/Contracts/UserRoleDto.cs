@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace UniversityProcessing.API.Endpoints.Contracts;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum UserRoleIdDto
+public enum UserRoleDto
 {
     None = 0,
     ApplicationAdmin = 1,

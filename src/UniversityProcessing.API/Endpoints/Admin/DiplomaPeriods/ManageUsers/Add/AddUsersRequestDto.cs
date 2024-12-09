@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace UniversityProcessing.API.Endpoints.Admin.DiplomaPeriods.ManageEmployees.Remove;
+namespace UniversityProcessing.API.Endpoints.Admin.DiplomaPeriods.ManageUsers.Add;
 
-public sealed class RemoveEmployeesRequestDto
+public sealed class AddUsersRequestDto
 {
     [Required]
     public Guid DiplomaPeriodId { get; set; }

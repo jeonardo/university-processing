@@ -5,13 +5,13 @@ namespace UniversityProcessing.API.Endpoints.Converters;
 
 internal static class UserRoleIdConverter
 {
-    public static UserRoleIdDto ToDto(this UserRoleType input)
+    public static UserRoleDto ToDto(this UserRoleType input)
     {
         return input switch
         {
-            UserRoleType.ApplicationAdmin => UserRoleIdDto.ApplicationAdmin,
-            UserRoleType.Employee => UserRoleIdDto.Employee,
-            UserRoleType.Student => UserRoleIdDto.Student,
+            UserRoleType.ApplicationAdmin => UserRoleDto.ApplicationAdmin,
+            UserRoleType.Employee => UserRoleDto.Employee,
+            UserRoleType.Student => UserRoleDto.Student,
             _ => throw new ArgumentOutOfRangeException(nameof(input), input, null)
         };
     }
