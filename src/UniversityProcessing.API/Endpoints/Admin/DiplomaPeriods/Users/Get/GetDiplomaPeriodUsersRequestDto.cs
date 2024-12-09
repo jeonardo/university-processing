@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using UniversityProcessing.API.Endpoints.Contracts;
 
-namespace UniversityProcessing.API.Endpoints.Admin.DiplomaPeriods.ManageUsers.Get;
+namespace UniversityProcessing.API.Endpoints.Admin.DiplomaPeriods.Users.Get;
 
-public sealed class GetUsersRequestDto
+public sealed class GetDiplomaPeriodUsersRequestDto
 {
     [Required]
     public Guid DiplomaPeriodId { get; set; }

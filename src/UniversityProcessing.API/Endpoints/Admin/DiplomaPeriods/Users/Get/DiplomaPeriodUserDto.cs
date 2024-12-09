@@ -1,6 +1,6 @@
-namespace UniversityProcessing.API.Endpoints.Admin.DiplomaPeriods.ManageUsers.Get;
+namespace UniversityProcessing.API.Endpoints.Admin.DiplomaPeriods.Users.Get;
 
-public sealed class UserDto(Guid id, string firstName, string lastName, string? middleName, string? universityPosition, bool added)
+public sealed class DiplomaPeriodUserDto(Guid id, string firstName, string lastName, string? middleName, string? universityPosition, bool added)
 {
     public Guid Id { get; set; } = id;
 

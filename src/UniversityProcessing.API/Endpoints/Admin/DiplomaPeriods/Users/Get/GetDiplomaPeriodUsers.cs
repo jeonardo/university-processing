@@ -5,31 +5,31 @@ using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
 
-namespace UniversityProcessing.API.Endpoints.Admin.DiplomaPeriods.ManageUsers.Get;
+namespace UniversityProcessing.API.Endpoints.Admin.DiplomaPeriods.Users.Get;
 
-internal sealed class GetUsers : IEndpoint
+internal sealed class GetDiplomaPeriodUsers : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app
-            .MapGet(nameof(GetUsers), Handle)
+            .MapGet(nameof(GetDiplomaPeriodUsers), Handle)
             .WithTags(Tags.ADMIN)
             .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
-            .AddEndpointFilter<ValidationFilter<GetUsersRequestDto>>();
+            .AddEndpointFilter<ValidationFilter<GetDiplomaPeriodUsersRequestDto>>();
     }
 
-    private static async Task<GetUsersResponseDto> Handle(
-        [AsParameters] GetUsersRequestDto request,
+    private static async Task<GetDiplomaPeriodUsersResponseDto> Handle(
+        [AsParameters] GetDiplomaPeriodUsersRequestDto request,
         [FromServices] UserManager<User> userManager,
         CancellationToken cancellationToken)
     {
         var users = await userManager.GetUsersInRoleAsync(request.Role.GetDisplayName());
-        return new GetUsersResponseDto(users.Select(x => ToDto(x, request)));
+        return new GetDiplomaPeriodUsersResponseDto(users.Select(x => ToDto(x, request)));
     }
 
-    private static UserDto ToDto(User user, GetUsersRequestDto request)
+    private static DiplomaPeriodUserDto ToDto(User user, GetDiplomaPeriodUsersRequestDto request)
     {
-        return new UserDto(
+        return new DiplomaPeriodUserDto(
             user.Id,
             user.FirstName,
             user.LastName,

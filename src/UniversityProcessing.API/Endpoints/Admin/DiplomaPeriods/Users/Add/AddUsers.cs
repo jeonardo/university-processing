@@ -7,21 +7,21 @@ using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
 using UniversityProcessing.Repository.Repositories;
 
-namespace UniversityProcessing.API.Endpoints.Admin.DiplomaPeriods.ManageUsers.Remove;
+namespace UniversityProcessing.API.Endpoints.Admin.DiplomaPeriods.Users.Add;
 
-internal sealed class RemoveUsers : IEndpoint
+internal sealed class AddUsers : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app
-            .MapDelete(nameof(RemoveUsers), Handle)
+            .MapPost(nameof(AddUsers), Handle)
             .WithTags(Tags.ADMIN)
             .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
-            .AddEndpointFilter<ValidationFilter<RemoveUsersRequestDto>>();
+            .AddEndpointFilter<ValidationFilter<AddUsersRequestDto>>();
     }
 
     private static async Task Handle(
-        [FromBody] RemoveUsersRequestDto request,
+        [FromBody] AddUsersRequestDto request,
         [FromServices] IEfRepository<DiplomaPeriod> repository,
         [FromServices] IEfRepository<User> userRepository,
         [FromServices] UserManager<User> userManager,
@@ -29,14 +29,14 @@ internal sealed class RemoveUsers : IEndpoint
     {
         var diplomaPeriod = await repository.GetByIdRequiredAsync(request.DiplomaPeriodId, cancellationToken);
         var userIds = request.UserIds.ToHashSet();
-        var existingUsers = await userManager.Users
-            .Where(x => userIds.Contains(x.Id) && x.DiplomaPeriods.Any(y => y.Id == request.DiplomaPeriodId))
+        var missingUsers = await userManager.Users
+            .Where(x => userIds.Contains(x.Id) && x.DiplomaPeriods.All(y => y.Id != request.DiplomaPeriodId))
             .Include(x => x.DiplomaPeriods)
             .ToArrayAsync(cancellationToken: cancellationToken);
 
-        foreach (var user in existingUsers)
+        foreach (var user in missingUsers)
         {
-            diplomaPeriod.Users.Remove(user);
+            diplomaPeriod.Users.Add(user);
         }
 
         await repository.SaveChangesAsync(cancellationToken);
