@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Extensions;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
+using UniversityProcessing.GenericSubdomain.Namespace;
 
 namespace UniversityProcessing.API.Endpoints.Admin.DiplomaPeriods.Users.Get;
 
@@ -12,7 +13,7 @@ internal sealed class GetDiplomaPeriodUsers : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app
-            .MapGet(nameof(GetDiplomaPeriodUsers), Handle)
+            .MapGet(NamespaceService.GetEndpointRoute(typeof(GetDiplomaPeriodUsers)), Handle)
             .WithTags(Tags.ADMIN)
             .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
             .AddEndpointFilter<ValidationFilter<GetDiplomaPeriodUsersRequestDto>>();

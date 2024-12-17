@@ -4,6 +4,7 @@ using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
 using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
+using UniversityProcessing.GenericSubdomain.Namespace;
 
 namespace UniversityProcessing.API.Endpoints.Admin.Users.UpdateApproval;
 
@@ -12,7 +13,7 @@ internal sealed class UpdateApproval : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app
-            .MapPut(nameof(UpdateApproval), Handle)
+            .MapPut(NamespaceService.GetEndpointRoute(typeof(UpdateApproval)), Handle)
             .WithTags(Tags.ADMIN)
             .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
             .AddEndpointFilter<ValidationFilter<UpdateApprovalRequestDto>>();

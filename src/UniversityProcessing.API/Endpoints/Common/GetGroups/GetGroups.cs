@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.GenericSubdomain.Endpoints;
+using UniversityProcessing.GenericSubdomain.Namespace;
 using UniversityProcessing.GenericSubdomain.Pagination;
 using UniversityProcessing.Repository.Repositories;
 using UniversityProcessing.Repository.Specifications;
@@ -12,7 +13,7 @@ internal sealed class GetGroups : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app
-            .MapGet(nameof(GetGroups), Handle)
+            .MapGet(NamespaceService.GetEndpointRoute(typeof(GetGroups)), Handle)
             .RequireAuthorization();
     }
 

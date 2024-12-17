@@ -3,6 +3,7 @@ using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
+using UniversityProcessing.GenericSubdomain.Namespace;
 using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.API.Endpoints.Admin.Groups.Create;
@@ -12,7 +13,7 @@ internal sealed class CreateGroup : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app
-            .MapPost(nameof(CreateGroup), Handle)
+            .MapPost(NamespaceService.GetEndpointRoute(typeof(CreateGroup)), Handle)
             .WithTags(Tags.ADMIN)
             .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
             .AddEndpointFilter<ValidationFilter<CreateGroupRequestDto>>();

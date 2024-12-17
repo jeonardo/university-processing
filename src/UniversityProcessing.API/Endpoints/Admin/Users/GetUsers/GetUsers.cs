@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
+using UniversityProcessing.GenericSubdomain.Namespace;
 using UniversityProcessing.GenericSubdomain.Pagination;
 using UniversityProcessing.Repository.Repositories;
 using UniversityProcessing.Repository.Specifications;
@@ -13,7 +14,7 @@ internal sealed class GetUsers : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app
-            .MapGet(nameof(GetUsers), Handle)
+            .MapGet(NamespaceService.GetEndpointRoute(typeof(GetUsers)), Handle)
             .WithTags(Tags.ADMIN)
             .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
             .AddEndpointFilter<ValidationFilter<GetUsersRequestDto>>();

@@ -5,6 +5,7 @@ using UniversityProcessing.API.Services.Auth;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
+using UniversityProcessing.GenericSubdomain.Namespace;
 
 namespace UniversityProcessing.API.Endpoints.Identity.Refresh;
 
@@ -13,7 +14,7 @@ internal sealed class Refresh : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app
-            .MapGet(nameof(Refresh), Handle)
+            .MapGet(NamespaceService.GetEndpointRoute(typeof(Refresh)), Handle)
             .WithTags(Tags.IDENTITY)
             .RequireAuthorization();
     }

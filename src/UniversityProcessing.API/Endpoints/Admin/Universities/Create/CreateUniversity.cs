@@ -3,6 +3,7 @@ using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.Domain.UniversityStructure;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
+using UniversityProcessing.GenericSubdomain.Namespace;
 using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.API.Endpoints.Admin.Universities.Create;
@@ -12,7 +13,7 @@ internal sealed class CreateUniversity : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app
-            .MapPost(nameof(CreateUniversity), Handle)
+            .MapPost(NamespaceService.GetEndpointRoute(typeof(CreateUniversity)), Handle)
             .WithTags(Tags.ADMIN)
             .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
             .AddEndpointFilter<ValidationFilter<CreateUniversityRequestDto>>();

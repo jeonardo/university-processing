@@ -7,6 +7,7 @@ using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
 using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
+using UniversityProcessing.GenericSubdomain.Namespace;
 
 namespace UniversityProcessing.API.Endpoints.Identity.Login;
 
@@ -15,7 +16,7 @@ internal sealed class Login : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app
-            .MapPost(nameof(Login), Handle)
+            .MapPost(NamespaceService.GetEndpointRoute(typeof(Login)), Handle)
             .WithTags(Tags.IDENTITY)
             .AddEndpointFilter<ValidationFilter<LoginRequestDto>>();
     }
