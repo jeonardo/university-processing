@@ -511,55 +511,55 @@ export type PostApiV1RegistrationAdminRegisterApiArg = {
 export type GetApiV1CommonGetDepartmentsApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsCommonGetDepartmentsGetDepartmentsResponseDtoRead;
 export type GetApiV1CommonGetDepartmentsApiArg = {
-  desc: boolean;
-  orderBy: string;
-  pageNumber: number;
-  pageSize: number;
+  desc?: boolean;
+  orderBy?: string;
+  pageNumber?: number;
+  pageSize?: number;
   filter?: string;
 };
 export type GetApiV1CommonGetDiplomaPeriodsApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsCommonGetDiplomaPeriodsGetDiplomaPeriodsResponseDtoRead;
 export type GetApiV1CommonGetDiplomaPeriodsApiArg = {
-  desc: boolean;
-  orderBy: string;
-  pageNumber: number;
-  pageSize: number;
+  desc?: boolean;
+  orderBy?: string;
+  pageNumber?: number;
+  pageSize?: number;
   filter?: string;
 };
 export type GetApiV1CommonGetFacultiesApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsCommonGetFacultiesGetFacultiesResponseDtoRead;
 export type GetApiV1CommonGetFacultiesApiArg = {
-  desc: boolean;
-  orderBy: string;
-  pageNumber: number;
-  pageSize: number;
+  desc?: boolean;
+  orderBy?: string;
+  pageNumber?: number;
+  pageSize?: number;
   filter?: string;
 };
 export type GetApiV1CommonGetGroupsApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsCommonGetGroupsGetGroupsResponseDtoRead;
 export type GetApiV1CommonGetGroupsApiArg = {
-  desc: boolean;
-  orderBy: string;
-  pageNumber: number;
-  pageSize: number;
+  desc?: boolean;
+  orderBy?: string;
+  pageNumber?: number;
+  pageSize?: number;
   filter?: string;
 };
 export type GetApiV1CommonGetSpecialtiesApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsCommonGetSpecialtiesGetSpecialtiesResponseDtoRead;
 export type GetApiV1CommonGetSpecialtiesApiArg = {
-  desc: boolean;
-  orderBy: string;
-  pageNumber: number;
-  pageSize: number;
+  desc?: boolean;
+  orderBy?: string;
+  pageNumber?: number;
+  pageSize?: number;
   filter?: string;
 };
 export type GetApiV1CommonGetUniversitiesApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsCommonGetUniversitiesGetUniversitiesResponseDtoRead;
 export type GetApiV1CommonGetUniversitiesApiArg = {
-  desc: boolean;
-  orderBy: string;
-  pageNumber: number;
-  pageSize: number;
+  desc?: boolean;
+  orderBy?: string;
+  pageNumber?: number;
+  pageSize?: number;
   filter?: string;
 };
 export type UniversityProcessingApiEndpointsAdminUsersUpdateApprovalUpdateApprovalRequestDto =

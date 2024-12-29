@@ -3,7 +3,7 @@ import { Mutex } from 'async-mutex';
 import { RootState } from '../core/store';
 import { login, logout } from 'src/features/authentication/auth.slice';
 import { ENV } from '../core/env';
-import { RefreshResponseDto } from './backendApi';
+import { UniversityProcessingApiEndpointsIdentityRefreshRefreshResponseDto } from './backendApi';
 
 const mutex = new Mutex();
 
@@ -48,7 +48,7 @@ const baseQueryWithReauth: BaseQueryFn<
     if (refreshResult.error || !refreshResult.data) {
       api.dispatch(logout());
     } else {
-      const refreshContent: RefreshResponseDto = refreshResult.data;
+      const refreshContent: UniversityProcessingApiEndpointsIdentityRefreshRefreshResponseDto = refreshResult.data;
       api.dispatch(login({ accessToken: refreshContent.accessToken, refreshToken: refreshContent.refreshToken }));
       result = await baseQuery(args, api, extraOptions);
     }

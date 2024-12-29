@@ -3,6 +3,8 @@ namespace UniversityProcessing.GenericSubdomain.Namespace;
 // ReSharper disable MemberCanBePrivate.Global
 public static class NamespaceService
 {
+    private const string ENDPOINTS = "Endpoints";
+
     public static string[] GetParentParts(Type type)
     {
         var @namespace = type.Namespace;
@@ -24,8 +26,7 @@ public static class NamespaceService
             throw new InvalidOperationException("Type is not in the expected namespace");
         }
 
-        const string endpoints = "Endpoints";
-        var endpointsIndex = Array.IndexOf(parentParts, endpoints);
+        var endpointsIndex = Array.IndexOf(parentParts, ENDPOINTS);
 
         if (endpointsIndex == -1)
         {
@@ -46,5 +47,26 @@ public static class NamespaceService
         var parentParts = GetEndpointsParentParts(type);
         var route = string.Join('/', basePrefix, string.Join('/', parentParts));
         return route;
+    }
+
+    public static string GetDtoSchemaId(Type type)
+    {
+        var route = string.Join('.', type.FullName);
+
+        var genericSubdomainRoot = typeof(NamespaceService).Assembly.GetName().Name!;
+
+        if (!route.Contains(genericSubdomainRoot))
+        {
+            return route[(route.IndexOf(ENDPOINTS, StringComparison.InvariantCulture) + ENDPOINTS.Length + 1)..];
+        }
+
+        var dataType = new string(type.Name.Where(char.IsLetter).ToArray());
+
+        if (type.GenericTypeArguments.Length == 0)
+        {
+            return dataType;
+        }
+
+        return $"{dataType}.{type.GenericTypeArguments.First().Name}";
     }
 }

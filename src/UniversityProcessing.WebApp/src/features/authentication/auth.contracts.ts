@@ -1,13 +1,13 @@
-import { TokenDto, UserRoleIdDto } from '../../api/backendApi';
+import { UniversityProcessingApiEndpointsContractsTokenDto, UniversityProcessingAPIEndpointsContractsUserRoleTypeDto } from '../../api/backendApi';
 
 export type AuthTokens = {
-  accessToken?: TokenDto;
-  refreshToken?: TokenDto;
+  accessToken?: UniversityProcessingApiEndpointsContractsTokenDto;
+  refreshToken?: UniversityProcessingApiEndpointsContractsTokenDto;
 }
 
 export type AuthUser = {
   userId?: string;
-  roleId?: UserRoleIdDto;
+  roleId?: UniversityProcessingAPIEndpointsContractsUserRoleTypeDto;
   approved?: boolean;
   email?: string;
   userName?: string;

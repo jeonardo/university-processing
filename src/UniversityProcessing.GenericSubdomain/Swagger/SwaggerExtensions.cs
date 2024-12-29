@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using UniversityProcessing.GenericSubdomain.Middlewares;
+using UniversityProcessing.GenericSubdomain.Namespace;
 
 namespace UniversityProcessing.GenericSubdomain.Swagger;
 
@@ -13,7 +14,7 @@ public static class SwaggerExtensions
         services.AddSwaggerGen(
             options =>
             {
-                options.CustomSchemaIds(type => type.ToString());
+                options.CustomSchemaIds(NamespaceService.GetDtoSchemaId);
 
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "University project API", Version = "v1" });
                 options.EnableAnnotations();
