@@ -23,12 +23,13 @@ internal sealed class GetDiplomaPeriods : IEndpoint
         [FromServices] IEfRepository<DiplomaPeriod> repository,
         CancellationToken cancellationToken)
     {
+        var validRequest = request.GetValidQueryParameters();
         var count = await repository.CountAsync(cancellationToken);
 
-        var specification = new DiplomaPeriodListSpec(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
+        var specification = new DiplomaPeriodListSpec(validRequest.PageNumber, validRequest.PageSize, validRequest.OrderBy, validRequest.Desc);
         var entities = await repository.ListAsync(specification, cancellationToken);
 
-        return new GetDiplomaPeriodsResponseDto(new PagedList<DiplomaPeriodDto>(entities.Select(ToDto), count, request.PageNumber, request.PageSize));
+        return new GetDiplomaPeriodsResponseDto(new PagedList<DiplomaPeriodDto>(entities.Select(ToDto), count, validRequest.PageNumber, validRequest.PageSize));
     }
 
     private static DiplomaPeriodDto ToDto(DiplomaPeriod input)

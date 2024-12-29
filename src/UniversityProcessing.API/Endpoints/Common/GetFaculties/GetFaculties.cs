@@ -22,12 +22,13 @@ internal sealed class GetFaculties : IEndpoint
         [FromServices] IEfRepository<Faculty> repository,
         CancellationToken cancellationToken)
     {
+        var validRequest = request.GetValidQueryParameters();
         var count = await repository.CountAsync(cancellationToken);
 
-        var specification = new FacultyListSpec(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
+        var specification = new FacultyListSpec(validRequest.PageNumber, validRequest.PageSize, validRequest.OrderBy, validRequest.Desc);
         var entities = await repository.ListAsync(specification, cancellationToken);
 
-        return new GetFacultiesResponseDto(new PagedList<FacultyDto>(entities.Select(ToDto), count, request.PageNumber, request.PageSize));
+        return new GetFacultiesResponseDto(new PagedList<FacultyDto>(entities.Select(ToDto), count, validRequest.PageNumber, validRequest.PageSize));
     }
 
     private static FacultyDto ToDto(Faculty input)

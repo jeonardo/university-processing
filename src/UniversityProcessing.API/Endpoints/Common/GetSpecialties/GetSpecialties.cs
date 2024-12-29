@@ -22,12 +22,13 @@ internal sealed class GetSpecialties : IEndpoint
         [FromServices] IEfReadRepository<Specialty> repository,
         CancellationToken cancellationToken)
     {
+        var validRequest = request.GetValidQueryParameters();
         var count = await repository.CountAsync(cancellationToken);
 
-        var specification = new SpecialtyListSpec(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
+        var specification = new SpecialtyListSpec(validRequest.PageNumber, validRequest.PageSize, validRequest.OrderBy, validRequest.Desc);
         var entities = await repository.ListAsync(specification, cancellationToken);
 
-        return new GetSpecialtiesResponseDto(new PagedList<SpecialtyDto>(entities.Select(ToDto), count, request.PageNumber, request.PageSize));
+        return new GetSpecialtiesResponseDto(new PagedList<SpecialtyDto>(entities.Select(ToDto), count, validRequest.PageNumber, validRequest.PageSize));
     }
 
     private static SpecialtyDto ToDto(Specialty input)

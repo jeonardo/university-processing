@@ -1,19 +1,22 @@
 import { emptySplitApi as api } from "./emptyApi";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
-    putUpdateApproval: build.mutation<
-      PutUpdateApprovalApiResponse,
-      PutUpdateApprovalApiArg
+    putApiV1AdminUsersUpdateApproval: build.mutation<
+      PutApiV1AdminUsersUpdateApprovalApiResponse,
+      PutApiV1AdminUsersUpdateApprovalApiArg
     >({
       query: (queryArg) => ({
-        url: `/UpdateApproval`,
+        url: `/api/v1/Admin/Users/UpdateApproval`,
         method: "PUT",
         body: queryArg.universityProcessingApiEndpointsAdminUsersUpdateApprovalUpdateApprovalRequestDto,
       }),
     }),
-    getGetUsers: build.query<GetGetUsersApiResponse, GetGetUsersApiArg>({
+    getApiV1AdminUsersGetUsers: build.query<
+      GetApiV1AdminUsersGetUsersApiResponse,
+      GetApiV1AdminUsersGetUsersApiArg
+    >({
       query: (queryArg) => ({
-        url: `/GetUsers`,
+        url: `/api/v1/Admin/Users/GetUsers`,
         params: {
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
@@ -22,110 +25,110 @@ const injectedRtkApi = api.injectEndpoints({
         },
       }),
     }),
-    deleteDeleteUniversity: build.mutation<
-      DeleteDeleteUniversityApiResponse,
-      DeleteDeleteUniversityApiArg
+    deleteApiV1AdminUniversitiesDelete: build.mutation<
+      DeleteApiV1AdminUniversitiesDeleteApiResponse,
+      DeleteApiV1AdminUniversitiesDeleteApiArg
     >({
       query: (queryArg) => ({
-        url: `/DeleteUniversity`,
+        url: `/api/v1/Admin/Universities/Delete`,
         method: "DELETE",
         params: {
           Id: queryArg.id,
         },
       }),
     }),
-    postCreateUniversity: build.mutation<
-      PostCreateUniversityApiResponse,
-      PostCreateUniversityApiArg
+    postApiV1AdminUniversitiesCreate: build.mutation<
+      PostApiV1AdminUniversitiesCreateApiResponse,
+      PostApiV1AdminUniversitiesCreateApiArg
     >({
       query: (queryArg) => ({
-        url: `/CreateUniversity`,
+        url: `/api/v1/Admin/Universities/Create`,
         method: "POST",
         body: queryArg.universityProcessingApiEndpointsAdminUniversitiesCreateCreateUniversityRequestDto,
       }),
     }),
-    patchChangeUniversityAdmin: build.mutation<
-      PatchChangeUniversityAdminApiResponse,
-      PatchChangeUniversityAdminApiArg
+    patchApiV1AdminUniversitiesChangeAdmin: build.mutation<
+      PatchApiV1AdminUniversitiesChangeAdminApiResponse,
+      PatchApiV1AdminUniversitiesChangeAdminApiArg
     >({
       query: (queryArg) => ({
-        url: `/ChangeUniversityAdmin`,
+        url: `/api/v1/Admin/Universities/ChangeAdmin`,
         method: "PATCH",
         body: queryArg.universityProcessingApiEndpointsAdminUniversitiesChangeAdminChangeUniversityAdminRequestDto,
       }),
     }),
-    deleteDeleteSpecialty: build.mutation<
-      DeleteDeleteSpecialtyApiResponse,
-      DeleteDeleteSpecialtyApiArg
+    deleteApiV1AdminSpecialtiesDelete: build.mutation<
+      DeleteApiV1AdminSpecialtiesDeleteApiResponse,
+      DeleteApiV1AdminSpecialtiesDeleteApiArg
     >({
       query: (queryArg) => ({
-        url: `/DeleteSpecialty`,
+        url: `/api/v1/Admin/Specialties/Delete`,
         method: "DELETE",
         params: {
           Id: queryArg.id,
         },
       }),
     }),
-    postCreateSpecialty: build.mutation<
-      PostCreateSpecialtyApiResponse,
-      PostCreateSpecialtyApiArg
+    postApiV1AdminSpecialtiesCreate: build.mutation<
+      PostApiV1AdminSpecialtiesCreateApiResponse,
+      PostApiV1AdminSpecialtiesCreateApiArg
     >({
       query: (queryArg) => ({
-        url: `/CreateSpecialty`,
+        url: `/api/v1/Admin/Specialties/Create`,
         method: "POST",
         body: queryArg.universityProcessingApiEndpointsAdminSpecialtiesCreateCreateSpecialtyRequestDto,
       }),
     }),
-    deleteDeleteGroup: build.mutation<
-      DeleteDeleteGroupApiResponse,
-      DeleteDeleteGroupApiArg
+    deleteApiV1AdminGroupsDelete: build.mutation<
+      DeleteApiV1AdminGroupsDeleteApiResponse,
+      DeleteApiV1AdminGroupsDeleteApiArg
     >({
       query: (queryArg) => ({
-        url: `/DeleteGroup`,
+        url: `/api/v1/Admin/Groups/Delete`,
         method: "DELETE",
         params: {
           Id: queryArg.id,
         },
       }),
     }),
-    postCreateGroup: build.mutation<
-      PostCreateGroupApiResponse,
-      PostCreateGroupApiArg
+    postApiV1AdminGroupsCreate: build.mutation<
+      PostApiV1AdminGroupsCreateApiResponse,
+      PostApiV1AdminGroupsCreateApiArg
     >({
       query: (queryArg) => ({
-        url: `/CreateGroup`,
+        url: `/api/v1/Admin/Groups/Create`,
         method: "POST",
         body: queryArg.universityProcessingApiEndpointsAdminGroupsCreateCreateGroupRequestDto,
       }),
     }),
-    deleteDeleteFaculty: build.mutation<
-      DeleteDeleteFacultyApiResponse,
-      DeleteDeleteFacultyApiArg
+    deleteApiV1AdminFacultiesDelete: build.mutation<
+      DeleteApiV1AdminFacultiesDeleteApiResponse,
+      DeleteApiV1AdminFacultiesDeleteApiArg
     >({
       query: (queryArg) => ({
-        url: `/DeleteFaculty`,
+        url: `/api/v1/Admin/Faculties/Delete`,
         method: "DELETE",
         params: {
           Id: queryArg.id,
         },
       }),
     }),
-    postCreateFaculty: build.mutation<
-      PostCreateFacultyApiResponse,
-      PostCreateFacultyApiArg
+    postApiV1AdminFacultiesCreate: build.mutation<
+      PostApiV1AdminFacultiesCreateApiResponse,
+      PostApiV1AdminFacultiesCreateApiArg
     >({
       query: (queryArg) => ({
-        url: `/CreateFaculty`,
+        url: `/api/v1/Admin/Faculties/Create`,
         method: "POST",
         body: queryArg.universityProcessingApiEndpointsAdminFacultiesCreateCreateFacultyRequestDto,
       }),
     }),
-    deleteRemoveUsers: build.mutation<
-      DeleteRemoveUsersApiResponse,
-      DeleteRemoveUsersApiArg
+    deleteApiV1AdminDiplomaPeriodsUsersRemove: build.mutation<
+      DeleteApiV1AdminDiplomaPeriodsUsersRemoveApiResponse,
+      DeleteApiV1AdminDiplomaPeriodsUsersRemoveApiArg
     >({
       query: (queryArg) => ({
-        url: `/RemoveUsers`,
+        url: `/api/v1/Admin/DiplomaPeriods/Users/Remove`,
         method: "DELETE",
         params: {
           DiplomaPeriodId: queryArg.diplomaPeriodId,
@@ -133,149 +136,166 @@ const injectedRtkApi = api.injectEndpoints({
         },
       }),
     }),
-    getGetDiplomaPeriodUsers: build.query<
-      GetGetDiplomaPeriodUsersApiResponse,
-      GetGetDiplomaPeriodUsersApiArg
+    getApiV1AdminDiplomaPeriodsUsersGet: build.query<
+      GetApiV1AdminDiplomaPeriodsUsersGetApiResponse,
+      GetApiV1AdminDiplomaPeriodsUsersGetApiArg
     >({
       query: (queryArg) => ({
-        url: `/GetDiplomaPeriodUsers`,
+        url: `/api/v1/Admin/DiplomaPeriods/Users/Get`,
         params: {
           DiplomaPeriodId: queryArg.diplomaPeriodId,
           RoleType: queryArg.roleType,
         },
       }),
     }),
-    postAddUsers: build.mutation<PostAddUsersApiResponse, PostAddUsersApiArg>({
+    postApiV1AdminDiplomaPeriodsUsersAdd: build.mutation<
+      PostApiV1AdminDiplomaPeriodsUsersAddApiResponse,
+      PostApiV1AdminDiplomaPeriodsUsersAddApiArg
+    >({
       query: (queryArg) => ({
-        url: `/AddUsers`,
+        url: `/api/v1/Admin/DiplomaPeriods/Users/Add`,
         method: "POST",
         body: queryArg.universityProcessingApiEndpointsAdminDiplomaPeriodsUsersAddAddUsersRequestDto,
       }),
     }),
-    deleteDeleteDiplomaPeriod: build.mutation<
-      DeleteDeleteDiplomaPeriodApiResponse,
-      DeleteDeleteDiplomaPeriodApiArg
+    deleteApiV1AdminDiplomaPeriodsDelete: build.mutation<
+      DeleteApiV1AdminDiplomaPeriodsDeleteApiResponse,
+      DeleteApiV1AdminDiplomaPeriodsDeleteApiArg
     >({
       query: (queryArg) => ({
-        url: `/DeleteDiplomaPeriod`,
+        url: `/api/v1/Admin/DiplomaPeriods/Delete`,
         method: "DELETE",
         params: {
           Id: queryArg.id,
         },
       }),
     }),
-    postCreateDiplomaPeriod: build.mutation<
-      PostCreateDiplomaPeriodApiResponse,
-      PostCreateDiplomaPeriodApiArg
+    postApiV1AdminDiplomaPeriodsCreate: build.mutation<
+      PostApiV1AdminDiplomaPeriodsCreateApiResponse,
+      PostApiV1AdminDiplomaPeriodsCreateApiArg
     >({
       query: (queryArg) => ({
-        url: `/CreateDiplomaPeriod`,
+        url: `/api/v1/Admin/DiplomaPeriods/Create`,
         method: "POST",
         body: queryArg.universityProcessingApiEndpointsAdminDiplomaPeriodsCreateCreateDiplomaPeriodRequestDto,
       }),
     }),
-    deleteDeleteDepartment: build.mutation<
-      DeleteDeleteDepartmentApiResponse,
-      DeleteDeleteDepartmentApiArg
+    deleteApiV1AdminDepartmentsDelete: build.mutation<
+      DeleteApiV1AdminDepartmentsDeleteApiResponse,
+      DeleteApiV1AdminDepartmentsDeleteApiArg
     >({
       query: (queryArg) => ({
-        url: `/DeleteDepartment`,
+        url: `/api/v1/Admin/Departments/Delete`,
         method: "DELETE",
         params: {
           Id: queryArg.id,
         },
       }),
     }),
-    postCreateDepartment: build.mutation<
-      PostCreateDepartmentApiResponse,
-      PostCreateDepartmentApiArg
+    postApiV1AdminDepartmentsCreate: build.mutation<
+      PostApiV1AdminDepartmentsCreateApiResponse,
+      PostApiV1AdminDepartmentsCreateApiArg
     >({
       query: (queryArg) => ({
-        url: `/CreateDepartment`,
+        url: `/api/v1/Admin/Departments/Create`,
         method: "POST",
         body: queryArg.universityProcessingApiEndpointsAdminDepartmentsCreateCreateDepartmentRequestDto,
       }),
     }),
-    getRefresh: build.query<GetRefreshApiResponse, GetRefreshApiArg>({
-      query: () => ({ url: `/Refresh` }),
+    getApiV1IdentityRefresh: build.query<
+      GetApiV1IdentityRefreshApiResponse,
+      GetApiV1IdentityRefreshApiArg
+    >({
+      query: () => ({ url: `/api/v1/Identity/Refresh` }),
     }),
-    postLogout: build.mutation<PostLogoutApiResponse, PostLogoutApiArg>({
-      query: () => ({ url: `/Logout`, method: "POST" }),
+    postApiV1IdentityLogout: build.mutation<
+      PostApiV1IdentityLogoutApiResponse,
+      PostApiV1IdentityLogoutApiArg
+    >({
+      query: () => ({ url: `/api/v1/Identity/Logout`, method: "POST" }),
     }),
-    postLogin: build.mutation<PostLoginApiResponse, PostLoginApiArg>({
+    postApiV1IdentityLogin: build.mutation<
+      PostApiV1IdentityLoginApiResponse,
+      PostApiV1IdentityLoginApiArg
+    >({
       query: (queryArg) => ({
-        url: `/Login`,
+        url: `/api/v1/Identity/Login`,
         method: "POST",
         body: queryArg.universityProcessingApiEndpointsIdentityLoginLoginRequestDto,
       }),
     }),
-    getInfo: build.query<GetInfoApiResponse, GetInfoApiArg>({
-      query: () => ({ url: `/Info` }),
+    getApiV1IdentityInfo: build.query<
+      GetApiV1IdentityInfoApiResponse,
+      GetApiV1IdentityInfoApiArg
+    >({
+      query: () => ({ url: `/api/v1/Identity/Info` }),
     }),
-    postRegisterAdmin: build.mutation<
-      PostRegisterAdminApiResponse,
-      PostRegisterAdminApiArg
+    postApiV1RegistrationStudentRegister: build.mutation<
+      PostApiV1RegistrationStudentRegisterApiResponse,
+      PostApiV1RegistrationStudentRegisterApiArg
     >({
       query: (queryArg) => ({
-        url: `/RegisterAdmin`,
+        url: `/api/v1/Registration/Student/Register`,
         method: "POST",
-        body: queryArg.universityProcessingApiEndpointsRegistrationRegisterAdminRegisterRegisterAdminRequestDto,
+        body: queryArg.universityProcessingApiEndpointsRegistrationStudentRegisterRegisterStudentRequestDto,
       }),
     }),
-    postRegisterEmployee: build.mutation<
-      PostRegisterEmployeeApiResponse,
-      PostRegisterEmployeeApiArg
+    getApiV1RegistrationStudentGetAvailableGroups: build.query<
+      GetApiV1RegistrationStudentGetAvailableGroupsApiResponse,
+      GetApiV1RegistrationStudentGetAvailableGroupsApiArg
     >({
       query: (queryArg) => ({
-        url: `/RegisterEmployee`,
-        method: "POST",
-        body: queryArg.universityProcessingApiEndpointsRegistrationRegisterEmployeeRegisterRegisterEmployeeRequestDto,
-      }),
-    }),
-    getGetAvailableUniversityPositions: build.query<
-      GetGetAvailableUniversityPositionsApiResponse,
-      GetGetAvailableUniversityPositionsApiArg
-    >({
-      query: () => ({ url: `/GetAvailableUniversityPositions` }),
-    }),
-    getGetAvailableUniversities: build.query<
-      GetGetAvailableUniversitiesApiResponse,
-      GetGetAvailableUniversitiesApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/GetAvailableUniversities`,
-        params: {
-          Name: queryArg.name,
-        },
-      }),
-    }),
-    postRegisterStudent: build.mutation<
-      PostRegisterStudentApiResponse,
-      PostRegisterStudentApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/RegisterStudent`,
-        method: "POST",
-        body: queryArg.universityProcessingApiEndpointsRegistrationRegisterStudentRegisterRegisterStudentRequestDto,
-      }),
-    }),
-    getGetAvailableGroups: build.query<
-      GetGetAvailableGroupsApiResponse,
-      GetGetAvailableGroupsApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/GetAvailableGroups`,
+        url: `/api/v1/Registration/Student/GetAvailableGroups`,
         params: {
           Number: queryArg["number"],
         },
       }),
     }),
-    getGetDepartments: build.query<
-      GetGetDepartmentsApiResponse,
-      GetGetDepartmentsApiArg
+    postApiV1RegistrationEmployeeRegister: build.mutation<
+      PostApiV1RegistrationEmployeeRegisterApiResponse,
+      PostApiV1RegistrationEmployeeRegisterApiArg
     >({
       query: (queryArg) => ({
-        url: `/GetDepartments`,
+        url: `/api/v1/Registration/Employee/Register`,
+        method: "POST",
+        body: queryArg.universityProcessingApiEndpointsRegistrationEmployeeRegisterRegisterEmployeeRequestDto,
+      }),
+    }),
+    getApiV1RegistrationEmployeeGetAvailableUniversityPositions: build.query<
+      GetApiV1RegistrationEmployeeGetAvailableUniversityPositionsApiResponse,
+      GetApiV1RegistrationEmployeeGetAvailableUniversityPositionsApiArg
+    >({
+      query: () => ({
+        url: `/api/v1/Registration/Employee/GetAvailableUniversityPositions`,
+      }),
+    }),
+    getApiV1RegistrationEmployeeGetAvailableUniversities: build.query<
+      GetApiV1RegistrationEmployeeGetAvailableUniversitiesApiResponse,
+      GetApiV1RegistrationEmployeeGetAvailableUniversitiesApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/v1/Registration/Employee/GetAvailableUniversities`,
+        params: {
+          Name: queryArg.name,
+        },
+      }),
+    }),
+    postApiV1RegistrationAdminRegister: build.mutation<
+      PostApiV1RegistrationAdminRegisterApiResponse,
+      PostApiV1RegistrationAdminRegisterApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/v1/Registration/Admin/Register`,
+        method: "POST",
+        body: queryArg.universityProcessingApiEndpointsRegistrationAdminRegisterRegisterAdminRequestDto,
+      }),
+    }),
+    getApiV1CommonGetDepartments: build.query<
+      GetApiV1CommonGetDepartmentsApiResponse,
+      GetApiV1CommonGetDepartmentsApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/v1/Common/GetDepartments`,
         params: {
           Desc: queryArg.desc,
           OrderBy: queryArg.orderBy,
@@ -285,12 +305,12 @@ const injectedRtkApi = api.injectEndpoints({
         },
       }),
     }),
-    getGetDiplomaPeriods: build.query<
-      GetGetDiplomaPeriodsApiResponse,
-      GetGetDiplomaPeriodsApiArg
+    getApiV1CommonGetDiplomaPeriods: build.query<
+      GetApiV1CommonGetDiplomaPeriodsApiResponse,
+      GetApiV1CommonGetDiplomaPeriodsApiArg
     >({
       query: (queryArg) => ({
-        url: `/GetDiplomaPeriods`,
+        url: `/api/v1/Common/GetDiplomaPeriods`,
         params: {
           Desc: queryArg.desc,
           OrderBy: queryArg.orderBy,
@@ -300,12 +320,12 @@ const injectedRtkApi = api.injectEndpoints({
         },
       }),
     }),
-    getGetFaculties: build.query<
-      GetGetFacultiesApiResponse,
-      GetGetFacultiesApiArg
+    getApiV1CommonGetFaculties: build.query<
+      GetApiV1CommonGetFacultiesApiResponse,
+      GetApiV1CommonGetFacultiesApiArg
     >({
       query: (queryArg) => ({
-        url: `/GetFaculties`,
+        url: `/api/v1/Common/GetFaculties`,
         params: {
           Desc: queryArg.desc,
           OrderBy: queryArg.orderBy,
@@ -315,9 +335,12 @@ const injectedRtkApi = api.injectEndpoints({
         },
       }),
     }),
-    getGetGroups: build.query<GetGetGroupsApiResponse, GetGetGroupsApiArg>({
+    getApiV1CommonGetGroups: build.query<
+      GetApiV1CommonGetGroupsApiResponse,
+      GetApiV1CommonGetGroupsApiArg
+    >({
       query: (queryArg) => ({
-        url: `/GetGroups`,
+        url: `/api/v1/Common/GetGroups`,
         params: {
           Desc: queryArg.desc,
           OrderBy: queryArg.orderBy,
@@ -327,12 +350,12 @@ const injectedRtkApi = api.injectEndpoints({
         },
       }),
     }),
-    getGetSpecialties: build.query<
-      GetGetSpecialtiesApiResponse,
-      GetGetSpecialtiesApiArg
+    getApiV1CommonGetSpecialties: build.query<
+      GetApiV1CommonGetSpecialtiesApiResponse,
+      GetApiV1CommonGetSpecialtiesApiArg
     >({
       query: (queryArg) => ({
-        url: `/GetSpecialties`,
+        url: `/api/v1/Common/GetSpecialties`,
         params: {
           Desc: queryArg.desc,
           OrderBy: queryArg.orderBy,
@@ -342,12 +365,12 @@ const injectedRtkApi = api.injectEndpoints({
         },
       }),
     }),
-    getGetUniversities: build.query<
-      GetGetUniversitiesApiResponse,
-      GetGetUniversitiesApiArg
+    getApiV1CommonGetUniversities: build.query<
+      GetApiV1CommonGetUniversitiesApiResponse,
+      GetApiV1CommonGetUniversitiesApiArg
     >({
       query: (queryArg) => ({
-        url: `/GetUniversities`,
+        url: `/api/v1/Common/GetUniversities`,
         params: {
           Desc: queryArg.desc,
           OrderBy: queryArg.orderBy,
@@ -361,177 +384,178 @@ const injectedRtkApi = api.injectEndpoints({
   overrideExisting: false,
 });
 export { injectedRtkApi as backendApi };
-export type PutUpdateApprovalApiResponse = unknown;
-export type PutUpdateApprovalApiArg = {
+export type PutApiV1AdminUsersUpdateApprovalApiResponse = unknown;
+export type PutApiV1AdminUsersUpdateApprovalApiArg = {
   universityProcessingApiEndpointsAdminUsersUpdateApprovalUpdateApprovalRequestDto: UniversityProcessingApiEndpointsAdminUsersUpdateApprovalUpdateApprovalRequestDto;
 };
-export type GetGetUsersApiResponse =
+export type GetApiV1AdminUsersGetUsersApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsAdminUsersGetUsersGetUsersResponseDtoRead;
-export type GetGetUsersApiArg = {
+export type GetApiV1AdminUsersGetUsersApiArg = {
   pageNumber: number;
   pageSize: number;
   orderBy: string;
   desc: boolean;
 };
-export type DeleteDeleteUniversityApiResponse = unknown;
-export type DeleteDeleteUniversityApiArg = {
+export type DeleteApiV1AdminUniversitiesDeleteApiResponse = unknown;
+export type DeleteApiV1AdminUniversitiesDeleteApiArg = {
   id: string;
 };
-export type PostCreateUniversityApiResponse =
+export type PostApiV1AdminUniversitiesCreateApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsAdminUniversitiesCreateCreateUniversityResponseDto;
-export type PostCreateUniversityApiArg = {
+export type PostApiV1AdminUniversitiesCreateApiArg = {
   universityProcessingApiEndpointsAdminUniversitiesCreateCreateUniversityRequestDto: UniversityProcessingApiEndpointsAdminUniversitiesCreateCreateUniversityRequestDto;
 };
-export type PatchChangeUniversityAdminApiResponse = unknown;
-export type PatchChangeUniversityAdminApiArg = {
+export type PatchApiV1AdminUniversitiesChangeAdminApiResponse = unknown;
+export type PatchApiV1AdminUniversitiesChangeAdminApiArg = {
   universityProcessingApiEndpointsAdminUniversitiesChangeAdminChangeUniversityAdminRequestDto: UniversityProcessingApiEndpointsAdminUniversitiesChangeAdminChangeUniversityAdminRequestDto;
 };
-export type DeleteDeleteSpecialtyApiResponse = unknown;
-export type DeleteDeleteSpecialtyApiArg = {
+export type DeleteApiV1AdminSpecialtiesDeleteApiResponse = unknown;
+export type DeleteApiV1AdminSpecialtiesDeleteApiArg = {
   id: string;
 };
-export type PostCreateSpecialtyApiResponse =
+export type PostApiV1AdminSpecialtiesCreateApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsAdminSpecialtiesCreateCreateSpecialtyResponseDto;
-export type PostCreateSpecialtyApiArg = {
+export type PostApiV1AdminSpecialtiesCreateApiArg = {
   universityProcessingApiEndpointsAdminSpecialtiesCreateCreateSpecialtyRequestDto: UniversityProcessingApiEndpointsAdminSpecialtiesCreateCreateSpecialtyRequestDto;
 };
-export type DeleteDeleteGroupApiResponse = unknown;
-export type DeleteDeleteGroupApiArg = {
+export type DeleteApiV1AdminGroupsDeleteApiResponse = unknown;
+export type DeleteApiV1AdminGroupsDeleteApiArg = {
   id: string;
 };
-export type PostCreateGroupApiResponse =
+export type PostApiV1AdminGroupsCreateApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsAdminGroupsCreateCreateGroupResponseDto;
-export type PostCreateGroupApiArg = {
+export type PostApiV1AdminGroupsCreateApiArg = {
   universityProcessingApiEndpointsAdminGroupsCreateCreateGroupRequestDto: UniversityProcessingApiEndpointsAdminGroupsCreateCreateGroupRequestDto;
 };
-export type DeleteDeleteFacultyApiResponse = unknown;
-export type DeleteDeleteFacultyApiArg = {
+export type DeleteApiV1AdminFacultiesDeleteApiResponse = unknown;
+export type DeleteApiV1AdminFacultiesDeleteApiArg = {
   id: string;
 };
-export type PostCreateFacultyApiResponse =
+export type PostApiV1AdminFacultiesCreateApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsAdminFacultiesCreateCreateFacultyResponseDto;
-export type PostCreateFacultyApiArg = {
+export type PostApiV1AdminFacultiesCreateApiArg = {
   universityProcessingApiEndpointsAdminFacultiesCreateCreateFacultyRequestDto: UniversityProcessingApiEndpointsAdminFacultiesCreateCreateFacultyRequestDto;
 };
-export type DeleteRemoveUsersApiResponse = unknown;
-export type DeleteRemoveUsersApiArg = {
+export type DeleteApiV1AdminDiplomaPeriodsUsersRemoveApiResponse = unknown;
+export type DeleteApiV1AdminDiplomaPeriodsUsersRemoveApiArg = {
   diplomaPeriodId: string;
   userIds: string[];
 };
-export type GetGetDiplomaPeriodUsersApiResponse =
+export type GetApiV1AdminDiplomaPeriodsUsersGetApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsAdminDiplomaPeriodsUsersGetGetDiplomaPeriodUsersResponseDto;
-export type GetGetDiplomaPeriodUsersApiArg = {
+export type GetApiV1AdminDiplomaPeriodsUsersGetApiArg = {
   diplomaPeriodId: string;
   roleType: UniversityProcessingAPIEndpointsContractsUserRoleTypeDto;
 };
-export type PostAddUsersApiResponse = unknown;
-export type PostAddUsersApiArg = {
+export type PostApiV1AdminDiplomaPeriodsUsersAddApiResponse = unknown;
+export type PostApiV1AdminDiplomaPeriodsUsersAddApiArg = {
   universityProcessingApiEndpointsAdminDiplomaPeriodsUsersAddAddUsersRequestDto: UniversityProcessingApiEndpointsAdminDiplomaPeriodsUsersAddAddUsersRequestDto;
 };
-export type DeleteDeleteDiplomaPeriodApiResponse = unknown;
-export type DeleteDeleteDiplomaPeriodApiArg = {
+export type DeleteApiV1AdminDiplomaPeriodsDeleteApiResponse = unknown;
+export type DeleteApiV1AdminDiplomaPeriodsDeleteApiArg = {
   id: string;
 };
-export type PostCreateDiplomaPeriodApiResponse =
+export type PostApiV1AdminDiplomaPeriodsCreateApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsAdminDiplomaPeriodsCreateCreateDiplomaPeriodResponseDto;
-export type PostCreateDiplomaPeriodApiArg = {
+export type PostApiV1AdminDiplomaPeriodsCreateApiArg = {
   universityProcessingApiEndpointsAdminDiplomaPeriodsCreateCreateDiplomaPeriodRequestDto: UniversityProcessingApiEndpointsAdminDiplomaPeriodsCreateCreateDiplomaPeriodRequestDto;
 };
-export type DeleteDeleteDepartmentApiResponse = unknown;
-export type DeleteDeleteDepartmentApiArg = {
+export type DeleteApiV1AdminDepartmentsDeleteApiResponse = unknown;
+export type DeleteApiV1AdminDepartmentsDeleteApiArg = {
   id: string;
 };
-export type PostCreateDepartmentApiResponse =
+export type PostApiV1AdminDepartmentsCreateApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsAdminDepartmentsCreateCreateDepartmentResponseDto;
-export type PostCreateDepartmentApiArg = {
+export type PostApiV1AdminDepartmentsCreateApiArg = {
   universityProcessingApiEndpointsAdminDepartmentsCreateCreateDepartmentRequestDto: UniversityProcessingApiEndpointsAdminDepartmentsCreateCreateDepartmentRequestDto;
 };
-export type GetRefreshApiResponse =
+export type GetApiV1IdentityRefreshApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsIdentityRefreshRefreshResponseDto;
-export type GetRefreshApiArg = void;
-export type PostLogoutApiResponse = unknown;
-export type PostLogoutApiArg = void;
-export type PostLoginApiResponse =
+export type GetApiV1IdentityRefreshApiArg = void;
+export type PostApiV1IdentityLogoutApiResponse = unknown;
+export type PostApiV1IdentityLogoutApiArg = void;
+export type PostApiV1IdentityLoginApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsIdentityLoginLoginResponseDto;
-export type PostLoginApiArg = {
+export type PostApiV1IdentityLoginApiArg = {
   universityProcessingApiEndpointsIdentityLoginLoginRequestDto: UniversityProcessingApiEndpointsIdentityLoginLoginRequestDto;
 };
-export type GetInfoApiResponse =
+export type GetApiV1IdentityInfoApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsIdentityInfoInfoResponseDto;
-export type GetInfoApiArg = void;
-export type PostRegisterAdminApiResponse = unknown;
-export type PostRegisterAdminApiArg = {
-  universityProcessingApiEndpointsRegistrationRegisterAdminRegisterRegisterAdminRequestDto: UniversityProcessingApiEndpointsRegistrationRegisterAdminRegisterRegisterAdminRequestDto;
+export type GetApiV1IdentityInfoApiArg = void;
+export type PostApiV1RegistrationStudentRegisterApiResponse = unknown;
+export type PostApiV1RegistrationStudentRegisterApiArg = {
+  universityProcessingApiEndpointsRegistrationStudentRegisterRegisterStudentRequestDto: UniversityProcessingApiEndpointsRegistrationStudentRegisterRegisterStudentRequestDto;
 };
-export type PostRegisterEmployeeApiResponse = unknown;
-export type PostRegisterEmployeeApiArg = {
-  universityProcessingApiEndpointsRegistrationRegisterEmployeeRegisterRegisterEmployeeRequestDto: UniversityProcessingApiEndpointsRegistrationRegisterEmployeeRegisterRegisterEmployeeRequestDto;
-};
-export type GetGetAvailableUniversityPositionsApiResponse =
-  /** status 200 OK */ UniversityProcessingApiEndpointsRegistrationRegisterEmployeeGetAvailableUniversityPositionsGetAvailableUniversityPositionsResponseDto;
-export type GetGetAvailableUniversityPositionsApiArg = void;
-export type GetGetAvailableUniversitiesApiResponse =
-  /** status 200 OK */ UniversityProcessingApiEndpointsRegistrationRegisterEmployeeGetAvailableUniversitiesGetAvailableUniversitiesResponseDto;
-export type GetGetAvailableUniversitiesApiArg = {
-  name: string;
-};
-export type PostRegisterStudentApiResponse = unknown;
-export type PostRegisterStudentApiArg = {
-  universityProcessingApiEndpointsRegistrationRegisterStudentRegisterRegisterStudentRequestDto: UniversityProcessingApiEndpointsRegistrationRegisterStudentRegisterRegisterStudentRequestDto;
-};
-export type GetGetAvailableGroupsApiResponse =
-  /** status 200 OK */ UniversityProcessingApiEndpointsRegistrationRegisterStudentGetAvailableGroupsGetAvailableGroupsResponseDto;
-export type GetGetAvailableGroupsApiArg = {
+export type GetApiV1RegistrationStudentGetAvailableGroupsApiResponse =
+  /** status 200 OK */ UniversityProcessingApiEndpointsRegistrationStudentGetAvailableGroupsGetAvailableGroupsResponseDto;
+export type GetApiV1RegistrationStudentGetAvailableGroupsApiArg = {
   number: string;
 };
-export type GetGetDepartmentsApiResponse =
+export type PostApiV1RegistrationEmployeeRegisterApiResponse = unknown;
+export type PostApiV1RegistrationEmployeeRegisterApiArg = {
+  universityProcessingApiEndpointsRegistrationEmployeeRegisterRegisterEmployeeRequestDto: UniversityProcessingApiEndpointsRegistrationEmployeeRegisterRegisterEmployeeRequestDto;
+};
+export type GetApiV1RegistrationEmployeeGetAvailableUniversityPositionsApiResponse =
+  /** status 200 OK */ UniversityProcessingApiEndpointsRegistrationEmployeeGetAvailableUniversityPositionsGetAvailableUniversityPositionsResponseDto;
+export type GetApiV1RegistrationEmployeeGetAvailableUniversityPositionsApiArg =
+  void;
+export type GetApiV1RegistrationEmployeeGetAvailableUniversitiesApiResponse =
+  /** status 200 OK */ UniversityProcessingApiEndpointsRegistrationEmployeeGetAvailableUniversitiesGetAvailableUniversitiesResponseDto;
+export type GetApiV1RegistrationEmployeeGetAvailableUniversitiesApiArg = {
+  name: string;
+};
+export type PostApiV1RegistrationAdminRegisterApiResponse = unknown;
+export type PostApiV1RegistrationAdminRegisterApiArg = {
+  universityProcessingApiEndpointsRegistrationAdminRegisterRegisterAdminRequestDto: UniversityProcessingApiEndpointsRegistrationAdminRegisterRegisterAdminRequestDto;
+};
+export type GetApiV1CommonGetDepartmentsApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsCommonGetDepartmentsGetDepartmentsResponseDtoRead;
-export type GetGetDepartmentsApiArg = {
+export type GetApiV1CommonGetDepartmentsApiArg = {
   desc: boolean;
   orderBy: string;
   pageNumber: number;
   pageSize: number;
   filter?: string;
 };
-export type GetGetDiplomaPeriodsApiResponse =
+export type GetApiV1CommonGetDiplomaPeriodsApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsCommonGetDiplomaPeriodsGetDiplomaPeriodsResponseDtoRead;
-export type GetGetDiplomaPeriodsApiArg = {
+export type GetApiV1CommonGetDiplomaPeriodsApiArg = {
   desc: boolean;
   orderBy: string;
   pageNumber: number;
   pageSize: number;
   filter?: string;
 };
-export type GetGetFacultiesApiResponse =
+export type GetApiV1CommonGetFacultiesApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsCommonGetFacultiesGetFacultiesResponseDtoRead;
-export type GetGetFacultiesApiArg = {
+export type GetApiV1CommonGetFacultiesApiArg = {
   desc: boolean;
   orderBy: string;
   pageNumber: number;
   pageSize: number;
   filter?: string;
 };
-export type GetGetGroupsApiResponse =
+export type GetApiV1CommonGetGroupsApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsCommonGetGroupsGetGroupsResponseDtoRead;
-export type GetGetGroupsApiArg = {
+export type GetApiV1CommonGetGroupsApiArg = {
   desc: boolean;
   orderBy: string;
   pageNumber: number;
   pageSize: number;
   filter?: string;
 };
-export type GetGetSpecialtiesApiResponse =
+export type GetApiV1CommonGetSpecialtiesApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsCommonGetSpecialtiesGetSpecialtiesResponseDtoRead;
-export type GetGetSpecialtiesApiArg = {
+export type GetApiV1CommonGetSpecialtiesApiArg = {
   desc: boolean;
   orderBy: string;
   pageNumber: number;
   pageSize: number;
   filter?: string;
 };
-export type GetGetUniversitiesApiResponse =
+export type GetApiV1CommonGetUniversitiesApiResponse =
   /** status 200 OK */ UniversityProcessingApiEndpointsCommonGetUniversitiesGetUniversitiesResponseDtoRead;
-export type GetGetUniversitiesApiArg = {
+export type GetApiV1CommonGetUniversitiesApiArg = {
   desc: boolean;
   orderBy: string;
   pageNumber: number;
@@ -683,7 +707,7 @@ export type UniversityProcessingApiEndpointsIdentityInfoInfoResponseDto = {
   roleType?: UniversityProcessingAPIEndpointsContractsUserRoleTypeDto;
   approved?: boolean;
 };
-export type UniversityProcessingApiEndpointsRegistrationRegisterAdminRegisterRegisterAdminRequestDto =
+export type UniversityProcessingApiEndpointsRegistrationStudentRegisterRegisterStudentRequestDto =
   {
     userName: string;
     password: string;
@@ -692,8 +716,13 @@ export type UniversityProcessingApiEndpointsRegistrationRegisterAdminRegisterReg
     middleName?: string | null;
     email?: string | null;
     birthday?: string | null;
+    groupNumber?: string | null;
   };
-export type UniversityProcessingApiEndpointsRegistrationRegisterEmployeeRegisterRegisterEmployeeRequestDto =
+export type UniversityProcessingApiEndpointsRegistrationStudentGetAvailableGroupsGetAvailableGroupsResponseDto =
+  {
+    groupNumbers?: string[] | null;
+  };
+export type UniversityProcessingApiEndpointsRegistrationEmployeeRegisterRegisterEmployeeRequestDto =
   {
     userName: string;
     password: string;
@@ -705,29 +734,29 @@ export type UniversityProcessingApiEndpointsRegistrationRegisterEmployeeRegister
     universityId?: string | null;
     universityPositionId?: string | null;
   };
-export type UniversityProcessingApiEndpointsRegistrationRegisterEmployeeGetAvailableUniversityPositionsUniversityPositionDto =
+export type UniversityProcessingApiEndpointsRegistrationEmployeeGetAvailableUniversityPositionsUniversityPositionDto =
   {
     id?: string;
     name?: string | null;
   };
-export type UniversityProcessingApiEndpointsRegistrationRegisterEmployeeGetAvailableUniversityPositionsGetAvailableUniversityPositionsResponseDto =
+export type UniversityProcessingApiEndpointsRegistrationEmployeeGetAvailableUniversityPositionsGetAvailableUniversityPositionsResponseDto =
   {
     list?:
-      | UniversityProcessingApiEndpointsRegistrationRegisterEmployeeGetAvailableUniversityPositionsUniversityPositionDto[]
+      | UniversityProcessingApiEndpointsRegistrationEmployeeGetAvailableUniversityPositionsUniversityPositionDto[]
       | null;
   };
-export type UniversityProcessingApiEndpointsRegistrationRegisterEmployeeGetAvailableUniversitiesUniversityDto =
+export type UniversityProcessingApiEndpointsRegistrationEmployeeGetAvailableUniversitiesUniversityDto =
   {
     id?: string;
     name?: string | null;
   };
-export type UniversityProcessingApiEndpointsRegistrationRegisterEmployeeGetAvailableUniversitiesGetAvailableUniversitiesResponseDto =
+export type UniversityProcessingApiEndpointsRegistrationEmployeeGetAvailableUniversitiesGetAvailableUniversitiesResponseDto =
   {
     list?:
-      | UniversityProcessingApiEndpointsRegistrationRegisterEmployeeGetAvailableUniversitiesUniversityDto[]
+      | UniversityProcessingApiEndpointsRegistrationEmployeeGetAvailableUniversitiesUniversityDto[]
       | null;
   };
-export type UniversityProcessingApiEndpointsRegistrationRegisterStudentRegisterRegisterStudentRequestDto =
+export type UniversityProcessingApiEndpointsRegistrationAdminRegisterRegisterAdminRequestDto =
   {
     userName: string;
     password: string;
@@ -736,11 +765,6 @@ export type UniversityProcessingApiEndpointsRegistrationRegisterStudentRegisterR
     middleName?: string | null;
     email?: string | null;
     birthday?: string | null;
-    groupNumber?: string | null;
-  };
-export type UniversityProcessingApiEndpointsRegistrationRegisterStudentGetAvailableGroupsGetAvailableGroupsResponseDto =
-  {
-    groupNumbers?: string[] | null;
   };
 export type UniversityProcessingApiEndpointsCommonGetDepartmentsDepartmentDto =
   {
@@ -947,51 +971,51 @@ export enum UniversityProcessingAPIEndpointsContractsUserRoleTypeDto {
   Student = "Student",
 }
 export const {
-  usePutUpdateApprovalMutation,
-  useGetGetUsersQuery,
-  useLazyGetGetUsersQuery,
-  useDeleteDeleteUniversityMutation,
-  usePostCreateUniversityMutation,
-  usePatchChangeUniversityAdminMutation,
-  useDeleteDeleteSpecialtyMutation,
-  usePostCreateSpecialtyMutation,
-  useDeleteDeleteGroupMutation,
-  usePostCreateGroupMutation,
-  useDeleteDeleteFacultyMutation,
-  usePostCreateFacultyMutation,
-  useDeleteRemoveUsersMutation,
-  useGetGetDiplomaPeriodUsersQuery,
-  useLazyGetGetDiplomaPeriodUsersQuery,
-  usePostAddUsersMutation,
-  useDeleteDeleteDiplomaPeriodMutation,
-  usePostCreateDiplomaPeriodMutation,
-  useDeleteDeleteDepartmentMutation,
-  usePostCreateDepartmentMutation,
-  useGetRefreshQuery,
-  useLazyGetRefreshQuery,
-  usePostLogoutMutation,
-  usePostLoginMutation,
-  useGetInfoQuery,
-  useLazyGetInfoQuery,
-  usePostRegisterAdminMutation,
-  usePostRegisterEmployeeMutation,
-  useGetGetAvailableUniversityPositionsQuery,
-  useLazyGetGetAvailableUniversityPositionsQuery,
-  useGetGetAvailableUniversitiesQuery,
-  useLazyGetGetAvailableUniversitiesQuery,
-  usePostRegisterStudentMutation,
-  useGetGetAvailableGroupsQuery,
-  useLazyGetGetAvailableGroupsQuery,
-  useGetGetDepartmentsQuery,
-  useLazyGetGetDepartmentsQuery,
-  useGetGetDiplomaPeriodsQuery,
-  useLazyGetGetDiplomaPeriodsQuery,
-  useGetGetFacultiesQuery,
-  useLazyGetGetFacultiesQuery,
-  useGetGetGroupsQuery,
-  useLazyGetGetGroupsQuery,
-  useGetGetSpecialtiesQuery,
-  useLazyGetGetSpecialtiesQuery,
-  useGetGetUniversitiesQuery,
-  useLazyGetGetUniversitiesQuery,
+  usePutApiV1AdminUsersUpdateApprovalMutation,
+  useGetApiV1AdminUsersGetUsersQuery,
+  useLazyGetApiV1AdminUsersGetUsersQuery,
+  useDeleteApiV1AdminUniversitiesDeleteMutation,
+  usePostApiV1AdminUniversitiesCreateMutation,
+  usePatchApiV1AdminUniversitiesChangeAdminMutation,
+  useDeleteApiV1AdminSpecialtiesDeleteMutation,
+  usePostApiV1AdminSpecialtiesCreateMutation,
+  useDeleteApiV1AdminGroupsDeleteMutation,
+  usePostApiV1AdminGroupsCreateMutation,
+  useDeleteApiV1AdminFacultiesDeleteMutation,
+  usePostApiV1AdminFacultiesCreateMutation,
+  useDeleteApiV1AdminDiplomaPeriodsUsersRemoveMutation,
+  useGetApiV1AdminDiplomaPeriodsUsersGetQuery,
+  useLazyGetApiV1AdminDiplomaPeriodsUsersGetQuery,
+  usePostApiV1AdminDiplomaPeriodsUsersAddMutation,
+  useDeleteApiV1AdminDiplomaPeriodsDeleteMutation,
+  usePostApiV1AdminDiplomaPeriodsCreateMutation,
+  useDeleteApiV1AdminDepartmentsDeleteMutation,
+  usePostApiV1AdminDepartmentsCreateMutation,
+  useGetApiV1IdentityRefreshQuery,
+  useLazyGetApiV1IdentityRefreshQuery,
+  usePostApiV1IdentityLogoutMutation,
+  usePostApiV1IdentityLoginMutation,
+  useGetApiV1IdentityInfoQuery,
+  useLazyGetApiV1IdentityInfoQuery,
+  usePostApiV1RegistrationStudentRegisterMutation,
+  useGetApiV1RegistrationStudentGetAvailableGroupsQuery,
+  useLazyGetApiV1RegistrationStudentGetAvailableGroupsQuery,
+  usePostApiV1RegistrationEmployeeRegisterMutation,
+  useGetApiV1RegistrationEmployeeGetAvailableUniversityPositionsQuery,
+  useLazyGetApiV1RegistrationEmployeeGetAvailableUniversityPositionsQuery,
+  useGetApiV1RegistrationEmployeeGetAvailableUniversitiesQuery,
+  useLazyGetApiV1RegistrationEmployeeGetAvailableUniversitiesQuery,
+  usePostApiV1RegistrationAdminRegisterMutation,
+  useGetApiV1CommonGetDepartmentsQuery,
+  useLazyGetApiV1CommonGetDepartmentsQuery,
+  useGetApiV1CommonGetDiplomaPeriodsQuery,
+  useLazyGetApiV1CommonGetDiplomaPeriodsQuery,
+  useGetApiV1CommonGetFacultiesQuery,
+  useLazyGetApiV1CommonGetFacultiesQuery,
+  useGetApiV1CommonGetGroupsQuery,
+  useLazyGetApiV1CommonGetGroupsQuery,
+  useGetApiV1CommonGetSpecialtiesQuery,
+  useLazyGetApiV1CommonGetSpecialtiesQuery,
+  useGetApiV1CommonGetUniversitiesQuery,
+  useLazyGetApiV1CommonGetUniversitiesQuery,
 } = injectedRtkApi;

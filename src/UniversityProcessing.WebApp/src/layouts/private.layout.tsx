@@ -20,7 +20,7 @@ const PrivateLayout: React.FC = () => {
     if (!authState.user && isSuccess) {
       dispatch(setUser({
         approved: data.approved,
-        roleId: data.roleId,
+        roleId: data.roleType,
         userId: data.userId
       }));
     }

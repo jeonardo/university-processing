@@ -22,12 +22,13 @@ internal sealed class GetGroups : IEndpoint
         [FromServices] IEfReadRepository<Group> repository,
         CancellationToken cancellationToken)
     {
+        var validRequest = request.GetValidQueryParameters();
         var count = await repository.CountAsync(cancellationToken);
 
-        var specification = new GroupListSpec(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
+        var specification = new GroupListSpec(validRequest.PageNumber, validRequest.PageSize, validRequest.OrderBy, validRequest.Desc);
         var entities = await repository.ListAsync(specification, cancellationToken);
 
-        return new GetGroupsResponseDto(new PagedList<GroupDto>(entities.Select(ToDto), count, request.PageNumber, request.PageSize));
+        return new GetGroupsResponseDto(new PagedList<GroupDto>(entities.Select(ToDto), count, validRequest.PageNumber, validRequest.PageSize));
     }
 
     private static GroupDto ToDto(Group input)

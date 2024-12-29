@@ -22,12 +22,13 @@ internal sealed class GetDepartments : IEndpoint
         [FromServices] IEfRepository<Department> repository,
         CancellationToken cancellationToken)
     {
+        var validRequest = request.GetValidQueryParameters();
         var count = await repository.CountAsync(cancellationToken);
 
-        var specification = new DepartmentListSpec(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
+        var specification = new DepartmentListSpec(validRequest.PageNumber, validRequest.PageSize, validRequest.OrderBy, validRequest.Desc);
         var entities = await repository.ListAsync(specification, cancellationToken);
 
-        return new GetDepartmentsResponseDto(new PagedList<DepartmentDto>(entities.Select(ToDto), count, request.PageNumber, request.PageSize));
+        return new GetDepartmentsResponseDto(new PagedList<DepartmentDto>(entities.Select(ToDto), count, validRequest.PageNumber, validRequest.PageSize));
     }
 
     private static DepartmentDto ToDto(Department input)
