@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/core/hooks';
 import ResponsiveAppBar from './AppBar';
-import { setUser } from 'src/features/authentication/auth.slice';
+import { setUser } from 'src/features/identity/auth.slice';
 import { useEffect } from 'react';
 import { useGetApiV1IdentityInfoQuery } from 'src/api/backendApi';
 import { Box, CircularProgress, Modal, Typography } from '@mui/material';

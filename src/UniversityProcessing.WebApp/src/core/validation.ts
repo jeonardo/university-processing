@@ -9,5 +9,5 @@ const validateEmail = (email: string) =>
     );
 
 
-const ValidationRules = { validateRequired, validateEmail };
-export default ValidationRules;
+const validation = { validateRequired, validateEmail };
+export default validation;

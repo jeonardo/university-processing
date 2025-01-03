@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthState, AuthTokens, AuthUser } from './auth.contracts';
-import { ClearAuthTokens, GetAuthTokens, SetAuthTokens } from 'src/core/localTokenReader';
+import { ClearAuthTokens, GetAuthTokens, SetAuthTokens } from 'src/core/localStorageToken';
 
 const initialState: AuthState = {
   authorized: GetAuthTokens() != null,

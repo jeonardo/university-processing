@@ -1,5 +1,5 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
-import authReducer from '../features/authentication/auth.slice';
+import authReducer from '../features/identity/auth.slice';
 import messageReducer from '../features/message/message.slice';
 import customizationReducer from '../features/customization/customization.slice';
 import { backendApi } from '../api/backendApi';

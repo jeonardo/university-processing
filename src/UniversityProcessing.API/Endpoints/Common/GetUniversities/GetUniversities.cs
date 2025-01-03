@@ -14,6 +14,7 @@ internal sealed class GetUniversities : IEndpoint
     {
         app
             .MapGet(NamespaceService.GetEndpointRoute(typeof(GetUniversities)), Handle)
+            .WithTags(Tags.COMMON)
             .RequireAuthorization();
     }
 

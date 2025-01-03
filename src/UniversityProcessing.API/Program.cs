@@ -37,7 +37,6 @@ public static partial class Program
         InfrastructureRegistrar.Configure(builder.Configuration, builder.Services);
         DomainServicesRegistrar.Configure(builder.Configuration, builder.Services);
 
-        builder.Services.AddControllers();
         builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         builder.AddEndpoints(Assembly.GetExecutingAssembly());
         builder.AddApplicationCors();
@@ -45,7 +44,6 @@ public static partial class Program
         var app = builder.Build();
 
         app.MapEndpoints();
-        app.MapControllers();
 
         if (app.Environment.IsDevelopment())
         {

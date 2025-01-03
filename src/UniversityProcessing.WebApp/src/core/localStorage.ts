@@ -1,41 +1,43 @@
-import { ENV } from './env';
+import { appEnv } from './appEnv';
+import { logDebug } from './logger';
 
 export function localStorageGetObject<T>(dataKey: string): T | null {
   try {
     const data = localStorage.getItem(dataKey);
-
-    return (data != null && data != '')
-      ? JSON.parse(data) as T
-      : null;
-
+    if (data) {
+      return JSON.parse(data) as T;
+    }
   } catch (error) {
-    if (ENV.VITE_IS_DEVELOPMENT)
-      console.log(error);
-    return null;
+    logDebug(error)
   }
+
+  return null;
 }
 
 export function localStorageGetString(dataKey: string): string | null {
   try {
-    return localStorage.getItem(dataKey);
+    const data = localStorage.getItem(dataKey);
+    if (data) {
+      return data;
+    }
   } catch (error) {
-    if (ENV.VITE_IS_DEVELOPMENT)
-      console.log(error);
-    return null;
+    logDebug(error)
   }
+
+  return null;
 }
 
 export function localStorageSetData(dataKey: string, dataToSet: any): boolean {
   try {
-    if (dataToSet !== null && typeof dataToSet === 'object') {
+    if (dataToSet && typeof dataToSet === 'object') {
       localStorage.setItem(dataKey, JSON.stringify(dataToSet));
     } else {
       localStorage.setItem(dataKey, dataToSet);
     }
     return true;
   } catch (error) {
-    if (ENV.VITE_IS_DEVELOPMENT)
-      console.log(error);
-    return false;
+    logDebug(error)
   }
+
+  return false;
 }

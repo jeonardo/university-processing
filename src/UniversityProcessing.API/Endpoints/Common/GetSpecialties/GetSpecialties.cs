@@ -14,6 +14,7 @@ internal sealed class GetSpecialties : IEndpoint
     {
         app
             .MapGet(NamespaceService.GetEndpointRoute(typeof(GetSpecialties)), Handle)
+            .WithTags(Tags.COMMON)
             .RequireAuthorization();
     }
 

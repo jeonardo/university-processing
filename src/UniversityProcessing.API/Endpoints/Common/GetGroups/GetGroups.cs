@@ -14,6 +14,7 @@ internal sealed class GetGroups : IEndpoint
     {
         app
             .MapGet(NamespaceService.GetEndpointRoute(typeof(GetGroups)), Handle)
+            .WithTags(Tags.COMMON)
             .RequireAuthorization();
     }
 

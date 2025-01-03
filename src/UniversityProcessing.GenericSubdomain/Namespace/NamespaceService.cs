@@ -43,7 +43,7 @@ public static class NamespaceService
 
     public static string GetEndpointRoute(Type type)
     {
-        const string basePrefix = "api/v1";
+        const string basePrefix = "api";
         var parentParts = GetEndpointsParentParts(type);
         var route = string.Join('/', basePrefix, string.Join('/', parentParts));
         return route;
@@ -57,7 +57,22 @@ public static class NamespaceService
 
         if (!route.Contains(genericSubdomainRoot))
         {
-            return route[(route.IndexOf(ENDPOINTS, StringComparison.InvariantCulture) + ENDPOINTS.Length + 1)..];
+            var schemaId = route[(route.IndexOf(ENDPOINTS, StringComparison.InvariantCulture) + ENDPOINTS.Length + 1)..];
+
+            if (schemaId.EndsWith("RequestDto"))
+            {
+                schemaId = $"{schemaId[..schemaId.LastIndexOf('.')]}.Request";
+            }
+            else if (schemaId.EndsWith("ResponseDto"))
+            {
+                schemaId = $"{schemaId[..schemaId.LastIndexOf('.')]}.Response";
+            }
+            else if (schemaId.EndsWith("Dto"))
+            {
+                schemaId = $"{schemaId[..schemaId.LastIndexOf("Dto", StringComparison.InvariantCulture)]}";
+            }
+
+            return schemaId;
         }
 
         var dataType = new string(type.Name.Where(char.IsLetter).ToArray());
@@ -67,6 +82,8 @@ public static class NamespaceService
             return dataType;
         }
 
-        return $"{dataType}.{type.GenericTypeArguments.First().Name}";
+        var typeFullName = type.GenericTypeArguments.First().FullName!;
+        var schemaId2 = $"{typeFullName[(typeFullName.IndexOf(ENDPOINTS, StringComparison.InvariantCulture) + ENDPOINTS.Length + 1)..]}.{dataType}";
+        return schemaId2.Replace("Dto.", ".");
     }
 }

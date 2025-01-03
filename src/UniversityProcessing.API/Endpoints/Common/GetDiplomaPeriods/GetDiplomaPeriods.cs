@@ -15,6 +15,7 @@ internal sealed class GetDiplomaPeriods : IEndpoint
     {
         app
             .MapGet(NamespaceService.GetEndpointRoute(typeof(GetDiplomaPeriods)), Handle)
+            .WithTags(Tags.COMMON)
             .RequireAuthorization(x => x.RequireClaim(AppClaimTypes.IS_APPROVED, AppClaimTypes.BOOL_TRUE)); //TODO add to attribute and role check
     }
 

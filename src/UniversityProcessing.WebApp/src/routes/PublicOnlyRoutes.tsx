@@ -1,7 +1,7 @@
-import LoginPage from 'src/features/authentication/login.page';
-import RegisterPage from 'src/features/authentication/registration/RegisterPage';
+import LoginPage from 'src/features/identity/login.page';
+import RegisterPage from 'src/features/registration/RegisterPage';
 import NotFoundPage from 'src/features/notFound/NotFoundPage';
-import PublicOnlyLayout from 'src/layouts/public.only.layout';
+import PublicOnlyLayout from 'src/features/layouts/public.only.layout';
 
 const PublicOnlyRoutes = {
   path: '/',

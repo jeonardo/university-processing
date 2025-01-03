@@ -1,17 +1,17 @@
 import UserSettingsPage from 'src/features/UserSettings/UserSettingsPage';
-import SignoutPage from 'src/features/authentication/signout.page';
-import AdminPanelPage from 'src/features/MainPage/AdminPanelPage';
+import SignoutPage from 'src/features/identity/signout.page';
+import AdminPanelPage from 'src/features/mainPage/AdminPanelPage';
 import DepartmentListPage from 'src/features/departments/DepartmentListPage';
 import DiplomaPeriodListPage from 'src/features/diplomaPeriods/DiplomaPeriodListPage';
 import FacultyListPage from 'src/features/faculties/FacultyListPage';
 import GroupListPage from 'src/features/groups/GroupListPage';
-import MainPage from 'src/features/MainPage/MainPage';
+import MainPage from 'src/features/mainPage/MainPage';
 import NotFoundPage from 'src/features/notFound/NotFoundPage';
 import ProfilePage from 'src/features/profile/profile.page';
 import SpecialtyListPage from 'src/features/specialties/SpecialtyListPage';
-import UniversityListPage from 'src/features/Admin/UniversityListPage';
-import UserListPage from 'src/features/Admin/UserListPage';
-import PrivateLayout from 'src/layouts/private.layout';
+import UniversityListPage from 'src/features/admin/UniversityListPage';
+import UserListPage from 'src/features/admin/UserListPage';
+import PrivateLayout from 'src/features/layouts/private.layout';
 
 const PrivateRoutes = {
   path: '/',

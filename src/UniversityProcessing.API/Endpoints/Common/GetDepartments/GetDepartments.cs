@@ -14,6 +14,7 @@ internal sealed class GetDepartments : IEndpoint
     {
         app
             .MapGet(NamespaceService.GetEndpointRoute(typeof(GetDepartments)), Handle)
+            .WithTags(Tags.COMMON)
             .RequireAuthorization();
     }
 

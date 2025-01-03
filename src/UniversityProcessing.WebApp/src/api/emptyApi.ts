@@ -1,14 +1,14 @@
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { Mutex } from 'async-mutex';
 import { RootState } from '../core/store';
-import { login, logout } from 'src/features/authentication/auth.slice';
-import { ENV } from '../core/env';
-import { UniversityProcessingApiEndpointsIdentityRefreshRefreshResponseDto } from './backendApi';
+import { login, logout } from 'src/features/identity/auth.slice';
+import { appEnv } from '../core/appEnv';
+import { IdentityRefreshResponse } from './backendApi';
 
 const mutex = new Mutex();
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: ENV.VITE_BACKEND_BASEURL,
+  baseUrl: appEnv.VITE_BACKEND_BASEURL,
   prepareHeaders: (headers, { getState }) => {
 
     const token = (getState() as RootState).auth.tokens;
@@ -43,12 +43,12 @@ const baseQueryWithReauth: BaseQueryFn<
   const release = await mutex.acquire();
 
   try {
-    const refreshResult = await baseQuery('/api/v1/Identity/Refresh', api, extraOptions);
+    const refreshResult = await baseQuery('/api/Identity/Refresh', api, extraOptions);
 
     if (refreshResult.error || !refreshResult.data) {
       api.dispatch(logout());
     } else {
-      const refreshContent: UniversityProcessingApiEndpointsIdentityRefreshRefreshResponseDto = refreshResult.data;
+      const refreshContent: IdentityRefreshResponse = refreshResult.data;
       api.dispatch(login({ accessToken: refreshContent.accessToken, refreshToken: refreshContent.refreshToken }));
       result = await baseQuery(args, api, extraOptions);
     }

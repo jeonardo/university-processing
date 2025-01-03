@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { type MRT_ColumnDef, type MRT_Row, type MRT_TableOptions } from 'material-react-table';
-import ValidationRules from 'src/core/ValidationRules';
+import validation from 'src/core/validation';
 import {
   CreateUniversityRequestDto,
   useDeleteApiV1UniversityDeleteMutation,
@@ -10,8 +10,8 @@ import {
 
 function validateUniversity(university: CreateUniversityRequestDto) {
   return {
-    name: !ValidationRules.validateRequired(university.name) ? 'First Name is Required' : '',
-    shortName: !ValidationRules.validateRequired(university.shortName) ? 'Last Name is Required' : ''
+    name: !validation.validateRequired(university.name) ? 'First Name is Required' : '',
+    shortName: !validation.validateRequired(university.shortName) ? 'Last Name is Required' : ''
   };
 }
 
