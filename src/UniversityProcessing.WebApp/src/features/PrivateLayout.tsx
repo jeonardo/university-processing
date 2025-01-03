@@ -3,14 +3,14 @@ import { useAppDispatch, useAppSelector } from 'src/core/hooks';
 import ResponsiveAppBar from './AppBar';
 import { setUser } from 'src/features/identity/auth.slice';
 import { useEffect } from 'react';
-import { useGetApiV1IdentityInfoQuery } from 'src/api/backendApi';
 import { Box, CircularProgress, Modal, Typography } from '@mui/material';
+import { useGetApiIdentityInfoQuery } from 'src/api/backendApi';
 
 const PrivateLayout: React.FC = () => {
   const authState = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { data, isSuccess } = useGetApiV1IdentityInfoQuery();
+  const { data, isSuccess } = useGetApiIdentityInfoQuery();
 
   useEffect(() => {
     if (!authState.authorized) [

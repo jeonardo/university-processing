@@ -150,7 +150,8 @@ public static partial class Program
         var logger = new LoggerConfiguration()
             .ReadFrom.Configuration(builder.Configuration)
             .WriteTo.Console()
-            .WriteTo.File(Path.Combine("Logs", "log.txt"), rollingInterval: RollingInterval.Day)
+
+            //TODO .WriteTo.File(Path.Combine("Logs", "log.txt"), rollingInterval: RollingInterval.Day)
             .CreateLogger();
 
         builder.Host.UseSerilog(logger);

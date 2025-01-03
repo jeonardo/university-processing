@@ -21,7 +21,7 @@ const pages = [
 const settings = [
   ['profile', 'Профиль'],
   ['settings', 'Настройки'],
-  ['signout', 'Выйти из профиля']
+  ['logout', 'Выйти из профиля']
 ];
 
 function ResponsiveAppBar() {

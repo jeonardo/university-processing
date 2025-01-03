@@ -1,16 +1,12 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import authReducer from '../features/identity/auth.slice';
-import messageReducer from '../features/message/message.slice';
-import customizationReducer from '../features/customization/customization.slice';
 import { backendApi } from '../api/backendApi';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    [backendApi.reducerPath]: backendApi.reducer,
-    message: messageReducer,
-    customization: customizationReducer
+    [backendApi.reducerPath]: backendApi.reducer
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.

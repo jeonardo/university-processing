@@ -3,12 +3,9 @@ import { Autocomplete, Button, CircularProgress, debounce, FormControl, Stack, T
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
-import {
-  useLazyGetApiV1RegistrationGetAvailableGroupsQuery,
-  usePostApiV1RegistrationRegisterStudentMutation
-} from 'src/api/backendApi';
+import { useGetApiRegistrationEmployeeGetAvailableUniversitiesQuery, useGetApiRegistrationEmployeeGetAvailableUniversityPositionsQuery, useLazyGetApiRegistrationEmployeeGetAvailableUniversitiesQuery, usePostApiRegistrationEmployeeRegisterMutation } from 'src/api/backendApi';
 
-const RegisterStudentForm = () => {
+const RegisterEmployeeForm = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -16,36 +13,43 @@ const RegisterStudentForm = () => {
   const [lastName, setLastName] = useState('');
   const [birthday, setBirthday] = useState(dayjs());
   const [email, setEmail] = useState('');
-  const [inputGroupValue, setInputGroupValue] = useState<string>('');
-  const [group, setGroup] = useState<string>('');
 
-  const [tryregister, { isLoading, isSuccess }] = usePostApiV1RegistrationRegisterStudentMutation();
-  const [getAvailableGroups, availableGroups] = useLazyGetApiV1RegistrationGetAvailableGroupsQuery();
+  const [inputUniversityValue, setInputUniversityValue] = useState<string>('');
+  const [university, setUniversity] = useState<string>('');
 
-  const debouncedSave = useCallback(debounce((newValue) => getAvailableGroups({ number: newValue }), 1000), []);
+  const [inputUniversityPositionValue, setInputUniversityPositionValue] = useState<string>('');
+  const [universityPosition, setUniversityPosition] = useState<string>('');
 
-  const handleGroupOnInputChange = (event: React.ChangeEvent<{}>, newValue: string) => {
-    setInputGroupValue(newValue);
+  const [tryregister, { isLoading, isSuccess }] = usePostApiRegistrationEmployeeRegisterMutation();
+  const [getAvailableUniversities, availableUniversities] = useLazyGetApiRegistrationEmployeeGetAvailableUniversitiesQuery();
+  const getAvailableUniversityPositionsResponse = useGetApiRegistrationEmployeeGetAvailableUniversityPositionsQuery();
+
+  const debouncedSave = useCallback(debounce((newValue) => getAvailableUniversities({ name: newValue }), 1000), []);
+
+  const handleUniversityOnInputChange = (event: React.ChangeEvent<{}>, newValue: string) => {
+    setInputUniversityValue(newValue);
     debouncedSave(newValue);
   };
 
+
+  //TODO check when is filled and button available
   const handleRegister = async () => {
     if (!userName || !password || !firstName)
       return;
 
     await tryregister({
-      registerStudentRequestDto:
-        {
-          password: password,
-          userName: userName,
-          firstName: firstName,
-          lastName: lastName,
-          middleName: middleName,
-          birthday: birthday.toISOString(),
-          email: email,
-          groupNumber: group
-
-        }
+      registrationEmployeeRegisterRequest:
+      {
+        password: password,
+        userName: userName,
+        firstName: firstName,
+        lastName: lastName,
+        middleName: middleName,
+        birthday: birthday.toISOString(),
+        email: email,
+        universityId: availableUniversities?.data?.list?.filter(x => x.name === university)[0].id ?? '',
+        universityPositionId: getAvailableUniversityPositionsResponse?.data?.list?.filter(x => x.name === universityPosition)[0].id ?? ''
+      }
     });
   };
 
@@ -60,16 +64,33 @@ const RegisterStudentForm = () => {
       <Stack spacing={2}>
 
         <Autocomplete
-          options={availableGroups?.data?.groupNumbers?.map(group => group) ?? []}
+          options={availableUniversities?.data?.list?.map(x => x.name ?? '') ?? []}
           getOptionLabel={(option: string) => option}
-          value={group}
-          onChange={(e, value) => setGroup(value ?? '')}
-          inputValue={inputGroupValue}
-          onInputChange={handleGroupOnInputChange}
+          value={university}
+          onChange={(e, value) => setUniversity(value ?? '')}
+          inputValue={inputUniversityValue}
+          onInputChange={handleUniversityOnInputChange}
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Номер группы"
+              label="Университет"
+              variant="outlined"
+              type="search"
+            />
+          )}
+        />
+
+        <Autocomplete
+          options={getAvailableUniversityPositionsResponse?.data?.list?.map(x => x.name ?? '') ?? []}
+          getOptionLabel={(option: string) => option}
+          value={universityPosition}
+          onChange={(e, value) => setUniversityPosition(value ?? '')}
+          inputValue={inputUniversityPositionValue}
+          onInputChange={(e, value) => setInputUniversityPositionValue(value)}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Должность"
               variant="outlined"
               type="search"
             />
@@ -184,4 +205,4 @@ const RegisterStudentForm = () => {
   );
 };
 
-export default RegisterStudentForm;
+export default RegisterEmployeeForm;

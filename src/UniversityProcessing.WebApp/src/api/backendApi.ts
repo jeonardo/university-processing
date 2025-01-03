@@ -202,6 +202,96 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.adminDepartmentsCreateRequest,
       }),
     }),
+    getApiCommonGetUniversities: build.query<
+      GetApiCommonGetUniversitiesApiResponse,
+      GetApiCommonGetUniversitiesApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Common/GetUniversities`,
+        params: {
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter,
+        },
+      }),
+    }),
+    getApiCommonGetSpecialties: build.query<
+      GetApiCommonGetSpecialtiesApiResponse,
+      GetApiCommonGetSpecialtiesApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Common/GetSpecialties`,
+        params: {
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter,
+        },
+      }),
+    }),
+    getApiCommonGetGroups: build.query<
+      GetApiCommonGetGroupsApiResponse,
+      GetApiCommonGetGroupsApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Common/GetGroups`,
+        params: {
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter,
+        },
+      }),
+    }),
+    getApiCommonGetFaculties: build.query<
+      GetApiCommonGetFacultiesApiResponse,
+      GetApiCommonGetFacultiesApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Common/GetFaculties`,
+        params: {
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter,
+        },
+      }),
+    }),
+    getApiCommonGetDiplomaPeriods: build.query<
+      GetApiCommonGetDiplomaPeriodsApiResponse,
+      GetApiCommonGetDiplomaPeriodsApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Common/GetDiplomaPeriods`,
+        params: {
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter,
+        },
+      }),
+    }),
+    getApiCommonGetDepartments: build.query<
+      GetApiCommonGetDepartmentsApiResponse,
+      GetApiCommonGetDepartmentsApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Common/GetDepartments`,
+        params: {
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter,
+        },
+      }),
+    }),
     getApiIdentityRefresh: build.query<
       GetApiIdentityRefreshApiResponse,
       GetApiIdentityRefreshApiArg
@@ -288,103 +378,6 @@ const injectedRtkApi = api.injectEndpoints({
         url: `/api/Registration/Admin/Register`,
         method: "POST",
         body: queryArg.registrationAdminRegisterRequest,
-      }),
-    }),
-    postApiV1: build.mutation<PostApiV1ApiResponse, PostApiV1ApiArg>({
-      query: (queryArg) => ({
-        url: `/api/v1`,
-        method: "POST",
-        body: queryArg.adminDepartmentsCreateRequest,
-      }),
-    }),
-    getApiCommonGetDepartments: build.query<
-      GetApiCommonGetDepartmentsApiResponse,
-      GetApiCommonGetDepartmentsApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Common/GetDepartments`,
-        params: {
-          Desc: queryArg.desc,
-          OrderBy: queryArg.orderBy,
-          PageNumber: queryArg.pageNumber,
-          PageSize: queryArg.pageSize,
-          Filter: queryArg.filter,
-        },
-      }),
-    }),
-    getApiCommonGetDiplomaPeriods: build.query<
-      GetApiCommonGetDiplomaPeriodsApiResponse,
-      GetApiCommonGetDiplomaPeriodsApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Common/GetDiplomaPeriods`,
-        params: {
-          Desc: queryArg.desc,
-          OrderBy: queryArg.orderBy,
-          PageNumber: queryArg.pageNumber,
-          PageSize: queryArg.pageSize,
-          Filter: queryArg.filter,
-        },
-      }),
-    }),
-    getApiCommonGetFaculties: build.query<
-      GetApiCommonGetFacultiesApiResponse,
-      GetApiCommonGetFacultiesApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Common/GetFaculties`,
-        params: {
-          Desc: queryArg.desc,
-          OrderBy: queryArg.orderBy,
-          PageNumber: queryArg.pageNumber,
-          PageSize: queryArg.pageSize,
-          Filter: queryArg.filter,
-        },
-      }),
-    }),
-    getApiCommonGetGroups: build.query<
-      GetApiCommonGetGroupsApiResponse,
-      GetApiCommonGetGroupsApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Common/GetGroups`,
-        params: {
-          Desc: queryArg.desc,
-          OrderBy: queryArg.orderBy,
-          PageNumber: queryArg.pageNumber,
-          PageSize: queryArg.pageSize,
-          Filter: queryArg.filter,
-        },
-      }),
-    }),
-    getApiCommonGetSpecialties: build.query<
-      GetApiCommonGetSpecialtiesApiResponse,
-      GetApiCommonGetSpecialtiesApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Common/GetSpecialties`,
-        params: {
-          Desc: queryArg.desc,
-          OrderBy: queryArg.orderBy,
-          PageNumber: queryArg.pageNumber,
-          PageSize: queryArg.pageSize,
-          Filter: queryArg.filter,
-        },
-      }),
-    }),
-    getApiCommonGetUniversities: build.query<
-      GetApiCommonGetUniversitiesApiResponse,
-      GetApiCommonGetUniversitiesApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Common/GetUniversities`,
-        params: {
-          Desc: queryArg.desc,
-          OrderBy: queryArg.orderBy,
-          PageNumber: queryArg.pageNumber,
-          PageSize: queryArg.pageSize,
-          Filter: queryArg.filter,
-        },
       }),
     }),
   }),
@@ -476,6 +469,60 @@ export type PostApiAdminDepartmentsCreateApiResponse =
 export type PostApiAdminDepartmentsCreateApiArg = {
   adminDepartmentsCreateRequest: AdminDepartmentsCreateRequest;
 };
+export type GetApiCommonGetUniversitiesApiResponse =
+  /** status 200 OK */ CommonGetUniversitiesResponseRead;
+export type GetApiCommonGetUniversitiesApiArg = {
+  desc?: boolean;
+  orderBy?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  filter?: string;
+};
+export type GetApiCommonGetSpecialtiesApiResponse =
+  /** status 200 OK */ CommonGetSpecialtiesResponseRead;
+export type GetApiCommonGetSpecialtiesApiArg = {
+  desc?: boolean;
+  orderBy?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  filter?: string;
+};
+export type GetApiCommonGetGroupsApiResponse =
+  /** status 200 OK */ CommonGetGroupsResponseRead;
+export type GetApiCommonGetGroupsApiArg = {
+  desc?: boolean;
+  orderBy?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  filter?: string;
+};
+export type GetApiCommonGetFacultiesApiResponse =
+  /** status 200 OK */ CommonGetFacultiesResponseRead;
+export type GetApiCommonGetFacultiesApiArg = {
+  desc?: boolean;
+  orderBy?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  filter?: string;
+};
+export type GetApiCommonGetDiplomaPeriodsApiResponse =
+  /** status 200 OK */ CommonGetDiplomaPeriodsResponseRead;
+export type GetApiCommonGetDiplomaPeriodsApiArg = {
+  desc?: boolean;
+  orderBy?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  filter?: string;
+};
+export type GetApiCommonGetDepartmentsApiResponse =
+  /** status 200 OK */ CommonGetDepartmentsResponseRead;
+export type GetApiCommonGetDepartmentsApiArg = {
+  desc?: boolean;
+  orderBy?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  filter?: string;
+};
 export type GetApiIdentityRefreshApiResponse =
   /** status 200 OK */ IdentityRefreshResponse;
 export type GetApiIdentityRefreshApiArg = void;
@@ -514,64 +561,6 @@ export type GetApiRegistrationEmployeeGetAvailableUniversitiesApiArg = {
 export type PostApiRegistrationAdminRegisterApiResponse = unknown;
 export type PostApiRegistrationAdminRegisterApiArg = {
   registrationAdminRegisterRequest: RegistrationAdminRegisterRequest;
-};
-export type PostApiV1ApiResponse = unknown;
-export type PostApiV1ApiArg = {
-  adminDepartmentsCreateRequest: AdminDepartmentsCreateRequest;
-};
-export type GetApiCommonGetDepartmentsApiResponse =
-  /** status 200 OK */ CommonGetDepartmentsResponseRead;
-export type GetApiCommonGetDepartmentsApiArg = {
-  desc?: boolean;
-  orderBy?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  filter?: string;
-};
-export type GetApiCommonGetDiplomaPeriodsApiResponse =
-  /** status 200 OK */ CommonGetDiplomaPeriodsResponseRead;
-export type GetApiCommonGetDiplomaPeriodsApiArg = {
-  desc?: boolean;
-  orderBy?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  filter?: string;
-};
-export type GetApiCommonGetFacultiesApiResponse =
-  /** status 200 OK */ CommonGetFacultiesResponseRead;
-export type GetApiCommonGetFacultiesApiArg = {
-  desc?: boolean;
-  orderBy?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  filter?: string;
-};
-export type GetApiCommonGetGroupsApiResponse =
-  /** status 200 OK */ CommonGetGroupsResponseRead;
-export type GetApiCommonGetGroupsApiArg = {
-  desc?: boolean;
-  orderBy?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  filter?: string;
-};
-export type GetApiCommonGetSpecialtiesApiResponse =
-  /** status 200 OK */ CommonGetSpecialtiesResponseRead;
-export type GetApiCommonGetSpecialtiesApiArg = {
-  desc?: boolean;
-  orderBy?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  filter?: string;
-};
-export type GetApiCommonGetUniversitiesApiResponse =
-  /** status 200 OK */ CommonGetUniversitiesResponseRead;
-export type GetApiCommonGetUniversitiesApiArg = {
-  desc?: boolean;
-  orderBy?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  filter?: string;
 };
 export type AdminUsersUpdateApprovalRequest = {
   userId: string;
@@ -673,6 +662,157 @@ export type AdminDepartmentsCreateRequest = {
   shortName: string;
   facultyId?: string | null;
 };
+export type CommonGetUniversitiesUniversity = {
+  id?: string;
+  name?: string | null;
+  shortName?: string | null;
+};
+export type CommonGetUniversitiesUniversityPagedList = {
+  items?: CommonGetUniversitiesUniversity[] | null;
+  currentPage?: number;
+  pageSize?: number;
+};
+export type CommonGetUniversitiesUniversityPagedListRead = {
+  items?: CommonGetUniversitiesUniversity[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
+export type CommonGetUniversitiesResponse = {
+  list?: CommonGetUniversitiesUniversityPagedList;
+};
+export type CommonGetUniversitiesResponseRead = {
+  list?: CommonGetUniversitiesUniversityPagedListRead;
+};
+export type CommonGetSpecialtiesSpecialty = {
+  id?: string;
+  name?: string | null;
+  shortName?: string | null;
+  code?: string | null;
+};
+export type CommonGetSpecialtiesSpecialtyPagedList = {
+  items?: CommonGetSpecialtiesSpecialty[] | null;
+  currentPage?: number;
+  pageSize?: number;
+};
+export type CommonGetSpecialtiesSpecialtyPagedListRead = {
+  items?: CommonGetSpecialtiesSpecialty[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
+export type CommonGetSpecialtiesResponse = {
+  list?: CommonGetSpecialtiesSpecialtyPagedList;
+};
+export type CommonGetSpecialtiesResponseRead = {
+  list?: CommonGetSpecialtiesSpecialtyPagedListRead;
+};
+export type CommonGetGroupsGroup = {
+  id?: string;
+  number?: string | null;
+};
+export type CommonGetGroupsGroupPagedList = {
+  items?: CommonGetGroupsGroup[] | null;
+  currentPage?: number;
+  pageSize?: number;
+};
+export type CommonGetGroupsGroupPagedListRead = {
+  items?: CommonGetGroupsGroup[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
+export type CommonGetGroupsResponse = {
+  list?: CommonGetGroupsGroupPagedList;
+};
+export type CommonGetGroupsResponseRead = {
+  list?: CommonGetGroupsGroupPagedListRead;
+};
+export type CommonGetFacultiesFaculty = {
+  id?: string;
+  name?: string | null;
+  shortName?: string | null;
+};
+export type CommonGetFacultiesFacultyPagedList = {
+  items?: CommonGetFacultiesFaculty[] | null;
+  currentPage?: number;
+  pageSize?: number;
+};
+export type CommonGetFacultiesFacultyPagedListRead = {
+  items?: CommonGetFacultiesFaculty[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
+export type CommonGetFacultiesResponse = {
+  list?: CommonGetFacultiesFacultyPagedList;
+};
+export type CommonGetFacultiesResponseRead = {
+  list?: CommonGetFacultiesFacultyPagedListRead;
+};
+export type CommonGetDiplomaPeriodsDiplomaPeriod = {
+  id?: string;
+  name?: string | null;
+  studyPeriodFrom?: string;
+  studyPeriodTo?: string;
+};
+export type CommonGetDiplomaPeriodsDiplomaPeriodPagedList = {
+  items?: CommonGetDiplomaPeriodsDiplomaPeriod[] | null;
+  currentPage?: number;
+  pageSize?: number;
+};
+export type CommonGetDiplomaPeriodsDiplomaPeriodPagedListRead = {
+  items?: CommonGetDiplomaPeriodsDiplomaPeriod[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
+export type CommonGetDiplomaPeriodsResponse = {
+  list?: CommonGetDiplomaPeriodsDiplomaPeriodPagedList;
+};
+export type CommonGetDiplomaPeriodsResponseRead = {
+  list?: CommonGetDiplomaPeriodsDiplomaPeriodPagedListRead;
+};
+export type CommonGetDepartmentsDepartment = {
+  id?: string;
+  name?: string | null;
+  shortName?: string | null;
+};
+export type CommonGetDepartmentsDepartmentPagedList = {
+  items?: CommonGetDepartmentsDepartment[] | null;
+  currentPage?: number;
+  pageSize?: number;
+};
+export type CommonGetDepartmentsDepartmentPagedListRead = {
+  items?: CommonGetDepartmentsDepartment[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
+export type CommonGetDepartmentsResponse = {
+  list?: CommonGetDepartmentsDepartmentPagedList;
+};
+export type CommonGetDepartmentsResponseRead = {
+  list?: CommonGetDepartmentsDepartmentPagedListRead;
+};
 export type ContractsToken = {
   value?: string | null;
   expiration?: string;
@@ -744,157 +884,6 @@ export type RegistrationAdminRegisterRequest = {
   email?: string | null;
   birthday?: string | null;
 };
-export type CommonGetDepartmentsDepartment = {
-  id?: string;
-  name?: string | null;
-  shortName?: string | null;
-};
-export type CommonGetDepartmentsDepartmentPagedList = {
-  items?: CommonGetDepartmentsDepartment[] | null;
-  currentPage?: number;
-  pageSize?: number;
-};
-export type CommonGetDepartmentsDepartmentPagedListRead = {
-  items?: CommonGetDepartmentsDepartment[] | null;
-  currentPage?: number;
-  totalPages?: number;
-  pageSize?: number;
-  totalCount?: number;
-  hasPrevious?: boolean;
-  hasNext?: boolean;
-};
-export type CommonGetDepartmentsResponse = {
-  list?: CommonGetDepartmentsDepartmentPagedList;
-};
-export type CommonGetDepartmentsResponseRead = {
-  list?: CommonGetDepartmentsDepartmentPagedListRead;
-};
-export type CommonGetDiplomaPeriodsDiplomaPeriod = {
-  id?: string;
-  name?: string | null;
-  studyPeriodFrom?: string;
-  studyPeriodTo?: string;
-};
-export type CommonGetDiplomaPeriodsDiplomaPeriodPagedList = {
-  items?: CommonGetDiplomaPeriodsDiplomaPeriod[] | null;
-  currentPage?: number;
-  pageSize?: number;
-};
-export type CommonGetDiplomaPeriodsDiplomaPeriodPagedListRead = {
-  items?: CommonGetDiplomaPeriodsDiplomaPeriod[] | null;
-  currentPage?: number;
-  totalPages?: number;
-  pageSize?: number;
-  totalCount?: number;
-  hasPrevious?: boolean;
-  hasNext?: boolean;
-};
-export type CommonGetDiplomaPeriodsResponse = {
-  list?: CommonGetDiplomaPeriodsDiplomaPeriodPagedList;
-};
-export type CommonGetDiplomaPeriodsResponseRead = {
-  list?: CommonGetDiplomaPeriodsDiplomaPeriodPagedListRead;
-};
-export type CommonGetFacultiesFaculty = {
-  id?: string;
-  name?: string | null;
-  shortName?: string | null;
-};
-export type CommonGetFacultiesFacultyPagedList = {
-  items?: CommonGetFacultiesFaculty[] | null;
-  currentPage?: number;
-  pageSize?: number;
-};
-export type CommonGetFacultiesFacultyPagedListRead = {
-  items?: CommonGetFacultiesFaculty[] | null;
-  currentPage?: number;
-  totalPages?: number;
-  pageSize?: number;
-  totalCount?: number;
-  hasPrevious?: boolean;
-  hasNext?: boolean;
-};
-export type CommonGetFacultiesResponse = {
-  list?: CommonGetFacultiesFacultyPagedList;
-};
-export type CommonGetFacultiesResponseRead = {
-  list?: CommonGetFacultiesFacultyPagedListRead;
-};
-export type CommonGetGroupsGroup = {
-  id?: string;
-  number?: string | null;
-};
-export type CommonGetGroupsGroupPagedList = {
-  items?: CommonGetGroupsGroup[] | null;
-  currentPage?: number;
-  pageSize?: number;
-};
-export type CommonGetGroupsGroupPagedListRead = {
-  items?: CommonGetGroupsGroup[] | null;
-  currentPage?: number;
-  totalPages?: number;
-  pageSize?: number;
-  totalCount?: number;
-  hasPrevious?: boolean;
-  hasNext?: boolean;
-};
-export type CommonGetGroupsResponse = {
-  list?: CommonGetGroupsGroupPagedList;
-};
-export type CommonGetGroupsResponseRead = {
-  list?: CommonGetGroupsGroupPagedListRead;
-};
-export type CommonGetSpecialtiesSpecialty = {
-  id?: string;
-  name?: string | null;
-  shortName?: string | null;
-  code?: string | null;
-};
-export type CommonGetSpecialtiesSpecialtyPagedList = {
-  items?: CommonGetSpecialtiesSpecialty[] | null;
-  currentPage?: number;
-  pageSize?: number;
-};
-export type CommonGetSpecialtiesSpecialtyPagedListRead = {
-  items?: CommonGetSpecialtiesSpecialty[] | null;
-  currentPage?: number;
-  totalPages?: number;
-  pageSize?: number;
-  totalCount?: number;
-  hasPrevious?: boolean;
-  hasNext?: boolean;
-};
-export type CommonGetSpecialtiesResponse = {
-  list?: CommonGetSpecialtiesSpecialtyPagedList;
-};
-export type CommonGetSpecialtiesResponseRead = {
-  list?: CommonGetSpecialtiesSpecialtyPagedListRead;
-};
-export type CommonGetUniversitiesUniversity = {
-  id?: string;
-  name?: string | null;
-  shortName?: string | null;
-};
-export type CommonGetUniversitiesUniversityPagedList = {
-  items?: CommonGetUniversitiesUniversity[] | null;
-  currentPage?: number;
-  pageSize?: number;
-};
-export type CommonGetUniversitiesUniversityPagedListRead = {
-  items?: CommonGetUniversitiesUniversity[] | null;
-  currentPage?: number;
-  totalPages?: number;
-  pageSize?: number;
-  totalCount?: number;
-  hasPrevious?: boolean;
-  hasNext?: boolean;
-};
-export type CommonGetUniversitiesResponse = {
-  list?: CommonGetUniversitiesUniversityPagedList;
-};
-export type CommonGetUniversitiesResponseRead = {
-  list?: CommonGetUniversitiesUniversityPagedListRead;
-};
 export enum ContractsUserRoleType {
   None = "None",
   ApplicationAdmin = "ApplicationAdmin",
@@ -922,6 +911,18 @@ export const {
   usePostApiAdminDiplomaPeriodsCreateMutation,
   useDeleteApiAdminDepartmentsDeleteMutation,
   usePostApiAdminDepartmentsCreateMutation,
+  useGetApiCommonGetUniversitiesQuery,
+  useLazyGetApiCommonGetUniversitiesQuery,
+  useGetApiCommonGetSpecialtiesQuery,
+  useLazyGetApiCommonGetSpecialtiesQuery,
+  useGetApiCommonGetGroupsQuery,
+  useLazyGetApiCommonGetGroupsQuery,
+  useGetApiCommonGetFacultiesQuery,
+  useLazyGetApiCommonGetFacultiesQuery,
+  useGetApiCommonGetDiplomaPeriodsQuery,
+  useLazyGetApiCommonGetDiplomaPeriodsQuery,
+  useGetApiCommonGetDepartmentsQuery,
+  useLazyGetApiCommonGetDepartmentsQuery,
   useGetApiIdentityRefreshQuery,
   useLazyGetApiIdentityRefreshQuery,
   usePostApiIdentityLogoutMutation,
@@ -937,17 +938,4 @@ export const {
   useGetApiRegistrationEmployeeGetAvailableUniversitiesQuery,
   useLazyGetApiRegistrationEmployeeGetAvailableUniversitiesQuery,
   usePostApiRegistrationAdminRegisterMutation,
-  usePostApiV1Mutation,
-  useGetApiCommonGetDepartmentsQuery,
-  useLazyGetApiCommonGetDepartmentsQuery,
-  useGetApiCommonGetDiplomaPeriodsQuery,
-  useLazyGetApiCommonGetDiplomaPeriodsQuery,
-  useGetApiCommonGetFacultiesQuery,
-  useLazyGetApiCommonGetFacultiesQuery,
-  useGetApiCommonGetGroupsQuery,
-  useLazyGetApiCommonGetGroupsQuery,
-  useGetApiCommonGetSpecialtiesQuery,
-  useLazyGetApiCommonGetSpecialtiesQuery,
-  useGetApiCommonGetUniversitiesQuery,
-  useLazyGetApiCommonGetUniversitiesQuery,
 } = injectedRtkApi;

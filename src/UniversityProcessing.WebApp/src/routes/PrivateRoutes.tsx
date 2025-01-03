@@ -1,17 +1,17 @@
-import UserSettingsPage from 'src/features/UserSettings/UserSettingsPage';
-import SignoutPage from 'src/features/identity/signout.page';
-import AdminPanelPage from 'src/features/mainPage/AdminPanelPage';
+import UserSettingsPage from 'src/features/userSettings/UserSettingsPage';
+import LogoutPage from 'src/features/identity/LogoutPage';
+import AdminPanelPage from 'src/features/main/AdminPanelPage';
 import DepartmentListPage from 'src/features/departments/DepartmentListPage';
 import DiplomaPeriodListPage from 'src/features/diplomaPeriods/DiplomaPeriodListPage';
 import FacultyListPage from 'src/features/faculties/FacultyListPage';
 import GroupListPage from 'src/features/groups/GroupListPage';
-import MainPage from 'src/features/mainPage/MainPage';
+import MainPage from 'src/features/main/MainPage';
 import NotFoundPage from 'src/features/notFound/NotFoundPage';
 import ProfilePage from 'src/features/profile/profile.page';
 import SpecialtyListPage from 'src/features/specialties/SpecialtyListPage';
 import UniversityListPage from 'src/features/admin/UniversityListPage';
 import UserListPage from 'src/features/admin/UserListPage';
-import PrivateLayout from 'src/features/layouts/private.layout';
+import PrivateLayout from 'src/features/PrivateLayout';
 
 const PrivateRoutes = {
   path: '/',
@@ -63,8 +63,8 @@ const PrivateRoutes = {
       element: <UserListPage />
     },
     {
-      path: '/signout',
-      element: <SignoutPage />
+      path: '/logout',
+      element: <LogoutPage />
     }
   ]
 };

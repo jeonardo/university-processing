@@ -1,10 +1,10 @@
 import { useAppDispatch } from 'src/core/hooks';
 import { logout } from './auth.slice';
 
-const SignoutPage = () => {
+const LogoutPage = () => {
   const dispatch = useAppDispatch();
   dispatch(logout());
   return <></>;
 };
 
-export default SignoutPage;
+export default LogoutPage;

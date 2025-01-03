@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
-import { usePostApiV1RegistrationRegisterAdminMutation } from 'src/api/backendApi';
+import { usePostApiRegistrationAdminRegisterMutation } from 'src/api/backendApi';
 
 const RegisterAdminForm = () => {
   const [userName, setUserName] = useState('');
@@ -14,23 +14,23 @@ const RegisterAdminForm = () => {
   const [birthday, setBirthday] = useState(dayjs());
   const [email, setEmail] = useState('');
 
-  const [tryregister, { isLoading, isSuccess }] = usePostApiV1RegistrationRegisterAdminMutation();
+  const [tryregister, { isLoading, isSuccess }] = usePostApiRegistrationAdminRegisterMutation();
 
   const handleRegister = async () => {
     if (!userName || !password || !firstName)
       return;
 
     await tryregister({
-      registerAdminRequestDto:
-        {
-          password: password,
-          userName: userName,
-          firstName: firstName,
-          lastName: lastName,
-          middleName: middleName,
-          birthday: birthday.toISOString(),
-          email: email
-        }
+      registrationAdminRegisterRequest:
+      {
+        password: password,
+        userName: userName,
+        firstName: firstName,
+        lastName: lastName,
+        middleName: middleName,
+        birthday: birthday.toISOString(),
+        email: email
+      }
     });
   };
 

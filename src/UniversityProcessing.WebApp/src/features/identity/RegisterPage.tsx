@@ -1,14 +1,14 @@
 import { LockOutlined } from '@mui/icons-material';
 import { Avatar, Box, Container, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import { useState } from 'react';
-import { UserRoleIdDto } from 'src/api/backendApi';
 import RegisterAdminForm from './RegisterAdminForm';
 import RegisterEmployeeForm from './RegisterEmployeeForm';
 import RegisterStudentForm from './RegisterStudentForm';
 import { Link } from 'react-router-dom';
+import { ContractsUserRoleType } from 'src/api/backendApi';
 
 const RegisterPage = () => {
-  const [userRole, setUserRole] = useState<UserRoleIdDto>(UserRoleIdDto.None);
+  const [userRole, setUserRole] = useState<ContractsUserRoleType>(ContractsUserRoleType.None);
 
   return (
     <Container maxWidth="xs" sx={{
@@ -32,25 +32,25 @@ const RegisterPage = () => {
           label="Роль"
           onChange={(e) => {
             switch (e.target.value) {
-              case UserRoleIdDto.Student:
-                setUserRole(UserRoleIdDto.Student);
+              case ContractsUserRoleType.Student:
+                setUserRole(ContractsUserRoleType.Student);
                 break;
-              case UserRoleIdDto.ApplicationAdmin:
-                setUserRole(UserRoleIdDto.ApplicationAdmin);
+              case ContractsUserRoleType.ApplicationAdmin:
+                setUserRole(ContractsUserRoleType.ApplicationAdmin);
                 break;
-              case UserRoleIdDto.Employee:
-                setUserRole(UserRoleIdDto.Employee);
+              case ContractsUserRoleType.Employee:
+                setUserRole(ContractsUserRoleType.Employee);
                 break;
               default:
-                setUserRole(UserRoleIdDto.None);
+                setUserRole(ContractsUserRoleType.None);
                 break;
             }
           }}
         >
-          <MenuItem disabled value={UserRoleIdDto.None}>Не выбрана</MenuItem>
-          <MenuItem value={UserRoleIdDto.Student}>Студент</MenuItem>
-          <MenuItem value={UserRoleIdDto.ApplicationAdmin}>Администратор</MenuItem>
-          <MenuItem value={UserRoleIdDto.Employee}>Сотрудник университета</MenuItem>
+          <MenuItem disabled value={ContractsUserRoleType.None}>Не выбрана</MenuItem>
+          <MenuItem value={ContractsUserRoleType.Student}>Студент</MenuItem>
+          <MenuItem value={ContractsUserRoleType.ApplicationAdmin}>Администратор</MenuItem>
+          <MenuItem value={ContractsUserRoleType.Employee}>Сотрудник университета</MenuItem>
         </Select>
       </FormControl>
 

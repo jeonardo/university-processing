@@ -1,4 +1,3 @@
-import { appEnv } from './appEnv';
 import { logDebug } from './logger';
 
 export function localStorageGetObject<T>(dataKey: string): T | null {

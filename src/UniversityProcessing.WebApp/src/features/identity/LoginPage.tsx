@@ -13,8 +13,8 @@ import {
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../core/hooks';
-import { usePostApiV1IdentityLoginMutation } from '../../api/backendApi';
 import { login } from './auth.slice';
+import { usePostApiIdentityLoginMutation } from 'src/api/backendApi';
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
@@ -22,10 +22,10 @@ const LoginPage = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
-  const [trylogin, { isLoading }] = usePostApiV1IdentityLoginMutation();
+  const [trylogin, { isLoading }] = usePostApiIdentityLoginMutation();
 
   const handleLogin = async () => {
-    const result = await trylogin({ loginRequestDto: { password: password, userName: userName } });
+    const result = await trylogin({ identityLoginRequest: { password: password, userName: userName } });
 
     if (result.error)
       return;
