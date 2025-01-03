@@ -23,7 +23,8 @@ const RegisterStudentForm = () => {
 
   const handleGroupOnInputChange = (event: React.ChangeEvent<{}>, newValue: string) => {
     setInputGroupValue(newValue);
-    debouncedSave(newValue);
+    if (newValue)
+      debouncedSave(newValue);
   };
 
   const handleRegister = async () => {

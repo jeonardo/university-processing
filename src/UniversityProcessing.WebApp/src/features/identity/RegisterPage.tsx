@@ -11,11 +11,9 @@ const RegisterPage = () => {
   const [userRole, setUserRole] = useState<ContractsUserRoleType>(ContractsUserRoleType.None);
 
   return (
-    <Container maxWidth="xs" sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
-    }}>
+    <Container
+      className='flex flex-col max-h-full place-items-center'
+      maxWidth="xs">
 
       <Avatar sx={{ bgcolor: 'primary.light' }}>
         <LockOutlined />
