@@ -1,9 +1,9 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/core/hooks';
 import ResponsiveAppBar from './AppBar';
-import { setUser } from 'src/features/identity/auth.slice';
+import { logout, setUser } from 'src/features/identity/auth.slice';
 import { useEffect } from 'react';
-import { Box, CircularProgress, Modal, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Modal, Typography } from '@mui/material';
 import { useGetApiIdentityInfoQuery } from 'src/api/backendApi';
 
 const PrivateLayout: React.FC = () => {
@@ -11,6 +11,7 @@ const PrivateLayout: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { data, isSuccess } = useGetApiIdentityInfoQuery();
+  const handleLogout = () => dispatch(logout());
 
   useEffect(() => {
     if (!authState.authorized) [
@@ -30,7 +31,7 @@ const PrivateLayout: React.FC = () => {
   //     if (!user) {
   //         dispatch(setUser({
   //             approved: true,
-  //             roleId: UserRoleIdDto.ApplicationAdmin,
+  //             roleId: UserRoleIdDto.Admin,
   //             userId: "666",
   //             email: "user@example.com",
   //             userName: "JohnDoeSmith2000"
@@ -57,15 +58,20 @@ const PrivateLayout: React.FC = () => {
 
   if (!authState.user.approved) {
     return (
-      <>
-        <Modal open={true} onClose={() => {
-        }} className="flex flex-col h-full w-full justify-center items-center text-center text-2xl font-bold">
-          <Box sx={{ width: 400, padding: 7, bgcolor: 'white', margin: '100px auto' }}>
-            <Typography>Отказано в доступе:<br /><br />Ваш аккаунт {authState.user.userName} проходит верификацию и еще
-              не был подтвержден. Обратитесь к администратору.</Typography>
-          </Box>
-        </Modal>
-      </>
+      <Modal open={true} onClose={() => {
+      }} className="flex flex-col h-full w-full justify-center items-center text-center text-2xl font-bold">
+        <Box
+          sx={{ width: 400, padding: 7, bgcolor: 'white', margin: '100px auto' }}>
+          <Typography className='pb-3'>Отказано в доступе:<br /><br />Ваш аккаунт {authState.user.userName} не прошел верификацию. Обратитесь к администратору.</Typography>
+          <Button
+            fullWidth
+            variant="contained"
+            onClick={handleLogout}
+          >
+            <span>Выйти</span>
+          </Button>
+        </Box>
+      </Modal>
     );
   }
 

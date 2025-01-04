@@ -4,6 +4,7 @@ import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
 import { useLazyGetApiRegistrationStudentGetAvailableGroupsQuery, usePostApiRegistrationStudentRegisterMutation } from 'src/api/backendApi';
+import { enqueueSnackbarError } from 'src/core/helpers';
 
 const RegisterStudentForm = () => {
   const [userName, setUserName] = useState('');
@@ -31,7 +32,7 @@ const RegisterStudentForm = () => {
     if (!userName || !password || !firstName)
       return;
 
-    await tryregister({
+    const response = await tryregister({
       registrationStudentRegisterRequest:
       {
         password: password,
@@ -45,6 +46,10 @@ const RegisterStudentForm = () => {
 
       }
     });
+
+    if (response.error) {
+      enqueueSnackbarError(response.error)
+    }
   };
 
   if (isSuccess) {
@@ -69,7 +74,6 @@ const RegisterStudentForm = () => {
               {...params}
               label="Номер группы"
               variant="outlined"
-              type="search"
             />
           )}
         />

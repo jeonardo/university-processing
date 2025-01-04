@@ -15,7 +15,7 @@ internal sealed class CreateGroup : IEndpoint
         app
             .MapPost(NamespaceService.GetEndpointRoute(typeof(CreateGroup)), Handle)
             .WithTags(Tags.ADMIN)
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
+            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
             .AddEndpointFilter<ValidationFilter<CreateGroupRequestDto>>();
     }
 

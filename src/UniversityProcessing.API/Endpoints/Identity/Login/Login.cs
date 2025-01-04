@@ -58,11 +58,11 @@ internal sealed class Login : IEndpoint
     {
         var list = new List<Claim>
         {
-            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new(nameof(user.Approved), user.Approved.ToString())
+            new(AppClaimTypes.USER_ID, user.Id.ToString()),
+            new(AppClaimTypes.IS_APPROVED, user.Approved.ToString())
         };
 
-        list.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+        list.AddRange(roles.Select(role => new Claim(AppClaimTypes.ROLE, role)));
 
         return list;
     }

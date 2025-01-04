@@ -15,7 +15,7 @@ internal sealed class DeleteDepartment : IEndpoint
         app
             .MapDelete(NamespaceService.GetEndpointRoute(typeof(DeleteDepartment)), Handle)
             .WithTags(Tags.ADMIN)
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
+            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
             .AddEndpointFilter<ValidationFilter<DeleteDepartmentRequestDto>>();
     }
 

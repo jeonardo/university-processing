@@ -4,6 +4,7 @@ import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
 import { useGetApiRegistrationEmployeeGetAvailableUniversitiesQuery, useGetApiRegistrationEmployeeGetAvailableUniversityPositionsQuery, useLazyGetApiRegistrationEmployeeGetAvailableUniversitiesQuery, usePostApiRegistrationEmployeeRegisterMutation } from 'src/api/backendApi';
+import { enqueueSnackbarError } from 'src/core/helpers';
 
 const RegisterEmployeeForm = () => {
   const [userName, setUserName] = useState('');
@@ -37,7 +38,7 @@ const RegisterEmployeeForm = () => {
     if (!userName || !password || !firstName)
       return;
 
-    await tryregister({
+    const response = await tryregister({
       registrationEmployeeRegisterRequest:
       {
         password: password,
@@ -51,6 +52,10 @@ const RegisterEmployeeForm = () => {
         universityPositionId: getAvailableUniversityPositionsResponse?.data?.list?.filter(x => x.name === universityPosition)[0].id ?? ''
       }
     });
+
+    if (response.error) {
+      enqueueSnackbarError(response.error)
+    }
   };
 
   if (isSuccess) {
@@ -75,7 +80,6 @@ const RegisterEmployeeForm = () => {
               {...params}
               label="Университет"
               variant="outlined"
-              type="search"
             />
           )}
         />
@@ -92,7 +96,6 @@ const RegisterEmployeeForm = () => {
               {...params}
               label="Должность"
               variant="outlined"
-              type="search"
             />
           )}
         />

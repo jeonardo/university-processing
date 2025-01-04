@@ -9,7 +9,7 @@ internal static class UserRoleIdConverter
     {
         return input switch
         {
-            UserRoleType.ApplicationAdmin => UserRoleTypeDto.ApplicationAdmin,
+            UserRoleType.Admin => UserRoleTypeDto.Admin,
             UserRoleType.Employee => UserRoleTypeDto.Employee,
             UserRoleType.Student => UserRoleTypeDto.Student,
             _ => throw new ArgumentOutOfRangeException(nameof(input), input, null)

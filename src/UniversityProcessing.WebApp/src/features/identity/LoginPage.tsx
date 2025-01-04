@@ -1,5 +1,6 @@
 import { LockOutlined } from '@mui/icons-material';
 import {
+  Alert,
   Avatar,
   Box,
   Button,
@@ -15,6 +16,8 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../core/hooks';
 import { login } from './auth.slice';
 import { usePostApiIdentityLoginMutation } from 'src/api/backendApi';
+import { enqueueSnackbar } from 'notistack';
+import { enqueueSnackbarError, isErrorWithMessage, isFetchBaseQueryError } from 'src/core/helpers';
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
@@ -27,8 +30,10 @@ const LoginPage = () => {
   const handleLogin = async () => {
     const result = await trylogin({ identityLoginRequest: { password: password, userName: userName } });
 
-    if (result.error)
-      return;
+    if (result.error) {
+      enqueueSnackbarError(result.error)
+      return
+    }
 
     dispatch(login({
       accessToken: result.data.accessToken,

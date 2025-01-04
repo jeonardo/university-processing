@@ -33,8 +33,8 @@ const RegisterPage = () => {
               case ContractsUserRoleType.Student:
                 setUserRole(ContractsUserRoleType.Student);
                 break;
-              case ContractsUserRoleType.ApplicationAdmin:
-                setUserRole(ContractsUserRoleType.ApplicationAdmin);
+              case ContractsUserRoleType.Admin:
+                setUserRole(ContractsUserRoleType.Admin);
                 break;
               case ContractsUserRoleType.Employee:
                 setUserRole(ContractsUserRoleType.Employee);
@@ -47,13 +47,13 @@ const RegisterPage = () => {
         >
           <MenuItem disabled value={ContractsUserRoleType.None}>Не выбрана</MenuItem>
           <MenuItem value={ContractsUserRoleType.Student}>Студент</MenuItem>
-          <MenuItem value={ContractsUserRoleType.ApplicationAdmin}>Администратор</MenuItem>
+          <MenuItem value={ContractsUserRoleType.Admin}>Администратор</MenuItem>
           <MenuItem value={ContractsUserRoleType.Employee}>Сотрудник университета</MenuItem>
         </Select>
       </FormControl>
 
       {
-        userRole == 'ApplicationAdmin'
+        userRole == 'Admin'
           ? <RegisterAdminForm />
           : userRole == 'Employee'
             ? <RegisterEmployeeForm />

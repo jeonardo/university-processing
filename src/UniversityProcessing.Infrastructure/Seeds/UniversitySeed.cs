@@ -42,7 +42,7 @@ public class UniversitySeed(
             return;
         }
 
-        var role1 = UserRole.Create(nameof(UserRoleType.ApplicationAdmin));
+        var role1 = UserRole.Create(nameof(UserRoleType.Admin));
         await roleManager.CreateAsync(role1);
         var role2 = UserRole.Create(nameof(UserRoleType.Employee));
         await roleManager.CreateAsync(role2);
@@ -230,7 +230,7 @@ public class UniversitySeed(
         var result = User.CreateAdmin(username, username, username);
         result.UpdateIsApprovedStatus(true);
         await userManager.CreateAsync(result, username);
-        await userManager.AddToRoleAsync(result, nameof(UserRoleType.ApplicationAdmin));
+        await userManager.AddToRoleAsync(result, nameof(UserRoleType.Admin));
         AdminValues.Add(result);
         return result;
     }

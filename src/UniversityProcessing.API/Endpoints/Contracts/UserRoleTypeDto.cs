@@ -6,7 +6,7 @@ namespace UniversityProcessing.API.Endpoints.Contracts;
 public enum UserRoleTypeDto
 {
     None = 0,
-    ApplicationAdmin = 1,
+    Admin = 1,
     Employee = 2,
     Student = 3
 }

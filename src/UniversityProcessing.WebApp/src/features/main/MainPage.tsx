@@ -8,7 +8,7 @@ const MainPage = () => {
   const user = useAppSelector(state => state.auth.user);
 
   switch (user?.roleId) {
-    case ContractsUserRoleType.ApplicationAdmin:
+    case ContractsUserRoleType.Admin:
       return <AdminPanelPage />;
     case ContractsUserRoleType.Employee:
       return <TeacherPanelPage />;

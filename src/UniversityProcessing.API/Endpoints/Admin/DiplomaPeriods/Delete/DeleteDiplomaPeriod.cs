@@ -15,7 +15,7 @@ internal sealed class DeleteDiplomaPeriod : IEndpoint
         app
             .MapDelete(NamespaceService.GetEndpointRoute(typeof(DeleteDiplomaPeriod)), Handle)
             .WithTags(Tags.ADMIN)
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
+            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
             .AddEndpointFilter<ValidationFilter<DeleteDiplomaPeriodRequestDto>>();
     }
 

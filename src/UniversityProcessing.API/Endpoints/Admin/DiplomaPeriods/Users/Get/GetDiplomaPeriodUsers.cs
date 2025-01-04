@@ -15,7 +15,7 @@ internal sealed class GetDiplomaPeriodUsers : IEndpoint
         app
             .MapGet(NamespaceService.GetEndpointRoute(typeof(GetDiplomaPeriodUsers)), Handle)
             .WithTags(Tags.ADMIN)
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
+            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
             .AddEndpointFilter<ValidationFilter<GetDiplomaPeriodUsersRequestDto>>();
     }
 

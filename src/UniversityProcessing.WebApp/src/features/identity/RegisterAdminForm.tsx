@@ -4,6 +4,7 @@ import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
 import { usePostApiRegistrationAdminRegisterMutation } from 'src/api/backendApi';
+import { enqueueSnackbarError } from 'src/core/helpers';
 
 const RegisterAdminForm = () => {
   const [userName, setUserName] = useState('');
@@ -20,7 +21,7 @@ const RegisterAdminForm = () => {
     if (!userName || !password || !firstName)
       return;
 
-    await tryregister({
+    const response = await tryregister({
       registrationAdminRegisterRequest:
       {
         password: password,
@@ -32,6 +33,10 @@ const RegisterAdminForm = () => {
         email: email
       }
     });
+
+    if (response.error) {
+      enqueueSnackbarError(response.error)
+    }
   };
 
   if (isSuccess) {

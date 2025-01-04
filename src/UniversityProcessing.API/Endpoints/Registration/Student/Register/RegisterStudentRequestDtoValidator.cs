@@ -28,7 +28,9 @@ public sealed class RegisterStudentRequestDtoValidator : AbstractValidator<Regis
             .WithMessage("Last name is required. Max length = " + ValidationConstants.MAX_STRING_LENGTH);
 
         RuleFor(x => x.Email)
-            .EmailAddress()
+
+            // .EmailAddress()
+            .Must(x => x == null)
             .MaximumLength(ValidationConstants.MAX_STRING_LENGTH)
             .WithMessage("Email must be valid. Max length = " + ValidationConstants.MAX_STRING_LENGTH);
 

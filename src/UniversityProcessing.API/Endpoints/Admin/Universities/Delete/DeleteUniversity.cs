@@ -15,7 +15,7 @@ internal sealed class DeleteUniversity : IEndpoint
         app
             .MapDelete(NamespaceService.GetEndpointRoute(typeof(DeleteUniversity)), Handle)
             .WithTags(Tags.ADMIN)
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
+            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
             .AddEndpointFilter<ValidationFilter<DeleteUniversityRequestDto>>();
     }
 

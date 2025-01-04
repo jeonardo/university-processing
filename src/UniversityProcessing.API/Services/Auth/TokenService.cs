@@ -10,7 +10,7 @@ using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
 
 namespace UniversityProcessing.API.Services.Auth;
 
-internal sealed class TokenService(IOptions<AuthOptions> authOptions) : ITokenService
+internal sealed class TokenService(IOptions<AuthOptions> authOptions, ILogger<TokenService> logger) : ITokenService
 {
     private readonly AuthOptions _authOptions = authOptions.Value;
 
@@ -38,18 +38,26 @@ internal sealed class TokenService(IOptions<AuthOptions> authOptions) : ITokenSe
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authOptions.RefreshKey))
         };
 
-        var claims = new JwtSecurityTokenHandler()
-            .ValidateToken(token, tokenValidationParameters, out var securityToken);
-
-        if (securityToken is not JwtSecurityToken jwtSecurityToken
-            || !jwtSecurityToken.Header.Alg.Equals(
-                SecurityAlgorithms.HmacSha256,
-                StringComparison.InvariantCultureIgnoreCase))
+        try
         {
+            var claims = new JwtSecurityTokenHandler()
+                .ValidateToken(token, tokenValidationParameters, out var securityToken);
+
+            if (securityToken is not JwtSecurityToken jwtSecurityToken
+                || !jwtSecurityToken.Header.Alg.Equals(
+                    SecurityAlgorithms.HmacSha256,
+                    StringComparison.InvariantCultureIgnoreCase))
+            {
+                throw new InvalidTokenException();
+            }
+
+            return new RefreshTokenClaims(GetUserId(claims.Claims));
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Error validating token");
             throw new InvalidTokenException();
         }
-
-        return new RefreshTokenClaims(GetUserId(claims.Claims));
     }
 
     public AuthTokenClaims GetAuthorizationTokenClaims(ClaimsPrincipal user)
@@ -75,7 +83,7 @@ internal sealed class TokenService(IOptions<AuthOptions> authOptions) : ITokenSe
 
     private static Guid GetUserId(IEnumerable<Claim> claims)
     {
-        var claimValue = claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+        var claimValue = claims.FirstOrDefault(x => x.Type == AppClaimTypes.USER_ID)?.Value;
 
         if (claimValue is null || !Guid.TryParse(claimValue, out var id))
         {
@@ -87,7 +95,7 @@ internal sealed class TokenService(IOptions<AuthOptions> authOptions) : ITokenSe
 
     private static UserRoleType GetUserRole(IEnumerable<Claim> claims)
     {
-        var claimValue = claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
+        var claimValue = claims.FirstOrDefault(x => x.Type == AppClaimTypes.ROLE)?.Value;
 
         if (claimValue is null || !Enum.TryParse<UserRoleType>(claimValue, out var role))
         {

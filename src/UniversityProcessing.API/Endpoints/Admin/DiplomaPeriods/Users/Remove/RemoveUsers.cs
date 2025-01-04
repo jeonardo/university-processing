@@ -17,7 +17,7 @@ internal sealed class RemoveUsers : IEndpoint
         app
             .MapDelete(NamespaceService.GetEndpointRoute(typeof(RemoveUsers)), Handle)
             .WithTags(Tags.ADMIN)
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
+            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
             .AddEndpointFilter<ValidationFilter<RemoveUsersRequestDto>>();
     }
 

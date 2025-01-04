@@ -886,7 +886,7 @@ export type RegistrationAdminRegisterRequest = {
 };
 export enum ContractsUserRoleType {
   None = "None",
-  ApplicationAdmin = "ApplicationAdmin",
+  Admin = "Admin",
   Employee = "Employee",
   Student = "Student",
 }

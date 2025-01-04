@@ -15,7 +15,7 @@ internal sealed class UpdateApproval : IEndpoint
         app
             .MapPut(NamespaceService.GetEndpointRoute(typeof(UpdateApproval)), Handle)
             .WithTags(Tags.ADMIN)
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
+            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
             .AddEndpointFilter<ValidationFilter<UpdateApprovalRequestDto>>();
     }
 

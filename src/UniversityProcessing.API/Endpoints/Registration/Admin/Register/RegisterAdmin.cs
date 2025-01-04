@@ -40,7 +40,7 @@ internal sealed class RegisterAdmin : IEndpoint
             throw new ConflictException($"Registration failed. Message = {string.Join("; ", createResult.Errors)}");
         }
 
-        var addToRoleResult = await userManager.AddToRoleAsync(user, nameof(UserRoleType.ApplicationAdmin));
+        var addToRoleResult = await userManager.AddToRoleAsync(user, nameof(UserRoleType.Admin));
 
         if (addToRoleResult.IsFailed())
         {

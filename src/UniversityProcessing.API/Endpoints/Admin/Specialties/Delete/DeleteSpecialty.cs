@@ -15,7 +15,7 @@ internal sealed class DeleteSpecialty : IEndpoint
         app
             .MapDelete(NamespaceService.GetEndpointRoute(typeof(DeleteSpecialty)), Handle)
             .WithTags(Tags.ADMIN)
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
+            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
             .AddEndpointFilter<ValidationFilter<DeleteSpecialtyRequestDto>>();
     }
 

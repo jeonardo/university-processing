@@ -15,7 +15,7 @@ internal sealed class ChangeUniversityAdmin : IEndpoint
         app
             .MapPatch(NamespaceService.GetEndpointRoute(typeof(ChangeUniversityAdmin)), Handle)
             .WithTags(Tags.ADMIN)
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.ApplicationAdmin)))
+            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
             .AddEndpointFilter<ValidationFilter<ChangeUniversityAdminRequestDto>>();
     }
 
