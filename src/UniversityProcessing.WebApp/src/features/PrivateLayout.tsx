@@ -5,6 +5,7 @@ import { logout, setUser } from 'src/features/identity/auth.slice';
 import { useEffect } from 'react';
 import { Box, Button, CircularProgress, Modal, Typography } from '@mui/material';
 import { useGetApiIdentityInfoQuery } from 'src/api/backendApi';
+import CommonLoader from 'src/components/commonLoader';
 
 const PrivateLayout: React.FC = () => {
   const authState = useAppSelector(state => state.auth);
@@ -21,7 +22,7 @@ const PrivateLayout: React.FC = () => {
     if (!authState.user && isSuccess) {
       dispatch(setUser({
         approved: data.approved,
-        roleId: data.roleType,
+        role: data.roleType,
         userId: data.userId
       }));
     }
@@ -43,17 +44,7 @@ const PrivateLayout: React.FC = () => {
   //     return <Navigate replace to={"/signin"} /> 
 
   if (!authState.user) {
-    return (
-      <>
-        <Modal open={true} onClose={() => {
-        }} className="flex flex-col h-full w-full justify-center items-center text-center text-2xl font-bold">
-          <Box sx={{ width: 400, padding: 7, bgcolor: 'white', margin: '100px auto' }}>
-            <CircularProgress size="3rem" />
-            <Typography sx={{ pt: 3 }}>Загрузка...</Typography>
-          </Box>
-        </Modal>
-      </>
-    );
+    return (<CommonLoader />);
   }
 
   if (!authState.user.approved) {

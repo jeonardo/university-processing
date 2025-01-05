@@ -1,5 +1,5 @@
 using FluentValidation;
 
-namespace UniversityProcessing.API.Endpoints.Admin.Users.GetUsers;
+namespace UniversityProcessing.API.Endpoints.Admin.Users.Get;
 
 public sealed class GetUsersRequestDtoValidator : AbstractValidator<GetUsersRequestDto>;

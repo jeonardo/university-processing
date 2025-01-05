@@ -11,17 +11,18 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.adminUsersUpdateApprovalRequest,
       }),
     }),
-    getApiAdminUsersGetUsers: build.query<
-      GetApiAdminUsersGetUsersApiResponse,
-      GetApiAdminUsersGetUsersApiArg
+    getApiAdminUsersGet: build.query<
+      GetApiAdminUsersGetApiResponse,
+      GetApiAdminUsersGetApiArg
     >({
       query: (queryArg) => ({
-        url: `/api/Admin/Users/GetUsers`,
+        url: `/api/Admin/Users/Get`,
         params: {
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
-          OrderBy: queryArg.orderBy,
-          Desc: queryArg.desc,
+          Filter: queryArg.filter,
         },
       }),
     }),
@@ -388,13 +389,14 @@ export type PutApiAdminUsersUpdateApprovalApiResponse = unknown;
 export type PutApiAdminUsersUpdateApprovalApiArg = {
   adminUsersUpdateApprovalRequest: AdminUsersUpdateApprovalRequest;
 };
-export type GetApiAdminUsersGetUsersApiResponse =
-  /** status 200 OK */ AdminUsersGetUsersResponseRead;
-export type GetApiAdminUsersGetUsersApiArg = {
-  pageNumber: number;
-  pageSize: number;
-  orderBy: string;
-  desc: boolean;
+export type GetApiAdminUsersGetApiResponse =
+  /** status 200 OK */ AdminUsersGetResponseRead;
+export type GetApiAdminUsersGetApiArg = {
+  desc?: boolean;
+  orderBy?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  filter?: string;
 };
 export type DeleteApiAdminUniversitiesDeleteApiResponse = unknown;
 export type DeleteApiAdminUniversitiesDeleteApiArg = {
@@ -566,20 +568,20 @@ export type AdminUsersUpdateApprovalRequest = {
   userId: string;
   isApproved: boolean;
 };
-export type AdminUsersGetUsersUser = {
+export type AdminUsersGetUser = {
   id?: string;
   firstName?: string | null;
   lastName?: string | null;
   middleName?: string | null;
   approved?: boolean;
 };
-export type AdminUsersGetUsersUserPagedList = {
-  items?: AdminUsersGetUsersUser[] | null;
+export type AdminUsersGetUserPagedList = {
+  items?: AdminUsersGetUser[] | null;
   currentPage?: number;
   pageSize?: number;
 };
-export type AdminUsersGetUsersUserPagedListRead = {
-  items?: AdminUsersGetUsersUser[] | null;
+export type AdminUsersGetUserPagedListRead = {
+  items?: AdminUsersGetUser[] | null;
   currentPage?: number;
   totalPages?: number;
   pageSize?: number;
@@ -587,11 +589,11 @@ export type AdminUsersGetUsersUserPagedListRead = {
   hasPrevious?: boolean;
   hasNext?: boolean;
 };
-export type AdminUsersGetUsersResponse = {
-  list?: AdminUsersGetUsersUserPagedList;
+export type AdminUsersGetResponse = {
+  list?: AdminUsersGetUserPagedList;
 };
-export type AdminUsersGetUsersResponseRead = {
-  list?: AdminUsersGetUsersUserPagedListRead;
+export type AdminUsersGetResponseRead = {
+  list?: AdminUsersGetUserPagedListRead;
 };
 export type AdminUniversitiesCreateResponse = {
   id?: string;
@@ -892,8 +894,8 @@ export enum ContractsUserRoleType {
 }
 export const {
   usePutApiAdminUsersUpdateApprovalMutation,
-  useGetApiAdminUsersGetUsersQuery,
-  useLazyGetApiAdminUsersGetUsersQuery,
+  useGetApiAdminUsersGetQuery,
+  useLazyGetApiAdminUsersGetQuery,
   useDeleteApiAdminUniversitiesDeleteMutation,
   usePostApiAdminUniversitiesCreateMutation,
   usePatchApiAdminUniversitiesChangeAdminMutation,

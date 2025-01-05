@@ -39,7 +39,8 @@ internal sealed class Login : IEndpoint
 
         if (!signInResult.Succeeded)
         {
-            throw new ConflictException(signInResult.ToString());
+            const string errorMessage = "Invalid password";
+            throw new ConflictException(errorMessage);
         }
 
         var userRoles = await userManager.GetRolesAsync(user);

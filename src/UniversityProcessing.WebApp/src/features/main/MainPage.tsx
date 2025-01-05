@@ -7,7 +7,7 @@ import { ContractsUserRoleType } from 'src/api/backendApi';
 const MainPage = () => {
   const user = useAppSelector(state => state.auth.user);
 
-  switch (user?.roleId) {
+  switch (user?.role) {
     case ContractsUserRoleType.Admin:
       return <AdminPanelPage />;
     case ContractsUserRoleType.Employee:

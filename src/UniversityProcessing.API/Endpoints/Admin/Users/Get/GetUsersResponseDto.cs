@@ -1,6 +1,6 @@
 using UniversityProcessing.GenericSubdomain.Pagination;
 
-namespace UniversityProcessing.API.Endpoints.Admin.Users.GetUsers;
+namespace UniversityProcessing.API.Endpoints.Admin.Users.Get;
 
 public sealed class GetUsersResponseDto(PagedList<UserDto> list)
 {

@@ -1,9 +1,5 @@
-namespace UniversityProcessing.API.Endpoints.Admin.Users.GetUsers;
+using UniversityProcessing.GenericSubdomain.Pagination;
 
-public sealed class GetUsersRequestDto
-{
-    public int PageNumber { get; set; }
-    public int PageSize { get; set; }
-    public string OrderBy { get; set; } = string.Empty;
-    public bool Desc { get; set; }
-}
+namespace UniversityProcessing.API.Endpoints.Admin.Users.Get;
+
+public sealed class GetUsersRequestDto : BaseGetListQueryParameters;

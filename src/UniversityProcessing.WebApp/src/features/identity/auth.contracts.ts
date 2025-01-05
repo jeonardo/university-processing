@@ -7,7 +7,7 @@ export type AuthTokens = {
 
 export type AuthUser = {
   userId?: string;
-  roleId?: ContractsUserRoleType;
+  role?: ContractsUserRoleType;
   approved?: boolean;
   email?: string;
   userName?: string;

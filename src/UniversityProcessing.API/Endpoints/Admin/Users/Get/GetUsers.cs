@@ -1,3 +1,4 @@
+using Ardalis.Specification;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.GenericSubdomain.Endpoints;
@@ -7,7 +8,7 @@ using UniversityProcessing.GenericSubdomain.Pagination;
 using UniversityProcessing.Repository.Repositories;
 using UniversityProcessing.Repository.Specifications;
 
-namespace UniversityProcessing.API.Endpoints.Admin.Users.GetUsers;
+namespace UniversityProcessing.API.Endpoints.Admin.Users.Get;
 
 internal sealed class GetUsers : IEndpoint
 {
@@ -25,16 +26,39 @@ internal sealed class GetUsers : IEndpoint
         [FromServices] IEfReadRepository<User> repository,
         CancellationToken cancellationToken)
     {
+        var validRequest = request.GetValidQueryParameters();
         var count = await repository.CountAsync(cancellationToken);
 
-        var specification = new UserListSpec(request.PageNumber, request.PageSize, request.OrderBy, request.Desc);
+        var specification = new GetGetUsersSpec(validRequest);
         var entities = await repository.ListAsync(specification, cancellationToken);
 
-        return new GetUsersResponseDto(new PagedList<UserDto>(entities.Select(ToDto), count, request.PageNumber, request.PageSize));
+        return new GetUsersResponseDto(new PagedList<UserDto>(entities, count, validRequest.PageNumber, validRequest.PageSize));
     }
 
-    private static UserDto ToDto(User user)
+    private sealed class GetGetUsersSpec : Specification<User, UserDto>
     {
-        return new UserDto(user.Id, user.FirstName, user.LastName, user.MiddleName, user.Approved);
+        public GetGetUsersSpec(GetListQueryParameters parameters)
+        {
+            Query
+                .Select(x => new UserDto(x.Id, x.FirstName, x.LastName, x.MiddleName, x.Approved))
+                .AsNoTracking();
+
+            if (string.IsNullOrWhiteSpace(parameters.Filter))
+            {
+                Query
+                    .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                    .Take(parameters.PageSize);
+            }
+            else
+            {
+                Query
+                    .Where(
+                        x =>
+                            x.FirstName.Contains(parameters.Filter)
+                            || (x.MiddleName != null && x.MiddleName.Contains(parameters.Filter))
+                            || x.LastName.Contains(parameters.Filter))
+                    .Take(10);
+            }
+        }
     }
 }

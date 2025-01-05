@@ -9,8 +9,8 @@ import MainPage from 'src/features/main/MainPage';
 import NotFoundPage from 'src/features/notFound/NotFoundPage';
 import ProfilePage from 'src/features/profile/profile.page';
 import SpecialtyListPage from 'src/features/specialties/SpecialtyListPage';
-import UniversityListPage from 'src/features/admin/UniversityListPage';
-import UserListPage from 'src/features/admin/UserListPage';
+import UniversityListPage from 'src/features/admin/Universities/UniversitiesPage';
+import UsersPage from 'src/features/admin/Users/UsersPage';
 import PrivateLayout from 'src/features/PrivateLayout';
 
 const PrivateRoutes = {
@@ -60,7 +60,7 @@ const PrivateRoutes = {
     },
     {
       path: '/users',
-      element: <UserListPage />
+      element: <UsersPage />
     },
     {
       path: '/logout',
