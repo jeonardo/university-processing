@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, Box, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 
 interface AddUniversityFormProps {
   onSubmit: (name: string, location: string) => void;

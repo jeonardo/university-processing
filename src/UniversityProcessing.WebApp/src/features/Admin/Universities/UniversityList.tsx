@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, ListItem, ListItemText, Button, Typography, Box } from '@mui/material';
+import { Button, List, ListItem, ListItemText, Typography } from '@mui/material';
 import { CommonGetUniversitiesUniversity } from 'src/api/backendApi';
 
 interface UniversityListProps<T> {
@@ -8,7 +8,11 @@ interface UniversityListProps<T> {
   isAdmin: boolean;
 }
 
-const UniversityList: React.FC<UniversityListProps<CommonGetUniversitiesUniversity>> = ({ universities, onDelete, isAdmin }) => {
+const UniversityList: React.FC<UniversityListProps<CommonGetUniversitiesUniversity>> = ({
+                                                                                          universities,
+                                                                                          onDelete,
+                                                                                          isAdmin
+                                                                                        }) => {
   if (universities.length === 0) {
     return <Typography className="text-center py-4">No universities available.</Typography>;
   }

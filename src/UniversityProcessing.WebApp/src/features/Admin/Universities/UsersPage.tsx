@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useGetUniversitiesQuery, useCreateUniversityMutation, useDeleteUniversityMutation } from '../features/universities/universitiesApiSlice';
+import {
+  useCreateUniversityMutation,
+  useDeleteUniversityMutation,
+  useGetUniversitiesQuery
+} from '../features/universities/universitiesApiSlice';
 import UniversityList from '../components/UniversityList';
 import Pagination from '../components/Pagination';
 import AddUniversityForm from '../components/AddUniversityForm';
 import SearchBar from '../components/SearchBar';
 import { RootState } from '../store/store';
-import { Container, Typography, Box, CircularProgress, Alert } from '@mui/material';
+import { Alert, Box, CircularProgress, Container, Typography } from '@mui/material';
 
 const ITEMS_PER_PAGE = 5;
 
 const UsersPage: React.FC = () => {
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
-  const { data, error, isLoading, isFetching } = useGetUniversitiesQuery({ page, limit: ITEMS_PER_PAGE, search: searchQuery });
+  const { data, error, isLoading, isFetching } = useGetUniversitiesQuery({
+    page,
+    limit: ITEMS_PER_PAGE,
+    search: searchQuery
+  });
   const [createUniversity] = useCreateUniversityMutation();
   const [deleteUniversity] = useDeleteUniversityMutation();
 
@@ -101,8 +109,6 @@ const UsersPage: React.FC = () => {
 };
 
 export default UsersPage;
-
-
 
 
 // import { useEffect, useMemo, useState } from 'react';

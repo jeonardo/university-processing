@@ -1,7 +1,7 @@
 const UniversityListPage = () => {
 
   return (
-    <div className='w-full h-full items-center'>
+    <div className="w-full h-full items-center">
       UniversityListPage
     </div>
   );

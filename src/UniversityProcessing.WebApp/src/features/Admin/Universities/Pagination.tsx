@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pagination as MUIPagination, Box } from '@mui/material';
+import { Box, Pagination as MUIPagination } from '@mui/material';
 
 interface PaginationProps {
   currentPage: number;
