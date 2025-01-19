@@ -3,7 +3,11 @@ import { Autocomplete, Button, CircularProgress, debounce, FormControl, Stack, T
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
-import { useGetApiRegistrationEmployeeGetAvailableUniversitiesQuery, useGetApiRegistrationEmployeeGetAvailableUniversityPositionsQuery, useLazyGetApiRegistrationEmployeeGetAvailableUniversitiesQuery, usePostApiRegistrationEmployeeRegisterMutation } from 'src/api/backendApi';
+import {
+  useGetApiRegistrationEmployeeGetAvailableUniversityPositionsQuery,
+  useLazyGetApiRegistrationEmployeeGetAvailableUniversitiesQuery,
+  usePostApiRegistrationEmployeeRegisterMutation
+} from 'src/api/backendApi';
 import { enqueueSnackbarError } from 'src/core/helpers';
 
 const RegisterEmployeeForm = () => {
@@ -40,21 +44,21 @@ const RegisterEmployeeForm = () => {
 
     const response = await tryregister({
       registrationEmployeeRegisterRequest:
-      {
-        password: password,
-        userName: userName,
-        firstName: firstName,
-        lastName: lastName,
-        middleName: middleName,
-        birthday: birthday.toISOString(),
-        email: email,
-        universityId: availableUniversities?.data?.list?.filter(x => x.name === university)[0].id ?? '',
-        universityPositionId: getAvailableUniversityPositionsResponse?.data?.list?.filter(x => x.name === universityPosition)[0].id ?? ''
-      }
+        {
+          password: password,
+          userName: userName,
+          firstName: firstName,
+          lastName: lastName,
+          middleName: middleName,
+          birthday: birthday.toISOString(),
+          email: email,
+          universityId: availableUniversities?.data?.list?.filter(x => x.name === university)[0].id ?? '',
+          universityPositionId: getAvailableUniversityPositionsResponse?.data?.list?.filter(x => x.name === universityPosition)[0].id ?? ''
+        }
     });
 
     if (response.error) {
-      enqueueSnackbarError(response.error)
+      enqueueSnackbarError(response.error);
     }
   };
 

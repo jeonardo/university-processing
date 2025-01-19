@@ -36,6 +36,7 @@ public abstract class BaseGetListQueryParameters
                 : PageSize.GetValueOrDefault(),
             Desc ?? defaultDesc,
             OrderBy ?? defaultOrderBy,
-            Filter ?? defaultFilter);
+            Filter ?? defaultFilter,
+            !string.IsNullOrWhiteSpace(Filter));
     }
 }

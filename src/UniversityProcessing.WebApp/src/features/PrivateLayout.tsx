@@ -3,9 +3,9 @@ import { useAppDispatch, useAppSelector } from 'src/core/hooks';
 import ResponsiveAppBar from './AppBar';
 import { logout, setUser } from 'src/features/identity/auth.slice';
 import { useEffect } from 'react';
-import { Box, Button, CircularProgress, Modal, Typography } from '@mui/material';
+import { Box, Button, Modal, Typography } from '@mui/material';
 import { useGetApiIdentityInfoQuery } from 'src/api/backendApi';
-import CommonLoader from 'src/components/commonLoader';
+import CommonLoader from 'src/components/CommonLoader';
 
 const PrivateLayout: React.FC = () => {
   const authState = useAppSelector(state => state.auth);
@@ -53,7 +53,8 @@ const PrivateLayout: React.FC = () => {
       }} className="flex flex-col h-full w-full justify-center items-center text-center text-2xl font-bold">
         <Box
           sx={{ width: 400, padding: 7, bgcolor: 'white', margin: '100px auto' }}>
-          <Typography className='pb-3'>Отказано в доступе:<br /><br />Ваш аккаунт {authState.user.userName} не прошел верификацию. Обратитесь к администратору.</Typography>
+          <Typography className="pb-3">Отказано в доступе:<br /><br />Ваш аккаунт {authState.user.userName} не прошел
+            верификацию. Обратитесь к администратору.</Typography>
           <Button
             fullWidth
             variant="contained"
@@ -67,7 +68,7 @@ const PrivateLayout: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col h-full w-full bg-[#f8f8f8]">
+    <div className="flex flex-col min-h-screen w-full bg-[#f8f8f8]">
       <ResponsiveAppBar />
       <div className="flex h-full w-full p-5">
         <Outlet />

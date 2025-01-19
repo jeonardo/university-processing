@@ -6,7 +6,7 @@
   },
   "include": [
     "src/**/*"
-  ],
+, "src/features/admin/Users/components/.tsx"  ],
   "exclude": [
     "node_modules"
   ]

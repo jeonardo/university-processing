@@ -1,6 +1,5 @@
 import { LockOutlined } from '@mui/icons-material';
 import {
-  Alert,
   Avatar,
   Box,
   Button,
@@ -16,8 +15,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../core/hooks';
 import { login } from './auth.slice';
 import { usePostApiIdentityLoginMutation } from 'src/api/backendApi';
-import { enqueueSnackbar } from 'notistack';
-import { enqueueSnackbarError, isErrorWithMessage, isFetchBaseQueryError } from 'src/core/helpers';
+import { enqueueSnackbarError } from 'src/core/helpers';
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
@@ -31,8 +29,8 @@ const LoginPage = () => {
     const result = await trylogin({ identityLoginRequest: { password: password, userName: userName } });
 
     if (result.error) {
-      enqueueSnackbarError(result.error)
-      return
+      enqueueSnackbarError(result.error);
+      return;
     }
 
     dispatch(login({
@@ -42,71 +40,69 @@ const LoginPage = () => {
   };
 
   return (
-    <>
-      <Container maxWidth="xs" sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
-      }}>
+    <Container maxWidth="xs" sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }}>
 
-        <Avatar sx={{ bgcolor: 'primary.light' }}>
-          <LockOutlined />
-        </Avatar>
+      <Avatar sx={{ bgcolor: 'primary.light' }}>
+        <LockOutlined />
+      </Avatar>
 
-        <Typography sx={{ pt: 2 }} variant="h5">Форма авторизации</Typography>
+      <Typography sx={{ pt: 2 }} variant="h5">Форма авторизации</Typography>
 
-        <FormControl sx={{ p: 3 }} fullWidth>
-          <Stack spacing={2}>
+      <FormControl sx={{ p: 3 }} fullWidth>
+        <Stack spacing={2}>
 
-            <TextField
-              disabled={isLoading}
-              margin="normal"
-              required
-              fullWidth
-              id="name"
-              label="Логин"
-              name="name"
-              autoFocus
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-            />
+          <TextField
+            disabled={isLoading}
+            margin="normal"
+            required
+            fullWidth
+            id="name"
+            label="Логин"
+            name="name"
+            autoFocus
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+          />
 
-            <TextField
-              disabled={isLoading}
-              margin="normal"
-              required
-              fullWidth
-              id="password"
-              name="password"
-              label="Пароль"
-              type="password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
+          <TextField
+            disabled={isLoading}
+            margin="normal"
+            required
+            fullWidth
+            id="password"
+            name="password"
+            label="Пароль"
+            type="password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
 
-            <Button
-              disabled={isLoading || userName.length === 0 || password.length === 0}
-              fullWidth
-              variant="contained"
-              onClick={handleLogin}
-            >
-              {
-                isLoading
-                  ? <CircularProgress size={25} color="inherit" />
-                  : <span>Авторизоваться</span>
-              }
-            </Button>
-          </Stack>
+          <Button
+            disabled={isLoading || userName.length === 0 || password.length === 0}
+            fullWidth
+            variant="contained"
+            onClick={handleLogin}
+          >
+            {
+              isLoading
+                ? <CircularProgress size={25} color="inherit" />
+                : <span>Авторизоваться</span>
+            }
+          </Button>
+        </Stack>
 
-          <Box sx={{ p: 3, textAlign: 'center' }}>
-            <Link to="/signup">Нет аккаунта? Зарегистрироваться</Link>
-          </Box>
+        <Box sx={{ p: 3, textAlign: 'center' }}>
+          <Link to="/signup">Нет аккаунта? Зарегистрироваться</Link>
+        </Box>
 
-        </FormControl>
-      </Container>
-    </>
+      </FormControl>
+    </Container>
   );
 };
 

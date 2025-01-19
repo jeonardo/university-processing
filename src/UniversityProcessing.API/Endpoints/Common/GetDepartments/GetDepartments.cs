@@ -24,10 +24,13 @@ internal sealed class GetDepartments : IEndpoint
         CancellationToken cancellationToken)
     {
         var validRequest = request.GetValidQueryParameters();
-        var count = await repository.CountAsync(cancellationToken);
 
         var specification = new DepartmentListSpec(validRequest.PageNumber, validRequest.PageSize, validRequest.OrderBy, validRequest.Desc);
         var entities = await repository.ListAsync(specification, cancellationToken);
+
+        var count = validRequest.IsFilterSet
+            ? entities.Count
+            : await repository.CountAsync(cancellationToken);
 
         return new GetDepartmentsResponseDto(new PagedList<DepartmentDto>(entities.Select(ToDto), count, validRequest.PageNumber, validRequest.PageSize));
     }

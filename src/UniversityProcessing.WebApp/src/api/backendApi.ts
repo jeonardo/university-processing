@@ -1,4 +1,5 @@
-import { emptySplitApi as api } from "./emptyApi";
+import { emptySplitApi as api } from './emptyApi';
+
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
     putApiAdminUsersUpdateApproval: build.mutation<
@@ -7,9 +8,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/Users/UpdateApproval`,
-        method: "PUT",
-        body: queryArg.adminUsersUpdateApprovalRequest,
-      }),
+        method: 'PUT',
+        body: queryArg.adminUsersUpdateApprovalRequest
+      })
     }),
     getApiAdminUsersGet: build.query<
       GetApiAdminUsersGetApiResponse,
@@ -22,9 +23,9 @@ const injectedRtkApi = api.injectEndpoints({
           OrderBy: queryArg.orderBy,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
-          Filter: queryArg.filter,
-        },
-      }),
+          Filter: queryArg.filter
+        }
+      })
     }),
     deleteApiAdminUniversitiesDelete: build.mutation<
       DeleteApiAdminUniversitiesDeleteApiResponse,
@@ -32,11 +33,11 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/Universities/Delete`,
-        method: "DELETE",
+        method: 'DELETE',
         params: {
-          Id: queryArg.id,
-        },
-      }),
+          Id: queryArg.id
+        }
+      })
     }),
     postApiAdminUniversitiesCreate: build.mutation<
       PostApiAdminUniversitiesCreateApiResponse,
@@ -44,9 +45,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/Universities/Create`,
-        method: "POST",
-        body: queryArg.adminUniversitiesCreateRequest,
-      }),
+        method: 'POST',
+        body: queryArg.adminUniversitiesCreateRequest
+      })
     }),
     patchApiAdminUniversitiesChangeAdmin: build.mutation<
       PatchApiAdminUniversitiesChangeAdminApiResponse,
@@ -54,9 +55,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/Universities/ChangeAdmin`,
-        method: "PATCH",
-        body: queryArg.adminUniversitiesChangeAdminRequest,
-      }),
+        method: 'PATCH',
+        body: queryArg.adminUniversitiesChangeAdminRequest
+      })
     }),
     deleteApiAdminSpecialtiesDelete: build.mutation<
       DeleteApiAdminSpecialtiesDeleteApiResponse,
@@ -64,11 +65,11 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/Specialties/Delete`,
-        method: "DELETE",
+        method: 'DELETE',
         params: {
-          Id: queryArg.id,
-        },
-      }),
+          Id: queryArg.id
+        }
+      })
     }),
     postApiAdminSpecialtiesCreate: build.mutation<
       PostApiAdminSpecialtiesCreateApiResponse,
@@ -76,9 +77,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/Specialties/Create`,
-        method: "POST",
-        body: queryArg.adminSpecialtiesCreateRequest,
-      }),
+        method: 'POST',
+        body: queryArg.adminSpecialtiesCreateRequest
+      })
     }),
     deleteApiAdminGroupsDelete: build.mutation<
       DeleteApiAdminGroupsDeleteApiResponse,
@@ -86,11 +87,11 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/Groups/Delete`,
-        method: "DELETE",
+        method: 'DELETE',
         params: {
-          Id: queryArg.id,
-        },
-      }),
+          Id: queryArg.id
+        }
+      })
     }),
     postApiAdminGroupsCreate: build.mutation<
       PostApiAdminGroupsCreateApiResponse,
@@ -98,9 +99,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/Groups/Create`,
-        method: "POST",
-        body: queryArg.adminGroupsCreateRequest,
-      }),
+        method: 'POST',
+        body: queryArg.adminGroupsCreateRequest
+      })
     }),
     deleteApiAdminFacultiesDelete: build.mutation<
       DeleteApiAdminFacultiesDeleteApiResponse,
@@ -108,11 +109,11 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/Faculties/Delete`,
-        method: "DELETE",
+        method: 'DELETE',
         params: {
-          Id: queryArg.id,
-        },
-      }),
+          Id: queryArg.id
+        }
+      })
     }),
     postApiAdminFacultiesCreate: build.mutation<
       PostApiAdminFacultiesCreateApiResponse,
@@ -120,9 +121,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/Faculties/Create`,
-        method: "POST",
-        body: queryArg.adminFacultiesCreateRequest,
-      }),
+        method: 'POST',
+        body: queryArg.adminFacultiesCreateRequest
+      })
     }),
     deleteApiAdminDiplomaPeriodsUsersRemove: build.mutation<
       DeleteApiAdminDiplomaPeriodsUsersRemoveApiResponse,
@@ -130,12 +131,12 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/DiplomaPeriods/Users/Remove`,
-        method: "DELETE",
+        method: 'DELETE',
         params: {
           DiplomaPeriodId: queryArg.diplomaPeriodId,
-          UserIds: queryArg.userIds,
-        },
-      }),
+          UserIds: queryArg.userIds
+        }
+      })
     }),
     getApiAdminDiplomaPeriodsUsersGet: build.query<
       GetApiAdminDiplomaPeriodsUsersGetApiResponse,
@@ -145,9 +146,9 @@ const injectedRtkApi = api.injectEndpoints({
         url: `/api/Admin/DiplomaPeriods/Users/Get`,
         params: {
           DiplomaPeriodId: queryArg.diplomaPeriodId,
-          RoleType: queryArg.roleType,
-        },
-      }),
+          RoleType: queryArg.roleType
+        }
+      })
     }),
     postApiAdminDiplomaPeriodsUsersAdd: build.mutation<
       PostApiAdminDiplomaPeriodsUsersAddApiResponse,
@@ -155,9 +156,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/DiplomaPeriods/Users/Add`,
-        method: "POST",
-        body: queryArg.adminDiplomaPeriodsUsersAddRequest,
-      }),
+        method: 'POST',
+        body: queryArg.adminDiplomaPeriodsUsersAddRequest
+      })
     }),
     deleteApiAdminDiplomaPeriodsDelete: build.mutation<
       DeleteApiAdminDiplomaPeriodsDeleteApiResponse,
@@ -165,11 +166,11 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/DiplomaPeriods/Delete`,
-        method: "DELETE",
+        method: 'DELETE',
         params: {
-          Id: queryArg.id,
-        },
-      }),
+          Id: queryArg.id
+        }
+      })
     }),
     postApiAdminDiplomaPeriodsCreate: build.mutation<
       PostApiAdminDiplomaPeriodsCreateApiResponse,
@@ -177,9 +178,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/DiplomaPeriods/Create`,
-        method: "POST",
-        body: queryArg.adminDiplomaPeriodsCreateRequest,
-      }),
+        method: 'POST',
+        body: queryArg.adminDiplomaPeriodsCreateRequest
+      })
     }),
     deleteApiAdminDepartmentsDelete: build.mutation<
       DeleteApiAdminDepartmentsDeleteApiResponse,
@@ -187,11 +188,11 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/Departments/Delete`,
-        method: "DELETE",
+        method: 'DELETE',
         params: {
-          Id: queryArg.id,
-        },
-      }),
+          Id: queryArg.id
+        }
+      })
     }),
     postApiAdminDepartmentsCreate: build.mutation<
       PostApiAdminDepartmentsCreateApiResponse,
@@ -199,9 +200,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/Departments/Create`,
-        method: "POST",
-        body: queryArg.adminDepartmentsCreateRequest,
-      }),
+        method: 'POST',
+        body: queryArg.adminDepartmentsCreateRequest
+      })
     }),
     getApiCommonGetUniversities: build.query<
       GetApiCommonGetUniversitiesApiResponse,
@@ -214,9 +215,9 @@ const injectedRtkApi = api.injectEndpoints({
           OrderBy: queryArg.orderBy,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
-          Filter: queryArg.filter,
-        },
-      }),
+          Filter: queryArg.filter
+        }
+      })
     }),
     getApiCommonGetSpecialties: build.query<
       GetApiCommonGetSpecialtiesApiResponse,
@@ -229,9 +230,9 @@ const injectedRtkApi = api.injectEndpoints({
           OrderBy: queryArg.orderBy,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
-          Filter: queryArg.filter,
-        },
-      }),
+          Filter: queryArg.filter
+        }
+      })
     }),
     getApiCommonGetGroups: build.query<
       GetApiCommonGetGroupsApiResponse,
@@ -244,9 +245,9 @@ const injectedRtkApi = api.injectEndpoints({
           OrderBy: queryArg.orderBy,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
-          Filter: queryArg.filter,
-        },
-      }),
+          Filter: queryArg.filter
+        }
+      })
     }),
     getApiCommonGetFaculties: build.query<
       GetApiCommonGetFacultiesApiResponse,
@@ -259,9 +260,9 @@ const injectedRtkApi = api.injectEndpoints({
           OrderBy: queryArg.orderBy,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
-          Filter: queryArg.filter,
-        },
-      }),
+          Filter: queryArg.filter
+        }
+      })
     }),
     getApiCommonGetDiplomaPeriods: build.query<
       GetApiCommonGetDiplomaPeriodsApiResponse,
@@ -274,9 +275,9 @@ const injectedRtkApi = api.injectEndpoints({
           OrderBy: queryArg.orderBy,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
-          Filter: queryArg.filter,
-        },
-      }),
+          Filter: queryArg.filter
+        }
+      })
     }),
     getApiCommonGetDepartments: build.query<
       GetApiCommonGetDepartmentsApiResponse,
@@ -289,21 +290,21 @@ const injectedRtkApi = api.injectEndpoints({
           OrderBy: queryArg.orderBy,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
-          Filter: queryArg.filter,
-        },
-      }),
+          Filter: queryArg.filter
+        }
+      })
     }),
     getApiIdentityRefresh: build.query<
       GetApiIdentityRefreshApiResponse,
       GetApiIdentityRefreshApiArg
     >({
-      query: () => ({ url: `/api/Identity/Refresh` }),
+      query: () => ({ url: `/api/Identity/Refresh` })
     }),
     postApiIdentityLogout: build.mutation<
       PostApiIdentityLogoutApiResponse,
       PostApiIdentityLogoutApiArg
     >({
-      query: () => ({ url: `/api/Identity/Logout`, method: "POST" }),
+      query: () => ({ url: `/api/Identity/Logout`, method: 'POST' })
     }),
     postApiIdentityLogin: build.mutation<
       PostApiIdentityLoginApiResponse,
@@ -311,15 +312,15 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Identity/Login`,
-        method: "POST",
-        body: queryArg.identityLoginRequest,
-      }),
+        method: 'POST',
+        body: queryArg.identityLoginRequest
+      })
     }),
     getApiIdentityInfo: build.query<
       GetApiIdentityInfoApiResponse,
       GetApiIdentityInfoApiArg
     >({
-      query: () => ({ url: `/api/Identity/Info` }),
+      query: () => ({ url: `/api/Identity/Info` })
     }),
     postApiRegistrationStudentRegister: build.mutation<
       PostApiRegistrationStudentRegisterApiResponse,
@@ -327,9 +328,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Registration/Student/Register`,
-        method: "POST",
-        body: queryArg.registrationStudentRegisterRequest,
-      }),
+        method: 'POST',
+        body: queryArg.registrationStudentRegisterRequest
+      })
     }),
     getApiRegistrationStudentGetAvailableGroups: build.query<
       GetApiRegistrationStudentGetAvailableGroupsApiResponse,
@@ -338,9 +339,9 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/api/Registration/Student/GetAvailableGroups`,
         params: {
-          Number: queryArg["number"],
-        },
-      }),
+          Number: queryArg['number']
+        }
+      })
     }),
     postApiRegistrationEmployeeRegister: build.mutation<
       PostApiRegistrationEmployeeRegisterApiResponse,
@@ -348,17 +349,17 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Registration/Employee/Register`,
-        method: "POST",
-        body: queryArg.registrationEmployeeRegisterRequest,
-      }),
+        method: 'POST',
+        body: queryArg.registrationEmployeeRegisterRequest
+      })
     }),
     getApiRegistrationEmployeeGetAvailableUniversityPositions: build.query<
       GetApiRegistrationEmployeeGetAvailableUniversityPositionsApiResponse,
       GetApiRegistrationEmployeeGetAvailableUniversityPositionsApiArg
     >({
       query: () => ({
-        url: `/api/Registration/Employee/GetAvailableUniversityPositions`,
-      }),
+        url: `/api/Registration/Employee/GetAvailableUniversityPositions`
+      })
     }),
     getApiRegistrationEmployeeGetAvailableUniversities: build.query<
       GetApiRegistrationEmployeeGetAvailableUniversitiesApiResponse,
@@ -367,9 +368,9 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/api/Registration/Employee/GetAvailableUniversities`,
         params: {
-          Name: queryArg.name,
-        },
-      }),
+          Name: queryArg.name
+        }
+      })
     }),
     postApiRegistrationAdminRegister: build.mutation<
       PostApiRegistrationAdminRegisterApiResponse,
@@ -377,12 +378,12 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Registration/Admin/Register`,
-        method: "POST",
-        body: queryArg.registrationAdminRegisterRequest,
-      }),
-    }),
+        method: 'POST',
+        body: queryArg.registrationAdminRegisterRequest
+      })
+    })
   }),
-  overrideExisting: false,
+  overrideExisting: false
 });
 export { injectedRtkApi as backendApi };
 export type PutApiAdminUsersUpdateApprovalApiResponse = unknown;
@@ -390,7 +391,7 @@ export type PutApiAdminUsersUpdateApprovalApiArg = {
   adminUsersUpdateApprovalRequest: AdminUsersUpdateApprovalRequest;
 };
 export type GetApiAdminUsersGetApiResponse =
-  /** status 200 OK */ AdminUsersGetResponseRead;
+/** status 200 OK */ AdminUsersGetResponseRead;
 export type GetApiAdminUsersGetApiArg = {
   desc?: boolean;
   orderBy?: string;
@@ -403,7 +404,7 @@ export type DeleteApiAdminUniversitiesDeleteApiArg = {
   id: string;
 };
 export type PostApiAdminUniversitiesCreateApiResponse =
-  /** status 200 OK */ AdminUniversitiesCreateResponse;
+/** status 200 OK */ AdminUniversitiesCreateResponse;
 export type PostApiAdminUniversitiesCreateApiArg = {
   adminUniversitiesCreateRequest: AdminUniversitiesCreateRequest;
 };
@@ -416,7 +417,7 @@ export type DeleteApiAdminSpecialtiesDeleteApiArg = {
   id: string;
 };
 export type PostApiAdminSpecialtiesCreateApiResponse =
-  /** status 200 OK */ AdminSpecialtiesCreateResponse;
+/** status 200 OK */ AdminSpecialtiesCreateResponse;
 export type PostApiAdminSpecialtiesCreateApiArg = {
   adminSpecialtiesCreateRequest: AdminSpecialtiesCreateRequest;
 };
@@ -425,7 +426,7 @@ export type DeleteApiAdminGroupsDeleteApiArg = {
   id: string;
 };
 export type PostApiAdminGroupsCreateApiResponse =
-  /** status 200 OK */ AdminGroupsCreateResponse;
+/** status 200 OK */ AdminGroupsCreateResponse;
 export type PostApiAdminGroupsCreateApiArg = {
   adminGroupsCreateRequest: AdminGroupsCreateRequest;
 };
@@ -434,7 +435,7 @@ export type DeleteApiAdminFacultiesDeleteApiArg = {
   id: string;
 };
 export type PostApiAdminFacultiesCreateApiResponse =
-  /** status 200 OK */ AdminFacultiesCreateResponse;
+/** status 200 OK */ AdminFacultiesCreateResponse;
 export type PostApiAdminFacultiesCreateApiArg = {
   adminFacultiesCreateRequest: AdminFacultiesCreateRequest;
 };
@@ -444,7 +445,7 @@ export type DeleteApiAdminDiplomaPeriodsUsersRemoveApiArg = {
   userIds: string[];
 };
 export type GetApiAdminDiplomaPeriodsUsersGetApiResponse =
-  /** status 200 OK */ AdminDiplomaPeriodsUsersGetResponse;
+/** status 200 OK */ AdminDiplomaPeriodsUsersGetResponse;
 export type GetApiAdminDiplomaPeriodsUsersGetApiArg = {
   diplomaPeriodId: string;
   roleType: ContractsUserRoleType;
@@ -458,7 +459,7 @@ export type DeleteApiAdminDiplomaPeriodsDeleteApiArg = {
   id: string;
 };
 export type PostApiAdminDiplomaPeriodsCreateApiResponse =
-  /** status 200 OK */ AdminDiplomaPeriodsCreateResponse;
+/** status 200 OK */ AdminDiplomaPeriodsCreateResponse;
 export type PostApiAdminDiplomaPeriodsCreateApiArg = {
   adminDiplomaPeriodsCreateRequest: AdminDiplomaPeriodsCreateRequest;
 };
@@ -467,12 +468,12 @@ export type DeleteApiAdminDepartmentsDeleteApiArg = {
   id: string;
 };
 export type PostApiAdminDepartmentsCreateApiResponse =
-  /** status 200 OK */ AdminDepartmentsCreateResponse;
+/** status 200 OK */ AdminDepartmentsCreateResponse;
 export type PostApiAdminDepartmentsCreateApiArg = {
   adminDepartmentsCreateRequest: AdminDepartmentsCreateRequest;
 };
 export type GetApiCommonGetUniversitiesApiResponse =
-  /** status 200 OK */ CommonGetUniversitiesResponseRead;
+/** status 200 OK */ CommonGetUniversitiesResponseRead;
 export type GetApiCommonGetUniversitiesApiArg = {
   desc?: boolean;
   orderBy?: string;
@@ -481,7 +482,7 @@ export type GetApiCommonGetUniversitiesApiArg = {
   filter?: string;
 };
 export type GetApiCommonGetSpecialtiesApiResponse =
-  /** status 200 OK */ CommonGetSpecialtiesResponseRead;
+/** status 200 OK */ CommonGetSpecialtiesResponseRead;
 export type GetApiCommonGetSpecialtiesApiArg = {
   desc?: boolean;
   orderBy?: string;
@@ -490,7 +491,7 @@ export type GetApiCommonGetSpecialtiesApiArg = {
   filter?: string;
 };
 export type GetApiCommonGetGroupsApiResponse =
-  /** status 200 OK */ CommonGetGroupsResponseRead;
+/** status 200 OK */ CommonGetGroupsResponseRead;
 export type GetApiCommonGetGroupsApiArg = {
   desc?: boolean;
   orderBy?: string;
@@ -499,7 +500,7 @@ export type GetApiCommonGetGroupsApiArg = {
   filter?: string;
 };
 export type GetApiCommonGetFacultiesApiResponse =
-  /** status 200 OK */ CommonGetFacultiesResponseRead;
+/** status 200 OK */ CommonGetFacultiesResponseRead;
 export type GetApiCommonGetFacultiesApiArg = {
   desc?: boolean;
   orderBy?: string;
@@ -508,7 +509,7 @@ export type GetApiCommonGetFacultiesApiArg = {
   filter?: string;
 };
 export type GetApiCommonGetDiplomaPeriodsApiResponse =
-  /** status 200 OK */ CommonGetDiplomaPeriodsResponseRead;
+/** status 200 OK */ CommonGetDiplomaPeriodsResponseRead;
 export type GetApiCommonGetDiplomaPeriodsApiArg = {
   desc?: boolean;
   orderBy?: string;
@@ -517,7 +518,7 @@ export type GetApiCommonGetDiplomaPeriodsApiArg = {
   filter?: string;
 };
 export type GetApiCommonGetDepartmentsApiResponse =
-  /** status 200 OK */ CommonGetDepartmentsResponseRead;
+/** status 200 OK */ CommonGetDepartmentsResponseRead;
 export type GetApiCommonGetDepartmentsApiArg = {
   desc?: boolean;
   orderBy?: string;
@@ -526,24 +527,24 @@ export type GetApiCommonGetDepartmentsApiArg = {
   filter?: string;
 };
 export type GetApiIdentityRefreshApiResponse =
-  /** status 200 OK */ IdentityRefreshResponse;
+/** status 200 OK */ IdentityRefreshResponse;
 export type GetApiIdentityRefreshApiArg = void;
 export type PostApiIdentityLogoutApiResponse = unknown;
 export type PostApiIdentityLogoutApiArg = void;
 export type PostApiIdentityLoginApiResponse =
-  /** status 200 OK */ IdentityLoginResponse;
+/** status 200 OK */ IdentityLoginResponse;
 export type PostApiIdentityLoginApiArg = {
   identityLoginRequest: IdentityLoginRequest;
 };
 export type GetApiIdentityInfoApiResponse =
-  /** status 200 OK */ IdentityInfoResponse;
+/** status 200 OK */ IdentityInfoResponse;
 export type GetApiIdentityInfoApiArg = void;
 export type PostApiRegistrationStudentRegisterApiResponse = unknown;
 export type PostApiRegistrationStudentRegisterApiArg = {
   registrationStudentRegisterRequest: RegistrationStudentRegisterRequest;
 };
 export type GetApiRegistrationStudentGetAvailableGroupsApiResponse =
-  /** status 200 OK */ RegistrationStudentGetAvailableGroupsResponse;
+/** status 200 OK */ RegistrationStudentGetAvailableGroupsResponse;
 export type GetApiRegistrationStudentGetAvailableGroupsApiArg = {
   number: string;
 };
@@ -552,11 +553,11 @@ export type PostApiRegistrationEmployeeRegisterApiArg = {
   registrationEmployeeRegisterRequest: RegistrationEmployeeRegisterRequest;
 };
 export type GetApiRegistrationEmployeeGetAvailableUniversityPositionsApiResponse =
-  /** status 200 OK */ RegistrationEmployeeGetAvailableUniversityPositionsResponse;
+/** status 200 OK */ RegistrationEmployeeGetAvailableUniversityPositionsResponse;
 export type GetApiRegistrationEmployeeGetAvailableUniversityPositionsApiArg =
   void;
 export type GetApiRegistrationEmployeeGetAvailableUniversitiesApiResponse =
-  /** status 200 OK */ RegistrationEmployeeGetAvailableUniversitiesResponse;
+/** status 200 OK */ RegistrationEmployeeGetAvailableUniversitiesResponse;
 export type GetApiRegistrationEmployeeGetAvailableUniversitiesApiArg = {
   name: string;
 };
@@ -886,12 +887,14 @@ export type RegistrationAdminRegisterRequest = {
   email?: string | null;
   birthday?: string | null;
 };
+
 export enum ContractsUserRoleType {
-  None = "None",
-  Admin = "Admin",
-  Employee = "Employee",
-  Student = "Student",
+  None = 'None',
+  Admin = 'Admin',
+  Employee = 'Employee',
+  Student = 'Student',
 }
+
 export const {
   usePutApiAdminUsersUpdateApprovalMutation,
   useGetApiAdminUsersGetQuery,
@@ -939,5 +942,5 @@ export const {
   useLazyGetApiRegistrationEmployeeGetAvailableUniversityPositionsQuery,
   useGetApiRegistrationEmployeeGetAvailableUniversitiesQuery,
   useLazyGetApiRegistrationEmployeeGetAvailableUniversitiesQuery,
-  usePostApiRegistrationAdminRegisterMutation,
+  usePostApiRegistrationAdminRegisterMutation
 } = injectedRtkApi;

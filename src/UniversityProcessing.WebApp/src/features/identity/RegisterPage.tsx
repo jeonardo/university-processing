@@ -12,7 +12,7 @@ const RegisterPage = () => {
 
   return (
     <Container
-      className='flex flex-col max-h-full place-items-center'
+      className="flex flex-col max-h-full place-items-center"
       maxWidth="xs">
 
       <Avatar sx={{ bgcolor: 'primary.light' }}>

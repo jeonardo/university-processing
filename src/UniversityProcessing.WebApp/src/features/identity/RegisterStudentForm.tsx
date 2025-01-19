@@ -3,7 +3,10 @@ import { Autocomplete, Button, CircularProgress, debounce, FormControl, Stack, T
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
-import { useLazyGetApiRegistrationStudentGetAvailableGroupsQuery, usePostApiRegistrationStudentRegisterMutation } from 'src/api/backendApi';
+import {
+  useLazyGetApiRegistrationStudentGetAvailableGroupsQuery,
+  usePostApiRegistrationStudentRegisterMutation
+} from 'src/api/backendApi';
 import { enqueueSnackbarError } from 'src/core/helpers';
 
 const RegisterStudentForm = () => {
@@ -34,21 +37,21 @@ const RegisterStudentForm = () => {
 
     const response = await tryregister({
       registrationStudentRegisterRequest:
-      {
-        password: password,
-        userName: userName,
-        firstName: firstName,
-        lastName: lastName,
-        middleName: middleName,
-        birthday: birthday.toISOString(),
-        email: email,
-        groupNumber: group
+        {
+          password: password,
+          userName: userName,
+          firstName: firstName,
+          lastName: lastName,
+          middleName: middleName,
+          birthday: birthday.toISOString(),
+          email: email,
+          groupNumber: group
 
-      }
+        }
     });
 
     if (response.error) {
-      enqueueSnackbarError(response.error)
+      enqueueSnackbarError(response.error);
     }
   };
 

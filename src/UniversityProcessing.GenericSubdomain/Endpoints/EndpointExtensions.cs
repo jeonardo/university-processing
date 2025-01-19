@@ -41,6 +41,7 @@ public static class EndpointExtensions
 
     public static RouteHandlerBuilder HasPermission(this RouteHandlerBuilder app, string permission)
     {
+        //TODO
         return app.RequireAuthorization(permission);
     }
 }

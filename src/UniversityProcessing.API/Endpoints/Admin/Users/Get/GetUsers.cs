@@ -6,7 +6,6 @@ using UniversityProcessing.GenericSubdomain.Filters;
 using UniversityProcessing.GenericSubdomain.Namespace;
 using UniversityProcessing.GenericSubdomain.Pagination;
 using UniversityProcessing.Repository.Repositories;
-using UniversityProcessing.Repository.Specifications;
 
 namespace UniversityProcessing.API.Endpoints.Admin.Users.Get;
 
@@ -27,10 +26,13 @@ internal sealed class GetUsers : IEndpoint
         CancellationToken cancellationToken)
     {
         var validRequest = request.GetValidQueryParameters();
-        var count = await repository.CountAsync(cancellationToken);
 
         var specification = new GetGetUsersSpec(validRequest);
         var entities = await repository.ListAsync(specification, cancellationToken);
+
+        var count = validRequest.IsFilterSet
+            ? entities.Count
+            : await repository.CountAsync(cancellationToken);
 
         return new GetUsersResponseDto(new PagedList<UserDto>(entities, count, validRequest.PageNumber, validRequest.PageSize));
     }

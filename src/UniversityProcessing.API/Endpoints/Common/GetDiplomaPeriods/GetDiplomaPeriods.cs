@@ -25,10 +25,13 @@ internal sealed class GetDiplomaPeriods : IEndpoint
         CancellationToken cancellationToken)
     {
         var validRequest = request.GetValidQueryParameters();
-        var count = await repository.CountAsync(cancellationToken);
 
         var specification = new DiplomaPeriodListSpec(validRequest.PageNumber, validRequest.PageSize, validRequest.OrderBy, validRequest.Desc);
         var entities = await repository.ListAsync(specification, cancellationToken);
+
+        var count = validRequest.IsFilterSet
+            ? entities.Count
+            : await repository.CountAsync(cancellationToken);
 
         return new GetDiplomaPeriodsResponseDto(new PagedList<DiplomaPeriodDto>(entities.Select(ToDto), count, validRequest.PageNumber, validRequest.PageSize));
     }

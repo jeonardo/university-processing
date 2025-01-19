@@ -7,7 +7,7 @@ export function localStorageGetObject<T>(dataKey: string): T | null {
       return JSON.parse(data) as T;
     }
   } catch (error) {
-    logDebug(error)
+    logDebug(error);
   }
 
   return null;
@@ -20,7 +20,7 @@ export function localStorageGetString(dataKey: string): string | null {
       return data;
     }
   } catch (error) {
-    logDebug(error)
+    logDebug(error);
   }
 
   return null;
@@ -35,7 +35,7 @@ export function localStorageSetData(dataKey: string, dataToSet: any): boolean {
     }
     return true;
   } catch (error) {
-    logDebug(error)
+    logDebug(error);
   }
 
   return false;

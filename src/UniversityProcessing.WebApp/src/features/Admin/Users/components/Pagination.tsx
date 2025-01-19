@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pagination as MUIPagination, Box } from '@mui/material';
+import { Box, Pagination as MUIPagination } from '@mui/material';
 
 interface PaginationProps {
   currentPage: number;
@@ -9,7 +9,7 @@ interface PaginationProps {
 
 const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
   return (
-    <Box className="flex justify-center mt-4">
+    <Box className="flex justify-center pt-4">
       <MUIPagination
         count={totalPages}
         page={currentPage}
