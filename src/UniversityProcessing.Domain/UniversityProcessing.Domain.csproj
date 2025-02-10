@@ -1,14 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <PackageReference Include="Ardalis.GuardClauses"/>
-    <PackageReference Include="Serilog.AspNetCore"/>
-    <PackageReference Include="Serilog.Sinks.Console"/>
-    <PackageReference Include="Serilog.Sinks.File"/>
-    <PackageReference Include="System.Security.Claims"/>
     <PackageReference Include="System.Text.Json"/>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore"/>
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt"/>
-    <PackageReference Include="Ardalis.SharedKernel"/>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniversityProcessing.GenericSubdomain\UniversityProcessing.GenericSubdomain.csproj"/>

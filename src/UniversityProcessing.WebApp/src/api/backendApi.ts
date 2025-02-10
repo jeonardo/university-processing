@@ -322,6 +322,16 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: () => ({ url: `/api/Identity/Info` })
     }),
+    postApiIdentityChangePassword: build.mutation<
+      PostApiIdentityChangePasswordApiResponse,
+      PostApiIdentityChangePasswordApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Identity/ChangePassword`,
+        method: 'POST',
+        body: queryArg.identityChangePasswordRequest
+      })
+    }),
     postApiRegistrationStudentRegister: build.mutation<
       PostApiRegistrationStudentRegisterApiResponse,
       PostApiRegistrationStudentRegisterApiArg
@@ -539,6 +549,10 @@ export type PostApiIdentityLoginApiArg = {
 export type GetApiIdentityInfoApiResponse =
 /** status 200 OK */ IdentityInfoResponse;
 export type GetApiIdentityInfoApiArg = void;
+export type PostApiIdentityChangePasswordApiResponse = unknown;
+export type PostApiIdentityChangePasswordApiArg = {
+  identityChangePasswordRequest: IdentityChangePasswordRequest;
+};
 export type PostApiRegistrationStudentRegisterApiResponse = unknown;
 export type PostApiRegistrationStudentRegisterApiArg = {
   registrationStudentRegisterRequest: RegistrationStudentRegisterRequest;
@@ -837,6 +851,11 @@ export type IdentityInfoResponse = {
   roleType?: ContractsUserRoleType;
   approved?: boolean;
 };
+export type IdentityChangePasswordRequest = {
+  userName: string;
+  password: string;
+  newPassword: string;
+};
 export type RegistrationStudentRegisterRequest = {
   userName: string;
   password: string;
@@ -934,6 +953,7 @@ export const {
   usePostApiIdentityLoginMutation,
   useGetApiIdentityInfoQuery,
   useLazyGetApiIdentityInfoQuery,
+  usePostApiIdentityChangePasswordMutation,
   usePostApiRegistrationStudentRegisterMutation,
   useGetApiRegistrationStudentGetAvailableGroupsQuery,
   useLazyGetApiRegistrationStudentGetAvailableGroupsQuery,

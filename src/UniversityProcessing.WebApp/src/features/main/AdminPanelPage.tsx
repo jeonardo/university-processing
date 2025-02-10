@@ -1,6 +1,4 @@
-import * as React from 'react';
-import Grid from '@mui/material/Grid';
-import { ButtonBase, Card, CardContent, Container, Typography } from '@mui/material';
+import { ButtonBase, Card, CardContent, Container, Grid2, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const arr = [
@@ -10,7 +8,8 @@ const arr = [
   ['Группы', 'Просмотр и регистрация новых групп', '/groups', 4],
   ['Специальности', 'Просмотр и регистрация новых специальностей', '/specialties', 5],
   ['Сессии', 'Просмотр и регистрация новых сессий', '/diplomaPeriods', 6],
-  ['Пользователи', 'Просмотр и утверждение новых пользователей', '/users', 7]
+  ['Пользователи', 'Просмотр и утверждение новых пользователей', '/users', 7],
+  ['Test', 'Test Test Test', '/test', 8]
 ];
 
 
@@ -18,12 +17,12 @@ const AdminPanelPage = () => {
   const navigate = useNavigate();
   return (
     <Container maxWidth="lg">
-      <Grid container spacing={2}>
+      <Grid2 container spacing={3} justifyContent={'center'}>
         {
-          arr.map((el) => (
-            <Grid item key={el[3] as number} xs={12} sm={6} md={4} lg={3}>
+          arr.map((el, index) => (
+            <Grid2 component="div" key={index}>
               <ButtonBase onClick={() => navigate(el[2] as string)}>
-                <Card sx={{ height: 120, width: 250 }}>
+                <Card sx={{ height: 120, width: 300 }}>
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                       {el[0]}
@@ -34,10 +33,10 @@ const AdminPanelPage = () => {
                   </CardContent>
                 </Card>
               </ButtonBase>
-            </Grid>
+            </Grid2>
           ))
         }
-      </Grid>
+      </Grid2>
     </Container>
   );
 };

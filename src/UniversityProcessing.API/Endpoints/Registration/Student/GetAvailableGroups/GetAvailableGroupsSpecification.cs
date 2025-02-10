@@ -1,5 +1,5 @@
 using Ardalis.Specification;
-using UniversityProcessing.Domain.UniversityStructure;
+using UniversityProcessing.Domain;
 
 namespace UniversityProcessing.API.Endpoints.Registration.Student.GetAvailableGroups;
 

@@ -1,5 +1,5 @@
 using Ardalis.Specification;
-using UniversityProcessing.Domain.UniversityStructure;
+using UniversityProcessing.Domain;
 
 namespace UniversityProcessing.Repository.Specifications;
 

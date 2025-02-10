@@ -1,5 +1,5 @@
 using UniversityProcessing.API.Endpoints.Contracts;
-using UniversityProcessing.Domain;
+using UniversityProcessing.GenericSubdomain.Authorization;
 
 namespace UniversityProcessing.API.Endpoints.Converters;
 

@@ -1,9 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
+    <PackageReference Include="System.Security.Claims"/>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt"/>
     <PackageReference Include="Swashbuckle.AspNetCore"/>
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design"/>
+    <PackageReference Include="Serilog.AspNetCore"/>
+    <PackageReference Include="Serilog.Sinks.Console"/>
+    <PackageReference Include="Serilog.Sinks.File"/>
   </ItemGroup>
 
   <ItemGroup>
@@ -17,10 +22,34 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Endpoints\Admin\Universities\"/>
+    <Folder Include="Endpoints\Admin\Faculties\SetLeader\"/>
+    <Folder Include="Endpoints\Admin\Periods\Create\"/>
+    <Folder Include="Endpoints\Admin\Periods\Delete\"/>
+    <Folder Include="Endpoints\Admin\Periods\Get\"/>
     <Folder Include="Endpoints\Admin\Users\"/>
+    <Folder Include="Endpoints\Employee\Deanery\Departments\SetLeader\"/>
+    <Folder Include="Endpoints\Employee\Deanery\DiplomaProcesses\SetAvailableDays\"/>
+    <Folder Include="Endpoints\Employee\Deanery\Groups\AddUser\"/>
+    <Folder Include="Endpoints\Employee\Deanery\Groups\RemoveUser\"/>
+    <Folder Include="Endpoints\Employee\GetUsers\"/>
+    <Folder Include="Endpoints\Employee\Teacher\Committees\FillDiplomaProcess\"/>
+    <Folder Include="Endpoints\Employee\Teacher\Committees\SetDiplomaProcessDay\"/>
+    <Folder Include="Endpoints\Employee\Teacher\Committees\SetStudentMark\"/>
+    <Folder Include="Endpoints\Employee\Teacher\DepartmentLeader\DiplomaProcesses\SetRequiredTopics\"/>
+    <Folder Include="Endpoints\Employee\Teacher\DepartmentLeader\DiplomaProcesses\SetStudentSupervisorLimit\"/>
+    <Folder Include="Endpoints\Employee\Teacher\DepartmentLeader\DiplomaProcesses\SetTopicApproval\"/>
+    <Folder Include="Endpoints\Employee\Teacher\DiplomaProcesses\AddTopic\"/>
+    <Folder Include="Endpoints\Employee\Teacher\DiplomaProcesses\RespondStudentRequest\"/>
+    <Folder Include="Endpoints\Employee\Teacher\DiplomaProcesses\Comment\"/>
+    <Folder Include="Endpoints\Employee\Teacher\DiplomaProcesses\GetWithMyStudents\"/>
+    <Folder Include="Endpoints\Employee\Teacher\DiplomaProcesses\RemoveTopic\"/>
+    <Folder Include="Endpoints\Identity\RemoveRequest\"/>
+    <Folder Include="Endpoints\Notifications\Get\"/>
+    <Folder Include="Endpoints\Student\GetDiplomaPeriod\"/>
+    <Folder Include="Endpoints\Student\GetSupervisors\"/>
+    <Folder Include="Endpoints\Student\RequestSupervisor\"/>
+    <Folder Include="Endpoints\Student\UploadDiploma\"/>
     <Folder Include="Logs\"/>
-    <Folder Include="Validators\"/>
     <Folder Include="wwwroot\"/>
     <Folder Include="wwwroot\client\"/>
   </ItemGroup>

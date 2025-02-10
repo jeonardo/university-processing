@@ -1,9 +1,9 @@
-using UniversityProcessing.Domain.UniversityStructure;
+using UniversityProcessing.Domain;
 
 namespace UniversityProcessing.Repository.Specifications;
 
 public sealed class DiplomaPeriodListSpec(int pageNumber, int pageSize, string orderBy, bool desc)
-    : BaseListSpec<DiplomaPeriod>(pageNumber, pageSize, orderBy, desc)
+    : BaseListSpec<DiplomaProcess>(pageNumber, pageSize, orderBy, desc)
 {
     protected override string[] AvailableProperties => ["id", "start_date", "end_date"];
 }

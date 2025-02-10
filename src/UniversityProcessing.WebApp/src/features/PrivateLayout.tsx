@@ -5,7 +5,7 @@ import { logout, setUser } from 'src/features/identity/auth.slice';
 import { useEffect } from 'react';
 import { Box, Button, Modal, Typography } from '@mui/material';
 import { useGetApiIdentityInfoQuery } from 'src/api/backendApi';
-import CommonLoader from 'src/components/CommonLoader';
+import AppLoader from 'src/components/AppLoader';
 
 const PrivateLayout: React.FC = () => {
   const authState = useAppSelector(state => state.auth);
@@ -44,7 +44,7 @@ const PrivateLayout: React.FC = () => {
   //     return <Navigate replace to={"/signin"} /> 
 
   if (!authState.user) {
-    return (<CommonLoader />);
+    return (<AppLoader />);
   }
 
   if (!authState.user.approved) {

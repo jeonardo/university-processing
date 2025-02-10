@@ -3,6 +3,7 @@
     <PackageReference Include="Ardalis.GuardClauses"/>
     <PackageReference Include="Ardalis.Result"/>
     <PackageReference Include="Ardalis.Specification"/>
+    <PackageReference Include="Ardalis.SharedKernel"/>
     <PackageReference Include="FluentValidation"/>
     <PackageReference Include="MediatR"/>
     <PackageReference Include="MediatR.Contracts"/>

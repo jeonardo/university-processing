@@ -1,20 +1,17 @@
 using System.Reflection;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using UniversityProcessing.API.Options;
 using UniversityProcessing.API.Services.Auth;
-using UniversityProcessing.Domain.Identity;
 using UniversityProcessing.DomainServices;
 using UniversityProcessing.GenericSubdomain.Configuration;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Middlewares.Extensions;
 using UniversityProcessing.GenericSubdomain.Swagger;
 using UniversityProcessing.Infrastructure;
-using UniversityProcessing.Infrastructure.Seeds;
+using UniversityProcessing.Infrastructure.Extensions;
 
 namespace UniversityProcessing.API;
 
@@ -26,24 +23,21 @@ public static partial class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddAppSwagger();
-        builder.Services.AddCorrelationIdGeneratorService();
-        builder.Services.AddHttpContextAccessor();
-
-        AddSerilog(builder);
-        AddIdentity(builder.Services);
-        AddAuthentication(builder.Services, builder.Configuration);
-
-        InfrastructureRegistrar.Configure(builder.Configuration, builder.Services);
-        DomainServicesRegistrar.Configure(builder.Configuration, builder.Services);
-
-        builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        builder.RegisterSettings();
+        builder.AddSerilog();
+        builder.AddAuthentication();
         builder.AddEndpoints(Assembly.GetExecutingAssembly());
         builder.AddApplicationCors();
 
-        var app = builder.Build();
+        builder.Services.AddAppSwagger();
+        builder.Services.AddCorrelationIdGeneratorService();
+        builder.Services.AddHttpContextAccessor();
+        builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-        app.MapEndpoints();
+        InfrastructureRegistrar.Configure(builder);
+        DomainServicesRegistrar.Configure(builder);
+
+        var app = builder.Build();
 
         if (app.Environment.IsDevelopment())
         {
@@ -51,14 +45,14 @@ public static partial class Program
             app.MigrateDb();
         }
 
-        app.UseProtectedMiddleware();
-        app.UseSerilogRequestLogging();
-
+        app.MapEndpoints();
         app.UseCors(APPLICATION_CORS_POLICY);
         app.UseHttpsRedirection();
-
-        app.UseFileServer();
         app.MapFallbackToFile("/index.html");
+        app.UseFileServer();
+
+        app.UseProtectedMiddleware();
+        app.UseSerilogRequestLogging();
 
         app.UseAuthentication();
         app.UseAuthorization();
@@ -66,67 +60,18 @@ public static partial class Program
         await app.RunAsync();
     }
 
-    private static WebApplication MigrateDb(this WebApplication app)
+    private static void RegisterSettings(this WebApplicationBuilder builder)
     {
-        using var serviceScope = app.Services
-            .GetRequiredService<IServiceScopeFactory>()
-            .CreateScope();
-
-        var logger = serviceScope.ServiceProvider.GetRequiredService<ILogger<ApplicationDbContext>>();
-        var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-        logger.LogInformation("Database prepearing");
-
-        try
-        {
-            if (!app.Environment.IsDevelopment())
-            {
-                for (var i = 0; i < 15; i++)
-                {
-                    if (dbContext.Database.CanConnect())
-                    {
-                        break;
-                    }
-
-                    logger.LogInformation("Database not ready yet; waiting...");
-                    Thread.Sleep(5000);
-
-                    if (i is 14)
-                    {
-                        throw new Exception("Database connection lost!");
-                    }
-                }
-            }
-
-            logger.LogInformation("Migrating database...");
-
-            dbContext.Database.Migrate();
-
-            if (app.Environment.IsDevelopment())
-            {
-                serviceScope.ServiceProvider.GetRequiredService<UniversitySeed>().Seed().GetAwaiter().GetResult();
-            }
-
-            logger.LogInformation("Database migrated successfully");
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "An error occurred while migrating the database");
-            throw new ApplicationException(ex.Message);
-        }
-
-        app.Logger.LogInformation("Launching UniversityProcessing.API...");
-        return app;
+        builder.AddSettingsWithValidateOnStart<AuthSettings>();
+        builder.AddSettingsWithValidateOnStart<CorsSettings>();
+        builder.AddSettingsWithValidateOnStart<LoggerSettings>();
+        builder.AddSettingsWithValidateOnStart<UniversitySettings>();
     }
 
     private static void AddApplicationCors(this WebApplicationBuilder builder)
     {
-        builder.Services
-            .AddOptionsWithValidateOnStart<CorsOptions>()
-            .Bind(builder.Configuration.GetSection(nameof(CorsOptions)));
-
         var allowedOrigins = builder.Configuration
-            .GetOptions<CorsOptions>()
+            .GetSettings<CorsSettings>()
             .GetAllowedOrigins();
 
         builder.Services.AddCors(
@@ -145,43 +90,24 @@ public static partial class Program
             });
     }
 
-    private static void AddSerilog(WebApplicationBuilder builder)
+    private static void AddSerilog(this WebApplicationBuilder builder)
     {
-        var logger = new LoggerConfiguration()
-            .ReadFrom.Configuration(builder.Configuration)
-            .WriteTo.Console()
+        var settings = builder.Configuration.GetSettings<LoggerSettings>();
 
-            //TODO .WriteTo.File(Path.Combine("Logs", "log.txt"), rollingInterval: RollingInterval.Day)
+        var logger = new LoggerConfiguration()
+            .ReadFrom.Settings(settings)
+            .WriteTo.Console()
             .CreateLogger();
 
         builder.Host.UseSerilog(logger);
     }
 
-    private static void AddIdentity(IServiceCollection services)
+    private static void AddAuthentication(this WebApplicationBuilder builder)
     {
-        services
-            .AddIdentity<User, UserRole>(
-                x =>
-                {
-                    x.Password.RequireUppercase = false;
-                    x.Password.RequireLowercase = false;
-                    x.Password.RequiredLength = 4;
-                    x.Password.RequireNonAlphanumeric = false;
-                    x.Password.RequireDigit = false;
-                })
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders();
-    }
-
-    private static void AddAuthentication(IServiceCollection services, IConfiguration configuration)
-    {
-        services
-            .AddOptionsWithValidateOnStart<AuthOptions>()
-            .Bind(configuration.GetSection(nameof(AuthOptions)));
+        var services = builder.Services;
+        var settings = builder.Configuration.GetSettings<AuthSettings>();
 
         services.AddSingleton<ITokenService, TokenService>();
-
-        var authOptions = configuration.GetOptions<AuthOptions>();
 
         services
             .AddAuthentication(
@@ -195,8 +121,8 @@ public static partial class Program
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidIssuer = authOptions.Issuer,
-                        IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(authOptions.AccessKey)),
+                        ValidIssuer = settings.Issuer,
+                        IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(settings.AccessKey)),
                         ValidateIssuerSigningKey = true,
                         ValidateIssuer = true,
                         ValidateAudience = false,

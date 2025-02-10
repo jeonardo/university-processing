@@ -1,5 +1,5 @@
 using System.Collections.Immutable;
-using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.Domain;
 
 namespace UniversityProcessing.API;
 

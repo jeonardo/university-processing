@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.API.Endpoints.Converters;
 using UniversityProcessing.API.Services.Auth;
 using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Namespace;
+using UniversityProcessing.GenericSubdomain.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Identity.Info;
 
@@ -10,9 +10,10 @@ internal sealed class Info : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
+        var type = typeof(Info);
         app
-            .MapGet(NamespaceService.GetEndpointRoute(typeof(Info)), Handle)
-            .WithTags(Tags.IDENTITY)
+            .MapGet(NamespaceService.GetEndpointRoute(type), Handle)
+            .WithTags(NamespaceService.GetEndpointTags(type))
             .RequireAuthorization();
     }
 

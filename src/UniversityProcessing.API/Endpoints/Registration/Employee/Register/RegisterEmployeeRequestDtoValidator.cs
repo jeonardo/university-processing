@@ -1,6 +1,6 @@
 using FluentValidation;
-using UniversityProcessing.Domain.UniversityStructure;
-using UniversityProcessing.Domain.Validation;
+using UniversityProcessing.Domain;
+using UniversityProcessing.GenericSubdomain.Validation;
 using UniversityProcessing.Repository.Repositories;
 using UniversityProcessing.Repository.Specifications;
 
@@ -8,7 +8,7 @@ namespace UniversityProcessing.API.Endpoints.Registration.Employee.Register;
 
 public sealed class RegisterEmployeeRequestDtoValidator : AbstractValidator<RegisterEmployeeRequestDto>
 {
-    public RegisterEmployeeRequestDtoValidator(IEfReadRepository<University> universityRepository, IEfReadRepository<UniversityPosition> universityPositionRepository)
+    public RegisterEmployeeRequestDtoValidator(IEfReadRepository<UniversityPosition> universityPositionRepository)
     {
         RuleFor(x => x.UserName)
             .NotEmpty()
@@ -38,11 +38,6 @@ public sealed class RegisterEmployeeRequestDtoValidator : AbstractValidator<Regi
         RuleFor(x => x.MiddleName)
             .MaximumLength(ValidationConstants.MAX_STRING_LENGTH)
             .WithMessage("MiddleName must be valid. Max length = " + ValidationConstants.MAX_STRING_LENGTH);
-
-        RuleFor(x => x.UniversityId)
-            .MustAsync((x, cancellationToken) => universityRepository.AnyAsync(new GetByIdSpec<University>(x.GetValueOrDefault()), cancellationToken))
-            .When(x => x.UniversityId.HasValue)
-            .WithMessage("University not found");
 
         RuleFor(x => x.UniversityPositionId)
             .MustAsync((x, cancellationToken) => universityPositionRepository.AnyAsync(new GetByIdSpec<UniversityPosition>(x.GetValueOrDefault()), cancellationToken))

@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.API.Endpoints.Converters;
 using UniversityProcessing.API.Services.Auth;
-using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.Domain;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
-using UniversityProcessing.GenericSubdomain.Namespace;
+using UniversityProcessing.GenericSubdomain.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Identity.Refresh;
 
@@ -13,9 +13,10 @@ internal sealed class Refresh : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
+        var type = typeof(Refresh);
         app
-            .MapGet(NamespaceService.GetEndpointRoute(typeof(Refresh)), Handle)
-            .WithTags(Tags.IDENTITY)
+            .MapGet(NamespaceService.GetEndpointRoute(type), Handle)
+            .WithTags(NamespaceService.GetEndpointTags(type))
             .RequireAuthorization();
     }
 

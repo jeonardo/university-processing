@@ -1,4 +1,3 @@
-using System.Net;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,19 +13,16 @@ public sealed class ValidationFilter<T> : IEndpointFilter
 
         if (validator is null)
         {
-            return await next.Invoke(context);
+            throw new InvalidOperationException("Validator is not registered");
         }
 
         var validationResult = await validator.ValidateAsync(argToValidate!);
 
         if (!validationResult.IsValid)
         {
-            return Results.ValidationProblem(
-                validationResult.ToDictionary(),
-                statusCode: (int)HttpStatusCode.UnprocessableEntity);
+            throw new ValidationException(validationResult.Errors);
         }
 
-        // Otherwise invoke the next filter in the pipeline
         return await next.Invoke(context);
     }
 }

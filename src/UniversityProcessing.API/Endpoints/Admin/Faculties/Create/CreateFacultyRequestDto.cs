@@ -9,6 +9,4 @@ public sealed class CreateFacultyRequestDto
 
     [Required]
     public string ShortName { get; set; } = string.Empty;
-
-    public Guid? UniversityId { get; set; }
 }

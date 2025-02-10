@@ -1,6 +1,11 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UniversityProcessing.Domain;
+using UniversityProcessing.GenericSubdomain.Configuration;
+using UniversityProcessing.Infrastructure.Options;
 using UniversityProcessing.Infrastructure.Repositories;
 using UniversityProcessing.Infrastructure.Seeds;
 using UniversityProcessing.Repository.Context;
@@ -10,36 +15,65 @@ namespace UniversityProcessing.Infrastructure;
 
 public static class InfrastructureRegistrar
 {
-    public static void Configure(IConfiguration configuration, IServiceCollection services)
+    public static void Configure(WebApplicationBuilder builder)
     {
-        AddDbContext(configuration, services);
-        AddRepositories(services);
+        RegisterSettings(builder);
 
-        services.AddTransient<UniversitySeed>();
+        AddDbContext(builder);
+        AddIdentity(builder);
+        AddRepositories(builder);
+
+        builder.Services.AddTransient<UniversitySeed>();
     }
 
-    private static void AddDbContext(IConfiguration configuration, IServiceCollection services)
+    private static void RegisterSettings(this WebApplicationBuilder builder)
     {
+        builder.AddSettingsWithValidateOnStart<DatabaseSettings>();
+        builder.AddSettingsWithValidateOnStart<IdentitySettings>();
+    }
+
+    private static void AddDbContext(this WebApplicationBuilder builder)
+    {
+        var settings = builder.Configuration.GetSettings<DatabaseSettings>();
+
         if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
         {
-            services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(
+            builder.Services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(
                 options =>
                     options
-                        .UseSqlite("Data Source=ApplicationDbContext.db")
+                        .UseSqlite(settings.SqliteConnectionString)
                         .UseSnakeCaseNamingConvention());
             return;
         }
 
-        services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(
+        builder.Services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(
             options =>
                 options
-                    .UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
+                    .UseNpgsql(builder.Configuration.GetConnectionString(settings.ConnectionString))
                     .UseSnakeCaseNamingConvention());
     }
 
-    private static void AddRepositories(IServiceCollection services)
+    private static void AddIdentity(this WebApplicationBuilder builder)
     {
-        services.AddScoped(typeof(IEfRepository<>), typeof(EfRepository<>));
-        services.AddScoped(typeof(IEfReadRepository<>), typeof(EfRepository<>));
+        var settings = builder.Configuration.GetSettings<IdentitySettings>();
+
+        builder.Services
+            .AddIdentity<User, UserRole>(
+                x =>
+                {
+                    x.Password.RequireUppercase = settings.RequireUppercase;
+                    x.Password.RequireLowercase = settings.RequireLowercase;
+                    x.Password.RequiredLength = settings.RequiredLength;
+                    x.Password.RequireNonAlphanumeric = settings.RequireNonAlphanumeric;
+                    x.Password.RequireDigit = settings.RequireDigit;
+                })
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
+    }
+
+    private static void AddRepositories(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddScoped(typeof(IEfRepository<>), typeof(EfRepository<>));
+        builder.Services.AddScoped(typeof(IEfReadRepository<>), typeof(EfRepository<>));
     }
 }

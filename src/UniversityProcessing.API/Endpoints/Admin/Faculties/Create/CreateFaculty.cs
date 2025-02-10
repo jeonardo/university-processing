@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using UniversityProcessing.Domain.Identity;
-using UniversityProcessing.Domain.UniversityStructure;
+using UniversityProcessing.Domain;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
-using UniversityProcessing.GenericSubdomain.Namespace;
+using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.API.Endpoints.Admin.Faculties.Create;
@@ -12,9 +11,10 @@ internal sealed class CreateFaculty : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
+        var type = typeof(CreateFaculty);
         app
-            .MapPost(NamespaceService.GetEndpointRoute(typeof(CreateFaculty)), Handle)
-            .WithTags(Tags.ADMIN)
+            .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
+            .WithTags(NamespaceService.GetEndpointTags(type))
             .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
             .AddEndpointFilter<ValidationFilter<CreateFacultyRequestDto>>();
     }
@@ -24,7 +24,7 @@ internal sealed class CreateFaculty : IEndpoint
         [FromServices] IEfRepository<Faculty> repository,
         CancellationToken cancellationToken)
     {
-        var newEntity = Faculty.Create(request.Name, request.ShortName, request.UniversityId);
+        var newEntity = Faculty.Create(request.Name, request.ShortName);
 
         await repository.AddAsync(newEntity, cancellationToken);
 

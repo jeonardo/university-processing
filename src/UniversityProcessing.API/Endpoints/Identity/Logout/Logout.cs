@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.Domain;
 using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Namespace;
+using UniversityProcessing.GenericSubdomain.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Identity.Logout;
 
@@ -10,9 +10,10 @@ internal sealed class Logout : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
+        var type = typeof(Logout);
         app
-            .MapPost(NamespaceService.GetEndpointRoute(typeof(Logout)), Handle)
-            .WithTags(Tags.IDENTITY)
+            .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
+            .WithTags(NamespaceService.GetEndpointTags(type))
             .RequireAuthorization();
     }
 

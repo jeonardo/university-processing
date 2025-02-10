@@ -1,17 +1,15 @@
-import UserSettingsPage from 'src/features/userSettings/UserSettingsPage';
 import LogoutPage from 'src/features/identity/LogoutPage';
-import AdminPanelPage from 'src/features/main/AdminPanelPage';
 import DepartmentListPage from 'src/features/departments/DepartmentListPage';
 import DiplomaPeriodListPage from 'src/features/diplomaPeriods/DiplomaPeriodListPage';
-import FacultyListPage from 'src/features/faculties/FacultyListPage';
 import GroupListPage from 'src/features/groups/GroupListPage';
 import MainPage from 'src/features/main/MainPage';
 import NotFoundPage from 'src/features/notFound/NotFoundPage';
-import ProfilePage from 'src/features/profile/profile.page';
 import SpecialtyListPage from 'src/features/specialties/SpecialtyListPage';
-import UniversityListPage from 'src/features/admin/Universities/UniversitiesPage';
 import UsersPage from 'src/features/admin/Users/UsersPage';
 import PrivateLayout from 'src/features/PrivateLayout';
+import FacultyListPage from 'src/features/faculties/FacultyListPage';
+import UniversityListPage from 'src/features/admin/Universities/UniversityListPage';
+import SettingsPage from 'src/features/settings/SettingsPage';
 
 const PrivateRoutes = {
   path: '/',
@@ -19,20 +17,12 @@ const PrivateRoutes = {
   errorElement: <NotFoundPage />,
   children: [
     {
-      path: 'profile',
-      element: <ProfilePage />
-    },
-    {
       path: 'settings',
-      element: <UserSettingsPage />
+      element: <SettingsPage />
     },
     {
       path: '/',
       element: <MainPage />
-    },
-    {
-      path: '/umt',
-      element: <AdminPanelPage />
     },
     {
       path: '/universities',

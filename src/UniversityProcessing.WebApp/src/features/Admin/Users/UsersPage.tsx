@@ -1,107 +1,48 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Container, debounce, TextField, Typography } from '@mui/material';
-import Pagination from './components/Pagination';
-import UserList from './components/UserList';
+import React, { useEffect, useState } from 'react';
+import { Container, Typography } from '@mui/material';
 import { ContractsUserRoleType, useLazyGetApiAdminUsersGetQuery } from 'src/api/backendApi';
 import { useAppSelector } from 'src/core/hooks';
+import AppListPagination from 'src/components/AppListPagination';
+import AppList from 'src/components/AppList';
+import UserItem from './Сomponents/UserItem';
+import AppListSearch from 'src/components/AppListSearch';
 
 const UsersPage: React.FC = () => {
-
-  const [getUsers, { data, isLoading }] = useLazyGetApiAdminUsersGetQuery({ pollingInterval: 5000 });
-
   const [pageNumber, setPageNumber] = useState(1);
-  const [filter, setFilter] = useState('');
   const [search, setSearch] = useState('');
 
+  const [getData, { data, isLoading }] = useLazyGetApiAdminUsersGetQuery({ pollingInterval: 3000 });
   const isAdmin = useAppSelector(state => state.auth.user?.role == ContractsUserRoleType.Admin);
 
   useEffect(() => {
-    getUsers({ filter: filter, pageNumber: pageNumber });
-  }, [pageNumber, filter]);
+    getData({ filter: search, pageNumber: pageNumber });
+  }, [pageNumber, search]);
 
-  const handlePageChange = (newPageNumber: number) => {
-    if (newPageNumber <= 0) return;
-    setPageNumber(newPageNumber);
-  };
-
-  const handleSearchDebounced = useCallback(debounce((filter: string) => {
+  const SearchValueChanged = (newSearch: string) => {
     setPageNumber(1);
-    setFilter(filter);
-  }, 1000), []);
-
-  const handleSearch = (query: string) => {
-    if (filter == query) return;
-    setSearch(query);
-    handleSearchDebounced(query);
+    setSearch(newSearch);
   };
 
   return (
     <Container maxWidth="md" className="py-8">
       <Typography variant="h4" component="h1" className="pb-6 font-bold">Пользователи</Typography>
-      <TextField
-        id="filter"
-        name="filter"
-        fullWidth
+      <AppListSearch
         label="Поиск по ФИО"
-        value={search}
-        onChange={(e) => handleSearch(e.target.value)}
-      />
-      <UserList
-        users={data?.list?.items ?? []}
-        isAdmin={isAdmin}
-        isLoading={isLoading}
-      />
-      <Pagination
+        onSearchValueChangedDebounced={SearchValueChanged} />
+      <AppList isLoading={isLoading} isEmpty={data?.list?.items?.length == 0}>
+        {
+          data?.list?.items?.map((user) => (
+            <UserItem key={user.id} isAdmin={isAdmin} item={user} />
+          ))
+        }
+      </AppList>
+      <AppListPagination
         currentPage={pageNumber}
         totalPages={data?.list?.totalPages ?? 0}
-        onPageChange={handlePageChange}
+        onPageChange={setPageNumber}
       />
     </Container>
   );
 };
 
 export default UsersPage;
-
-
-// import { useEffect, useMemo, useState } from 'react';
-// import { Box, IconButton, Tooltip } from '@mui/material';
-// import NotInterestedIcon from '@mui/icons-material/NotInterested';
-// import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-// import { useLazyGetApiAdminUsersGetUsersQuery, usePutApiAdminUsersUpdateApprovalMutation } from 'src/api/backendApi';
-
-// type Pagination = {
-//   pageIndex: number;
-//   pageSize: number;
-// }
-
-// const UsersPage = () => {
-//   const [pagination, setPagination] = useState<Pagination>({
-//     pageIndex: 0,
-//     pageSize: 25
-//   });
-
-//   const [getTableData, tableData] = useLazyGetApiAdminUsersGetUsersQuery({ pollingInterval: 50000 });
-//   const [handleUpdateApprovement, handleUpdateApprovementState] = usePutApiAdminUsersUpdateApprovalMutation();
-//   const [isActualTableData, setIsActualTableData] = useState(false);
-
-//   const sendUpdateApprovement = (approved: boolean, user: any) => {
-//     handleUpdateApprovement({ adminUsersUpdateApprovalRequest: { isApproved: approved, userId: user.id ?? '' } });
-//     setTimeout(() => {
-//       setIsActualTableData(false);
-//     }, 1500);
-//   };
-
-//   useEffect(() => {
-//     if (isActualTableData) {
-//       return;
-//     }
-//     //TODO getTableData({ pageNumber: pagination.pageIndex + 1, pageSize: pagination.pageSize });
-//     setIsActualTableData(true);
-//   }, [pagination, isActualTableData, handleUpdateApprovementState]);
-
-//   return (
-
-//   );
-// };
-
-// export default UsersPage;

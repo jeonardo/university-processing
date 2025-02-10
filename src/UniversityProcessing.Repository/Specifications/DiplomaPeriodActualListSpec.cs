@@ -1,8 +1,8 @@
-using UniversityProcessing.Domain.UniversityStructure;
+using UniversityProcessing.Domain;
 
 namespace UniversityProcessing.Repository.Specifications;
 
-public sealed class DiplomaPeriodActualListSpec(int pageNumber, int pageSize, string orderBy, bool desc) : BaseListSpec<DiplomaPeriod>(
+public sealed class DiplomaPeriodActualListSpec(int pageNumber, int pageSize, string orderBy, bool desc) : BaseListSpec<DiplomaProcess>(
     pageNumber,
     pageSize,
     orderBy,

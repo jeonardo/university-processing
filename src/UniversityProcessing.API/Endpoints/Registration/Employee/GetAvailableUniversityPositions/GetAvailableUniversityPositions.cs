@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using UniversityProcessing.Domain.UniversityStructure;
+using UniversityProcessing.Domain;
 using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Namespace;
+using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.API.Endpoints.Registration.Employee.GetAvailableUniversityPositions;
@@ -10,9 +10,10 @@ internal sealed class GetAvailableUniversityPositions : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
+        var type = typeof(GetAvailableUniversityPositions);
         app
-            .MapGet(NamespaceService.GetEndpointRoute(typeof(GetAvailableUniversityPositions)), Handle)
-            .WithTags(Tags.REGISTRATION);
+            .MapGet(NamespaceService.GetEndpointRoute(type), Handle)
+            .WithTags(NamespaceService.GetEndpointTags(type));
     }
 
     private static async Task<GetAvailableUniversityPositionsResponseDto> Handle(

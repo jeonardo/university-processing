@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.Domain;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
+using UniversityProcessing.GenericSubdomain.Identity;
 using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
-using UniversityProcessing.GenericSubdomain.Namespace;
+using UniversityProcessing.GenericSubdomain.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Admin.Users.UpdateApproval;
 
@@ -12,9 +13,10 @@ internal sealed class UpdateApproval : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
+        var type = typeof(UpdateApproval);
         app
-            .MapPut(NamespaceService.GetEndpointRoute(typeof(UpdateApproval)), Handle)
-            .WithTags(Tags.ADMIN)
+            .MapPut(NamespaceService.GetEndpointRoute(type), Handle)
+            .WithTags(NamespaceService.GetEndpointTags(type))
             .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
             .AddEndpointFilter<ValidationFilter<UpdateApprovalRequestDto>>();
     }
@@ -30,7 +32,7 @@ internal sealed class UpdateApproval : IEndpoint
 
         var updateResult = await userManager.UpdateAsync(user);
 
-        if (!updateResult.Succeeded)
+        if (updateResult.IsFailed())
         {
             throw new ConflictException(updateResult.Errors.ToString() ?? "User status wasn't changed");
         }

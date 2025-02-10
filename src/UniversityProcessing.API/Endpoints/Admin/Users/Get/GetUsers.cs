@@ -1,10 +1,10 @@
 using Ardalis.Specification;
 using Microsoft.AspNetCore.Mvc;
-using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.Domain;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
-using UniversityProcessing.GenericSubdomain.Namespace;
 using UniversityProcessing.GenericSubdomain.Pagination;
+using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.API.Endpoints.Admin.Users.Get;
@@ -13,9 +13,10 @@ internal sealed class GetUsers : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
+        var type = typeof(GetUsers);
         app
-            .MapGet(NamespaceService.GetEndpointRoute(typeof(GetUsers)), Handle)
-            .WithTags(Tags.ADMIN)
+            .MapGet(NamespaceService.GetEndpointRoute(type), Handle)
+            .WithTags(NamespaceService.GetEndpointTags(type))
             .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
             .AddEndpointFilter<ValidationFilter<GetUsersRequestDto>>();
     }

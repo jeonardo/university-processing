@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.Domain;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
 using UniversityProcessing.GenericSubdomain.Identity;
 using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
-using UniversityProcessing.GenericSubdomain.Namespace;
+using UniversityProcessing.GenericSubdomain.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Registration.Employee.Register;
 
@@ -13,9 +13,10 @@ internal sealed class RegisterEmployee : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
+        var type = typeof(RegisterEmployee);
         app
-            .MapPost(NamespaceService.GetEndpointRoute(typeof(RegisterEmployee)), Handle)
-            .WithTags(Tags.REGISTRATION)
+            .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
+            .WithTags(NamespaceService.GetEndpointTags(type))
             .AddEndpointFilter<ValidationFilter<RegisterEmployeeRequestDto>>();
     }
 
@@ -32,7 +33,6 @@ internal sealed class RegisterEmployee : IEndpoint
             request.MiddleName,
             request.Email,
             request.Birthday,
-            request.UniversityId,
             request.UniversityPositionId);
 
         var createResult = await userManager.CreateAsync(user, request.Password);

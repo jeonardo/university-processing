@@ -19,7 +19,6 @@ const pages = [
 ];
 
 const settings = [
-  ['profile', 'Профиль'],
   ['settings', 'Настройки'],
   ['logout', 'Выйти из профиля']
 ];

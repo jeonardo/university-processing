@@ -1,5 +1,5 @@
 using FluentValidation;
-using UniversityProcessing.Domain.Validation;
+using UniversityProcessing.GenericSubdomain.Validation;
 
 namespace UniversityProcessing.API.Endpoints.Identity.Login;
 

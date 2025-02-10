@@ -1,4 +1,4 @@
-using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.Domain;
 
 namespace UniversityProcessing.API.Services.Auth;
 

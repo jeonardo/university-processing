@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.API.Endpoints.Converters;
 using UniversityProcessing.API.Services.Auth;
-using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.Domain;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
+using UniversityProcessing.GenericSubdomain.Identity;
 using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
-using UniversityProcessing.GenericSubdomain.Namespace;
+using UniversityProcessing.GenericSubdomain.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Identity.Login;
 
@@ -15,9 +16,10 @@ internal sealed class Login : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
+        var type = typeof(Login);
         app
-            .MapPost(NamespaceService.GetEndpointRoute(typeof(Login)), Handle)
-            .WithTags(Tags.IDENTITY)
+            .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
+            .WithTags(NamespaceService.GetEndpointTags(type))
             .AddEndpointFilter<ValidationFilter<LoginRequestDto>>();
     }
 
@@ -37,7 +39,7 @@ internal sealed class Login : IEndpoint
             false,
             false);
 
-        if (!signInResult.Succeeded)
+        if (signInResult.IsFailed())
         {
             const string errorMessage = "Invalid password";
             throw new ConflictException(errorMessage);

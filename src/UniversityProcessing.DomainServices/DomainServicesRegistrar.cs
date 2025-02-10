@@ -1,15 +1,15 @@
 ﻿using Ardalis.SharedKernel;
 using FluentValidation;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace UniversityProcessing.DomainServices;
 
 public static class DomainServicesRegistrar
 {
-    public static void Configure(IConfiguration configuration, IServiceCollection services)
+    public static void Configure(WebApplicationBuilder builder)
     {
-        services.RegisterRequestHandlers();
+        builder.Services.RegisterRequestHandlers();
     }
 
     private static IServiceCollection RegisterRequestHandlers(this IServiceCollection services)

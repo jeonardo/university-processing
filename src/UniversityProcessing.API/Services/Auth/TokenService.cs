@@ -5,25 +5,25 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using UniversityProcessing.API.Options;
 using UniversityProcessing.Domain;
-using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.GenericSubdomain.Authorization;
 using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
 
 namespace UniversityProcessing.API.Services.Auth;
 
-internal sealed class TokenService(IOptions<AuthOptions> authOptions, ILogger<TokenService> logger) : ITokenService
+internal sealed class TokenService(IOptions<AuthSettings> authOptions, ILogger<TokenService> logger) : ITokenService
 {
-    private readonly AuthOptions _authOptions = authOptions.Value;
+    private readonly AuthSettings _authSettings = authOptions.Value;
 
     public Token GenerateRefreshToken(IEnumerable<Claim> claims)
     {
-        var expires = DateTime.UtcNow.AddMinutes(_authOptions.RefreshTokenLifetimeInMinutes);
-        return GetAuthorizationToken(claims, expires, _authOptions.RefreshKey);
+        var expires = DateTime.UtcNow.AddMinutes(_authSettings.RefreshTokenLifetimeInMinutes);
+        return GetAuthorizationToken(claims, expires, _authSettings.RefreshKey);
     }
 
     public Token GenerateAccessToken(IEnumerable<Claim> claims)
     {
-        var expires = DateTime.UtcNow.AddMinutes(_authOptions.AccessTokenLifetimeInMinutes);
-        return GetAuthorizationToken(claims, expires, _authOptions.AccessKey);
+        var expires = DateTime.UtcNow.AddMinutes(_authSettings.AccessTokenLifetimeInMinutes);
+        return GetAuthorizationToken(claims, expires, _authSettings.AccessKey);
     }
 
     public RefreshTokenClaims GetRefreshTokenClaims(string token)
@@ -34,8 +34,8 @@ internal sealed class TokenService(IOptions<AuthOptions> authOptions, ILogger<To
             ValidateAudience = false,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = _authOptions.Issuer,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authOptions.RefreshKey))
+            ValidIssuer = _authSettings.Issuer,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authSettings.RefreshKey))
         };
 
         try
@@ -72,7 +72,7 @@ internal sealed class TokenService(IOptions<AuthOptions> authOptions, ILogger<To
     private Token GetAuthorizationToken(IEnumerable<Claim> claims, DateTime expires, string key)
     {
         var token = new JwtSecurityToken(
-            _authOptions.Issuer,
+            _authSettings.Issuer,
             claims: claims,
             expires: expires,
             signingCredentials: new SigningCredentials(

@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using UniversityProcessing.Domain.Identity;
-using UniversityProcessing.Domain.UniversityStructure;
+using UniversityProcessing.Domain;
 using UniversityProcessing.Repository.Repositories;
+
+// ReSharper disable All
 
 namespace UniversityProcessing.Infrastructure.Seeds;
 
 public class UniversitySeed(
-    IEfRepository<University> repositoryUniversity,
     IEfRepository<Faculty> repositoryFaculty,
     IEfRepository<Department> repositoryDepartment,
     IEfRepository<UniversityPosition> repositoryUniversityPosition,
@@ -15,8 +15,6 @@ public class UniversitySeed(
     UserManager<User> userManager,
     RoleManager<UserRole> roleManager)
 {
-    private List<University> UniversityValues { get; set; } = [];
-
     private List<Faculty> FacultyValues { get; set; } = [];
 
     private List<Department> DepartmentValues { get; set; } = [];
@@ -35,7 +33,7 @@ public class UniversitySeed(
 
     public async Task Seed()
     {
-        var wasSeedBefore = await repositoryUniversity.AnyAsync();
+        var wasSeedBefore = await repositoryFaculty.AnyAsync();
 
         if (wasSeedBefore)
         {
@@ -49,10 +47,6 @@ public class UniversitySeed(
         var role3 = UserRole.Create(nameof(UserRoleType.Student));
         await roleManager.CreateAsync(role3);
 
-        var bsu = await AddUniversity("Белорусский государственный университет", "БГУ");
-        var bntu = await AddUniversity("Белорусский национальный технологический университет", "БНТУ");
-        var bsuir = await AddUniversity("Белорусский государственный университет информатики и радиоэлектроники", "БГУИР");
-
         var bntu_pos_1 = await AddUniversityPosition("лаборант");
         var bntu_pos_2 = await AddUniversityPosition("старший лаборант");
         var bntu_pos_3 = await AddUniversityPosition("ассистент");
@@ -65,23 +59,23 @@ public class UniversitySeed(
         var bntu_pos_10 = await AddUniversityPosition("проректор");
         var bntu_pos_11 = await AddUniversityPosition("ректор");
 
-        var bntu_faculty_atf = await AddFaculty("Автотракторный факультет", "АТФ", bntu);
-        var bntu_faculty_fgdie = await AddFaculty("Факультет горного дела и инженерной экологии", "ФГДИЭ", bntu);
-        var bntu_faculty_msf = await AddFaculty("Машиностроительный факультет", "МСФ", bntu);
-        var bntu_faculty_mtf = await AddFaculty("Механико-технологический факультет", "МТФ", bntu);
-        var bntu_faculty_fmmp = await AddFaculty("Факультет маркетинга, менеджмента, предпринимательства", "ФММП", bntu);
-        var bntu_faculty_ef = await AddFaculty("Энергетический факультет", "ЭФ", bntu);
-        var bntu_faculty_fitr = await AddFaculty("Факультет информационных технологий и робототехники", "ФИТР", bntu);
-        var bntu_faculty_ftug = await AddFaculty("Факультет технологий управления и гуманитаризации", "ФТУГ", bntu);
-        var bntu_faculty_epf = await AddFaculty("Инженерно-педагогический факультет", "ИПФ", bntu);
-        var bntu_faculty_fes = await AddFaculty("Факультет энергетического строительства", "ФЭС", bntu);
-        var bntu_faculty_af = await AddFaculty("Архитектурный факультет", "АФ", bntu);
-        var bntu_faculty_sf = await AddFaculty("Строительный факультет", "СФ", bntu);
-        var bntu_faculty_psf = await AddFaculty("Приборостроительный факультет", "ПСФ", bntu);
-        var bntu_faculty_ftk = await AddFaculty("Факультет транспортных коммуникаций", "ФТК", bntu);
-        var bntu_faculty_wtf = await AddFaculty("Военно-технический факультет", "ВТФ", bntu);
-        var bntu_faculty_stf = await AddFaculty("Спортивно-технический факультет", "СТФ", bntu);
-        var bntu_faculty_fms = await AddFaculty("Факультет международного сотрудничества", "ФМС", bntu);
+        var bntu_faculty_atf = await AddFaculty("Автотракторный факультет", "АТФ");
+        var bntu_faculty_fgdie = await AddFaculty("Факультет горного дела и инженерной экологии", "ФГДИЭ");
+        var bntu_faculty_msf = await AddFaculty("Машиностроительный факультет", "МСФ");
+        var bntu_faculty_mtf = await AddFaculty("Механико-технологический факультет", "МТФ");
+        var bntu_faculty_fmmp = await AddFaculty("Факультет маркетинга, менеджмента, предпринимательства", "ФММП");
+        var bntu_faculty_ef = await AddFaculty("Энергетический факультет", "ЭФ");
+        var bntu_faculty_fitr = await AddFaculty("Факультет информационных технологий и робототехники", "ФИТР");
+        var bntu_faculty_ftug = await AddFaculty("Факультет технологий управления и гуманитаризации", "ФТУГ");
+        var bntu_faculty_epf = await AddFaculty("Инженерно-педагогический факультет", "ИПФ");
+        var bntu_faculty_fes = await AddFaculty("Факультет энергетического строительства", "ФЭС");
+        var bntu_faculty_af = await AddFaculty("Архитектурный факультет", "АФ");
+        var bntu_faculty_sf = await AddFaculty("Строительный факультет", "СФ");
+        var bntu_faculty_psf = await AddFaculty("Приборостроительный факультет", "ПСФ");
+        var bntu_faculty_ftk = await AddFaculty("Факультет транспортных коммуникаций", "ФТК");
+        var bntu_faculty_wtf = await AddFaculty("Военно-технический факультет", "ВТФ");
+        var bntu_faculty_stf = await AddFaculty("Спортивно-технический факультет", "СТФ");
+        var bntu_faculty_fms = await AddFaculty("Факультет международного сотрудничества", "ФМС");
 
         //check if supervisor has a department
 
@@ -124,20 +118,20 @@ public class UniversitySeed(
             "6-05-0713-05",
             bntu_faculty_fitr_poisit);
 
-        var bntu_polozkov = await AddEmployee("Polozkov_Yuri_Vladimirovich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_8);
-        var bntu_shchukin = await AddEmployee("Shchukin_Mikhail_Vladimirovich", bntu_faculty_fitr_vm.Faculty!.University!, bntu_pos_8);
-        var bntu_khorunzhiy = await AddEmployee("Khorunzhiy_Igor_Anatolievich", bntu_faculty_fitr_tf.Faculty!.University!, bntu_pos_8);
-        var bntu_borodulya = await AddEmployee("Borodulya_Alexey_Valentinovich", bntu_faculty_fitr_rts.Faculty!.University!, bntu_pos_8);
-        var bntu_pavlyukovets = await AddEmployee("Pavlyukovets_Sergey_Anatolievich", bntu_faculty_fitr_zaputk.Faculty!.University!, bntu_pos_8);
+        var bntu_polozkov = await AddEmployee("Polozkov_Yuri_Vladimirovich", bntu_pos_8);
+        var bntu_shchukin = await AddEmployee("Shchukin_Mikhail_Vladimirovich", bntu_pos_8);
+        var bntu_khorunzhiy = await AddEmployee("Khorunzhiy_Igor_Anatolievich", bntu_pos_8);
+        var bntu_borodulya = await AddEmployee("Borodulya_Alexey_Valentinovich", bntu_pos_8);
+        var bntu_pavlyukovets = await AddEmployee("Pavlyukovets_Sergey_Anatolievich", bntu_pos_8);
 
-        var bntu_prikhozhy = await AddEmployee("Prikhozhy_Anatoly_Alekseevich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_7);
-        var bntu_gursky = await AddEmployee("Gursky_Nikolai_Nikolaevich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_6);
-        var bntu_kovaleva = await AddEmployee("Kovaleva_Irina_Lvovna", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_6);
-        var bntu_kunkevich = await AddEmployee("Kunkevich_Dmitry_Petrovich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_6);
-        var bntu_kupriyanov = await AddEmployee("Kupriyanov_Andrey_Borisovich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_6);
-        var bntu_naprasnikov = await AddEmployee("Naprasnikov_Vladimir_Vladimirovich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_6);
-        var bntu_sidorik = await AddEmployee("Sidorik_Valery_Vladimirovich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_6);
-        var bntu_yudenkov = await AddEmployee("Yudenkov_Viktor_Stepanovich", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_6);
+        var bntu_prikhozhy = await AddEmployee("Prikhozhy_Anatoly_Alekseevich", bntu_pos_7);
+        var bntu_gursky = await AddEmployee("Gursky_Nikolai_Nikolaevich", bntu_pos_6);
+        var bntu_kovaleva = await AddEmployee("Kovaleva_Irina_Lvovna", bntu_pos_6);
+        var bntu_kunkevich = await AddEmployee("Kunkevich_Dmitry_Petrovich", bntu_pos_6);
+        var bntu_kupriyanov = await AddEmployee("Kupriyanov_Andrey_Borisovich", bntu_pos_6);
+        var bntu_naprasnikov = await AddEmployee("Naprasnikov_Vladimir_Vladimirovich", bntu_pos_6);
+        var bntu_sidorik = await AddEmployee("Sidorik_Valery_Vladimirovich", bntu_pos_6);
+        var bntu_yudenkov = await AddEmployee("Yudenkov_Viktor_Stepanovich", bntu_pos_6);
 
         var bntu_studyGroup1 = await AddGroup("1", bntu_faculty_fitr_sp1, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
         var bntu_studyGroup2 = await AddGroup("2", bntu_faculty_fitr_sp2, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
@@ -178,20 +172,12 @@ public class UniversitySeed(
 
         await AddAdmin("test_admin");
         await AddStudent("test_student", bntu_studyGroup1);
-        await AddEmployee("test_employee", bntu_faculty_fitr_poisit.Faculty!.University!, bntu_pos_1);
+        await AddEmployee("test_employee", bntu_pos_1);
     }
 
-    private async Task<University> AddUniversity(string name, string shortName)
+    private async Task<Faculty> AddFaculty(string name, string shortName)
     {
-        var result = University.Create(name, shortName);
-        UniversityValues.Add(result);
-        await repositoryUniversity.AddAsync(result);
-        return result;
-    }
-
-    private async Task<Faculty> AddFaculty(string name, string shortName, University university)
-    {
-        var result = Faculty.Create(name, shortName, university.Id);
+        var result = Faculty.Create(name, shortName);
         FacultyValues.Add(result);
         await repositoryFaculty.AddAsync(result);
         return result;
@@ -247,10 +233,9 @@ public class UniversitySeed(
 
     private async Task<User> AddEmployee(
         string username,
-        University university,
         UniversityPosition universityPosition)
     {
-        var result = User.CreateEmployee(username, username, username, universityId: university.Id, universityPositionId: universityPosition.Id);
+        var result = User.CreateEmployee(username, username, username, universityPositionId: universityPosition.Id);
         result.UpdateIsApprovedStatus(true);
         await userManager.CreateAsync(result, username);
         await userManager.AddToRoleAsync(result, nameof(UserRoleType.Employee));

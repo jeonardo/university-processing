@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using UniversityProcessing.Domain.UniversityStructure;
+using UniversityProcessing.Domain;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
-using UniversityProcessing.GenericSubdomain.Namespace;
+using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.API.Endpoints.Registration.Student.GetAvailableGroups;
@@ -11,9 +11,10 @@ internal sealed class GetAvailableGroups : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
+        var type = typeof(GetAvailableGroups);
         app
-            .MapGet(NamespaceService.GetEndpointRoute(typeof(GetAvailableGroups)), Handle)
-            .WithTags(Tags.REGISTRATION)
+            .MapGet(NamespaceService.GetEndpointRoute(type), Handle)
+            .WithTags(NamespaceService.GetEndpointTags(type))
             .AddEndpointFilter<ValidationFilter<GetAvailableGroupsRequestDto>>();
     }
 

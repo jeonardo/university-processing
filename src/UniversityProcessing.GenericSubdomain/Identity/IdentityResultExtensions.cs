@@ -8,4 +8,9 @@ public static class IdentityResultExtensions
     {
         return !result.Succeeded;
     }
+
+    public static bool IsFailed(this SignInResult result)
+    {
+        return !result.Succeeded;
+    }
 }

@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.NameTranslation;
-using UniversityProcessing.Domain.Identity;
-using UniversityProcessing.Domain.UniversityStructure;
+using UniversityProcessing.Domain;
 using UniversityProcessing.Repository.Context;
 
 namespace UniversityProcessing.Infrastructure;
@@ -14,12 +13,12 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     : IdentityDbContext<User, UserRole, Guid>(options), IApplicationDbContext
 {
     public DbSet<Department> Departments => Set<Department>();
-    public DbSet<DiplomaPeriod> DiplomaPeriods => Set<DiplomaPeriod>();
+    public DbSet<DiplomaProcess> DiplomaPeriods => Set<DiplomaProcess>();
     public DbSet<Faculty> Faculties => Set<Faculty>();
     public DbSet<Diploma> Diplomas => Set<Diploma>();
     public DbSet<Specialty> Specialties => Set<Specialty>();
     public DbSet<Group> Groups => Set<Group>();
-    public DbSet<University> Universities => Set<University>();
+    public DbSet<Notification> Notifications => Set<Notification>();
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
     {
@@ -44,17 +43,28 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     public override int SaveChanges()
     {
-        return SaveChangesAsync().GetAwaiter().GetResult();
+        return SaveChangesAsync()
+            .GetAwaiter()
+            .GetResult();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // TPH
-        modelBuilder.Entity<User>().UseTphMappingStrategy();
-
         base.OnModelCreating(modelBuilder);
 
-        // Move Identity to "myschema" Schema:
+        UseTphMappingStrategy(modelBuilder);
+
+        ConfigureRelations(modelBuilder);
+
+        ApplyIdentitySnakeCaseNames(modelBuilder);
+
+        ApplySnakeCaseNames(modelBuilder);
+
+        AddInitData(modelBuilder);
+    }
+
+    private static void ApplyIdentitySnakeCaseNames(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<User>().ToTable("users");
         modelBuilder.Entity<UserRole>().ToTable("roles");
         modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("user_tokens");
@@ -62,11 +72,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("role_claims");
         modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("user_claims");
         modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("user_logins");
-
-        // Apply Snake Case Names for Properties:
-        ApplySnakeCaseNames(modelBuilder);
-
-        AddInitData(modelBuilder);
     }
 
     private static void ApplySnakeCaseNames(ModelBuilder modelBuilder)
@@ -87,5 +92,23 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     private static void AddInitData(ModelBuilder modelBuilder)
     {
         //Can be filled by the real migration
+    }
+
+    private static void UseTphMappingStrategy(ModelBuilder modelBuilder)
+    {
+        modelBuilder
+            .Entity<User>()
+            .UseTphMappingStrategy(); //TODO add details
+    }
+
+    private static void ConfigureRelations(ModelBuilder modelBuilder)
+    {
+        //TODO add manual
+        // modelBuilder
+        //     .Entity<Department>()
+        //     .HasOne(b => b.Faculty)
+        //     .WithMany(a => a.Departments)
+        //     .HasForeignKey(b => b.FacultyId)
+        //     .OnDelete(DeleteBehavior.NoAction);
     }
 }

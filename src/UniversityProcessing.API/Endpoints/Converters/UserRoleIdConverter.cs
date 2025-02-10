@@ -1,5 +1,5 @@
 using UniversityProcessing.API.Endpoints.Contracts;
-using UniversityProcessing.Domain.Identity;
+using UniversityProcessing.Domain;
 
 namespace UniversityProcessing.API.Endpoints.Converters;
 

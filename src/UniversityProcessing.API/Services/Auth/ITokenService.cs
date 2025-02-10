@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using UniversityProcessing.Domain;
+using UniversityProcessing.GenericSubdomain.Authorization;
 
 namespace UniversityProcessing.API.Services.Auth;
 

@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using UniversityProcessing.Domain.Identity;
-using UniversityProcessing.Domain.UniversityStructure;
+using UniversityProcessing.Domain;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
 using UniversityProcessing.GenericSubdomain.Identity;
 using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
-using UniversityProcessing.GenericSubdomain.Namespace;
+using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Repository.Repositories;
 using UniversityProcessing.Repository.Specifications;
 
@@ -16,9 +15,10 @@ internal sealed class RegisterStudent : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
+        var type = typeof(RegisterStudent);
         app
-            .MapPost(NamespaceService.GetEndpointRoute(typeof(RegisterStudent)), Handle)
-            .WithTags(Tags.REGISTRATION)
+            .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
+            .WithTags(NamespaceService.GetEndpointTags(type))
             .AddEndpointFilter<ValidationFilter<RegisterStudentRequestDto>>();
     }
 
