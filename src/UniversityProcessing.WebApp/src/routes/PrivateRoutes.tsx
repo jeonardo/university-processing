@@ -8,7 +8,6 @@ import SpecialtyListPage from 'src/features/specialties/SpecialtyListPage';
 import UsersPage from 'src/features/admin/Users/UsersPage';
 import PrivateLayout from 'src/features/PrivateLayout';
 import FacultyListPage from 'src/features/faculties/FacultyListPage';
-import UniversityListPage from 'src/features/admin/Universities/UniversityListPage';
 import SettingsPage from 'src/features/settings/SettingsPage';
 
 const PrivateRoutes = {
@@ -23,10 +22,6 @@ const PrivateRoutes = {
     {
       path: '/',
       element: <MainPage />
-    },
-    {
-      path: '/universities',
-      element: <UniversityListPage />
     },
     {
       path: '/faculties',

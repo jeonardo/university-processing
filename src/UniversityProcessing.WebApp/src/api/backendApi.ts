@@ -1,5 +1,4 @@
-import { emptySplitApi as api } from './emptyApi';
-
+import { emptySplitApi as api } from "./emptyApi";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
     putApiAdminUsersUpdateApproval: build.mutation<
@@ -8,9 +7,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/Users/UpdateApproval`,
-        method: 'PUT',
-        body: queryArg.adminUsersUpdateApprovalRequest
-      })
+        method: "PUT",
+        body: queryArg.adminUsersUpdateApprovalRequest,
+      }),
     }),
     getApiAdminUsersGet: build.query<
       GetApiAdminUsersGetApiResponse,
@@ -23,85 +22,34 @@ const injectedRtkApi = api.injectEndpoints({
           OrderBy: queryArg.orderBy,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
-          Filter: queryArg.filter
-        }
-      })
+          Filter: queryArg.filter,
+        },
+      }),
     }),
-    deleteApiAdminUniversitiesDelete: build.mutation<
-      DeleteApiAdminUniversitiesDeleteApiResponse,
-      DeleteApiAdminUniversitiesDeleteApiArg
+    postApiAdminRegister: build.mutation<
+      PostApiAdminRegisterApiResponse,
+      PostApiAdminRegisterApiArg
     >({
       query: (queryArg) => ({
-        url: `/api/Admin/Universities/Delete`,
-        method: 'DELETE',
+        url: `/api/Admin/Register`,
+        method: "POST",
+        body: queryArg.adminRegisterRequest,
+      }),
+    }),
+    getApiAdminFacultiesGet: build.query<
+      GetApiAdminFacultiesGetApiResponse,
+      GetApiAdminFacultiesGetApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Admin/Faculties/Get`,
         params: {
-          Id: queryArg.id
-        }
-      })
-    }),
-    postApiAdminUniversitiesCreate: build.mutation<
-      PostApiAdminUniversitiesCreateApiResponse,
-      PostApiAdminUniversitiesCreateApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Admin/Universities/Create`,
-        method: 'POST',
-        body: queryArg.adminUniversitiesCreateRequest
-      })
-    }),
-    patchApiAdminUniversitiesChangeAdmin: build.mutation<
-      PatchApiAdminUniversitiesChangeAdminApiResponse,
-      PatchApiAdminUniversitiesChangeAdminApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Admin/Universities/ChangeAdmin`,
-        method: 'PATCH',
-        body: queryArg.adminUniversitiesChangeAdminRequest
-      })
-    }),
-    deleteApiAdminSpecialtiesDelete: build.mutation<
-      DeleteApiAdminSpecialtiesDeleteApiResponse,
-      DeleteApiAdminSpecialtiesDeleteApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Admin/Specialties/Delete`,
-        method: 'DELETE',
-        params: {
-          Id: queryArg.id
-        }
-      })
-    }),
-    postApiAdminSpecialtiesCreate: build.mutation<
-      PostApiAdminSpecialtiesCreateApiResponse,
-      PostApiAdminSpecialtiesCreateApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Admin/Specialties/Create`,
-        method: 'POST',
-        body: queryArg.adminSpecialtiesCreateRequest
-      })
-    }),
-    deleteApiAdminGroupsDelete: build.mutation<
-      DeleteApiAdminGroupsDeleteApiResponse,
-      DeleteApiAdminGroupsDeleteApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Admin/Groups/Delete`,
-        method: 'DELETE',
-        params: {
-          Id: queryArg.id
-        }
-      })
-    }),
-    postApiAdminGroupsCreate: build.mutation<
-      PostApiAdminGroupsCreateApiResponse,
-      PostApiAdminGroupsCreateApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Admin/Groups/Create`,
-        method: 'POST',
-        body: queryArg.adminGroupsCreateRequest
-      })
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter,
+        },
+      }),
     }),
     deleteApiAdminFacultiesDelete: build.mutation<
       DeleteApiAdminFacultiesDeleteApiResponse,
@@ -109,11 +57,11 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/Faculties/Delete`,
-        method: 'DELETE',
+        method: "DELETE",
         params: {
-          Id: queryArg.id
-        }
-      })
+          Id: queryArg.id,
+        },
+      }),
     }),
     postApiAdminFacultiesCreate: build.mutation<
       PostApiAdminFacultiesCreateApiResponse,
@@ -121,190 +69,208 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Admin/Faculties/Create`,
-        method: 'POST',
-        body: queryArg.adminFacultiesCreateRequest
-      })
+        method: "POST",
+        body: queryArg.adminFacultiesCreateRequest,
+      }),
     }),
-    deleteApiAdminDiplomaPeriodsUsersRemove: build.mutation<
-      DeleteApiAdminDiplomaPeriodsUsersRemoveApiResponse,
-      DeleteApiAdminDiplomaPeriodsUsersRemoveApiArg
+    deleteApiEmployeeTeacherDepartmentLeaderSpecialtiesDelete: build.mutation<
+      DeleteApiEmployeeTeacherDepartmentLeaderSpecialtiesDeleteApiResponse,
+      DeleteApiEmployeeTeacherDepartmentLeaderSpecialtiesDeleteApiArg
     >({
       query: (queryArg) => ({
-        url: `/api/Admin/DiplomaPeriods/Users/Remove`,
-        method: 'DELETE',
+        url: `/api/Employee/Teacher/DepartmentLeader/Specialties/Delete`,
+        method: "DELETE",
+        params: {
+          Id: queryArg.id,
+        },
+      }),
+    }),
+    postApiEmployeeTeacherDepartmentLeaderSpecialtiesCreate: build.mutation<
+      PostApiEmployeeTeacherDepartmentLeaderSpecialtiesCreateApiResponse,
+      PostApiEmployeeTeacherDepartmentLeaderSpecialtiesCreateApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Employee/Teacher/DepartmentLeader/Specialties/Create`,
+        method: "POST",
+        body: queryArg.employeeTeacherDepartmentLeaderSpecialtiesCreateRequest,
+      }),
+    }),
+    deleteApiEmployeeTeacherDepartmentLeaderGroupsDelete: build.mutation<
+      DeleteApiEmployeeTeacherDepartmentLeaderGroupsDeleteApiResponse,
+      DeleteApiEmployeeTeacherDepartmentLeaderGroupsDeleteApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Employee/Teacher/DepartmentLeader/Groups/Delete`,
+        method: "DELETE",
+        params: {
+          Id: queryArg.id,
+        },
+      }),
+    }),
+    postApiEmployeeTeacherDepartmentLeaderGroupsCreate: build.mutation<
+      PostApiEmployeeTeacherDepartmentLeaderGroupsCreateApiResponse,
+      PostApiEmployeeTeacherDepartmentLeaderGroupsCreateApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Employee/Teacher/DepartmentLeader/Groups/Create`,
+        method: "POST",
+        body: queryArg.employeeTeacherDepartmentLeaderGroupsCreateRequest,
+      }),
+    }),
+    deleteApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersRemove:
+      build.mutation<
+        DeleteApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersRemoveApiResponse,
+        DeleteApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersRemoveApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/Employee/Teacher/DepartmentLeader/DiplomaProcesses/Users/Remove`,
+          method: "DELETE",
+          params: {
+            DiplomaPeriodId: queryArg.diplomaPeriodId,
+            UserIds: queryArg.userIds,
+          },
+        }),
+      }),
+    getApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersGet: build.query<
+      GetApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersGetApiResponse,
+      GetApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersGetApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Employee/Teacher/DepartmentLeader/DiplomaProcesses/Users/Get`,
         params: {
           DiplomaPeriodId: queryArg.diplomaPeriodId,
-          UserIds: queryArg.userIds
-        }
-      })
+          RoleType: queryArg.roleType,
+        },
+      }),
     }),
-    getApiAdminDiplomaPeriodsUsersGet: build.query<
-      GetApiAdminDiplomaPeriodsUsersGetApiResponse,
-      GetApiAdminDiplomaPeriodsUsersGetApiArg
+    postApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersAdd:
+      build.mutation<
+        PostApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersAddApiResponse,
+        PostApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersAddApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/Employee/Teacher/DepartmentLeader/DiplomaProcesses/Users/Add`,
+          method: "POST",
+          body: queryArg.employeeTeacherDepartmentLeaderDiplomaProcessesUsersAddRequest,
+        }),
+      }),
+    deleteApiEmployeeTeacherDepartmentLeaderDiplomaProcessesDelete:
+      build.mutation<
+        DeleteApiEmployeeTeacherDepartmentLeaderDiplomaProcessesDeleteApiResponse,
+        DeleteApiEmployeeTeacherDepartmentLeaderDiplomaProcessesDeleteApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/Employee/Teacher/DepartmentLeader/DiplomaProcesses/Delete`,
+          method: "DELETE",
+          params: {
+            Id: queryArg.id,
+          },
+        }),
+      }),
+    postApiEmployeeTeacherDepartmentLeaderDiplomaProcessesCreate:
+      build.mutation<
+        PostApiEmployeeTeacherDepartmentLeaderDiplomaProcessesCreateApiResponse,
+        PostApiEmployeeTeacherDepartmentLeaderDiplomaProcessesCreateApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/Employee/Teacher/DepartmentLeader/DiplomaProcesses/Create`,
+          method: "POST",
+          body: queryArg.employeeTeacherDepartmentLeaderDiplomaProcessesCreateRequest,
+        }),
+      }),
+    getApiEmployeeGetSpecialties: build.query<
+      GetApiEmployeeGetSpecialtiesApiResponse,
+      GetApiEmployeeGetSpecialtiesApiArg
     >({
       query: (queryArg) => ({
-        url: `/api/Admin/DiplomaPeriods/Users/Get`,
-        params: {
-          DiplomaPeriodId: queryArg.diplomaPeriodId,
-          RoleType: queryArg.roleType
-        }
-      })
-    }),
-    postApiAdminDiplomaPeriodsUsersAdd: build.mutation<
-      PostApiAdminDiplomaPeriodsUsersAddApiResponse,
-      PostApiAdminDiplomaPeriodsUsersAddApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Admin/DiplomaPeriods/Users/Add`,
-        method: 'POST',
-        body: queryArg.adminDiplomaPeriodsUsersAddRequest
-      })
-    }),
-    deleteApiAdminDiplomaPeriodsDelete: build.mutation<
-      DeleteApiAdminDiplomaPeriodsDeleteApiResponse,
-      DeleteApiAdminDiplomaPeriodsDeleteApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Admin/DiplomaPeriods/Delete`,
-        method: 'DELETE',
-        params: {
-          Id: queryArg.id
-        }
-      })
-    }),
-    postApiAdminDiplomaPeriodsCreate: build.mutation<
-      PostApiAdminDiplomaPeriodsCreateApiResponse,
-      PostApiAdminDiplomaPeriodsCreateApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Admin/DiplomaPeriods/Create`,
-        method: 'POST',
-        body: queryArg.adminDiplomaPeriodsCreateRequest
-      })
-    }),
-    deleteApiAdminDepartmentsDelete: build.mutation<
-      DeleteApiAdminDepartmentsDeleteApiResponse,
-      DeleteApiAdminDepartmentsDeleteApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Admin/Departments/Delete`,
-        method: 'DELETE',
-        params: {
-          Id: queryArg.id
-        }
-      })
-    }),
-    postApiAdminDepartmentsCreate: build.mutation<
-      PostApiAdminDepartmentsCreateApiResponse,
-      PostApiAdminDepartmentsCreateApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Admin/Departments/Create`,
-        method: 'POST',
-        body: queryArg.adminDepartmentsCreateRequest
-      })
-    }),
-    getApiCommonGetUniversities: build.query<
-      GetApiCommonGetUniversitiesApiResponse,
-      GetApiCommonGetUniversitiesApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Common/GetUniversities`,
+        url: `/api/Employee/GetSpecialties`,
         params: {
           Desc: queryArg.desc,
           OrderBy: queryArg.orderBy,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
-          Filter: queryArg.filter
-        }
-      })
+          Filter: queryArg.filter,
+        },
+      }),
     }),
-    getApiCommonGetSpecialties: build.query<
-      GetApiCommonGetSpecialtiesApiResponse,
-      GetApiCommonGetSpecialtiesApiArg
+    getApiEmployeeGetGroups: build.query<
+      GetApiEmployeeGetGroupsApiResponse,
+      GetApiEmployeeGetGroupsApiArg
     >({
       query: (queryArg) => ({
-        url: `/api/Common/GetSpecialties`,
+        url: `/api/Employee/GetGroups`,
         params: {
           Desc: queryArg.desc,
           OrderBy: queryArg.orderBy,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
-          Filter: queryArg.filter
-        }
-      })
+          Filter: queryArg.filter,
+        },
+      }),
     }),
-    getApiCommonGetGroups: build.query<
-      GetApiCommonGetGroupsApiResponse,
-      GetApiCommonGetGroupsApiArg
+    getApiEmployeeGetDiplomaProcesses: build.query<
+      GetApiEmployeeGetDiplomaProcessesApiResponse,
+      GetApiEmployeeGetDiplomaProcessesApiArg
     >({
       query: (queryArg) => ({
-        url: `/api/Common/GetGroups`,
+        url: `/api/Employee/GetDiplomaProcesses`,
         params: {
           Desc: queryArg.desc,
           OrderBy: queryArg.orderBy,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
-          Filter: queryArg.filter
-        }
-      })
+          Filter: queryArg.filter,
+        },
+      }),
     }),
-    getApiCommonGetFaculties: build.query<
-      GetApiCommonGetFacultiesApiResponse,
-      GetApiCommonGetFacultiesApiArg
+    getApiEmployeeGetDepartments: build.query<
+      GetApiEmployeeGetDepartmentsApiResponse,
+      GetApiEmployeeGetDepartmentsApiArg
     >({
       query: (queryArg) => ({
-        url: `/api/Common/GetFaculties`,
+        url: `/api/Employee/GetDepartments`,
         params: {
           Desc: queryArg.desc,
           OrderBy: queryArg.orderBy,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
-          Filter: queryArg.filter
-        }
-      })
+          Filter: queryArg.filter,
+        },
+      }),
     }),
-    getApiCommonGetDiplomaPeriods: build.query<
-      GetApiCommonGetDiplomaPeriodsApiResponse,
-      GetApiCommonGetDiplomaPeriodsApiArg
+    deleteApiEmployeeDeaneryDepartmentsDelete: build.mutation<
+      DeleteApiEmployeeDeaneryDepartmentsDeleteApiResponse,
+      DeleteApiEmployeeDeaneryDepartmentsDeleteApiArg
     >({
       query: (queryArg) => ({
-        url: `/api/Common/GetDiplomaPeriods`,
+        url: `/api/Employee/Deanery/Departments/Delete`,
+        method: "DELETE",
         params: {
-          Desc: queryArg.desc,
-          OrderBy: queryArg.orderBy,
-          PageNumber: queryArg.pageNumber,
-          PageSize: queryArg.pageSize,
-          Filter: queryArg.filter
-        }
-      })
+          Id: queryArg.id,
+        },
+      }),
     }),
-    getApiCommonGetDepartments: build.query<
-      GetApiCommonGetDepartmentsApiResponse,
-      GetApiCommonGetDepartmentsApiArg
+    postApiEmployeeDeaneryDepartmentsCreate: build.mutation<
+      PostApiEmployeeDeaneryDepartmentsCreateApiResponse,
+      PostApiEmployeeDeaneryDepartmentsCreateApiArg
     >({
       query: (queryArg) => ({
-        url: `/api/Common/GetDepartments`,
-        params: {
-          Desc: queryArg.desc,
-          OrderBy: queryArg.orderBy,
-          PageNumber: queryArg.pageNumber,
-          PageSize: queryArg.pageSize,
-          Filter: queryArg.filter
-        }
-      })
+        url: `/api/Employee/Deanery/Departments/Create`,
+        method: "POST",
+        body: queryArg.employeeDeaneryDepartmentsCreateRequest,
+      }),
     }),
     getApiIdentityRefresh: build.query<
       GetApiIdentityRefreshApiResponse,
       GetApiIdentityRefreshApiArg
     >({
-      query: () => ({ url: `/api/Identity/Refresh` })
+      query: () => ({ url: `/api/Identity/Refresh` }),
     }),
     postApiIdentityLogout: build.mutation<
       PostApiIdentityLogoutApiResponse,
       PostApiIdentityLogoutApiArg
     >({
-      query: () => ({ url: `/api/Identity/Logout`, method: 'POST' })
+      query: () => ({ url: `/api/Identity/Logout`, method: "POST" }),
     }),
     postApiIdentityLogin: build.mutation<
       PostApiIdentityLoginApiResponse,
@@ -312,15 +278,15 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Identity/Login`,
-        method: 'POST',
-        body: queryArg.identityLoginRequest
-      })
+        method: "POST",
+        body: queryArg.identityLoginRequest,
+      }),
     }),
     getApiIdentityInfo: build.query<
       GetApiIdentityInfoApiResponse,
       GetApiIdentityInfoApiArg
     >({
-      query: () => ({ url: `/api/Identity/Info` })
+      query: () => ({ url: `/api/Identity/Info` }),
     }),
     postApiIdentityChangePassword: build.mutation<
       PostApiIdentityChangePasswordApiResponse,
@@ -328,9 +294,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Identity/ChangePassword`,
-        method: 'POST',
-        body: queryArg.identityChangePasswordRequest
-      })
+        method: "POST",
+        body: queryArg.identityChangePasswordRequest,
+      }),
     }),
     postApiRegistrationStudentRegister: build.mutation<
       PostApiRegistrationStudentRegisterApiResponse,
@@ -338,9 +304,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Registration/Student/Register`,
-        method: 'POST',
-        body: queryArg.registrationStudentRegisterRequest
-      })
+        method: "POST",
+        body: queryArg.registrationStudentRegisterRequest,
+      }),
     }),
     getApiRegistrationStudentGetAvailableGroups: build.query<
       GetApiRegistrationStudentGetAvailableGroupsApiResponse,
@@ -349,9 +315,9 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/api/Registration/Student/GetAvailableGroups`,
         params: {
-          Number: queryArg['number']
-        }
-      })
+          Number: queryArg["number"],
+        },
+      }),
     }),
     postApiRegistrationEmployeeRegister: build.mutation<
       PostApiRegistrationEmployeeRegisterApiResponse,
@@ -359,41 +325,20 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Registration/Employee/Register`,
-        method: 'POST',
-        body: queryArg.registrationEmployeeRegisterRequest
-      })
+        method: "POST",
+        body: queryArg.registrationEmployeeRegisterRequest,
+      }),
     }),
     getApiRegistrationEmployeeGetAvailableUniversityPositions: build.query<
       GetApiRegistrationEmployeeGetAvailableUniversityPositionsApiResponse,
       GetApiRegistrationEmployeeGetAvailableUniversityPositionsApiArg
     >({
       query: () => ({
-        url: `/api/Registration/Employee/GetAvailableUniversityPositions`
-      })
+        url: `/api/Registration/Employee/GetAvailableUniversityPositions`,
+      }),
     }),
-    getApiRegistrationEmployeeGetAvailableUniversities: build.query<
-      GetApiRegistrationEmployeeGetAvailableUniversitiesApiResponse,
-      GetApiRegistrationEmployeeGetAvailableUniversitiesApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Registration/Employee/GetAvailableUniversities`,
-        params: {
-          Name: queryArg.name
-        }
-      })
-    }),
-    postApiRegistrationAdminRegister: build.mutation<
-      PostApiRegistrationAdminRegisterApiResponse,
-      PostApiRegistrationAdminRegisterApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Registration/Admin/Register`,
-        method: 'POST',
-        body: queryArg.registrationAdminRegisterRequest
-      })
-    })
   }),
-  overrideExisting: false
+  overrideExisting: false,
 });
 export { injectedRtkApi as backendApi };
 export type PutApiAdminUsersUpdateApprovalApiResponse = unknown;
@@ -401,7 +346,7 @@ export type PutApiAdminUsersUpdateApprovalApiArg = {
   adminUsersUpdateApprovalRequest: AdminUsersUpdateApprovalRequest;
 };
 export type GetApiAdminUsersGetApiResponse =
-/** status 200 OK */ AdminUsersGetResponseRead;
+  /** status 200 OK */ AdminUsersGetResponseRead;
 export type GetApiAdminUsersGetApiArg = {
   desc?: boolean;
   orderBy?: string;
@@ -409,145 +354,137 @@ export type GetApiAdminUsersGetApiArg = {
   pageSize?: number;
   filter?: string;
 };
-export type DeleteApiAdminUniversitiesDeleteApiResponse = unknown;
-export type DeleteApiAdminUniversitiesDeleteApiArg = {
-  id: string;
+export type PostApiAdminRegisterApiResponse = unknown;
+export type PostApiAdminRegisterApiArg = {
+  adminRegisterRequest: AdminRegisterRequest;
 };
-export type PostApiAdminUniversitiesCreateApiResponse =
-/** status 200 OK */ AdminUniversitiesCreateResponse;
-export type PostApiAdminUniversitiesCreateApiArg = {
-  adminUniversitiesCreateRequest: AdminUniversitiesCreateRequest;
-};
-export type PatchApiAdminUniversitiesChangeAdminApiResponse = unknown;
-export type PatchApiAdminUniversitiesChangeAdminApiArg = {
-  adminUniversitiesChangeAdminRequest: AdminUniversitiesChangeAdminRequest;
-};
-export type DeleteApiAdminSpecialtiesDeleteApiResponse = unknown;
-export type DeleteApiAdminSpecialtiesDeleteApiArg = {
-  id: string;
-};
-export type PostApiAdminSpecialtiesCreateApiResponse =
-/** status 200 OK */ AdminSpecialtiesCreateResponse;
-export type PostApiAdminSpecialtiesCreateApiArg = {
-  adminSpecialtiesCreateRequest: AdminSpecialtiesCreateRequest;
-};
-export type DeleteApiAdminGroupsDeleteApiResponse = unknown;
-export type DeleteApiAdminGroupsDeleteApiArg = {
-  id: string;
-};
-export type PostApiAdminGroupsCreateApiResponse =
-/** status 200 OK */ AdminGroupsCreateResponse;
-export type PostApiAdminGroupsCreateApiArg = {
-  adminGroupsCreateRequest: AdminGroupsCreateRequest;
+export type GetApiAdminFacultiesGetApiResponse =
+  /** status 200 OK */ AdminFacultiesGetResponseRead;
+export type GetApiAdminFacultiesGetApiArg = {
+  desc?: boolean;
+  orderBy?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  filter?: string;
 };
 export type DeleteApiAdminFacultiesDeleteApiResponse = unknown;
 export type DeleteApiAdminFacultiesDeleteApiArg = {
   id: string;
 };
 export type PostApiAdminFacultiesCreateApiResponse =
-/** status 200 OK */ AdminFacultiesCreateResponse;
+  /** status 200 OK */ AdminFacultiesCreateResponse;
 export type PostApiAdminFacultiesCreateApiArg = {
   adminFacultiesCreateRequest: AdminFacultiesCreateRequest;
 };
-export type DeleteApiAdminDiplomaPeriodsUsersRemoveApiResponse = unknown;
-export type DeleteApiAdminDiplomaPeriodsUsersRemoveApiArg = {
-  diplomaPeriodId: string;
-  userIds: string[];
-};
-export type GetApiAdminDiplomaPeriodsUsersGetApiResponse =
-/** status 200 OK */ AdminDiplomaPeriodsUsersGetResponse;
-export type GetApiAdminDiplomaPeriodsUsersGetApiArg = {
-  diplomaPeriodId: string;
-  roleType: ContractsUserRoleType;
-};
-export type PostApiAdminDiplomaPeriodsUsersAddApiResponse = unknown;
-export type PostApiAdminDiplomaPeriodsUsersAddApiArg = {
-  adminDiplomaPeriodsUsersAddRequest: AdminDiplomaPeriodsUsersAddRequest;
-};
-export type DeleteApiAdminDiplomaPeriodsDeleteApiResponse = unknown;
-export type DeleteApiAdminDiplomaPeriodsDeleteApiArg = {
+export type DeleteApiEmployeeTeacherDepartmentLeaderSpecialtiesDeleteApiResponse =
+  unknown;
+export type DeleteApiEmployeeTeacherDepartmentLeaderSpecialtiesDeleteApiArg = {
   id: string;
 };
-export type PostApiAdminDiplomaPeriodsCreateApiResponse =
-/** status 200 OK */ AdminDiplomaPeriodsCreateResponse;
-export type PostApiAdminDiplomaPeriodsCreateApiArg = {
-  adminDiplomaPeriodsCreateRequest: AdminDiplomaPeriodsCreateRequest;
+export type PostApiEmployeeTeacherDepartmentLeaderSpecialtiesCreateApiResponse =
+  /** status 200 OK */ EmployeeTeacherDepartmentLeaderSpecialtiesCreateResponse;
+export type PostApiEmployeeTeacherDepartmentLeaderSpecialtiesCreateApiArg = {
+  employeeTeacherDepartmentLeaderSpecialtiesCreateRequest: EmployeeTeacherDepartmentLeaderSpecialtiesCreateRequest;
 };
-export type DeleteApiAdminDepartmentsDeleteApiResponse = unknown;
-export type DeleteApiAdminDepartmentsDeleteApiArg = {
+export type DeleteApiEmployeeTeacherDepartmentLeaderGroupsDeleteApiResponse =
+  unknown;
+export type DeleteApiEmployeeTeacherDepartmentLeaderGroupsDeleteApiArg = {
   id: string;
 };
-export type PostApiAdminDepartmentsCreateApiResponse =
-/** status 200 OK */ AdminDepartmentsCreateResponse;
-export type PostApiAdminDepartmentsCreateApiArg = {
-  adminDepartmentsCreateRequest: AdminDepartmentsCreateRequest;
+export type PostApiEmployeeTeacherDepartmentLeaderGroupsCreateApiResponse =
+  /** status 200 OK */ EmployeeTeacherDepartmentLeaderGroupsCreateResponse;
+export type PostApiEmployeeTeacherDepartmentLeaderGroupsCreateApiArg = {
+  employeeTeacherDepartmentLeaderGroupsCreateRequest: EmployeeTeacherDepartmentLeaderGroupsCreateRequest;
 };
-export type GetApiCommonGetUniversitiesApiResponse =
-/** status 200 OK */ CommonGetUniversitiesResponseRead;
-export type GetApiCommonGetUniversitiesApiArg = {
+export type DeleteApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersRemoveApiResponse =
+  unknown;
+export type DeleteApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersRemoveApiArg =
+  {
+    diplomaPeriodId: string;
+    userIds: string[];
+  };
+export type GetApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersGetApiResponse =
+  /** status 200 OK */ EmployeeTeacherDepartmentLeaderDiplomaProcessesUsersGetResponse;
+export type GetApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersGetApiArg =
+  {
+    diplomaPeriodId: string;
+    roleType: ContractsUserRoleType;
+  };
+export type PostApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersAddApiResponse =
+  unknown;
+export type PostApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersAddApiArg =
+  {
+    employeeTeacherDepartmentLeaderDiplomaProcessesUsersAddRequest: EmployeeTeacherDepartmentLeaderDiplomaProcessesUsersAddRequest;
+  };
+export type DeleteApiEmployeeTeacherDepartmentLeaderDiplomaProcessesDeleteApiResponse =
+  unknown;
+export type DeleteApiEmployeeTeacherDepartmentLeaderDiplomaProcessesDeleteApiArg =
+  {
+    id: string;
+  };
+export type PostApiEmployeeTeacherDepartmentLeaderDiplomaProcessesCreateApiResponse =
+  /** status 200 OK */ EmployeeTeacherDepartmentLeaderDiplomaProcessesCreateResponse;
+export type PostApiEmployeeTeacherDepartmentLeaderDiplomaProcessesCreateApiArg =
+  {
+    employeeTeacherDepartmentLeaderDiplomaProcessesCreateRequest: EmployeeTeacherDepartmentLeaderDiplomaProcessesCreateRequest;
+  };
+export type GetApiEmployeeGetSpecialtiesApiResponse =
+  /** status 200 OK */ EmployeeGetSpecialtiesResponseRead;
+export type GetApiEmployeeGetSpecialtiesApiArg = {
   desc?: boolean;
   orderBy?: string;
   pageNumber?: number;
   pageSize?: number;
   filter?: string;
 };
-export type GetApiCommonGetSpecialtiesApiResponse =
-/** status 200 OK */ CommonGetSpecialtiesResponseRead;
-export type GetApiCommonGetSpecialtiesApiArg = {
+export type GetApiEmployeeGetGroupsApiResponse =
+  /** status 200 OK */ EmployeeGetGroupsResponseRead;
+export type GetApiEmployeeGetGroupsApiArg = {
   desc?: boolean;
   orderBy?: string;
   pageNumber?: number;
   pageSize?: number;
   filter?: string;
 };
-export type GetApiCommonGetGroupsApiResponse =
-/** status 200 OK */ CommonGetGroupsResponseRead;
-export type GetApiCommonGetGroupsApiArg = {
+export type GetApiEmployeeGetDiplomaProcessesApiResponse =
+  /** status 200 OK */ EmployeeGetDiplomaProcessesResponseRead;
+export type GetApiEmployeeGetDiplomaProcessesApiArg = {
   desc?: boolean;
   orderBy?: string;
   pageNumber?: number;
   pageSize?: number;
   filter?: string;
 };
-export type GetApiCommonGetFacultiesApiResponse =
-/** status 200 OK */ CommonGetFacultiesResponseRead;
-export type GetApiCommonGetFacultiesApiArg = {
+export type GetApiEmployeeGetDepartmentsApiResponse =
+  /** status 200 OK */ EmployeeGetDepartmentsResponseRead;
+export type GetApiEmployeeGetDepartmentsApiArg = {
   desc?: boolean;
   orderBy?: string;
   pageNumber?: number;
   pageSize?: number;
   filter?: string;
 };
-export type GetApiCommonGetDiplomaPeriodsApiResponse =
-/** status 200 OK */ CommonGetDiplomaPeriodsResponseRead;
-export type GetApiCommonGetDiplomaPeriodsApiArg = {
-  desc?: boolean;
-  orderBy?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  filter?: string;
+export type DeleteApiEmployeeDeaneryDepartmentsDeleteApiResponse = unknown;
+export type DeleteApiEmployeeDeaneryDepartmentsDeleteApiArg = {
+  id: string;
 };
-export type GetApiCommonGetDepartmentsApiResponse =
-/** status 200 OK */ CommonGetDepartmentsResponseRead;
-export type GetApiCommonGetDepartmentsApiArg = {
-  desc?: boolean;
-  orderBy?: string;
-  pageNumber?: number;
-  pageSize?: number;
-  filter?: string;
+export type PostApiEmployeeDeaneryDepartmentsCreateApiResponse =
+  /** status 200 OK */ EmployeeDeaneryDepartmentsCreateResponse;
+export type PostApiEmployeeDeaneryDepartmentsCreateApiArg = {
+  employeeDeaneryDepartmentsCreateRequest: EmployeeDeaneryDepartmentsCreateRequest;
 };
 export type GetApiIdentityRefreshApiResponse =
-/** status 200 OK */ IdentityRefreshResponse;
+  /** status 200 OK */ IdentityRefreshResponse;
 export type GetApiIdentityRefreshApiArg = void;
 export type PostApiIdentityLogoutApiResponse = unknown;
 export type PostApiIdentityLogoutApiArg = void;
 export type PostApiIdentityLoginApiResponse =
-/** status 200 OK */ IdentityLoginResponse;
+  /** status 200 OK */ IdentityLoginResponse;
 export type PostApiIdentityLoginApiArg = {
   identityLoginRequest: IdentityLoginRequest;
 };
 export type GetApiIdentityInfoApiResponse =
-/** status 200 OK */ IdentityInfoResponse;
+  /** status 200 OK */ IdentityInfoResponse;
 export type GetApiIdentityInfoApiArg = void;
 export type PostApiIdentityChangePasswordApiResponse = unknown;
 export type PostApiIdentityChangePasswordApiArg = {
@@ -558,7 +495,7 @@ export type PostApiRegistrationStudentRegisterApiArg = {
   registrationStudentRegisterRequest: RegistrationStudentRegisterRequest;
 };
 export type GetApiRegistrationStudentGetAvailableGroupsApiResponse =
-/** status 200 OK */ RegistrationStudentGetAvailableGroupsResponse;
+  /** status 200 OK */ RegistrationStudentGetAvailableGroupsResponse;
 export type GetApiRegistrationStudentGetAvailableGroupsApiArg = {
   number: string;
 };
@@ -567,18 +504,9 @@ export type PostApiRegistrationEmployeeRegisterApiArg = {
   registrationEmployeeRegisterRequest: RegistrationEmployeeRegisterRequest;
 };
 export type GetApiRegistrationEmployeeGetAvailableUniversityPositionsApiResponse =
-/** status 200 OK */ RegistrationEmployeeGetAvailableUniversityPositionsResponse;
+  /** status 200 OK */ RegistrationEmployeeGetAvailableUniversityPositionsResponse;
 export type GetApiRegistrationEmployeeGetAvailableUniversityPositionsApiArg =
   void;
-export type GetApiRegistrationEmployeeGetAvailableUniversitiesApiResponse =
-/** status 200 OK */ RegistrationEmployeeGetAvailableUniversitiesResponse;
-export type GetApiRegistrationEmployeeGetAvailableUniversitiesApiArg = {
-  name: string;
-};
-export type PostApiRegistrationAdminRegisterApiResponse = unknown;
-export type PostApiRegistrationAdminRegisterApiArg = {
-  registrationAdminRegisterRequest: RegistrationAdminRegisterRequest;
-};
 export type AdminUsersUpdateApprovalRequest = {
   userId: string;
   isApproved: boolean;
@@ -610,35 +538,39 @@ export type AdminUsersGetResponse = {
 export type AdminUsersGetResponseRead = {
   list?: AdminUsersGetUserPagedListRead;
 };
-export type AdminUniversitiesCreateResponse = {
+export type AdminRegisterRequest = {
+  userName: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  middleName?: string | null;
+  email?: string | null;
+  birthday?: string | null;
+};
+export type AdminFacultiesGetFaculty = {
   id?: string;
+  name?: string | null;
+  shortName?: string | null;
 };
-export type AdminUniversitiesCreateRequest = {
-  name: string;
-  shortName: string;
-  adminId?: string | null;
+export type AdminFacultiesGetFacultyPagedList = {
+  items?: AdminFacultiesGetFaculty[] | null;
+  currentPage?: number;
+  pageSize?: number;
 };
-export type AdminUniversitiesChangeAdminRequest = {
-  universityId: string;
-  userId: string;
+export type AdminFacultiesGetFacultyPagedListRead = {
+  items?: AdminFacultiesGetFaculty[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
 };
-export type AdminSpecialtiesCreateResponse = {
-  id?: string;
+export type AdminFacultiesGetResponse = {
+  list?: AdminFacultiesGetFacultyPagedList;
 };
-export type AdminSpecialtiesCreateRequest = {
-  name: string;
-  shortName: string;
-  code: string;
-  departmentId?: string | null;
-};
-export type AdminGroupsCreateResponse = {
-  id: string;
-};
-export type AdminGroupsCreateRequest = {
-  groupNumber: string;
-  startDate: string;
-  endDate: string;
-  specialtyId?: string | null;
+export type AdminFacultiesGetResponseRead = {
+  list?: AdminFacultiesGetFacultyPagedListRead;
 };
 export type AdminFacultiesCreateResponse = {
   id?: string;
@@ -646,77 +578,63 @@ export type AdminFacultiesCreateResponse = {
 export type AdminFacultiesCreateRequest = {
   name: string;
   shortName: string;
-  universityId?: string | null;
 };
-export type AdminDiplomaPeriodsUsersGetDiplomaPeriodUser = {
+export type EmployeeTeacherDepartmentLeaderSpecialtiesCreateResponse = {
   id?: string;
-  firstName?: string | null;
-  lastName?: string | null;
-  middleName?: string | null;
-  universityPosition?: string | null;
-  added?: boolean;
 };
-export type AdminDiplomaPeriodsUsersGetResponse = {
-  list?: AdminDiplomaPeriodsUsersGetDiplomaPeriodUser[] | null;
+export type EmployeeTeacherDepartmentLeaderSpecialtiesCreateRequest = {
+  name: string;
+  shortName: string;
+  code: string;
+  departmentId?: string | null;
 };
-export type AdminDiplomaPeriodsUsersAddRequest = {
+export type EmployeeTeacherDepartmentLeaderGroupsCreateResponse = {
+  id: string;
+};
+export type EmployeeTeacherDepartmentLeaderGroupsCreateRequest = {
+  groupNumber: string;
+  startDate: string;
+  endDate: string;
+  specialtyId?: string | null;
+};
+export type EmployeeTeacherDepartmentLeaderDiplomaProcessesUsersGetDiplomaPeriodUser =
+  {
+    id?: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    middleName?: string | null;
+    universityPosition?: string | null;
+    added?: boolean;
+  };
+export type EmployeeTeacherDepartmentLeaderDiplomaProcessesUsersGetResponse = {
+  list?:
+    | EmployeeTeacherDepartmentLeaderDiplomaProcessesUsersGetDiplomaPeriodUser[]
+    | null;
+};
+export type EmployeeTeacherDepartmentLeaderDiplomaProcessesUsersAddRequest = {
   diplomaPeriodId: string;
   userIds: string[];
 };
-export type AdminDiplomaPeriodsCreateResponse = {
+export type EmployeeTeacherDepartmentLeaderDiplomaProcessesCreateResponse = {
   id?: string;
 };
-export type AdminDiplomaPeriodsCreateRequest = {
-  startDate: string;
-  endDate: string;
+export type EmployeeTeacherDepartmentLeaderDiplomaProcessesCreateRequest = {
+  periodId: string;
   name: string;
 };
-export type AdminDepartmentsCreateResponse = {
-  id?: string;
-};
-export type AdminDepartmentsCreateRequest = {
-  name: string;
-  shortName: string;
-  facultyId?: string | null;
-};
-export type CommonGetUniversitiesUniversity = {
-  id?: string;
-  name?: string | null;
-  shortName?: string | null;
-};
-export type CommonGetUniversitiesUniversityPagedList = {
-  items?: CommonGetUniversitiesUniversity[] | null;
-  currentPage?: number;
-  pageSize?: number;
-};
-export type CommonGetUniversitiesUniversityPagedListRead = {
-  items?: CommonGetUniversitiesUniversity[] | null;
-  currentPage?: number;
-  totalPages?: number;
-  pageSize?: number;
-  totalCount?: number;
-  hasPrevious?: boolean;
-  hasNext?: boolean;
-};
-export type CommonGetUniversitiesResponse = {
-  list?: CommonGetUniversitiesUniversityPagedList;
-};
-export type CommonGetUniversitiesResponseRead = {
-  list?: CommonGetUniversitiesUniversityPagedListRead;
-};
-export type CommonGetSpecialtiesSpecialty = {
+export type EmployeeGetSpecialtiesSpecialty = {
   id?: string;
   name?: string | null;
   shortName?: string | null;
   code?: string | null;
 };
-export type CommonGetSpecialtiesSpecialtyPagedList = {
-  items?: CommonGetSpecialtiesSpecialty[] | null;
+export type EmployeeGetSpecialtiesSpecialtyPagedList = {
+  items?: EmployeeGetSpecialtiesSpecialty[] | null;
   currentPage?: number;
   pageSize?: number;
 };
-export type CommonGetSpecialtiesSpecialtyPagedListRead = {
-  items?: CommonGetSpecialtiesSpecialty[] | null;
+export type EmployeeGetSpecialtiesSpecialtyPagedListRead = {
+  items?: EmployeeGetSpecialtiesSpecialty[] | null;
   currentPage?: number;
   totalPages?: number;
   pageSize?: number;
@@ -724,23 +642,23 @@ export type CommonGetSpecialtiesSpecialtyPagedListRead = {
   hasPrevious?: boolean;
   hasNext?: boolean;
 };
-export type CommonGetSpecialtiesResponse = {
-  list?: CommonGetSpecialtiesSpecialtyPagedList;
+export type EmployeeGetSpecialtiesResponse = {
+  list?: EmployeeGetSpecialtiesSpecialtyPagedList;
 };
-export type CommonGetSpecialtiesResponseRead = {
-  list?: CommonGetSpecialtiesSpecialtyPagedListRead;
+export type EmployeeGetSpecialtiesResponseRead = {
+  list?: EmployeeGetSpecialtiesSpecialtyPagedListRead;
 };
-export type CommonGetGroupsGroup = {
+export type EmployeeGetGroupsGroup = {
   id?: string;
   number?: string | null;
 };
-export type CommonGetGroupsGroupPagedList = {
-  items?: CommonGetGroupsGroup[] | null;
+export type EmployeeGetGroupsGroupPagedList = {
+  items?: EmployeeGetGroupsGroup[] | null;
   currentPage?: number;
   pageSize?: number;
 };
-export type CommonGetGroupsGroupPagedListRead = {
-  items?: CommonGetGroupsGroup[] | null;
+export type EmployeeGetGroupsGroupPagedListRead = {
+  items?: EmployeeGetGroupsGroup[] | null;
   currentPage?: number;
   totalPages?: number;
   pageSize?: number;
@@ -748,24 +666,48 @@ export type CommonGetGroupsGroupPagedListRead = {
   hasPrevious?: boolean;
   hasNext?: boolean;
 };
-export type CommonGetGroupsResponse = {
-  list?: CommonGetGroupsGroupPagedList;
+export type EmployeeGetGroupsResponse = {
+  list?: EmployeeGetGroupsGroupPagedList;
 };
-export type CommonGetGroupsResponseRead = {
-  list?: CommonGetGroupsGroupPagedListRead;
+export type EmployeeGetGroupsResponseRead = {
+  list?: EmployeeGetGroupsGroupPagedListRead;
 };
-export type CommonGetFacultiesFaculty = {
+export type EmployeeGetDiplomaProcessesDiplomaProcess = {
+  id?: string;
+  name?: string | null;
+};
+export type EmployeeGetDiplomaProcessesDiplomaProcessPagedList = {
+  items?: EmployeeGetDiplomaProcessesDiplomaProcess[] | null;
+  currentPage?: number;
+  pageSize?: number;
+};
+export type EmployeeGetDiplomaProcessesDiplomaProcessPagedListRead = {
+  items?: EmployeeGetDiplomaProcessesDiplomaProcess[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
+export type EmployeeGetDiplomaProcessesResponse = {
+  list?: EmployeeGetDiplomaProcessesDiplomaProcessPagedList;
+};
+export type EmployeeGetDiplomaProcessesResponseRead = {
+  list?: EmployeeGetDiplomaProcessesDiplomaProcessPagedListRead;
+};
+export type EmployeeGetDepartmentsDepartment = {
   id?: string;
   name?: string | null;
   shortName?: string | null;
 };
-export type CommonGetFacultiesFacultyPagedList = {
-  items?: CommonGetFacultiesFaculty[] | null;
+export type EmployeeGetDepartmentsDepartmentPagedList = {
+  items?: EmployeeGetDepartmentsDepartment[] | null;
   currentPage?: number;
   pageSize?: number;
 };
-export type CommonGetFacultiesFacultyPagedListRead = {
-  items?: CommonGetFacultiesFaculty[] | null;
+export type EmployeeGetDepartmentsDepartmentPagedListRead = {
+  items?: EmployeeGetDepartmentsDepartment[] | null;
   currentPage?: number;
   totalPages?: number;
   pageSize?: number;
@@ -773,62 +715,19 @@ export type CommonGetFacultiesFacultyPagedListRead = {
   hasPrevious?: boolean;
   hasNext?: boolean;
 };
-export type CommonGetFacultiesResponse = {
-  list?: CommonGetFacultiesFacultyPagedList;
+export type EmployeeGetDepartmentsResponse = {
+  list?: EmployeeGetDepartmentsDepartmentPagedList;
 };
-export type CommonGetFacultiesResponseRead = {
-  list?: CommonGetFacultiesFacultyPagedListRead;
+export type EmployeeGetDepartmentsResponseRead = {
+  list?: EmployeeGetDepartmentsDepartmentPagedListRead;
 };
-export type CommonGetDiplomaPeriodsDiplomaPeriod = {
+export type EmployeeDeaneryDepartmentsCreateResponse = {
   id?: string;
-  name?: string | null;
-  studyPeriodFrom?: string;
-  studyPeriodTo?: string;
 };
-export type CommonGetDiplomaPeriodsDiplomaPeriodPagedList = {
-  items?: CommonGetDiplomaPeriodsDiplomaPeriod[] | null;
-  currentPage?: number;
-  pageSize?: number;
-};
-export type CommonGetDiplomaPeriodsDiplomaPeriodPagedListRead = {
-  items?: CommonGetDiplomaPeriodsDiplomaPeriod[] | null;
-  currentPage?: number;
-  totalPages?: number;
-  pageSize?: number;
-  totalCount?: number;
-  hasPrevious?: boolean;
-  hasNext?: boolean;
-};
-export type CommonGetDiplomaPeriodsResponse = {
-  list?: CommonGetDiplomaPeriodsDiplomaPeriodPagedList;
-};
-export type CommonGetDiplomaPeriodsResponseRead = {
-  list?: CommonGetDiplomaPeriodsDiplomaPeriodPagedListRead;
-};
-export type CommonGetDepartmentsDepartment = {
-  id?: string;
-  name?: string | null;
-  shortName?: string | null;
-};
-export type CommonGetDepartmentsDepartmentPagedList = {
-  items?: CommonGetDepartmentsDepartment[] | null;
-  currentPage?: number;
-  pageSize?: number;
-};
-export type CommonGetDepartmentsDepartmentPagedListRead = {
-  items?: CommonGetDepartmentsDepartment[] | null;
-  currentPage?: number;
-  totalPages?: number;
-  pageSize?: number;
-  totalCount?: number;
-  hasPrevious?: boolean;
-  hasNext?: boolean;
-};
-export type CommonGetDepartmentsResponse = {
-  list?: CommonGetDepartmentsDepartmentPagedList;
-};
-export type CommonGetDepartmentsResponseRead = {
-  list?: CommonGetDepartmentsDepartmentPagedListRead;
+export type EmployeeDeaneryDepartmentsCreateRequest = {
+  name: string;
+  shortName: string;
+  facultyId?: string | null;
 };
 export type ContractsToken = {
   value?: string | null;
@@ -846,10 +745,46 @@ export type IdentityLoginRequest = {
   userName: string;
   password: string;
 };
+export type IdentityInfoGroup = {
+  number?: string | null;
+  startDate?: string;
+  endDate?: string;
+};
+export type IdentityInfoSpecialty = {
+  id?: string;
+  name?: string | null;
+  shortName?: string | null;
+  code?: string | null;
+  groups?: IdentityInfoGroup[] | null;
+};
+export type IdentityInfoUser = {
+  id?: string;
+};
+export type IdentityInfoDepartment = {
+  id?: string;
+  name?: string | null;
+  shortName?: string | null;
+  specialties?: IdentityInfoSpecialty[] | null;
+  leader?: IdentityInfoUser;
+};
+export type IdentityInfoFaculty = {
+  id?: string;
+  name?: string | null;
+  shortName?: string | null;
+  departments?: IdentityInfoDepartment[] | null;
+  leader?: IdentityInfoUser;
+  members?: IdentityInfoUser[] | null;
+};
+export type IdentityInfoUniversityStructure = {
+  name?: string | null;
+  shortName?: string | null;
+  faculties?: IdentityInfoFaculty[] | null;
+};
 export type IdentityInfoResponse = {
   userId?: string;
   roleType?: ContractsUserRoleType;
   approved?: boolean;
+  universityStructure?: IdentityInfoUniversityStructure;
 };
 export type IdentityChangePasswordRequest = {
   userName: string;
@@ -890,63 +825,41 @@ export type RegistrationEmployeeGetAvailableUniversityPositionsResponse = {
     | RegistrationEmployeeGetAvailableUniversityPositionsUniversityPosition[]
     | null;
 };
-export type RegistrationEmployeeGetAvailableUniversitiesUniversity = {
-  id?: string;
-  name?: string | null;
-};
-export type RegistrationEmployeeGetAvailableUniversitiesResponse = {
-  list?: RegistrationEmployeeGetAvailableUniversitiesUniversity[] | null;
-};
-export type RegistrationAdminRegisterRequest = {
-  userName: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  middleName?: string | null;
-  email?: string | null;
-  birthday?: string | null;
-};
-
 export enum ContractsUserRoleType {
-  None = 'None',
-  Admin = 'Admin',
-  Employee = 'Employee',
-  Student = 'Student',
+  None = "None",
+  Admin = "Admin",
+  Employee = "Employee",
+  Student = "Student",
 }
-
 export const {
   usePutApiAdminUsersUpdateApprovalMutation,
   useGetApiAdminUsersGetQuery,
   useLazyGetApiAdminUsersGetQuery,
-  useDeleteApiAdminUniversitiesDeleteMutation,
-  usePostApiAdminUniversitiesCreateMutation,
-  usePatchApiAdminUniversitiesChangeAdminMutation,
-  useDeleteApiAdminSpecialtiesDeleteMutation,
-  usePostApiAdminSpecialtiesCreateMutation,
-  useDeleteApiAdminGroupsDeleteMutation,
-  usePostApiAdminGroupsCreateMutation,
+  usePostApiAdminRegisterMutation,
+  useGetApiAdminFacultiesGetQuery,
+  useLazyGetApiAdminFacultiesGetQuery,
   useDeleteApiAdminFacultiesDeleteMutation,
   usePostApiAdminFacultiesCreateMutation,
-  useDeleteApiAdminDiplomaPeriodsUsersRemoveMutation,
-  useGetApiAdminDiplomaPeriodsUsersGetQuery,
-  useLazyGetApiAdminDiplomaPeriodsUsersGetQuery,
-  usePostApiAdminDiplomaPeriodsUsersAddMutation,
-  useDeleteApiAdminDiplomaPeriodsDeleteMutation,
-  usePostApiAdminDiplomaPeriodsCreateMutation,
-  useDeleteApiAdminDepartmentsDeleteMutation,
-  usePostApiAdminDepartmentsCreateMutation,
-  useGetApiCommonGetUniversitiesQuery,
-  useLazyGetApiCommonGetUniversitiesQuery,
-  useGetApiCommonGetSpecialtiesQuery,
-  useLazyGetApiCommonGetSpecialtiesQuery,
-  useGetApiCommonGetGroupsQuery,
-  useLazyGetApiCommonGetGroupsQuery,
-  useGetApiCommonGetFacultiesQuery,
-  useLazyGetApiCommonGetFacultiesQuery,
-  useGetApiCommonGetDiplomaPeriodsQuery,
-  useLazyGetApiCommonGetDiplomaPeriodsQuery,
-  useGetApiCommonGetDepartmentsQuery,
-  useLazyGetApiCommonGetDepartmentsQuery,
+  useDeleteApiEmployeeTeacherDepartmentLeaderSpecialtiesDeleteMutation,
+  usePostApiEmployeeTeacherDepartmentLeaderSpecialtiesCreateMutation,
+  useDeleteApiEmployeeTeacherDepartmentLeaderGroupsDeleteMutation,
+  usePostApiEmployeeTeacherDepartmentLeaderGroupsCreateMutation,
+  useDeleteApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersRemoveMutation,
+  useGetApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersGetQuery,
+  useLazyGetApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersGetQuery,
+  usePostApiEmployeeTeacherDepartmentLeaderDiplomaProcessesUsersAddMutation,
+  useDeleteApiEmployeeTeacherDepartmentLeaderDiplomaProcessesDeleteMutation,
+  usePostApiEmployeeTeacherDepartmentLeaderDiplomaProcessesCreateMutation,
+  useGetApiEmployeeGetSpecialtiesQuery,
+  useLazyGetApiEmployeeGetSpecialtiesQuery,
+  useGetApiEmployeeGetGroupsQuery,
+  useLazyGetApiEmployeeGetGroupsQuery,
+  useGetApiEmployeeGetDiplomaProcessesQuery,
+  useLazyGetApiEmployeeGetDiplomaProcessesQuery,
+  useGetApiEmployeeGetDepartmentsQuery,
+  useLazyGetApiEmployeeGetDepartmentsQuery,
+  useDeleteApiEmployeeDeaneryDepartmentsDeleteMutation,
+  usePostApiEmployeeDeaneryDepartmentsCreateMutation,
   useGetApiIdentityRefreshQuery,
   useLazyGetApiIdentityRefreshQuery,
   usePostApiIdentityLogoutMutation,
@@ -960,7 +873,4 @@ export const {
   usePostApiRegistrationEmployeeRegisterMutation,
   useGetApiRegistrationEmployeeGetAvailableUniversityPositionsQuery,
   useLazyGetApiRegistrationEmployeeGetAvailableUniversityPositionsQuery,
-  useGetApiRegistrationEmployeeGetAvailableUniversitiesQuery,
-  useLazyGetApiRegistrationEmployeeGetAvailableUniversitiesQuery,
-  usePostApiRegistrationAdminRegisterMutation
 } = injectedRtkApi;

@@ -1,7 +1,6 @@
 import { LockOutlined } from '@mui/icons-material';
 import { Avatar, Box, Container, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import { useState } from 'react';
-import RegisterAdminForm from './RegisterAdminForm';
 import RegisterEmployeeForm from './RegisterEmployeeForm';
 import RegisterStudentForm from './RegisterStudentForm';
 import { Link } from 'react-router-dom';
@@ -33,9 +32,6 @@ const RegisterPage = () => {
               case ContractsUserRoleType.Student:
                 setUserRole(ContractsUserRoleType.Student);
                 break;
-              case ContractsUserRoleType.Admin:
-                setUserRole(ContractsUserRoleType.Admin);
-                break;
               case ContractsUserRoleType.Employee:
                 setUserRole(ContractsUserRoleType.Employee);
                 break;
@@ -47,19 +43,16 @@ const RegisterPage = () => {
         >
           <MenuItem disabled value={ContractsUserRoleType.None}>Не выбрана</MenuItem>
           <MenuItem value={ContractsUserRoleType.Student}>Студент</MenuItem>
-          <MenuItem value={ContractsUserRoleType.Admin}>Администратор</MenuItem>
           <MenuItem value={ContractsUserRoleType.Employee}>Сотрудник университета</MenuItem>
         </Select>
       </FormControl>
 
       {
-        userRole == 'Admin'
-          ? <RegisterAdminForm />
-          : userRole == 'Employee'
-            ? <RegisterEmployeeForm />
-            : userRole == 'Student'
-              ? <RegisterStudentForm />
-              : <></>
+        userRole == 'Employee'
+          ? <RegisterEmployeeForm />
+          : userRole == 'Student'
+            ? <RegisterStudentForm />
+            : <></>
       }
 
       <Box sx={{ p: 3, textAlign: 'center' }}>

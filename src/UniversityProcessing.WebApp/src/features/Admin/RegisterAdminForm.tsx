@@ -2,7 +2,7 @@ import { Button, CircularProgress, FormControl, Stack, TextField } from '@mui/ma
 import { useState } from 'react';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
-import RegisterResultModal from './RegisterResultModal';
+import RegisterResultModal from '../identity/RegisterResultModal';
 import { usePostApiRegistrationAdminRegisterMutation } from 'src/api/backendApi';
 import { enqueueSnackbarError } from 'src/core/helpers';
 

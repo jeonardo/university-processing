@@ -22,20 +22,21 @@ public static partial class Program
     public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
         builder.RegisterSettings();
-        builder.AddSerilog();
-        builder.AddAuthentication();
-        builder.AddEndpoints(Assembly.GetExecutingAssembly());
-        builder.AddApplicationCors();
 
         builder.Services.AddAppSwagger();
         builder.Services.AddCorrelationIdGeneratorService();
         builder.Services.AddHttpContextAccessor();
-        builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         InfrastructureRegistrar.Configure(builder);
         DomainServicesRegistrar.Configure(builder);
+
+        builder.AddSerilog();
+        builder.AddAuthentication();
+
+        builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        builder.AddEndpoints(Assembly.GetExecutingAssembly());
+        builder.AddApplicationCors();
 
         var app = builder.Build();
 
@@ -45,17 +46,20 @@ public static partial class Program
             app.MigrateDb();
         }
 
-        app.MapEndpoints();
-        app.UseCors(APPLICATION_CORS_POLICY);
-        app.UseHttpsRedirection();
-        app.MapFallbackToFile("/index.html");
-        app.UseFileServer();
-
         app.UseProtectedMiddleware();
         app.UseSerilogRequestLogging();
 
+        app.UseCors(APPLICATION_CORS_POLICY);
+        app.UseHttpsRedirection();
+        app.UseRouting();
+
+        app.UseFileServer();
+        app.MapFallbackToFile("/index.html");
+
         app.UseAuthentication();
         app.UseAuthorization();
+
+        app.MapEndpoints();
 
         await app.RunAsync();
     }
@@ -109,12 +113,12 @@ public static partial class Program
 
         services.AddSingleton<ITokenService, TokenService>();
 
-        services
-            .AddAuthentication(
+        services.AddControllersWithViews();
+        services.AddAuthentication(
                 options =>
                 {
-                    options.DefaultAuthenticateScheme =
-                        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
             .AddJwtBearer(
                 options =>
@@ -153,7 +157,8 @@ public static partial class Program
                         {
                             configurePolicy.RequireClaim(
                                 policy.Value,
-                                "true");
+                                "true",
+                                "True");
                         });
                 }
             });
