@@ -1,8 +1,7 @@
-using Ardalis.Specification;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Domain;
 using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Filters;
 using UniversityProcessing.GenericSubdomain.Pagination;
 using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Repository.Repositories;
@@ -17,51 +16,49 @@ internal sealed class GetUsers : IEndpoint
         app
             .MapGet(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
-            .AddEndpointFilter<ValidationFilter<GetUsersRequestDto>>();
+            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)));
     }
 
     private static async Task<GetUsersResponseDto> Handle(
         [AsParameters] GetUsersRequestDto request,
         [FromServices] IEfReadRepository<User> repository,
+        [FromServices] UserManager<User> userManager,
         CancellationToken cancellationToken)
     {
         var validRequest = request.GetValidQueryParameters();
 
-        var specification = new GetGetUsersSpec(validRequest);
-        var entities = await repository.ListAsync(specification, cancellationToken);
+        var entities = await userManager.GetUsersInRoleAsync(nameof(UserRoleType.Admin));
+
+        User[] filteredEntities;
+
+        if (string.IsNullOrWhiteSpace(validRequest.Filter))
+        {
+            filteredEntities = entities
+                .Skip((validRequest.PageNumber - 1) * validRequest.PageSize)
+                .Take(validRequest.PageSize)
+                .ToArray();
+        }
+        else
+        {
+            filteredEntities = entities
+                .Where(
+                    x =>
+                        x.FirstName.Contains(validRequest.Filter)
+                        || (x.MiddleName != null && x.MiddleName.Contains(validRequest.Filter))
+                        || x.LastName.Contains(validRequest.Filter))
+                .Take(validRequest.PageSize)
+                .ToArray();
+        }
 
         var count = validRequest.IsFilterSet
-            ? entities.Count
-            : await repository.CountAsync(cancellationToken);
+            ? filteredEntities.Length
+            : entities.Count;
 
-        return new GetUsersResponseDto(new PagedList<UserDto>(entities, count, validRequest.PageNumber, validRequest.PageSize));
+        return new GetUsersResponseDto(new PagedList<UserDto>(filteredEntities.Select(ToDto), count, validRequest.PageNumber, validRequest.PageSize));
     }
 
-    private sealed class GetGetUsersSpec : Specification<User, UserDto>
+    private static UserDto ToDto(User input)
     {
-        public GetGetUsersSpec(GetListQueryParameters parameters)
-        {
-            Query
-                .Select(x => new UserDto(x.Id, x.FirstName, x.LastName, x.MiddleName, x.Approved))
-                .AsNoTracking();
-
-            if (string.IsNullOrWhiteSpace(parameters.Filter))
-            {
-                Query
-                    .Skip((parameters.PageNumber - 1) * parameters.PageSize)
-                    .Take(parameters.PageSize);
-            }
-            else
-            {
-                Query
-                    .Where(
-                        x =>
-                            x.FirstName.Contains(parameters.Filter)
-                            || (x.MiddleName != null && x.MiddleName.Contains(parameters.Filter))
-                            || x.LastName.Contains(parameters.Filter))
-                    .Take(10);
-            }
-        }
+        return new UserDto(input.Id, input.FirstName, input.LastName, input.MiddleName, input.Approved);
     }
 }

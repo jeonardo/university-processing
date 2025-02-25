@@ -2,9 +2,9 @@ import { Button, CircularProgress, FormControl, Stack, TextField } from '@mui/ma
 import { useState } from 'react';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
-import RegisterResultModal from '../identity/RegisterResultModal';
-import { usePostApiRegistrationAdminRegisterMutation } from 'src/api/backendApi';
+import RegisterResultModal from '../../identity/RegisterResultModal';
 import { enqueueSnackbarError } from 'src/core/helpers';
+import { usePostApiAdminRegisterMutation } from 'src/api/backendApi';
 
 const RegisterAdminForm = () => {
   const [userName, setUserName] = useState('');
@@ -15,23 +15,23 @@ const RegisterAdminForm = () => {
   const [birthday, setBirthday] = useState(dayjs());
   const [email, setEmail] = useState('');
 
-  const [tryregister, { isLoading, isSuccess }] = usePostApiRegistrationAdminRegisterMutation();
+  const [tryRegister, { isLoading, isSuccess }] = usePostApiAdminRegisterMutation();
 
   const handleRegister = async () => {
     if (!userName || !password || !firstName)
       return;
 
-    const response = await tryregister({
-      registrationAdminRegisterRequest:
-        {
-          password: password,
-          userName: userName,
-          firstName: firstName,
-          lastName: lastName,
-          middleName: middleName,
-          birthday: birthday.toISOString(),
-          email: email
-        }
+    const response = await tryRegister({
+      adminRegisterRequest:
+      {
+        password: password,
+        userName: userName,
+        firstName: firstName,
+        lastName: lastName,
+        middleName: middleName,
+        birthday: birthday.toISOString(),
+        email: email
+      }
     });
 
     if (response.error) {

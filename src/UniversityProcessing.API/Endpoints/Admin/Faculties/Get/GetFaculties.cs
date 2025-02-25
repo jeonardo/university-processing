@@ -16,8 +16,10 @@ internal sealed class GetFaculties : IEndpoint
         app
             .MapGet(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
-            .RequireAuthorization();
+            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)));
     }
+
+    add leaders to response
 
     private static async Task<GetFacultiesResponseDto> Handle(
         [AsParameters] GetFacultiesRequestDto request,
@@ -26,7 +28,7 @@ internal sealed class GetFaculties : IEndpoint
     {
         var validRequest = request.GetValidQueryParameters();
 
-        var specification = new FacultyListSpec(validRequest.PageNumber, validRequest.PageSize, validRequest.OrderBy, validRequest.Desc);
+        var specification = new GetFacultiesSpec(validRequest.PageNumber, validRequest.PageSize, validRequest.OrderBy, validRequest.Desc);
         var entities = await repository.ListAsync(specification, cancellationToken);
 
         var count = validRequest.IsFilterSet
@@ -39,5 +41,11 @@ internal sealed class GetFaculties : IEndpoint
     private static FacultyDto ToDto(Faculty input)
     {
         return new FacultyDto(input.Id, input.Name, input.ShortName);
+    }
+
+    private sealed class GetFacultiesSpec(int pageNumber, int pageSize, string orderBy, bool desc)
+        : BaseListSpec<Faculty>(pageNumber, pageSize, orderBy, desc)
+    {
+        protected override string[] AvailableProperties => ["id", "name", "short_name"];
     }
 }

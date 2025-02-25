@@ -7,7 +7,7 @@ using UniversityProcessing.GenericSubdomain.Identity;
 using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
 using UniversityProcessing.GenericSubdomain.Routing;
 
-namespace UniversityProcessing.API.Endpoints.Admin.Users.UpdateApproval;
+namespace UniversityProcessing.API.Endpoints.Employee.UpdateApproval;
 
 internal sealed class UpdateApproval : IEndpoint
 {

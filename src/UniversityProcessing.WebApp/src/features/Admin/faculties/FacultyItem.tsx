@@ -1,12 +1,12 @@
 import React from 'react';
 import { ListItem, ListItemText, Typography } from '@mui/material';
-import { CommonGetFacultiesFaculty } from 'src/api/backendApi';
+import { AdminFacultiesGetFaculty } from 'src/api/backendApi';
 
 interface FacultyItemProps<T> {
   item: T;
 }
 
-const FacultytItem: React.FC<FacultyItemProps<CommonGetFacultiesFaculty>> = ({ item }) => {
+const FacultyItem: React.FC<FacultyItemProps<AdminFacultiesGetFaculty>> = ({ item }) => {
   return (
     <ListItem key={item.id} className="py-4 flex justify-between items-center">
       <ListItemText
@@ -20,4 +20,4 @@ const FacultytItem: React.FC<FacultyItemProps<CommonGetFacultiesFaculty>> = ({ i
     </ListItem>);
 };
 
-export default FacultytItem;
+export default FacultyItem;

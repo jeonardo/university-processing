@@ -1,17 +1,40 @@
 import { ButtonBase, Card, CardContent, Container, Grid2, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const arr = [
-  ['Университеты', 'Просмотр и регистрация новых университетов', '/universities', 1],
-  ['Факультеты', 'Просмотр и регистрация новых факультетов', '/faculties', 2],
-  ['Кафедры', 'Просмотр и регистрация новых кафедр', '/departments', 3],
-  ['Группы', 'Просмотр и регистрация новых групп', '/groups', 4],
-  ['Специальности', 'Просмотр и регистрация новых специальностей', '/specialties', 5],
-  ['Сессии', 'Просмотр и регистрация новых сессий', '/diplomaPeriods', 6],
-  ['Пользователи', 'Просмотр и утверждение новых пользователей', '/users', 7],
-  ['Test', 'Test Test Test', '/test', 8]
+  ['Факультеты', 'Просмотр и регистрация новых факультетов', '/faculties', 1],
+  ['Пользователи', 'Просмотр и утверждение новых администраторов', '/users', 2],
+  ['Учебные периоды', 'Просмотр создание новых учебных периодов', '/', 2]
+  // ['Кафедры', 'Просмотр и регистрация новых кафедр', '/departments', 3],
+  // ['Группы', 'Просмотр и регистрация новых групп', '/groups', 4],
+  // ['Специальности', 'Просмотр и регистрация новых специальностей', '/specialties', 5],
+  // ['Сессии', 'Просмотр и регистрация новых сессий', '/diplomaPeriods', 6],
+  // ['Пользователи', 'Просмотр и утверждение новых пользователей', '/users', 7],
 ];
 
+//TODO const Breadcrumbs = () => {
+//   const location = useLocation();
+//   const pathnames = location.pathname.split('/').filter((x) => x);
+
+//   return (
+//     <div style={{ marginBottom: '20px' }}>
+//       <Link to="/">Home</Link>
+//       {pathnames.map((name, index) => {
+//         const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;
+//         const isLast = index === pathnames.length - 1;
+//         return isLast ? (
+//           <span key={name}> / {name}</span>
+//         ) : (
+//           <span key={name}>
+//             {' '}
+//             / <Link to={routeTo}>{name}</Link>
+//           </span>
+//         );
+//       })}
+//     </div>
+//   );
+// };
 
 const AdminPanelPage = () => {
   const navigate = useNavigate();

@@ -11,4 +11,4 @@ public sealed class InfoResponseDto(Guid userId, UserRoleTypeDto roleType, bool 
     public bool Approved { get; set; } = approved;
 
     public UniversityStructureDto? UniversityStructure { get; set; } = universityStructure;
-}
+} //Get infrstructructure where I am

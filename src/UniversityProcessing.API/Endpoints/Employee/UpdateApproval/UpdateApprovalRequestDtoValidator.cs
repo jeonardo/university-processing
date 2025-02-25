@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace UniversityProcessing.API.Endpoints.Admin.Users.UpdateApproval;
+namespace UniversityProcessing.API.Endpoints.Employee.UpdateApproval;
 
 public sealed class UpdateApprovalRequestDtoValidator : AbstractValidator<UpdateApprovalRequestDto>
 {

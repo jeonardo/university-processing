@@ -6,32 +6,32 @@ using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
 using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Repository.Repositories;
 
-namespace UniversityProcessing.API.Endpoints.Admin.Faculties.Delete;
+namespace UniversityProcessing.API.Endpoints.Admin.Periods.Delete;
 
-internal sealed class DeleteFaculty : IEndpoint
+internal sealed class DeletePeriod : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        var type = typeof(DeleteFaculty);
+        var type = typeof(DeletePeriod);
         app
             .MapDelete(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
             .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
-            .AddEndpointFilter<ValidationFilter<DeleteFacultyRequestDto>>();
+            .AddEndpointFilter<ValidationFilter<DeletePeriodRequestDto>>();
     }
 
     private static async Task Handle(
-        [AsParameters] DeleteFacultyRequestDto request,
-        [FromServices] IEfRepository<Faculty> repository,
+        [AsParameters] DeletePeriodRequestDto request,
+        [FromServices] IEfRepository<Period> repository,
         CancellationToken cancellationToken)
     {
-        var record = await repository.GetByIdRequiredAsync(request.Id, cancellationToken);
+        var entity = await repository.GetByIdRequiredAsync(request.Id, cancellationToken);
 
-        if (record.Departments.Any())
+        if (entity.DiplomaProcesses.Count != 0)
         {
-            throw new ConflictException("Faculty contains departments");
+            throw new ConflictException("Period contains diploma processes");
         }
 
-        await repository.DeleteAsync(record, cancellationToken);
+        await repository.DeleteAsync(entity, cancellationToken);
     }
 }

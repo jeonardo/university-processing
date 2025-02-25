@@ -5,9 +5,9 @@ import GroupListPage from 'src/features/groups/GroupListPage';
 import MainPage from 'src/features/main/MainPage';
 import NotFoundPage from 'src/features/notFound/NotFoundPage';
 import SpecialtyListPage from 'src/features/specialties/SpecialtyListPage';
-import UsersPage from 'src/features/admin/Users/UsersPage';
+import UsersPage from 'src/features/admin/users/UsersPage';
 import PrivateLayout from 'src/features/PrivateLayout';
-import FacultyListPage from 'src/features/faculties/FacultyListPage';
+import FacultiesPage from 'src/features/admin/faculties/FacultiesPage';
 import SettingsPage from 'src/features/settings/SettingsPage';
 
 const PrivateRoutes = {
@@ -15,6 +15,10 @@ const PrivateRoutes = {
   element: <PrivateLayout />,
   errorElement: <NotFoundPage />,
   children: [
+    {
+      path: 'admin',
+      children: []
+    },
     {
       path: 'settings',
       element: <SettingsPage />
@@ -25,7 +29,7 @@ const PrivateRoutes = {
     },
     {
       path: '/faculties',
-      element: <FacultyListPage />
+      element: <FacultiesPage />
     },
     {
       path: '/departments',

@@ -4,7 +4,7 @@ import { ContractsUserRoleType, useLazyGetApiAdminUsersGetQuery } from 'src/api/
 import { useAppSelector } from 'src/core/hooks';
 import AppListPagination from 'src/components/AppListPagination';
 import AppList from 'src/components/AppList';
-import UserItem from './Сomponents/UserItem';
+import UserItem from './UserItem';
 import AppListSearch from 'src/components/AppListSearch';
 
 const UsersPage: React.FC = () => {

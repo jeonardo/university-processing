@@ -1,28 +1,28 @@
 import { useEffect, useState } from 'react';
 import { Container, Typography } from '@mui/material';
-import AppListPagination from '../../components/AppListPagination';
-// import { useLazyGetApiCommonGetFacultiesQuery } from 'src/api/backendApi';
+import AppListPagination from '../../../components/AppListPagination';
 import AppList from 'src/components/AppList';
-import FacultytItem from './Сomponents/FacultytItem';
+import FacultyItem from './FacultyItem';
+import { useLazyGetApiAdminFacultiesGetQuery } from 'src/api/backendApi';
 
-const FacultyListPage = () => {
+const FacultiesPage = () => {
   const [pageNumber, setPageNumber] = useState(1);
 
-  // const [getData, { data, isLoading }] = useLazyGetApiCommonGetFacultiesQuery({ pollingInterval: 5000 });
+  const [getData, { data, isLoading }] = useLazyGetApiAdminFacultiesGetQuery({ pollingInterval: 5000 });
 
-  // useEffect(() => {
-  //   getData({ pageNumber: pageNumber });
-  // }, [pageNumber]);
+  useEffect(() => {
+    getData({ pageNumber: pageNumber });
+  }, [pageNumber]);
 
   return (
     <Container maxWidth="md" className="py-8">
       <Typography variant="h4" component="h1" className="pb-6 font-bold">
         Список факультетов
       </Typography>
-      {/* <AppList isLoading={isLoading} isEmpty={data?.list?.items?.length == 0}>
+      <AppList isLoading={isLoading} isEmpty={data?.list?.items?.length == 0}>
         {
           data?.list?.items?.map((item) => (
-            <FacultytItem key={item.id} item={item} />
+            <FacultyItem key={item.id} item={item} />
           ))
         }
       </AppList>
@@ -30,9 +30,9 @@ const FacultyListPage = () => {
         currentPage={pageNumber}
         totalPages={data?.list?.totalPages ?? 0}
         onPageChange={setPageNumber}
-      /> */}
+      />
     </Container>
   );
 };
 
-export default FacultyListPage;
+export default FacultiesPage;

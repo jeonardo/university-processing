@@ -1,6 +1,8 @@
 using System.Linq.Expressions;
 using Ardalis.Specification;
 
+// ReSharper disable VirtualMemberCallInConstructor
+
 namespace UniversityProcessing.Repository.Specifications;
 
 public abstract class BaseListSpec<T> : Specification<T> where T : class
@@ -14,24 +16,27 @@ public abstract class BaseListSpec<T> : Specification<T> where T : class
         bool desc = false,
         Expression<Func<T, bool>>? expression = null)
     {
-        var offset = (pageNumber - 1) * pageSize;
-
-        // ReSharper disable once VirtualMemberCallInConstructor
-        var query = Query
+        Query
             .AsNoTracking()
             .Where(expression ?? (x => true));
 
-        // ReSharper disable once VirtualMemberCallInConstructor
         if (AvailableProperties.Length != 0)
         {
             var validatedOrderBy = ValidateOrderBy(orderBy);
 
-            query = desc
-                ? query.OrderByDescending(x => validatedOrderBy)
-                : query.OrderBy(x => validatedOrderBy);
+            if (desc)
+            {
+                Query.OrderByDescending(x => validatedOrderBy);
+            }
+            else
+            {
+                Query.OrderBy(x => validatedOrderBy);
+            }
         }
 
-        query
+        var offset = (pageNumber - 1) * pageSize;
+
+        Query
             .Skip(offset)
             .Take(pageSize);
     }
