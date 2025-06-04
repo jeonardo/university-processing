@@ -8,4 +8,7 @@
     <PackageReference Include="FluentValidation"/>
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions"/>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Notifications\"/>
+  </ItemGroup>
 </Project>

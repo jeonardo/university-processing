@@ -19,8 +19,6 @@ internal sealed class GetFaculties : IEndpoint
             .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)));
     }
 
-    add leaders to response
-
     private static async Task<GetFacultiesResponseDto> Handle(
         [AsParameters] GetFacultiesRequestDto request,
         [FromServices] IEfRepository<Faculty> repository,

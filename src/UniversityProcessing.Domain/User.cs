@@ -52,6 +52,13 @@ public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
     {
     }
 
+    public string GetFullName()
+    {
+        return MiddleName is null
+            ? $"{FirstName} {LastName}"
+            : $"{FirstName} {MiddleName} {LastName}";
+    }
+
     public void UpdateIsApprovedStatus(bool isApproved)
     {
         Approved = isApproved;

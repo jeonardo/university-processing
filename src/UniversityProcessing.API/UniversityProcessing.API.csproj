@@ -41,14 +41,12 @@
     <Folder Include="Endpoints\Employee\Teacher\DiplomaProcesses\GetWithMyStudents\"/>
     <Folder Include="Endpoints\Employee\Teacher\DiplomaProcesses\RemoveTopic\"/>
     <Folder Include="Endpoints\Identity\RemoveRequest\"/>
-    <Folder Include="Endpoints\Notifications\Get\"/>
     <Folder Include="Endpoints\Student\GetDiplomaPeriod\"/>
     <Folder Include="Endpoints\Student\GetSupervisors\"/>
     <Folder Include="Endpoints\Student\RequestSupervisor\"/>
     <Folder Include="Endpoints\Student\UploadDiploma\"/>
     <Folder Include="Logs\"/>
     <Folder Include="wwwroot\"/>
-    <Folder Include="wwwroot\client\"/>
   </ItemGroup>
 
 </Project>

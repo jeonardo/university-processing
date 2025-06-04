@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -67,6 +68,20 @@ internal sealed class TokenService(IOptions<AuthSettings> authOptions, ILogger<T
             GetUserId(claims),
             GetUserRole(claims),
             GetUserApproved(claims));
+    }
+
+    public bool TryGetAuthorizationTokenClaims(ClaimsPrincipal user, [NotNullWhen(true)] out AuthTokenClaims? claims)
+    {
+        try
+        {
+            claims = GetAuthorizationTokenClaims(user);
+            return true;
+        }
+        catch (Exception)
+        {
+            claims = null;
+            return false;
+        }
     }
 
     private Token GetAuthorizationToken(IEnumerable<Claim> claims, DateTime expires, string key)
