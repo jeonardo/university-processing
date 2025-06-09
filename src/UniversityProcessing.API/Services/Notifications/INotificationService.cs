@@ -1,4 +1,4 @@
-using UniversityProcessing.API.Endpoints.Contracts;
+using UniversityProcessing.API.TODO.Endpoints.Contracts;
 
 namespace UniversityProcessing.API.Services.Notifications;
 

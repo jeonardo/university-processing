@@ -1,9 +1,9 @@
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { Mutex } from 'async-mutex';
 import { RootState } from '../core/store';
-import { login, logout } from 'src/features/identity/auth.slice';
+import { login, logout } from 'src/features/auth/auth.slice';
 import { appEnv } from '../core/appEnv';
-import { IdentityRefreshResponse } from './backendApi';
+import { AuthRefreshResponse } from './backendApi';
 
 const mutex = new Mutex();
 
@@ -43,12 +43,12 @@ const baseQueryWithReauth: BaseQueryFn<
   const release = await mutex.acquire();
 
   try {
-    const refreshResult = await baseQuery('/api/Identity/Refresh', api, extraOptions);
+    const refreshResult = await baseQuery('/api/Auth/Refresh', api, extraOptions);
 
     if (refreshResult.error || !refreshResult.data) {
       api.dispatch(logout());
     } else {
-      const refreshContent: IdentityRefreshResponse = refreshResult.data;
+      const refreshContent: AuthRefreshResponse = refreshResult.data;
       api.dispatch(login({ accessToken: refreshContent.accessToken, refreshToken: refreshContent.refreshToken }));
       result = await baseQuery(args, api, extraOptions);
     }

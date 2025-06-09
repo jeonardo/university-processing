@@ -1,4 +1,4 @@
-import { AuthTokens } from 'src/features/identity/auth.contracts';
+import { AuthTokens } from 'src/features/auth/auth.contracts';
 import { localStorageGetObject, localStorageSetData } from './localStorage';
 
 const TOKEN_KEY: string = 'bntu_token';

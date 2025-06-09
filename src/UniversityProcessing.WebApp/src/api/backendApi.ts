@@ -1,16 +1,6 @@
 import { emptySplitApi as api } from "./emptyApi";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
-    putApiAdminUsersUpdateApproval: build.mutation<
-      PutApiAdminUsersUpdateApprovalApiResponse,
-      PutApiAdminUsersUpdateApprovalApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Admin/Users/UpdateApproval`,
-        method: "PUT",
-        body: queryArg.adminUsersUpdateApprovalRequest,
-      }),
-    }),
     getApiAdminUsersGet: build.query<
       GetApiAdminUsersGetApiResponse,
       GetApiAdminUsersGetApiArg
@@ -34,6 +24,28 @@ const injectedRtkApi = api.injectEndpoints({
         url: `/api/Admin/Register`,
         method: "POST",
         body: queryArg.adminRegisterRequest,
+      }),
+    }),
+    deleteApiAdminPeriodsDelete: build.mutation<
+      DeleteApiAdminPeriodsDeleteApiResponse,
+      DeleteApiAdminPeriodsDeleteApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Admin/Periods/Delete`,
+        method: "DELETE",
+        params: {
+          Id: queryArg.id,
+        },
+      }),
+    }),
+    postApiAdminPeriodsCreate: build.mutation<
+      PostApiAdminPeriodsCreateApiResponse,
+      PostApiAdminPeriodsCreateApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Admin/Periods/Create`,
+        method: "POST",
+        body: queryArg.adminPeriodsCreateRequest,
       }),
     }),
     getApiAdminFacultiesGet: build.query<
@@ -71,6 +83,54 @@ const injectedRtkApi = api.injectEndpoints({
         url: `/api/Admin/Faculties/Create`,
         method: "POST",
         body: queryArg.adminFacultiesCreateRequest,
+      }),
+    }),
+    getApiAuthRefresh: build.query<
+      GetApiAuthRefreshApiResponse,
+      GetApiAuthRefreshApiArg
+    >({
+      query: () => ({ url: `/api/Auth/Refresh` }),
+    }),
+    postApiAuthLogout: build.mutation<
+      PostApiAuthLogoutApiResponse,
+      PostApiAuthLogoutApiArg
+    >({
+      query: () => ({ url: `/api/Auth/Logout`, method: "POST" }),
+    }),
+    postApiAuthLogin: build.mutation<
+      PostApiAuthLoginApiResponse,
+      PostApiAuthLoginApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Auth/Login`,
+        method: "POST",
+        body: queryArg.authLoginRequest,
+      }),
+    }),
+    getApiAuthInfo: build.query<
+      GetApiAuthInfoApiResponse,
+      GetApiAuthInfoApiArg
+    >({
+      query: () => ({ url: `/api/Auth/Info` }),
+    }),
+    postApiAuthChangePassword: build.mutation<
+      PostApiAuthChangePasswordApiResponse,
+      PostApiAuthChangePasswordApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Auth/ChangePassword`,
+        method: "POST",
+        body: queryArg.authChangePasswordRequest,
+      }),
+    }),
+    putApiEmployeeUpdateApproval: build.mutation<
+      PutApiEmployeeUpdateApprovalApiResponse,
+      PutApiEmployeeUpdateApprovalApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Employee/UpdateApproval`,
+        method: "PUT",
+        body: queryArg.employeeUpdateApprovalRequest,
       }),
     }),
     deleteApiEmployeeTeacherDepartmentLeaderSpecialtiesDelete: build.mutation<
@@ -260,42 +320,30 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.employeeDeaneryDepartmentsCreateRequest,
       }),
     }),
-    getApiIdentityRefresh: build.query<
-      GetApiIdentityRefreshApiResponse,
-      GetApiIdentityRefreshApiArg
-    >({
-      query: () => ({ url: `/api/Identity/Refresh` }),
-    }),
-    postApiIdentityLogout: build.mutation<
-      PostApiIdentityLogoutApiResponse,
-      PostApiIdentityLogoutApiArg
-    >({
-      query: () => ({ url: `/api/Identity/Logout`, method: "POST" }),
-    }),
-    postApiIdentityLogin: build.mutation<
-      PostApiIdentityLoginApiResponse,
-      PostApiIdentityLoginApiArg
+    getApiNotificationsGet: build.query<
+      GetApiNotificationsGetApiResponse,
+      GetApiNotificationsGetApiArg
     >({
       query: (queryArg) => ({
-        url: `/api/Identity/Login`,
-        method: "POST",
-        body: queryArg.identityLoginRequest,
+        url: `/api/Notifications/Get`,
+        params: {
+          PageNumber: queryArg.pageNumber,
+        },
       }),
     }),
-    getApiIdentityInfo: build.query<
-      GetApiIdentityInfoApiResponse,
-      GetApiIdentityInfoApiArg
-    >({
-      query: () => ({ url: `/api/Identity/Info` }),
-    }),
-    postApiIdentityChangePassword: build.mutation<
-      PostApiIdentityChangePasswordApiResponse,
-      PostApiIdentityChangePasswordApiArg
+    getApiPeriodsGet: build.query<
+      GetApiPeriodsGetApiResponse,
+      GetApiPeriodsGetApiArg
     >({
       query: (queryArg) => ({
-        url: `/api/Identity/ChangePassword`,
-        method: "POST",
-        body: queryArg.identityChangePasswordRequest,
+        url: `/api/Periods/Get`,
+        params: {
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter,
+        },
       }),
     }),
     postApiRegistrationStudentRegister: build.mutation<
@@ -341,10 +389,6 @@ const injectedRtkApi = api.injectEndpoints({
   overrideExisting: false,
 });
 export { injectedRtkApi as backendApi };
-export type PutApiAdminUsersUpdateApprovalApiResponse = unknown;
-export type PutApiAdminUsersUpdateApprovalApiArg = {
-  adminUsersUpdateApprovalRequest: AdminUsersUpdateApprovalRequest;
-};
 export type GetApiAdminUsersGetApiResponse =
   /** status 200 OK */ AdminUsersGetResponseRead;
 export type GetApiAdminUsersGetApiArg = {
@@ -357,6 +401,15 @@ export type GetApiAdminUsersGetApiArg = {
 export type PostApiAdminRegisterApiResponse = unknown;
 export type PostApiAdminRegisterApiArg = {
   adminRegisterRequest: AdminRegisterRequest;
+};
+export type DeleteApiAdminPeriodsDeleteApiResponse = unknown;
+export type DeleteApiAdminPeriodsDeleteApiArg = {
+  id: string;
+};
+export type PostApiAdminPeriodsCreateApiResponse =
+  /** status 200 OK */ AdminPeriodsCreateResponse;
+export type PostApiAdminPeriodsCreateApiArg = {
+  adminPeriodsCreateRequest: AdminPeriodsCreateRequest;
 };
 export type GetApiAdminFacultiesGetApiResponse =
   /** status 200 OK */ AdminFacultiesGetResponseRead;
@@ -375,6 +428,26 @@ export type PostApiAdminFacultiesCreateApiResponse =
   /** status 200 OK */ AdminFacultiesCreateResponse;
 export type PostApiAdminFacultiesCreateApiArg = {
   adminFacultiesCreateRequest: AdminFacultiesCreateRequest;
+};
+export type GetApiAuthRefreshApiResponse =
+  /** status 200 OK */ AuthRefreshResponse;
+export type GetApiAuthRefreshApiArg = void;
+export type PostApiAuthLogoutApiResponse = unknown;
+export type PostApiAuthLogoutApiArg = void;
+export type PostApiAuthLoginApiResponse =
+  /** status 200 OK */ AuthLoginResponse;
+export type PostApiAuthLoginApiArg = {
+  authLoginRequest: AuthLoginRequest;
+};
+export type GetApiAuthInfoApiResponse = /** status 200 OK */ AuthInfoResponse;
+export type GetApiAuthInfoApiArg = void;
+export type PostApiAuthChangePasswordApiResponse = unknown;
+export type PostApiAuthChangePasswordApiArg = {
+  authChangePasswordRequest: AuthChangePasswordRequest;
+};
+export type PutApiEmployeeUpdateApprovalApiResponse = unknown;
+export type PutApiEmployeeUpdateApprovalApiArg = {
+  employeeUpdateApprovalRequest: EmployeeUpdateApprovalRequest;
 };
 export type DeleteApiEmployeeTeacherDepartmentLeaderSpecialtiesDeleteApiResponse =
   unknown;
@@ -473,22 +546,19 @@ export type PostApiEmployeeDeaneryDepartmentsCreateApiResponse =
 export type PostApiEmployeeDeaneryDepartmentsCreateApiArg = {
   employeeDeaneryDepartmentsCreateRequest: EmployeeDeaneryDepartmentsCreateRequest;
 };
-export type GetApiIdentityRefreshApiResponse =
-  /** status 200 OK */ IdentityRefreshResponse;
-export type GetApiIdentityRefreshApiArg = void;
-export type PostApiIdentityLogoutApiResponse = unknown;
-export type PostApiIdentityLogoutApiArg = void;
-export type PostApiIdentityLoginApiResponse =
-  /** status 200 OK */ IdentityLoginResponse;
-export type PostApiIdentityLoginApiArg = {
-  identityLoginRequest: IdentityLoginRequest;
+export type GetApiNotificationsGetApiResponse =
+  /** status 200 OK */ NotificationsGetResponse;
+export type GetApiNotificationsGetApiArg = {
+  pageNumber: number;
 };
-export type GetApiIdentityInfoApiResponse =
-  /** status 200 OK */ IdentityInfoResponse;
-export type GetApiIdentityInfoApiArg = void;
-export type PostApiIdentityChangePasswordApiResponse = unknown;
-export type PostApiIdentityChangePasswordApiArg = {
-  identityChangePasswordRequest: IdentityChangePasswordRequest;
+export type GetApiPeriodsGetApiResponse =
+  /** status 200 OK */ PeriodsGetResponseRead;
+export type GetApiPeriodsGetApiArg = {
+  desc?: boolean;
+  orderBy?: string;
+  pageNumber?: number;
+  pageSize?: number;
+  filter?: string;
 };
 export type PostApiRegistrationStudentRegisterApiResponse = unknown;
 export type PostApiRegistrationStudentRegisterApiArg = {
@@ -507,10 +577,6 @@ export type GetApiRegistrationEmployeeGetAvailableUniversityPositionsApiResponse
   /** status 200 OK */ RegistrationEmployeeGetAvailableUniversityPositionsResponse;
 export type GetApiRegistrationEmployeeGetAvailableUniversityPositionsApiArg =
   void;
-export type AdminUsersUpdateApprovalRequest = {
-  userId: string;
-  isApproved: boolean;
-};
 export type AdminUsersGetUser = {
   id?: string;
   firstName?: string | null;
@@ -547,6 +613,15 @@ export type AdminRegisterRequest = {
   email?: string | null;
   birthday?: string | null;
 };
+export type AdminPeriodsCreateResponse = {
+  id?: string;
+};
+export type AdminPeriodsCreateRequest = {};
+export type AdminPeriodsCreateRequestRead = {
+  from: string;
+  to: string;
+  comments?: string | null;
+};
 export type AdminFacultiesGetFaculty = {
   id?: string;
   name?: string | null;
@@ -578,6 +653,36 @@ export type AdminFacultiesCreateResponse = {
 export type AdminFacultiesCreateRequest = {
   name: string;
   shortName: string;
+};
+export type ContractsToken = {
+  value?: string | null;
+  expiration?: string;
+};
+export type AuthRefreshResponse = {
+  accessToken?: ContractsToken;
+  refreshToken?: ContractsToken;
+};
+export type AuthLoginResponse = {
+  accessToken?: ContractsToken;
+  refreshToken?: ContractsToken;
+};
+export type AuthLoginRequest = {
+  userName: string;
+  password: string;
+};
+export type AuthInfoResponse = {
+  userId?: string;
+  roleType?: ContractsUserRoleType;
+  approved?: boolean;
+};
+export type AuthChangePasswordRequest = {
+  userName: string;
+  password: string;
+  newPassword: string;
+};
+export type EmployeeUpdateApprovalRequest = {
+  userId: string;
+  isApproved: boolean;
 };
 export type EmployeeTeacherDepartmentLeaderSpecialtiesCreateResponse = {
   id?: string;
@@ -729,67 +834,38 @@ export type EmployeeDeaneryDepartmentsCreateRequest = {
   shortName: string;
   facultyId?: string | null;
 };
-export type ContractsToken = {
-  value?: string | null;
-  expiration?: string;
+export type ContractsNotification = {
+  title?: string | null;
+  message?: string | null;
 };
-export type IdentityRefreshResponse = {
-  accessToken?: ContractsToken;
-  refreshToken?: ContractsToken;
+export type NotificationsGetResponse = {
+  notifications?: ContractsNotification[] | null;
 };
-export type IdentityLoginResponse = {
-  accessToken?: ContractsToken;
-  refreshToken?: ContractsToken;
-};
-export type IdentityLoginRequest = {
-  userName: string;
-  password: string;
-};
-export type IdentityInfoGroup = {
-  number?: string | null;
-  startDate?: string;
-  endDate?: string;
-};
-export type IdentityInfoSpecialty = {
+export type PeriodsGetPeriod = {
   id?: string;
-  name?: string | null;
-  shortName?: string | null;
-  code?: string | null;
-  groups?: IdentityInfoGroup[] | null;
+  from?: string;
+  to?: string;
+  comments?: string | null;
 };
-export type IdentityInfoUser = {
-  id?: string;
+export type PeriodsGetPeriodPagedList = {
+  items?: PeriodsGetPeriod[] | null;
+  currentPage?: number;
+  pageSize?: number;
 };
-export type IdentityInfoDepartment = {
-  id?: string;
-  name?: string | null;
-  shortName?: string | null;
-  specialties?: IdentityInfoSpecialty[] | null;
-  leader?: IdentityInfoUser;
+export type PeriodsGetPeriodPagedListRead = {
+  items?: PeriodsGetPeriod[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
 };
-export type IdentityInfoFaculty = {
-  id?: string;
-  name?: string | null;
-  shortName?: string | null;
-  departments?: IdentityInfoDepartment[] | null;
-  leader?: IdentityInfoUser;
-  members?: IdentityInfoUser[] | null;
+export type PeriodsGetResponse = {
+  list?: PeriodsGetPeriodPagedList;
 };
-export type IdentityInfoUniversityStructure = {
-  name?: string | null;
-  shortName?: string | null;
-  faculties?: IdentityInfoFaculty[] | null;
-};
-export type IdentityInfoResponse = {
-  userId?: string;
-  roleType?: ContractsUserRoleType;
-  approved?: boolean;
-  universityStructure?: IdentityInfoUniversityStructure;
-};
-export type IdentityChangePasswordRequest = {
-  userName: string;
-  password: string;
-  newPassword: string;
+export type PeriodsGetResponseRead = {
+  list?: PeriodsGetPeriodPagedListRead;
 };
 export type RegistrationStudentRegisterRequest = {
   userName: string;
@@ -832,14 +908,23 @@ export enum ContractsUserRoleType {
   Student = "Student",
 }
 export const {
-  usePutApiAdminUsersUpdateApprovalMutation,
   useGetApiAdminUsersGetQuery,
   useLazyGetApiAdminUsersGetQuery,
   usePostApiAdminRegisterMutation,
+  useDeleteApiAdminPeriodsDeleteMutation,
+  usePostApiAdminPeriodsCreateMutation,
   useGetApiAdminFacultiesGetQuery,
   useLazyGetApiAdminFacultiesGetQuery,
   useDeleteApiAdminFacultiesDeleteMutation,
   usePostApiAdminFacultiesCreateMutation,
+  useGetApiAuthRefreshQuery,
+  useLazyGetApiAuthRefreshQuery,
+  usePostApiAuthLogoutMutation,
+  usePostApiAuthLoginMutation,
+  useGetApiAuthInfoQuery,
+  useLazyGetApiAuthInfoQuery,
+  usePostApiAuthChangePasswordMutation,
+  usePutApiEmployeeUpdateApprovalMutation,
   useDeleteApiEmployeeTeacherDepartmentLeaderSpecialtiesDeleteMutation,
   usePostApiEmployeeTeacherDepartmentLeaderSpecialtiesCreateMutation,
   useDeleteApiEmployeeTeacherDepartmentLeaderGroupsDeleteMutation,
@@ -860,13 +945,10 @@ export const {
   useLazyGetApiEmployeeGetDepartmentsQuery,
   useDeleteApiEmployeeDeaneryDepartmentsDeleteMutation,
   usePostApiEmployeeDeaneryDepartmentsCreateMutation,
-  useGetApiIdentityRefreshQuery,
-  useLazyGetApiIdentityRefreshQuery,
-  usePostApiIdentityLogoutMutation,
-  usePostApiIdentityLoginMutation,
-  useGetApiIdentityInfoQuery,
-  useLazyGetApiIdentityInfoQuery,
-  usePostApiIdentityChangePasswordMutation,
+  useGetApiNotificationsGetQuery,
+  useLazyGetApiNotificationsGetQuery,
+  useGetApiPeriodsGetQuery,
+  useLazyGetApiPeriodsGetQuery,
   usePostApiRegistrationStudentRegisterMutation,
   useGetApiRegistrationStudentGetAvailableGroupsQuery,
   useLazyGetApiRegistrationStudentGetAvailableGroupsQuery,

@@ -9,42 +9,21 @@
     <PackageReference Include="Serilog.AspNetCore"/>
     <PackageReference Include="Serilog.Sinks.Console"/>
     <PackageReference Include="Serilog.Sinks.File"/>
+    <PackageReference Include="FluentValidation"/>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UniversityProcessing.DomainServices\UniversityProcessing.DomainServices.csproj"/>
     <ProjectReference Include="..\UniversityProcessing.GenericSubdomain\UniversityProcessing.GenericSubdomain.csproj"/>
     <ProjectReference Include="..\UniversityProcessing.WebApp\UniversityProcessing.WebApp.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\UniversityProcessing.Infrastructure\UniversityProcessing.Infrastructure.csproj"/>
     <ProjectReference Include="..\UniversityProcessing.Domain\UniversityProcessing.Domain.csproj"/>
+    <ProjectReference Include="..\UniversityProcessing.Repository\UniversityProcessing.Repository.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Endpoints\Admin\Faculties\SetLeader\"/>
-    <Folder Include="Endpoints\Admin\Users\"/>
-    <Folder Include="Endpoints\Employee\Deanery\Departments\SetLeader\"/>
-    <Folder Include="Endpoints\Employee\Deanery\DiplomaProcesses\SetAvailableDays\"/>
-    <Folder Include="Endpoints\Employee\Deanery\Groups\AddUser\"/>
-    <Folder Include="Endpoints\Employee\Deanery\Groups\RemoveUser\"/>
-    <Folder Include="Endpoints\Employee\GetUsers\"/>
-    <Folder Include="Endpoints\Employee\Teacher\Committees\FillDiplomaProcess\"/>
-    <Folder Include="Endpoints\Employee\Teacher\Committees\SetDiplomaProcessDay\"/>
-    <Folder Include="Endpoints\Employee\Teacher\Committees\SetStudentMark\"/>
-    <Folder Include="Endpoints\Employee\Teacher\DepartmentLeader\DiplomaProcesses\SetRequiredTopics\"/>
-    <Folder Include="Endpoints\Employee\Teacher\DepartmentLeader\DiplomaProcesses\SetStudentSupervisorLimit\"/>
-    <Folder Include="Endpoints\Employee\Teacher\DepartmentLeader\DiplomaProcesses\SetTopicApproval\"/>
-    <Folder Include="Endpoints\Employee\Teacher\DiplomaProcesses\AddTopic\"/>
-    <Folder Include="Endpoints\Employee\Teacher\DiplomaProcesses\RespondStudentRequest\"/>
-    <Folder Include="Endpoints\Employee\Teacher\DiplomaProcesses\Comment\"/>
-    <Folder Include="Endpoints\Employee\Teacher\DiplomaProcesses\GetWithMyStudents\"/>
-    <Folder Include="Endpoints\Employee\Teacher\DiplomaProcesses\RemoveTopic\"/>
-    <Folder Include="Endpoints\Identity\RemoveRequest\"/>
-    <Folder Include="Endpoints\Student\GetDiplomaPeriod\"/>
-    <Folder Include="Endpoints\Student\GetSupervisors\"/>
-    <Folder Include="Endpoints\Student\RequestSupervisor\"/>
-    <Folder Include="Endpoints\Student\UploadDiploma\"/>
     <Folder Include="Logs\"/>
     <Folder Include="wwwroot\"/>
   </ItemGroup>

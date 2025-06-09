@@ -1,17 +1,17 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/core/hooks';
 import ResponsiveAppBar from './AppBar';
-import { logout, setUser } from 'src/features/identity/auth.slice';
+import { logout, setUser } from 'src/features/auth/auth.slice';
 import { useEffect } from 'react';
 import { Box, Button, Modal, Typography } from '@mui/material';
-import { useGetApiIdentityInfoQuery } from 'src/api/backendApi';
 import AppLoader from 'src/components/AppLoader';
+import { useGetApiAuthInfoQuery } from 'src/api/backendApi';
 
 const PrivateLayout: React.FC = () => {
   const authState = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { data, isSuccess } = useGetApiIdentityInfoQuery();
+  const { data, isSuccess } = useGetApiAuthInfoQuery();
   const handleLogout = () => dispatch(logout());
 
   useEffect(() => {
