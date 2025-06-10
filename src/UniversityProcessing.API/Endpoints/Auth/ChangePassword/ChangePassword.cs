@@ -33,7 +33,7 @@ internal sealed class ChangePassword : IEndpoint
 
         if (createResult.IsFailed())
         {
-            throw new ConflictException($"The password wasn't changed. Message = {string.Join("; ", createResult.Errors)}");
+            throw new ConflictException($"The password wasn't changed. Message = {createResult.FullDescription()}");
         }
     }
 }

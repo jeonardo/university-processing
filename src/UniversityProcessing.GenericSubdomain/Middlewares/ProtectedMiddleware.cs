@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 using UniversityProcessing.GenericSubdomain.Http;
@@ -24,7 +25,7 @@ public sealed class ProtectedMiddleware(RequestDelegate next)
             httpContext.Response.StatusCode = e switch
             {
                 HandledException handledException => (int)handledException.StatusCode,
-                ArgumentException => StatusCodes.Status400BadRequest,
+                ArgumentException or ValidationException => StatusCodes.Status400BadRequest,
                 _ => (int)HttpStatusCode.InternalServerError
             };
 

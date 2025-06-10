@@ -7,33 +7,33 @@ using UniversityProcessing.GenericSubdomain.Identity;
 using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
 using UniversityProcessing.GenericSubdomain.Routing;
 
-namespace UniversityProcessing.API.TODO.Endpoints.Admin.Register;
+namespace UniversityProcessing.API.Endpoints.Auth.Registration.Employee.Register;
 
-internal sealed class RegisterAdmin : IEndpoint
+internal sealed class RegisterEmployee : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        var type = typeof(RegisterAdmin);
+        var type = typeof(RegisterEmployee);
         app
             .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
-            .AddEndpointFilter<ValidationFilter<RegisterAdminRequestDto>>();
+            .AddEndpointFilter<ValidationFilter<RegisterEmployeeRequestDto>>();
     }
 
     private static async Task Handle(
-        [FromBody] RegisterAdminRequestDto request,
+        [FromBody] RegisterEmployeeRequestDto request,
         [FromServices] UserManager<User> userManager,
-        [FromServices] ILogger<RegisterAdmin> logger,
+        [FromServices] ILogger<RegisterEmployee> logger,
         CancellationToken cancellationToken)
     {
-        var user = User.CreateAdmin(
+        var user = User.CreateEmployee(
             request.UserName,
             request.FirstName,
             request.LastName,
             request.MiddleName,
             request.Email,
-            request.Birthday);
+            request.Birthday,
+            request.UniversityPositionId);
 
         var createResult = await userManager.CreateAsync(user, request.Password);
 
@@ -42,7 +42,7 @@ internal sealed class RegisterAdmin : IEndpoint
             throw new ConflictException($"Registration failed. Message = {createResult.FullDescription()}");
         }
 
-        var addToRoleResult = await userManager.AddToRoleAsync(user, nameof(UserRoleType.Admin));
+        var addToRoleResult = await userManager.AddToRoleAsync(user, nameof(UserRoleType.Employee));
 
         if (addToRoleResult.IsFailed())
         {

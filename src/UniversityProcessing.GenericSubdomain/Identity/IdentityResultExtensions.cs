@@ -9,6 +9,11 @@ public static class IdentityResultExtensions
         return !result.Succeeded;
     }
 
+    public static string FullDescription(this IdentityResult result)
+    {
+        return string.Join("; ", result.Errors.Select(x => x.Description));
+    }
+
     public static bool IsFailed(this SignInResult result)
     {
         return !result.Succeeded;

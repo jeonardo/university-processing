@@ -34,7 +34,7 @@ internal sealed class UpdateApproval : IEndpoint
 
         if (updateResult.IsFailed())
         {
-            throw new ConflictException(updateResult.Errors.ToString() ?? "User status wasn't changed");
+            throw new ConflictException(updateResult.FullDescription());
         }
     }
 }
