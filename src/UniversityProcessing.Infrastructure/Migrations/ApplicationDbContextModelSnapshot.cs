@@ -17,23 +17,23 @@ namespace UniversityProcessing.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.1");
 
-            modelBuilder.Entity("DiplomaPeriodUser", b =>
+            modelBuilder.Entity("DiplomaProcessUser", b =>
                 {
-                    b.Property<Guid>("DiplomaPeriodsId")
+                    b.Property<Guid>("DiplomaProcessesId")
                         .HasColumnType("TEXT")
-                        .HasColumnName("diploma_periods_id");
+                        .HasColumnName("diploma_processes_id");
 
                     b.Property<Guid>("UsersId")
                         .HasColumnType("TEXT")
                         .HasColumnName("users_id");
 
-                    b.HasKey("DiplomaPeriodsId", "UsersId")
-                        .HasName("pk_diploma_period_user");
+                    b.HasKey("DiplomaProcessesId", "UsersId")
+                        .HasName("pk_diploma_process_user");
 
                     b.HasIndex("UsersId")
-                        .HasDatabaseName("ix_diploma_period_user_users_id");
+                        .HasDatabaseName("ix_diploma_process_user_users_id");
 
-                    b.ToTable("diploma_period_user", (string)null);
+                    b.ToTable("diploma_process_user", (string)null);
                 });
 
             modelBuilder.Entity("DiplomaUser", b =>
@@ -181,7 +181,372 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.ToTable("user_tokens", (string)null);
                 });
 
-            modelBuilder.Entity("UniversityProcessing.Domain.Identity.User", b =>
+            modelBuilder.Entity("UniversityProcessing.Domain.Department", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid>("FacultyId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("faculty_id");
+
+                    b.Property<Guid?>("HeadUserId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("head_user_id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("name");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("short_name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_departments");
+
+                    b.HasIndex("FacultyId")
+                        .HasDatabaseName("ix_departments_faculty_id");
+
+                    b.ToTable("departments", (string)null);
+                });
+
+            modelBuilder.Entity("UniversityProcessing.Domain.Diploma", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid?>("DiplomaProcessId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("diploma_process_id");
+
+                    b.Property<int?>("Grade")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("grade");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("status");
+
+                    b.Property<Guid?>("StudentId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("student_id");
+
+                    b.Property<Guid?>("SupervisorId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("supervisor_id");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("title");
+
+                    b.HasKey("Id")
+                        .HasName("pk_diplomas");
+
+                    b.HasIndex("DiplomaProcessId")
+                        .HasDatabaseName("ix_diplomas_diploma_process_id");
+
+                    b.ToTable("diplomas", (string)null);
+                });
+
+            modelBuilder.Entity("UniversityProcessing.Domain.DiplomaProcess", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("date");
+
+                    b.Property<Guid?>("DepartmentId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("department_id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("name");
+
+                    b.Property<Guid?>("PeriodId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("period_id");
+
+                    b.Property<DateTime?>("PossibleFrom")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("possible_from");
+
+                    b.Property<DateTime?>("PossibleTo")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("possible_to");
+
+                    b.Property<string>("RequiredTitles")
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("required_titles");
+
+                    b.Property<Guid?>("СommitteeId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("сommittee_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_diploma_periods");
+
+                    b.HasIndex("DepartmentId")
+                        .HasDatabaseName("ix_diploma_periods_department_id");
+
+                    b.HasIndex("PeriodId")
+                        .HasDatabaseName("ix_diploma_periods_period_id");
+
+                    b.HasIndex("СommitteeId")
+                        .HasDatabaseName("ix_diploma_periods_сommittee_id");
+
+                    b.ToTable("diploma_periods", (string)null);
+                });
+
+            modelBuilder.Entity("UniversityProcessing.Domain.Faculty", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid?>("HeadUserId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("head_user_id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("name");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("short_name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_faculties");
+
+                    b.ToTable("faculties", (string)null);
+                });
+
+            modelBuilder.Entity("UniversityProcessing.Domain.Group", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid>("DepartmentId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("department_id");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("end_date");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("number");
+
+                    b.Property<Guid>("SpecialtyId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("specialty_id");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("start_date");
+
+                    b.HasKey("Id")
+                        .HasName("pk_groups");
+
+                    b.HasIndex("DepartmentId")
+                        .HasDatabaseName("ix_groups_department_id");
+
+                    b.HasIndex("Number")
+                        .IsUnique()
+                        .HasDatabaseName("ix_groups_number");
+
+                    b.HasIndex("SpecialtyId")
+                        .HasDatabaseName("ix_groups_specialty_id");
+
+                    b.ToTable("groups", (string)null);
+                });
+
+            modelBuilder.Entity("UniversityProcessing.Domain.Notification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("created_at");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("is_read");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("message");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("title");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_notifications");
+
+                    b.ToTable("notifications", (string)null);
+                });
+
+            modelBuilder.Entity("UniversityProcessing.Domain.Period", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Comments")
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("comments");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime>("From")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("from");
+
+                    b.Property<DateTime>("To")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("to");
+
+                    b.HasKey("Id")
+                        .HasName("pk_period");
+
+                    b.ToTable("period", (string)null);
+                });
+
+            modelBuilder.Entity("UniversityProcessing.Domain.Specialty", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(12)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("code");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid>("DepartmentId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("department_id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("name");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("short_name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_specialties");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ix_specialties_code");
+
+                    b.HasIndex("DepartmentId")
+                        .HasDatabaseName("ix_specialties_department_id");
+
+                    b.ToTable("specialties", (string)null);
+                });
+
+            modelBuilder.Entity("UniversityProcessing.Domain.UniversityPosition", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_university_positions");
+
+                    b.ToTable("university_positions", (string)null);
+                });
+
+            modelBuilder.Entity("UniversityProcessing.Domain.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -200,6 +565,10 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("birthday");
 
+                    b.Property<bool>("Blocked")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("blocked");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT")
@@ -209,7 +578,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("created_at");
 
-                    b.Property<Guid?>("DepartmentId")
+                    b.Property<Guid>("DepartmentId")
                         .HasColumnType("TEXT")
                         .HasColumnName("department_id");
 
@@ -222,23 +591,23 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("email_confirmed");
 
-                    b.Property<Guid?>("FacultyId")
+                    b.Property<Guid>("FacultyId")
                         .HasColumnType("TEXT")
                         .HasColumnName("faculty_id");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(50)
+                        .HasMaxLength(150)
                         .HasColumnType("TEXT")
                         .HasColumnName("first_name");
 
-                    b.Property<Guid?>("GroupId")
+                    b.Property<Guid>("GroupId")
                         .HasColumnType("TEXT")
                         .HasColumnName("group_id");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(50)
+                        .HasMaxLength(150)
                         .HasColumnType("TEXT")
                         .HasColumnName("last_name");
 
@@ -251,7 +620,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnName("lockout_end");
 
                     b.Property<string>("MiddleName")
-                        .HasMaxLength(50)
+                        .HasMaxLength(150)
                         .HasColumnType("TEXT")
                         .HasColumnName("middle_name");
 
@@ -285,10 +654,6 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("two_factor_enabled");
 
-                    b.Property<Guid?>("UniversityId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("university_id");
-
                     b.Property<Guid?>("UniversityPositionId")
                         .HasColumnType("TEXT")
                         .HasColumnName("university_position_id");
@@ -321,9 +686,6 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.HasIndex("UniversityId")
-                        .HasDatabaseName("ix_users_university_id");
-
                     b.HasIndex("UniversityPositionId")
                         .HasDatabaseName("ix_users_university_position_id");
 
@@ -335,7 +697,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("UniversityProcessing.Domain.Identity.UserRole", b =>
+            modelBuilder.Entity("UniversityProcessing.Domain.UserRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -352,7 +714,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnName("created_at");
 
                     b.Property<string>("DefaultPermissions")
-                        .HasMaxLength(100)
+                        .HasMaxLength(150)
                         .HasColumnType("TEXT")
                         .HasColumnName("default_permissions");
 
@@ -376,348 +738,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.ToTable("roles", (string)null);
                 });
 
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.Department", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("created_at");
-
-                    b.Property<Guid?>("FacultyId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("faculty_id");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("name");
-
-                    b.Property<string>("ShortName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("short_name");
-
-                    b.HasKey("Id")
-                        .HasName("pk_departments");
-
-                    b.HasIndex("FacultyId")
-                        .HasDatabaseName("ix_departments_faculty_id");
-
-                    b.ToTable("departments", (string)null);
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.Diploma", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("created_at");
-
-                    b.Property<Guid?>("DiplomaPeriodId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("diploma_period_id");
-
-                    b.Property<int?>("Grade")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("grade");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("status");
-
-                    b.Property<Guid?>("StudentId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("student_id");
-
-                    b.Property<Guid?>("SupervisorId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("supervisor_id");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("title");
-
-                    b.HasKey("Id")
-                        .HasName("pk_diplomas");
-
-                    b.HasIndex("DiplomaPeriodId")
-                        .HasDatabaseName("ix_diplomas_diploma_period_id");
-
-                    b.ToTable("diplomas", (string)null);
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.DiplomaPeriod", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime?>("ActiveFrom")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("active_from");
-
-                    b.Property<DateTime?>("ActiveTo")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("active_to");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("created_at");
-
-                    b.Property<Guid?>("FacultyId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("faculty_id");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("name");
-
-                    b.Property<string>("RequiredTitles")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("required_titles");
-
-                    b.Property<DateTime>("StudyPeriodFrom")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("study_period_from");
-
-                    b.Property<DateTime>("StudyPeriodTo")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("study_period_to");
-
-                    b.Property<Guid?>("СommitteeId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("сommittee_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_diploma_periods");
-
-                    b.HasIndex("FacultyId")
-                        .HasDatabaseName("ix_diploma_periods_faculty_id");
-
-                    b.HasIndex("СommitteeId")
-                        .HasDatabaseName("ix_diploma_periods_сommittee_id");
-
-                    b.ToTable("diploma_periods", (string)null);
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.Faculty", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("created_at");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("name");
-
-                    b.Property<string>("ShortName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("short_name");
-
-                    b.Property<Guid?>("UniversityId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("university_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_faculties");
-
-                    b.HasIndex("UniversityId")
-                        .HasDatabaseName("ix_faculties_university_id");
-
-                    b.ToTable("faculties", (string)null);
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.Group", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("created_at");
-
-                    b.Property<Guid?>("DiplomaPeriodId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("diploma_period_id");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("end_date");
-
-                    b.Property<Guid?>("FacultyId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("faculty_id");
-
-                    b.Property<string>("Number")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("number");
-
-                    b.Property<Guid?>("SpecialtyId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("specialty_id");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("start_date");
-
-                    b.HasKey("Id")
-                        .HasName("pk_groups");
-
-                    b.HasIndex("DiplomaPeriodId")
-                        .HasDatabaseName("ix_groups_diploma_period_id");
-
-                    b.HasIndex("FacultyId")
-                        .HasDatabaseName("ix_groups_faculty_id");
-
-                    b.HasIndex("Number")
-                        .IsUnique()
-                        .HasDatabaseName("ix_groups_number");
-
-                    b.HasIndex("SpecialtyId")
-                        .HasDatabaseName("ix_groups_specialty_id");
-
-                    b.ToTable("groups", (string)null);
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.Specialty", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("code");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("created_at");
-
-                    b.Property<Guid?>("DepartmentId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("department_id");
-
-                    b.Property<Guid?>("FacultyId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("faculty_id");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("name");
-
-                    b.Property<string>("ShortName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("short_name");
-
-                    b.HasKey("Id")
-                        .HasName("pk_specialties");
-
-                    b.HasIndex("Code")
-                        .IsUnique()
-                        .HasDatabaseName("ix_specialties_code");
-
-                    b.HasIndex("DepartmentId")
-                        .HasDatabaseName("ix_specialties_department_id");
-
-                    b.HasIndex("FacultyId")
-                        .HasDatabaseName("ix_specialties_faculty_id");
-
-                    b.ToTable("specialties", (string)null);
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.University", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("id");
-
-                    b.Property<Guid?>("AdminId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("admin_id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("created_at");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("name");
-
-                    b.Property<string>("ShortName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("short_name");
-
-                    b.HasKey("Id")
-                        .HasName("pk_universities");
-
-                    b.ToTable("universities", (string)null);
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.UniversityPosition", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("created_at");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("name");
-
-                    b.HasKey("Id")
-                        .HasName("pk_university_position");
-
-                    b.ToTable("university_position", (string)null);
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.Сommittee", b =>
+            modelBuilder.Entity("UniversityProcessing.Domain.Сommittee", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -734,33 +755,33 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.ToTable("сommittee", (string)null);
                 });
 
-            modelBuilder.Entity("DiplomaPeriodUser", b =>
+            modelBuilder.Entity("DiplomaProcessUser", b =>
                 {
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.DiplomaPeriod", null)
+                    b.HasOne("UniversityProcessing.Domain.DiplomaProcess", null)
                         .WithMany()
-                        .HasForeignKey("DiplomaPeriodsId")
+                        .HasForeignKey("DiplomaProcessesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_diploma_period_user_diploma_periods_diploma_periods_id");
+                        .HasConstraintName("fk_diploma_process_user_diploma_periods_diploma_processes_id");
 
-                    b.HasOne("UniversityProcessing.Domain.Identity.User", null)
+                    b.HasOne("UniversityProcessing.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_diploma_period_user_users_users_id");
+                        .HasConstraintName("fk_diploma_process_user_users_users_id");
                 });
 
             modelBuilder.Entity("DiplomaUser", b =>
                 {
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.Diploma", null)
+                    b.HasOne("UniversityProcessing.Domain.Diploma", null)
                         .WithMany()
                         .HasForeignKey("DiplomasId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_diploma_user_diplomas_diplomas_id");
 
-                    b.HasOne("UniversityProcessing.Domain.Identity.User", null)
+                    b.HasOne("UniversityProcessing.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -770,7 +791,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("UniversityProcessing.Domain.Identity.UserRole", null)
+                    b.HasOne("UniversityProcessing.Domain.UserRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -780,7 +801,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("UniversityProcessing.Domain.Identity.User", null)
+                    b.HasOne("UniversityProcessing.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -790,7 +811,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("UniversityProcessing.Domain.Identity.User", null)
+                    b.HasOne("UniversityProcessing.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -800,14 +821,14 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("UniversityProcessing.Domain.Identity.UserRole", null)
+                    b.HasOne("UniversityProcessing.Domain.UserRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_user_roles_roles_role_id");
 
-                    b.HasOne("UniversityProcessing.Domain.Identity.User", null)
+                    b.HasOne("UniversityProcessing.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -817,7 +838,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("UniversityProcessing.Domain.Identity.User", null)
+                    b.HasOne("UniversityProcessing.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -825,34 +846,112 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasConstraintName("fk_user_tokens_users_user_id");
                 });
 
-            modelBuilder.Entity("UniversityProcessing.Domain.Identity.User", b =>
+            modelBuilder.Entity("UniversityProcessing.Domain.Department", b =>
                 {
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.Department", "Department")
+                    b.HasOne("UniversityProcessing.Domain.Faculty", "Faculty")
+                        .WithMany("Departments")
+                        .HasForeignKey("FacultyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_departments_faculties_faculty_id");
+
+                    b.Navigation("Faculty");
+                });
+
+            modelBuilder.Entity("UniversityProcessing.Domain.Diploma", b =>
+                {
+                    b.HasOne("UniversityProcessing.Domain.DiplomaProcess", "DiplomaProcess")
+                        .WithMany("Diplomas")
+                        .HasForeignKey("DiplomaProcessId")
+                        .HasConstraintName("fk_diplomas_diploma_periods_diploma_process_id");
+
+                    b.Navigation("DiplomaProcess");
+                });
+
+            modelBuilder.Entity("UniversityProcessing.Domain.DiplomaProcess", b =>
+                {
+                    b.HasOne("UniversityProcessing.Domain.Department", null)
+                        .WithMany("DiplomaProcesses")
+                        .HasForeignKey("DepartmentId")
+                        .HasConstraintName("fk_diploma_periods_departments_department_id");
+
+                    b.HasOne("UniversityProcessing.Domain.Period", "Period")
+                        .WithMany("DiplomaProcesses")
+                        .HasForeignKey("PeriodId")
+                        .HasConstraintName("fk_diploma_periods_period_period_id");
+
+                    b.HasOne("UniversityProcessing.Domain.Сommittee", "Committee")
+                        .WithMany()
+                        .HasForeignKey("СommitteeId")
+                        .HasConstraintName("fk_diploma_periods_сommittee_сommittee_id");
+
+                    b.Navigation("Committee");
+
+                    b.Navigation("Period");
+                });
+
+            modelBuilder.Entity("UniversityProcessing.Domain.Group", b =>
+                {
+                    b.HasOne("UniversityProcessing.Domain.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_groups_departments_department_id");
+
+                    b.HasOne("UniversityProcessing.Domain.Specialty", "Specialty")
+                        .WithMany("Groups")
+                        .HasForeignKey("SpecialtyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_groups_specialties_specialty_id");
+
+                    b.Navigation("Department");
+
+                    b.Navigation("Specialty");
+                });
+
+            modelBuilder.Entity("UniversityProcessing.Domain.Specialty", b =>
+                {
+                    b.HasOne("UniversityProcessing.Domain.Department", "Department")
+                        .WithMany("Specialties")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_specialties_departments_department_id");
+
+                    b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("UniversityProcessing.Domain.User", b =>
+                {
+                    b.HasOne("UniversityProcessing.Domain.Department", "Department")
                         .WithMany("Users")
                         .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
                         .HasConstraintName("fk_users_departments_department_id");
 
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.Faculty", "Faculty")
+                    b.HasOne("UniversityProcessing.Domain.Faculty", "Faculty")
                         .WithMany("Users")
                         .HasForeignKey("FacultyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
                         .HasConstraintName("fk_users_faculties_faculty_id");
 
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.Group", "Group")
+                    b.HasOne("UniversityProcessing.Domain.Group", "Group")
                         .WithMany("Users")
                         .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
                         .HasConstraintName("fk_users_groups_group_id");
 
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.University", "University")
-                        .WithMany("Users")
-                        .HasForeignKey("UniversityId")
-                        .HasConstraintName("fk_users_universities_university_id");
-
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.UniversityPosition", "UniversityPosition")
+                    b.HasOne("UniversityProcessing.Domain.UniversityPosition", "UniversityPosition")
                         .WithMany()
                         .HasForeignKey("UniversityPositionId")
-                        .HasConstraintName("fk_users_university_position_university_position_id");
+                        .HasConstraintName("fk_users_university_positions_university_position_id");
 
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.Сommittee", null)
+                    b.HasOne("UniversityProcessing.Domain.Сommittee", null)
                         .WithMany("Users")
                         .HasForeignKey("СommitteeId")
                         .HasConstraintName("fk_users_сommittee_сommittee_id");
@@ -863,134 +962,46 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
                     b.Navigation("Group");
 
-                    b.Navigation("University");
-
                     b.Navigation("UniversityPosition");
                 });
 
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.Department", b =>
+            modelBuilder.Entity("UniversityProcessing.Domain.Department", b =>
                 {
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.Faculty", "Faculty")
-                        .WithMany("Departments")
-                        .HasForeignKey("FacultyId")
-                        .HasConstraintName("fk_departments_faculties_faculty_id");
-
-                    b.Navigation("Faculty");
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.Diploma", b =>
-                {
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.DiplomaPeriod", "DiplomaPeriod")
-                        .WithMany("Diplomas")
-                        .HasForeignKey("DiplomaPeriodId")
-                        .HasConstraintName("fk_diplomas_diploma_periods_diploma_period_id");
-
-                    b.Navigation("DiplomaPeriod");
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.DiplomaPeriod", b =>
-                {
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.Faculty", null)
-                        .WithMany("DiplomaPeriods")
-                        .HasForeignKey("FacultyId")
-                        .HasConstraintName("fk_diploma_periods_faculties_faculty_id");
-
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.Сommittee", "Committee")
-                        .WithMany()
-                        .HasForeignKey("СommitteeId")
-                        .HasConstraintName("fk_diploma_periods_сommittee_сommittee_id");
-
-                    b.Navigation("Committee");
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.Faculty", b =>
-                {
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.University", "University")
-                        .WithMany("Faculties")
-                        .HasForeignKey("UniversityId")
-                        .HasConstraintName("fk_faculties_universities_university_id");
-
-                    b.Navigation("University");
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.Group", b =>
-                {
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.DiplomaPeriod", null)
-                        .WithMany("Groups")
-                        .HasForeignKey("DiplomaPeriodId")
-                        .HasConstraintName("fk_groups_diploma_periods_diploma_period_id");
-
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.Faculty", null)
-                        .WithMany("Groups")
-                        .HasForeignKey("FacultyId")
-                        .HasConstraintName("fk_groups_faculties_faculty_id");
-
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.Specialty", "Specialty")
-                        .WithMany("Groups")
-                        .HasForeignKey("SpecialtyId")
-                        .HasConstraintName("fk_groups_specialties_specialty_id");
-
-                    b.Navigation("Specialty");
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.Specialty", b =>
-                {
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.Department", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId")
-                        .HasConstraintName("fk_specialties_departments_department_id");
-
-                    b.HasOne("UniversityProcessing.Domain.UniversityStructure.Faculty", null)
-                        .WithMany("Specialties")
-                        .HasForeignKey("FacultyId")
-                        .HasConstraintName("fk_specialties_faculties_faculty_id");
-
-                    b.Navigation("Department");
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.Department", b =>
-                {
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.DiplomaPeriod", b =>
-                {
-                    b.Navigation("Diplomas");
-
-                    b.Navigation("Groups");
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.Faculty", b =>
-                {
-                    b.Navigation("Departments");
-
-                    b.Navigation("DiplomaPeriods");
-
-                    b.Navigation("Groups");
+                    b.Navigation("DiplomaProcesses");
 
                     b.Navigation("Specialties");
 
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.Group", b =>
+            modelBuilder.Entity("UniversityProcessing.Domain.DiplomaProcess", b =>
+                {
+                    b.Navigation("Diplomas");
+                });
+
+            modelBuilder.Entity("UniversityProcessing.Domain.Faculty", b =>
+                {
+                    b.Navigation("Departments");
+
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("UniversityProcessing.Domain.Group", b =>
                 {
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.Specialty", b =>
+            modelBuilder.Entity("UniversityProcessing.Domain.Period", b =>
+                {
+                    b.Navigation("DiplomaProcesses");
+                });
+
+            modelBuilder.Entity("UniversityProcessing.Domain.Specialty", b =>
                 {
                     b.Navigation("Groups");
                 });
 
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.University", b =>
-                {
-                    b.Navigation("Faculties");
-
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("UniversityProcessing.Domain.UniversityStructure.Сommittee", b =>
+            modelBuilder.Entity("UniversityProcessing.Domain.Сommittee", b =>
                 {
                     b.Navigation("Users");
                 });

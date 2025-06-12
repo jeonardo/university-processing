@@ -10,5 +10,6 @@ public sealed class CreateDepartmentRequestDto
     [Required]
     public string ShortName { get; set; } = string.Empty;
 
-    public Guid? FacultyId { get; set; }
+    [Required]
+    public Guid FacultyId { get; set; }
 }

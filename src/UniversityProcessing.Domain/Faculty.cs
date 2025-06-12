@@ -12,7 +12,7 @@ public sealed class Faculty : BaseEntity
     [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string ShortName { get; private set; } = null!;
 
-    public Guid? UserId { get; private set; }
+    public Guid? HeadUserId { get; private set; }
 
     public ICollection<Department> Departments { get; private set; } = [];
 
@@ -35,6 +35,6 @@ public sealed class Faculty : BaseEntity
 
     public void SetLeader(Guid leaderId)
     {
-        UserId = leaderId;
+        HeadUserId = leaderId;
     }
 }

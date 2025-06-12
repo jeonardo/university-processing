@@ -3,8 +3,8 @@ using UniversityProcessing.Domain;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Pagination;
 using UniversityProcessing.GenericSubdomain.Routing;
-using UniversityProcessing.Repository.Repositories;
-using UniversityProcessing.Repository.Specifications;
+using UniversityProcessing.Infrastructure.Interfaces.Repositories;
+using UniversityProcessing.Infrastructure.Interfaces.Specifications;
 
 namespace UniversityProcessing.API.TODO.Endpoints.Employee.GetSpecialties;
 

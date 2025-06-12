@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Container, Typography } from '@mui/material';
 import AppListPagination from '../../components/AppListPagination';
 // import { useLazyGetApiCommonGetDepartmentsQuery } from 'src/api/backendApi';
-import AppList from 'src/components/AppList';
+import AppList from 'src/components/lists/AppList';
 import DepartmentItem from './Сomponents/DepartmentItem';
 
 const DepartmentListPage = () => {

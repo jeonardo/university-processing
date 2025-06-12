@@ -4,7 +4,7 @@ using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
 using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
 using UniversityProcessing.GenericSubdomain.Routing;
-using UniversityProcessing.Repository.Repositories;
+using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 
 namespace UniversityProcessing.API.TODO.Endpoints.Admin.Faculties.Delete;
 

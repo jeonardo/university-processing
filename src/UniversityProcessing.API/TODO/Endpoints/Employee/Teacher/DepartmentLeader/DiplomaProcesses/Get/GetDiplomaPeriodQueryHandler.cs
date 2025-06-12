@@ -1,6 +1,6 @@
 using MediatR;
 using UniversityProcessing.Domain;
-using UniversityProcessing.Repository.Repositories;
+using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 
 namespace UniversityProcessing.API.TODO.Endpoints.Employee.Teacher.DepartmentLeader.DiplomaProcesses.Get;
 

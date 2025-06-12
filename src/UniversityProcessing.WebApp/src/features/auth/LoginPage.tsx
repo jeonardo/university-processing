@@ -1,11 +1,13 @@
-import { LockOutlined } from '@mui/icons-material';
+import { CheckBox, LockOutlined } from '@mui/icons-material';
 import {
   Avatar,
   Box,
   Button,
+  Checkbox,
   CircularProgress,
   Container,
   FormControl,
+  FormControlLabel,
   Stack,
   TextField,
   Typography
@@ -16,16 +18,18 @@ import { useAppDispatch } from '../../core/hooks';
 import { login } from './auth.slice';
 import { usePostApiAuthLoginMutation } from 'src/api/backendApi';
 import { enqueueSnackbarError } from 'src/core/helpers';
+import TestUsersCard from './TestUsersCard';
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
 
-  const [userName, setUserName] = useState('');
+  const [testVisible, setTestVisible] = useState(true);
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const [trylogin, { isLoading }] = usePostApiAuthLoginMutation();
 
-  const handleLogin = async () => {
+  const handleLogin = async (userName: string, password: string) => {
     const result = await trylogin({ authLoginRequest: { password: password, userName: userName } });
 
     if (result.error) {
@@ -64,8 +68,8 @@ const LoginPage = () => {
             label="Логин"
             name="name"
             autoFocus
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
 
           <TextField
@@ -84,10 +88,10 @@ const LoginPage = () => {
           />
 
           <Button
-            disabled={isLoading || userName.length === 0 || password.length === 0}
+            disabled={isLoading || username.length === 0 || password.length === 0}
             fullWidth
             variant="contained"
-            onClick={handleLogin}
+            onClick={() => { handleLogin(username, password) }}
           >
             {
               isLoading
@@ -95,11 +99,36 @@ const LoginPage = () => {
                 : <span>Авторизоваться</span>
             }
           </Button>
+
         </Stack>
 
         <Box sx={{ p: 3, textAlign: 'center' }}>
           <Link to="/signup">Нет аккаунта? Зарегистрироваться</Link>
         </Box>
+
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={testVisible}
+              onChange={() => setTestVisible(!testVisible)}
+              color="primary"
+            />
+          }
+          label="Показать тестовых пользователей"
+          sx={{ mb: 1, ml: 1 }}
+        />
+
+        {
+          testVisible
+            ? (
+              <TestUsersCard isLoading={false} handleTestLogin={(username, password) => {
+                setUsername(username)
+                setPassword(password)
+                handleLogin(username, password)
+              }} />
+            )
+            : (<></>)
+        }
 
       </FormControl>
     </Container>

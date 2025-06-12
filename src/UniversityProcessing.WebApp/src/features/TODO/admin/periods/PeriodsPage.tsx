@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Container, Typography } from '@mui/material';
-import AppList from 'src/components/AppList';
+import AppList from 'src/components/lists/AppList';
 import { useLazyGetApiAdminFacultiesGetQuery } from 'src/api/backendApi';
-import FacultyItem from '../faculties/FacultyItem';
-import AppListPagination from 'src/components/AppListPagination';
+import FacultyItem from '../../../admin/faculties/FacultyItem';
+import AppListPagination from 'src/components/lists/AppListPagination';
 
 const PeriodsPage = () => {
   const [pageNumber, setPageNumber] = useState(1);

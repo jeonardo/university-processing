@@ -5,11 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UniversityProcessing.Domain;
 using UniversityProcessing.GenericSubdomain.Configuration;
+using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 using UniversityProcessing.Infrastructure.Options;
 using UniversityProcessing.Infrastructure.Repositories;
 using UniversityProcessing.Infrastructure.Seeds;
-using UniversityProcessing.Repository.Context;
-using UniversityProcessing.Repository.Repositories;
 
 namespace UniversityProcessing.Infrastructure;
 
@@ -38,7 +37,7 @@ public static class InfrastructureRegistrar
 
         if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
         {
-            builder.Services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(
+            builder.Services.AddDbContext<ApplicationDbContext>(
                 options =>
                     options
                         .UseSqlite(settings.SqliteConnectionString)
@@ -46,7 +45,7 @@ public static class InfrastructureRegistrar
             return;
         }
 
-        builder.Services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(
+        builder.Services.AddDbContext<ApplicationDbContext>(
             options =>
                 options
                     .UseNpgsql(builder.Configuration.GetConnectionString(settings.ConnectionString))

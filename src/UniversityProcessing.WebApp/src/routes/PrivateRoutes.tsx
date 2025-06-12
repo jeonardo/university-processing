@@ -2,14 +2,14 @@ import LogoutPage from 'src/features/auth/LogoutPage';
 import DepartmentListPage from 'src/features/TODO/departments/DepartmentListPage';
 import DiplomaPeriodListPage from 'src/features/TODO/diplomaPeriods/DiplomaPeriodListPage';
 import GroupListPage from 'src/features/TODO/groups/GroupListPage';
-import MainPage from 'src/features/TODO/main/MainPage';
-import NotFoundPage from 'src/features/TODO/notFound/NotFoundPage';
+import NotFoundPage from 'src/features/notFound/NotFoundPage';
 import SpecialtyListPage from 'src/features/TODO/specialties/SpecialtyListPage';
-import UsersPage from 'src/features/TODO/admin/users/UsersPage';
+import UsersPage from 'src/features/admin/users/UsersPage';
 import PrivateLayout from 'src/features/PrivateLayout';
-import FacultiesPage from 'src/features/TODO/admin/faculties/FacultiesPage';
+import FacultiesPage from 'src/features/admin/faculties/FacultiesPage';
 import SettingsPage from 'src/features/TODO/settings/SettingsPage';
-import AdminRoutes from 'src/features/TODO/admin/AdminRoutes';
+import AdminRoutes from 'src/features/admin/AdminRoutes';
+import WelcomePage from 'src/features/TODO/welcomePage/WelcomePage';
 
 const PrivateRoutes = {
   path: '/',
@@ -23,7 +23,7 @@ const PrivateRoutes = {
     },
     {
       path: '/',
-      element: <MainPage />
+      element: <WelcomePage />
     },
     {
       path: '/faculties',

@@ -1,8 +1,8 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using UniversityProcessing.API.Endpoints.Converters;
 using UniversityProcessing.API.Services.Auth;
-using UniversityProcessing.API.TODO.Endpoints.Converters;
 using UniversityProcessing.Domain;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
@@ -62,7 +62,8 @@ internal sealed class Login : IEndpoint
         var list = new List<Claim>
         {
             new(AppClaimTypes.USER_ID, user.Id.ToString()),
-            new(AppClaimTypes.IS_APPROVED, user.Approved.ToString())
+            new(AppClaimTypes.IS_APPROVED, user.Approved.ToString()),
+            new(AppClaimTypes.IS_BLOCKED, user.Blocked.ToString())
         };
 
         list.AddRange(roles.Select(role => new Claim(AppClaimTypes.ROLE, role)));

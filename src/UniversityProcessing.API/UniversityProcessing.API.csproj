@@ -20,7 +20,6 @@
     </ProjectReference>
     <ProjectReference Include="..\UniversityProcessing.Infrastructure\UniversityProcessing.Infrastructure.csproj"/>
     <ProjectReference Include="..\UniversityProcessing.Domain\UniversityProcessing.Domain.csproj"/>
-    <ProjectReference Include="..\UniversityProcessing.Repository\UniversityProcessing.Repository.csproj"/>
   </ItemGroup>
 
   <ItemGroup>

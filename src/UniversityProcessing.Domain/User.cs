@@ -8,6 +8,7 @@ namespace UniversityProcessing.Domain;
 
 public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
 {
+    public bool Blocked { get; private set; }
     public bool Approved { get; private set; }
 
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
@@ -21,26 +22,23 @@ public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
     [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string? MiddleName { get; private set; }
 
-    [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
-    public override string? Email { get; set; }
-
     public DateTime? Birthday { get; private set; }
 
-    public Guid? GroupId { get; private set; }
+    public Guid GroupId { get; private set; }
 
-    public Group? Group { get; private set; }
+    public Group Group { get; private set; } = null!;
 
     public Guid? UniversityPositionId { get; private set; }
 
     public UniversityPosition? UniversityPosition { get; private set; }
 
-    public Guid? FacultyId { get; private set; }
+    public Guid FacultyId { get; private set; }
 
-    public Faculty? Faculty { get; private set; }
+    public Faculty Faculty { get; private set; } = null!;
 
-    public Guid? DepartmentId { get; private set; }
+    public Guid DepartmentId { get; private set; }
 
-    public Department? Department { get; private set; }
+    public Department Department { get; private set; } = null!;
 
     public ICollection<Diploma> Diplomas { get; private set; } = [];
 
@@ -59,9 +57,14 @@ public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
             : $"{FirstName} {MiddleName} {LastName}";
     }
 
-    public void UpdateIsApprovedStatus(bool isApproved)
+    public void UpdateVerificationStatus(bool isApproved)
     {
         Approved = isApproved;
+    }
+
+    public void UpdateBlockingStatus(bool isBlocked)
+    {
+        Blocked = isBlocked;
     }
 
     public static User CreateAdmin(
@@ -87,10 +90,12 @@ public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
         string userName,
         string firstName,
         string lastName,
+        Guid facultyId,
+        Guid departmentId,
+        Guid groupId,
         string? middleName = null,
         string? email = null,
-        DateTime? birthday = null,
-        Guid? groupId = null)
+        DateTime? birthday = null)
     {
         return new User
         {
@@ -100,14 +105,39 @@ public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
             MiddleName = middleName,
             Email = email,
             Birthday = birthday,
-            GroupId = groupId
+            GroupId = groupId,
+            FacultyId = facultyId,
+            DepartmentId = departmentId
         };
     }
 
-    public static User CreateEmployee(
+    public static User CreateDeanery(
         string userName,
         string firstName,
         string lastName,
+        Guid facultyId,
+        string? middleName = null,
+        string? email = null,
+        DateTime? birthday = null)
+    {
+        return new User
+        {
+            UserName = userName,
+            FirstName = firstName,
+            LastName = lastName,
+            MiddleName = middleName,
+            Email = email,
+            Birthday = birthday,
+            FacultyId = facultyId
+        };
+    }
+
+    public static User CreateTeacher(
+        string userName,
+        string firstName,
+        string lastName,
+        Guid facultyId,
+        Guid departmentId,
         string? middleName = null,
         string? email = null,
         DateTime? birthday = null,
@@ -121,7 +151,9 @@ public sealed class User : IdentityUser<Guid>, IAggregateRoot, IHasId
             MiddleName = middleName,
             Email = email,
             Birthday = birthday,
-            UniversityPositionId = universityPositionId
+            UniversityPositionId = universityPositionId,
+            FacultyId = facultyId,
+            DepartmentId = departmentId
         };
     }
 }

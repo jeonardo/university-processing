@@ -85,6 +85,45 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.adminFacultiesCreateRequest,
       }),
     }),
+    postApiAuthRegistrationStudentRegister: build.mutation<
+      PostApiAuthRegistrationStudentRegisterApiResponse,
+      PostApiAuthRegistrationStudentRegisterApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Auth/Registration/Student/Register`,
+        method: "POST",
+        body: queryArg.authRegistrationStudentRegisterRequest,
+      }),
+    }),
+    getApiAuthRegistrationStudentGetAvailableGroups: build.query<
+      GetApiAuthRegistrationStudentGetAvailableGroupsApiResponse,
+      GetApiAuthRegistrationStudentGetAvailableGroupsApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Auth/Registration/Student/GetAvailableGroups`,
+        params: {
+          Number: queryArg["number"],
+        },
+      }),
+    }),
+    postApiAuthRegistrationEmployeeRegister: build.mutation<
+      PostApiAuthRegistrationEmployeeRegisterApiResponse,
+      PostApiAuthRegistrationEmployeeRegisterApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Auth/Registration/Employee/Register`,
+        method: "POST",
+        body: queryArg.authRegistrationEmployeeRegisterRequest,
+      }),
+    }),
+    getApiAuthRegistrationEmployeeGetAvailableUniversityPositions: build.query<
+      GetApiAuthRegistrationEmployeeGetAvailableUniversityPositionsApiResponse,
+      GetApiAuthRegistrationEmployeeGetAvailableUniversityPositionsApiArg
+    >({
+      query: () => ({
+        url: `/api/Auth/Registration/Employee/GetAvailableUniversityPositions`,
+      }),
+    }),
     getApiAuthRefresh: build.query<
       GetApiAuthRefreshApiResponse,
       GetApiAuthRefreshApiArg
@@ -346,45 +385,6 @@ const injectedRtkApi = api.injectEndpoints({
         },
       }),
     }),
-    postApiRegistrationStudentRegister: build.mutation<
-      PostApiRegistrationStudentRegisterApiResponse,
-      PostApiRegistrationStudentRegisterApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Registration/Student/Register`,
-        method: "POST",
-        body: queryArg.registrationStudentRegisterRequest,
-      }),
-    }),
-    getApiRegistrationStudentGetAvailableGroups: build.query<
-      GetApiRegistrationStudentGetAvailableGroupsApiResponse,
-      GetApiRegistrationStudentGetAvailableGroupsApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Registration/Student/GetAvailableGroups`,
-        params: {
-          Number: queryArg["number"],
-        },
-      }),
-    }),
-    postApiRegistrationEmployeeRegister: build.mutation<
-      PostApiRegistrationEmployeeRegisterApiResponse,
-      PostApiRegistrationEmployeeRegisterApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/api/Registration/Employee/Register`,
-        method: "POST",
-        body: queryArg.registrationEmployeeRegisterRequest,
-      }),
-    }),
-    getApiRegistrationEmployeeGetAvailableUniversityPositions: build.query<
-      GetApiRegistrationEmployeeGetAvailableUniversityPositionsApiResponse,
-      GetApiRegistrationEmployeeGetAvailableUniversityPositionsApiArg
-    >({
-      query: () => ({
-        url: `/api/Registration/Employee/GetAvailableUniversityPositions`,
-      }),
-    }),
   }),
   overrideExisting: false,
 });
@@ -429,6 +429,23 @@ export type PostApiAdminFacultiesCreateApiResponse =
 export type PostApiAdminFacultiesCreateApiArg = {
   adminFacultiesCreateRequest: AdminFacultiesCreateRequest;
 };
+export type PostApiAuthRegistrationStudentRegisterApiResponse = unknown;
+export type PostApiAuthRegistrationStudentRegisterApiArg = {
+  authRegistrationStudentRegisterRequest: AuthRegistrationStudentRegisterRequest;
+};
+export type GetApiAuthRegistrationStudentGetAvailableGroupsApiResponse =
+  /** status 200 OK */ AuthRegistrationStudentGetAvailableGroupsResponse;
+export type GetApiAuthRegistrationStudentGetAvailableGroupsApiArg = {
+  number: string;
+};
+export type PostApiAuthRegistrationEmployeeRegisterApiResponse = unknown;
+export type PostApiAuthRegistrationEmployeeRegisterApiArg = {
+  authRegistrationEmployeeRegisterRequest: AuthRegistrationEmployeeRegisterRequest;
+};
+export type GetApiAuthRegistrationEmployeeGetAvailableUniversityPositionsApiResponse =
+  /** status 200 OK */ AuthRegistrationEmployeeGetAvailableUniversityPositionsResponse;
+export type GetApiAuthRegistrationEmployeeGetAvailableUniversityPositionsApiArg =
+  void;
 export type GetApiAuthRefreshApiResponse =
   /** status 200 OK */ AuthRefreshResponse;
 export type GetApiAuthRefreshApiArg = void;
@@ -560,23 +577,6 @@ export type GetApiPeriodsGetApiArg = {
   pageSize?: number;
   filter?: string;
 };
-export type PostApiRegistrationStudentRegisterApiResponse = unknown;
-export type PostApiRegistrationStudentRegisterApiArg = {
-  registrationStudentRegisterRequest: RegistrationStudentRegisterRequest;
-};
-export type GetApiRegistrationStudentGetAvailableGroupsApiResponse =
-  /** status 200 OK */ RegistrationStudentGetAvailableGroupsResponse;
-export type GetApiRegistrationStudentGetAvailableGroupsApiArg = {
-  number: string;
-};
-export type PostApiRegistrationEmployeeRegisterApiResponse = unknown;
-export type PostApiRegistrationEmployeeRegisterApiArg = {
-  registrationEmployeeRegisterRequest: RegistrationEmployeeRegisterRequest;
-};
-export type GetApiRegistrationEmployeeGetAvailableUniversityPositionsApiResponse =
-  /** status 200 OK */ RegistrationEmployeeGetAvailableUniversityPositionsResponse;
-export type GetApiRegistrationEmployeeGetAvailableUniversityPositionsApiArg =
-  void;
 export type AdminUsersGetUser = {
   id?: string;
   firstName?: string | null;
@@ -654,6 +654,40 @@ export type AdminFacultiesCreateRequest = {
   name: string;
   shortName: string;
 };
+export type AuthRegistrationStudentRegisterRequest = {
+  userName: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  middleName?: string | null;
+  email?: string | null;
+  birthday?: string | null;
+  groupNumber?: string | null;
+};
+export type AuthRegistrationStudentGetAvailableGroupsResponse = {
+  groupNumbers?: string[] | null;
+};
+export type AuthRegistrationEmployeeRegisterRequest = {
+  userName: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  middleName?: string | null;
+  email?: string | null;
+  birthday?: string | null;
+  universityId?: string | null;
+  universityPositionId?: string | null;
+};
+export type AuthRegistrationEmployeeGetAvailableUniversityPositionsUniversityPosition =
+  {
+    id?: string;
+    name?: string | null;
+  };
+export type AuthRegistrationEmployeeGetAvailableUniversityPositionsResponse = {
+  list?:
+    | AuthRegistrationEmployeeGetAvailableUniversityPositionsUniversityPosition[]
+    | null;
+};
 export type ContractsToken = {
   value?: string | null;
   expiration?: string;
@@ -674,6 +708,7 @@ export type AuthInfoResponse = {
   userId?: string;
   roleType?: ContractsUserRoleType;
   approved?: boolean;
+  blocked?: boolean;
 };
 export type AuthChangePasswordRequest = {
   userName: string;
@@ -867,40 +902,6 @@ export type PeriodsGetResponse = {
 export type PeriodsGetResponseRead = {
   list?: PeriodsGetPeriodPagedListRead;
 };
-export type RegistrationStudentRegisterRequest = {
-  userName: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  middleName?: string | null;
-  email?: string | null;
-  birthday?: string | null;
-  groupNumber?: string | null;
-};
-export type RegistrationStudentGetAvailableGroupsResponse = {
-  groupNumbers?: string[] | null;
-};
-export type RegistrationEmployeeRegisterRequest = {
-  userName: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  middleName?: string | null;
-  email?: string | null;
-  birthday?: string | null;
-  universityId?: string | null;
-  universityPositionId?: string | null;
-};
-export type RegistrationEmployeeGetAvailableUniversityPositionsUniversityPosition =
-  {
-    id?: string;
-    name?: string | null;
-  };
-export type RegistrationEmployeeGetAvailableUniversityPositionsResponse = {
-  list?:
-    | RegistrationEmployeeGetAvailableUniversityPositionsUniversityPosition[]
-    | null;
-};
 export enum ContractsUserRoleType {
   None = "None",
   Admin = "Admin",
@@ -917,6 +918,12 @@ export const {
   useLazyGetApiAdminFacultiesGetQuery,
   useDeleteApiAdminFacultiesDeleteMutation,
   usePostApiAdminFacultiesCreateMutation,
+  usePostApiAuthRegistrationStudentRegisterMutation,
+  useGetApiAuthRegistrationStudentGetAvailableGroupsQuery,
+  useLazyGetApiAuthRegistrationStudentGetAvailableGroupsQuery,
+  usePostApiAuthRegistrationEmployeeRegisterMutation,
+  useGetApiAuthRegistrationEmployeeGetAvailableUniversityPositionsQuery,
+  useLazyGetApiAuthRegistrationEmployeeGetAvailableUniversityPositionsQuery,
   useGetApiAuthRefreshQuery,
   useLazyGetApiAuthRefreshQuery,
   usePostApiAuthLogoutMutation,
@@ -949,10 +956,4 @@ export const {
   useLazyGetApiNotificationsGetQuery,
   useGetApiPeriodsGetQuery,
   useLazyGetApiPeriodsGetQuery,
-  usePostApiRegistrationStudentRegisterMutation,
-  useGetApiRegistrationStudentGetAvailableGroupsQuery,
-  useLazyGetApiRegistrationStudentGetAvailableGroupsQuery,
-  usePostApiRegistrationEmployeeRegisterMutation,
-  useGetApiRegistrationEmployeeGetAvailableUniversityPositionsQuery,
-  useLazyGetApiRegistrationEmployeeGetAvailableUniversityPositionsQuery,
 } = injectedRtkApi;

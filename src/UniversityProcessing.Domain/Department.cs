@@ -12,11 +12,11 @@ public sealed class Department : BaseEntity, IHasId
     [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string ShortName { get; private set; } = null!;
 
-    public Guid? FacultyId { get; private set; }
+    public Guid FacultyId { get; private set; }
 
-    public Faculty? Faculty { get; private set; }
+    public Faculty Faculty { get; private set; } = null!;
 
-    public Guid? UserId { get; private set; }
+    public Guid? HeadUserId { get; private set; }
 
     public ICollection<User> Users { get; private set; } = [];
 
@@ -30,7 +30,7 @@ public sealed class Department : BaseEntity, IHasId
     {
     }
 
-    public static Department Create(string name, string shortName, Guid? facultyId = null)
+    public static Department Create(string name, string shortName, Guid facultyId)
     {
         return new Department
         {
@@ -42,6 +42,6 @@ public sealed class Department : BaseEntity, IHasId
 
     public void SetLeader(Guid leaderId)
     {
-        UserId = leaderId;
+        HeadUserId = leaderId;
     }
 }

@@ -4,21 +4,21 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.NameTranslation;
 using UniversityProcessing.Domain;
-using UniversityProcessing.Repository.Context;
 
 namespace UniversityProcessing.Infrastructure;
 
 #pragma warning disable CS8618 // Required by Entity Framework
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDomainEventDispatcher? dispatcher = null)
-    : IdentityDbContext<User, UserRole, Guid>(options), IApplicationDbContext
+    : IdentityDbContext<User, UserRole, Guid>(options)
 {
-    public DbSet<Department> Departments => Set<Department>();
-    public DbSet<DiplomaProcess> DiplomaPeriods => Set<DiplomaProcess>();
-    public DbSet<Faculty> Faculties => Set<Faculty>();
-    public DbSet<Diploma> Diplomas => Set<Diploma>();
-    public DbSet<Specialty> Specialties => Set<Specialty>();
-    public DbSet<Group> Groups => Set<Group>();
-    public DbSet<Notification> Notifications => Set<Notification>();
+    public DbSet<UniversityPosition> UniversityPositions { get; set; }
+    public DbSet<Department> Departments { get; set; }
+    public DbSet<DiplomaProcess> DiplomaPeriods { get; set; }
+    public DbSet<Faculty> Faculties { get; set; }
+    public DbSet<Diploma> Diplomas { get; set; }
+    public DbSet<Specialty> Specialties { get; set; }
+    public DbSet<Group> Groups { get; set; }
+    public DbSet<Notification> Notifications { get; set; }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
     {
@@ -89,6 +89,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         }
     }
 
+    // ReSharper disable once UnusedParameter.Local
     private static void AddInitData(ModelBuilder modelBuilder)
     {
         //Can be filled by the real migration
@@ -101,6 +102,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             .UseTphMappingStrategy(); //TODO add details
     }
 
+    // ReSharper disable once UnusedParameter.Local
     private static void ConfigureRelations(ModelBuilder modelBuilder)
     {
         //TODO add manual

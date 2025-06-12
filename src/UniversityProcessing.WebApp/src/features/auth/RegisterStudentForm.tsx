@@ -3,11 +3,8 @@ import { Autocomplete, Button, CircularProgress, debounce, FormControl, Stack, T
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
-import {
-  useLazyGetApiRegistrationStudentGetAvailableGroupsQuery,
-  usePostApiRegistrationStudentRegisterMutation
-} from 'src/api/backendApi';
 import { enqueueSnackbarError } from 'src/core/helpers';
+import { useLazyGetApiAuthRegistrationStudentGetAvailableGroupsQuery, usePostApiAuthRegistrationStudentRegisterMutation } from 'src/api/backendApi';
 
 const RegisterStudentForm = () => {
   const [userName, setUserName] = useState('');
@@ -20,8 +17,8 @@ const RegisterStudentForm = () => {
   const [inputGroupValue, setInputGroupValue] = useState<string>('');
   const [group, setGroup] = useState<string>('');
 
-  const [tryregister, { isLoading, isSuccess }] = usePostApiRegistrationStudentRegisterMutation();
-  const [getAvailableGroups, availableGroups] = useLazyGetApiRegistrationStudentGetAvailableGroupsQuery();
+  const [tryregister, { isLoading, isSuccess }] = usePostApiAuthRegistrationStudentRegisterMutation();
+  const [getAvailableGroups, availableGroups] = useLazyGetApiAuthRegistrationStudentGetAvailableGroupsQuery();
 
   const debouncedSave = useCallback(debounce((newValue) => getAvailableGroups({ number: newValue }), 1000), []);
 
@@ -36,7 +33,7 @@ const RegisterStudentForm = () => {
       return;
 
     const response = await tryregister({
-      registrationStudentRegisterRequest:
+      authRegistrationStudentRegisterRequest:
         {
           password: password,
           userName: userName,

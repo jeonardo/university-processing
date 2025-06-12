@@ -13,5 +13,6 @@ public interface ITokenService
     RefreshTokenClaims GetRefreshTokenClaims(string token);
 
     AuthTokenClaims GetAuthorizationTokenClaims(ClaimsPrincipal user);
+
     bool TryGetAuthorizationTokenClaims(ClaimsPrincipal user, [NotNullWhen(true)] out AuthTokenClaims? claims);
 }

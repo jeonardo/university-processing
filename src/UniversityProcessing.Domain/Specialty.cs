@@ -19,9 +19,9 @@ public sealed class Specialty : BaseEntity
     [StringLength(CODE_LENGTH, MinimumLength = CODE_LENGTH)]
     public string Code { get; private set; } = null!;
 
-    public Guid? DepartmentId { get; private set; }
+    public Guid DepartmentId { get; private set; }
 
-    public Department? Department { get; private set; }
+    public Department Department { get; private set; } = null!;
 
     public ICollection<Group> Groups { get; private set; } = [];
 
@@ -31,7 +31,7 @@ public sealed class Specialty : BaseEntity
     {
     }
 
-    public static Specialty Create(string name, string shortName, string code, Guid? departmentId = null)
+    public static Specialty Create(string name, string shortName, string code, Guid departmentId)
     {
         return new Specialty
         {

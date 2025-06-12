@@ -1,14 +1,11 @@
-import { Box, CircularProgress, Modal, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
 const AppLoader = () =>
-  (
-    <Modal open={true}
-           className="flex flex-col h-full w-full justify-center items-center text-center text-2xl font-bold">
-      <Box sx={{ width: 400, padding: 7, bgcolor: 'white', margin: '100px auto' }}>
-        <CircularProgress size="3rem" />
-        <Typography sx={{ pt: 3 }}>Загрузка...</Typography>
-      </Box>
-    </Modal>
-  );
+(
+  <div className="min-h-screen flex flex-col items-center justify-center">
+    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+    <Typography sx={{ pt: 3 }}>Загрузка...</Typography>
+  </div>
+);
 
 export default AppLoader;

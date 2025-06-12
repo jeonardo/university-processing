@@ -1,14 +1,11 @@
 using FluentValidation;
-using UniversityProcessing.Domain;
 using UniversityProcessing.GenericSubdomain.Validation;
-using UniversityProcessing.Repository.Repositories;
-using UniversityProcessing.Repository.Specifications;
 
 namespace UniversityProcessing.API.TODO.Endpoints.Employee.Deanery.Departments.Create;
 
 public sealed class CreateDepartmentRequestDtoValidator : AbstractValidator<CreateDepartmentRequestDto>
 {
-    public CreateDepartmentRequestDtoValidator(IEfReadRepository<Faculty> facultyRepository)
+    public CreateDepartmentRequestDtoValidator()
     {
         RuleFor(x => x.Name)
             .NotEmpty()
@@ -21,8 +18,7 @@ public sealed class CreateDepartmentRequestDtoValidator : AbstractValidator<Crea
             .WithMessage("ShortName is required. Max length = " + ValidationConstants.MAX_STRING_LENGTH);
 
         RuleFor(x => x.FacultyId)
-            .MustAsync((x, cancellationToken) => facultyRepository.AnyAsync(new GetByIdSpec<Faculty>(x.GetValueOrDefault()), cancellationToken))
-            .When(x => x.FacultyId.HasValue)
-            .WithMessage("Faculty not found");
+            .NotEmpty()
+            .WithMessage("Faculty is required");
     }
 }

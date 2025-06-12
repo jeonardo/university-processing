@@ -10,4 +10,5 @@ public static class AppClaimTypes
     public const string USER_ID = ClaimTypes.NameIdentifier;
     public const string ROLE = ClaimTypes.Role;
     public const string IS_APPROVED = "IsApproved";
+    public const string IS_BLOCKED = "IsBlocked";
 }

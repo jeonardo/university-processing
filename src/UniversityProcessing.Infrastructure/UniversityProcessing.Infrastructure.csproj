@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite"/>
     <PackageReference Include="EFCore.NamingConventions"/>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"/>
@@ -16,10 +18,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UniversityProcessing.Domain\UniversityProcessing.Domain.csproj"/>
-    <ProjectReference Include="..\UniversityProcessing.Repository\UniversityProcessing.Repository.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Interfaces\"/>
     <Folder Include="Migrations\"/>
   </ItemGroup>
 

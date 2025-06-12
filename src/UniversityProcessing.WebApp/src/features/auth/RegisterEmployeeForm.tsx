@@ -3,11 +3,8 @@ import { Autocomplete, Button, CircularProgress, debounce, FormControl, Stack, T
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
-import {
-  useGetApiRegistrationEmployeeGetAvailableUniversityPositionsQuery,
-  usePostApiRegistrationEmployeeRegisterMutation
-} from 'src/api/backendApi';
 import { enqueueSnackbarError } from 'src/core/helpers';
+import { useGetApiAuthRegistrationEmployeeGetAvailableUniversityPositionsQuery, usePostApiAuthRegistrationEmployeeRegisterMutation } from 'src/api/backendApi';
 
 const RegisterEmployeeForm = () => {
   const [userName, setUserName] = useState('');
@@ -21,8 +18,8 @@ const RegisterEmployeeForm = () => {
   const [inputUniversityPositionValue, setInputUniversityPositionValue] = useState<string>('');
   const [universityPosition, setUniversityPosition] = useState<string>('');
 
-  const [tryregister, { isLoading, isSuccess }] = usePostApiRegistrationEmployeeRegisterMutation();
-  const getAvailableUniversityPositionsResponse = useGetApiRegistrationEmployeeGetAvailableUniversityPositionsQuery();
+  const [tryregister, { isLoading, isSuccess }] = usePostApiAuthRegistrationEmployeeRegisterMutation();
+  const getAvailableUniversityPositionsResponse = useGetApiAuthRegistrationEmployeeGetAvailableUniversityPositionsQuery();
 
   //TODO check when is filled and button available
   const handleRegister = async () => {

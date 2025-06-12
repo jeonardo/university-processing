@@ -1,4 +1,4 @@
-using UniversityProcessing.API.TODO.Endpoints.Contracts;
+using UniversityProcessing.API.Endpoints.Contracts;
 
 namespace UniversityProcessing.API.TODO.Hubs;
 

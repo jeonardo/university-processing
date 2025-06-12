@@ -1,6 +1,6 @@
 import LoginPage from 'src/features/auth/LoginPage';
 import RegisterPage from 'src/features/auth/RegisterPage';
-import NotFoundPage from 'src/features/TODO/notFound/NotFoundPage';
+import NotFoundPage from 'src/features/notFound/NotFoundPage';
 import PublicOnlyLayout from 'src/features/PublicOnlyLayout';
 
 const PublicOnlyRoutes = {

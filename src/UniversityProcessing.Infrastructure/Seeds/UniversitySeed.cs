@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using UniversityProcessing.Domain;
-using UniversityProcessing.Repository.Repositories;
+using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 
 // ReSharper disable All
 
@@ -40,12 +40,10 @@ public class UniversitySeed(
             return;
         }
 
-        var role1 = UserRole.Create(nameof(UserRoleType.Admin));
-        await roleManager.CreateAsync(role1);
-        var role2 = UserRole.Create(nameof(UserRoleType.Employee));
-        await roleManager.CreateAsync(role2);
-        var role3 = UserRole.Create(nameof(UserRoleType.Student));
-        await roleManager.CreateAsync(role3);
+        foreach (var variable in Enum.GetNames<UserRoleType>())
+        {
+            await roleManager.CreateAsync(UserRole.Create(variable));
+        }
 
         var bntu_pos_1 = await AddUniversityPosition("лаборант");
         var bntu_pos_2 = await AddUniversityPosition("старший лаборант");
@@ -118,20 +116,20 @@ public class UniversitySeed(
             "6-05-0713-05",
             bntu_faculty_fitr_poisit);
 
-        var bntu_polozkov = await AddEmployee("Polozkov_Yuri_Vladimirovich", bntu_pos_8);
-        var bntu_shchukin = await AddEmployee("Shchukin_Mikhail_Vladimirovich", bntu_pos_8);
-        var bntu_khorunzhiy = await AddEmployee("Khorunzhiy_Igor_Anatolievich", bntu_pos_8);
-        var bntu_borodulya = await AddEmployee("Borodulya_Alexey_Valentinovich", bntu_pos_8);
-        var bntu_pavlyukovets = await AddEmployee("Pavlyukovets_Sergey_Anatolievich", bntu_pos_8);
+        var bntu_polozkov = await AddTeacher("Polozkov_Yuri_Vladimirovich", bntu_pos_8, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
+        var bntu_shchukin = await AddTeacher("Shchukin_Mikhail_Vladimirovich", bntu_pos_8, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
+        var bntu_khorunzhiy = await AddTeacher("Khorunzhiy_Igor_Anatolievich", bntu_pos_8, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
+        var bntu_borodulya = await AddTeacher("Borodulya_Alexey_Valentinovich", bntu_pos_8, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
+        var bntu_pavlyukovets = await AddTeacher("Pavlyukovets_Sergey_Anatolievich", bntu_pos_8, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
 
-        var bntu_prikhozhy = await AddEmployee("Prikhozhy_Anatoly_Alekseevich", bntu_pos_7);
-        var bntu_gursky = await AddEmployee("Gursky_Nikolai_Nikolaevich", bntu_pos_6);
-        var bntu_kovaleva = await AddEmployee("Kovaleva_Irina_Lvovna", bntu_pos_6);
-        var bntu_kunkevich = await AddEmployee("Kunkevich_Dmitry_Petrovich", bntu_pos_6);
-        var bntu_kupriyanov = await AddEmployee("Kupriyanov_Andrey_Borisovich", bntu_pos_6);
-        var bntu_naprasnikov = await AddEmployee("Naprasnikov_Vladimir_Vladimirovich", bntu_pos_6);
-        var bntu_sidorik = await AddEmployee("Sidorik_Valery_Vladimirovich", bntu_pos_6);
-        var bntu_yudenkov = await AddEmployee("Yudenkov_Viktor_Stepanovich", bntu_pos_6);
+        var bntu_prikhozhy = await AddTeacher("Prikhozhy_Anatoly_Alekseevich", bntu_pos_7, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
+        var bntu_gursky = await AddTeacher("Gursky_Nikolai_Nikolaevich", bntu_pos_6, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
+        var bntu_kovaleva = await AddTeacher("Kovaleva_Irina_Lvovna", bntu_pos_6, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
+        var bntu_kunkevich = await AddTeacher("Kunkevich_Dmitry_Petrovich", bntu_pos_6, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
+        var bntu_kupriyanov = await AddTeacher("Kupriyanov_Andrey_Borisovich", bntu_pos_6, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
+        var bntu_naprasnikov = await AddTeacher("Naprasnikov_Vladimir_Vladimirovich", bntu_pos_6, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
+        var bntu_sidorik = await AddTeacher("Sidorik_Valery_Vladimirovich", bntu_pos_6, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
+        var bntu_yudenkov = await AddTeacher("Yudenkov_Viktor_Stepanovich", bntu_pos_6, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
 
         var bntu_studyGroup1 = await AddGroup("1", bntu_faculty_fitr_sp1, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
         var bntu_studyGroup2 = await AddGroup("2", bntu_faculty_fitr_sp2, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
@@ -172,7 +170,7 @@ public class UniversitySeed(
 
         await AddAdmin("test_admin");
         await AddStudent("test_student", bntu_studyGroup1);
-        await AddEmployee("test_employee", bntu_pos_1);
+        await AddTeacher("test_teacher", bntu_pos_1, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
     }
 
     private async Task<Faculty> AddFaculty(string name, string shortName)
@@ -214,7 +212,7 @@ public class UniversitySeed(
     private async Task<User> AddAdmin(string username)
     {
         var result = User.CreateAdmin(username, username, username);
-        result.UpdateIsApprovedStatus(true);
+        result.UpdateVerificationStatus(true);
         await userManager.CreateAsync(result, username);
         await userManager.AddToRoleAsync(result, nameof(UserRoleType.Admin));
         AdminValues.Add(result);
@@ -223,22 +221,24 @@ public class UniversitySeed(
 
     private async Task<User> AddStudent(string username, Group group)
     {
-        var result = User.CreateStudent(username, username, username, groupId: group.Id);
-        result.UpdateIsApprovedStatus(true);
+        var result = User.CreateStudent(username, username, username, group.Department.FacultyId, group.DepartmentId, groupId: group.Id);
+        result.UpdateVerificationStatus(true);
         await userManager.CreateAsync(result, username);
         await userManager.AddToRoleAsync(result, nameof(UserRoleType.Student));
         StudentValues.Add(result);
         return result;
     }
 
-    private async Task<User> AddEmployee(
+    private async Task<User> AddTeacher(
         string username,
-        UniversityPosition universityPosition)
+        UniversityPosition universityPosition,
+        Guid facultyId,
+        Guid departmentId)
     {
-        var result = User.CreateEmployee(username, username, username, universityPositionId: universityPosition.Id);
-        result.UpdateIsApprovedStatus(true);
+        var result = User.CreateTeacher(username, username, username, facultyId, departmentId, universityPositionId: universityPosition.Id);
+        result.UpdateVerificationStatus(true);
         await userManager.CreateAsync(result, username);
-        await userManager.AddToRoleAsync(result, nameof(UserRoleType.Employee));
+        await userManager.AddToRoleAsync(result, nameof(UserRoleType.Teacher));
         EmployeeValues.Add(result);
         return result;
     }

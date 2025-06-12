@@ -4,6 +4,7 @@ public enum UserRoleType
 {
     None = 0,
     Admin = 1,
-    Employee = 2,
-    Student = 3
+    Deanery = 2,
+    Teacher = 3,
+    Student = 4
 }

@@ -13,8 +13,12 @@ public sealed class Group : BaseEntity, IHasId
 
     public DateTime StartDate { get; private set; }
     public DateTime EndDate { get; private set; }
-    public Guid? SpecialtyId { get; private set; }
-    public Specialty? Specialty { get; private set; }
+
+    public Guid DepartmentId { get; private set; }
+
+    public Department Department { get; private set; } = null!;
+    public Guid SpecialtyId { get; private set; }
+    public Specialty Specialty { get; private set; } = null!;
 
     public ICollection<User> Users { get; private set; } = [];
 
@@ -24,7 +28,7 @@ public sealed class Group : BaseEntity, IHasId
     {
     }
 
-    public static Group Create(string number, DateTime startDate, DateTime endDate, Guid? specialtyId = null)
+    public static Group Create(string number, DateTime startDate, DateTime endDate, Guid specialtyId)
     {
         return new Group
         {

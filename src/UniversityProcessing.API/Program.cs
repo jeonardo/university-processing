@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using UniversityProcessing.API.Options;
 using UniversityProcessing.API.Services.Auth;
+using UniversityProcessing.API.Services.Registration;
 using UniversityProcessing.GenericSubdomain.Configuration;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Middlewares.Extensions;
@@ -31,6 +32,7 @@ public static partial class Program
 
         builder.AddSerilog();
         builder.AddAuthentication();
+        builder.Services.AddScoped<IRegistrationService, RegistrationService>();
 
         builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         builder.AddEndpoints(Assembly.GetExecutingAssembly());

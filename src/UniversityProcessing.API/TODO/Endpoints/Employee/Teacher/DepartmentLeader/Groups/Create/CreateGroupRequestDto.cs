@@ -13,5 +13,6 @@ public sealed class CreateGroupRequestDto
     [Required]
     public DateTime EndDate { get; set; }
 
-    public Guid? SpecialtyId { get; set; }
+    [Required]
+    public Guid SpecialtyId { get; set; }
 }

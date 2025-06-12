@@ -19,6 +19,15 @@ const theme = createTheme(
       h2: {
         fontSize: '2rem'
       }
+    },
+    components: {
+      MuiAppBar: {
+        styleOverrides: {
+          root: {
+            boxShadow: '0 2px 10px rgba(0,0,0,0.05)'
+          }
+        }
+      }
     }
   },
   enUS);

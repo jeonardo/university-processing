@@ -67,7 +67,8 @@ internal sealed class TokenService(IOptions<AuthSettings> authOptions, ILogger<T
         return new AuthTokenClaims(
             GetUserId(claims),
             GetUserRole(claims),
-            GetUserApproved(claims));
+            GetUserApproved(claims),
+            GetUserBlocked(claims));
     }
 
     public bool TryGetAuthorizationTokenClaims(ClaimsPrincipal user, [NotNullWhen(true)] out AuthTokenClaims? claims)
@@ -123,6 +124,18 @@ internal sealed class TokenService(IOptions<AuthSettings> authOptions, ILogger<T
     private static bool GetUserApproved(IEnumerable<Claim> claims)
     {
         var claimValue = claims.FirstOrDefault(x => x.Type == AppClaimTypes.IS_APPROVED)?.Value;
+
+        if (claimValue is null || !bool.TryParse(claimValue, out var role))
+        {
+            throw new InvalidTokenException();
+        }
+
+        return role;
+    }
+
+    private static bool GetUserBlocked(IEnumerable<Claim> claims)
+    {
+        var claimValue = claims.FirstOrDefault(x => x.Type == AppClaimTypes.IS_BLOCKED)?.Value;
 
         if (claimValue is null || !bool.TryParse(claimValue, out var role))
         {
