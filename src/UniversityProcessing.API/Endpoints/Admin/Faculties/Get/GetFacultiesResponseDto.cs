@@ -1,6 +1,6 @@
 using UniversityProcessing.GenericSubdomain.Pagination;
 
-namespace UniversityProcessing.API.TODO.Endpoints.Admin.Faculties.Get;
+namespace UniversityProcessing.API.Endpoints.Admin.Faculties.Get;
 
 public sealed class GetFacultiesResponseDto(PagedList<FacultyDto> list)
 {

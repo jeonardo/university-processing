@@ -1,4 +1,4 @@
-namespace UniversityProcessing.API.TODO.Endpoints.Admin.Faculties.Get;
+namespace UniversityProcessing.API.Endpoints.Admin.Faculties.Get;
 
 public sealed class FacultyDto(Guid id, string name, string shortName)
 {

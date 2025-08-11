@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.NameTranslation;
 using UniversityProcessing.Domain;
+using UniversityProcessing.Domain.Users;
 
 namespace UniversityProcessing.Infrastructure;
 
@@ -92,25 +93,21 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     // ReSharper disable once UnusedParameter.Local
     private static void AddInitData(ModelBuilder modelBuilder)
     {
-        //Can be filled by the real migration
     }
 
     private static void UseTphMappingStrategy(ModelBuilder modelBuilder)
     {
-        modelBuilder
-            .Entity<User>()
-            .UseTphMappingStrategy(); //TODO add details
+        // Configure TPH inheritance
+        modelBuilder.Entity<User>()
+            .HasDiscriminator(u => u.Role)
+            .HasValue<Admin>(UserRoleType.Admin)
+            .HasValue<Deanery>(UserRoleType.Deanery)
+            .HasValue<Teacher>(UserRoleType.Teacher)
+            .HasValue<Student>(UserRoleType.Student);
     }
 
     // ReSharper disable once UnusedParameter.Local
     private static void ConfigureRelations(ModelBuilder modelBuilder)
     {
-        //TODO add manual
-        // modelBuilder
-        //     .Entity<Department>()
-        //     .HasOne(b => b.Faculty)
-        //     .WithMany(a => a.Departments)
-        //     .HasForeignKey(b => b.FacultyId)
-        //     .OnDelete(DeleteBehavior.NoAction);
     }
 }

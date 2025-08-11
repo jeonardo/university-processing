@@ -1,4 +1,4 @@
-namespace UniversityProcessing.Domain;
+namespace UniversityProcessing.Domain.Users;
 
 public enum UserRoleType
 {

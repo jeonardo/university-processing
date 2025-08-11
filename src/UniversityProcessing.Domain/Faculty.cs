@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using UniversityProcessing.Domain.Users;
 using UniversityProcessing.GenericSubdomain.Identity;
 using UniversityProcessing.GenericSubdomain.Validation;
 
@@ -33,8 +34,8 @@ public sealed class Faculty : BaseEntity
         };
     }
 
-    public void SetLeader(Guid leaderId)
+    public void SetHead(Guid userId)
     {
-        HeadUserId = leaderId;
+        HeadUserId = userId;
     }
 }

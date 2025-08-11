@@ -1,4 +1,5 @@
 using UniversityProcessing.Domain;
+using UniversityProcessing.Domain.Users;
 
 namespace UniversityProcessing.Infrastructure.Interfaces.Specifications;
 

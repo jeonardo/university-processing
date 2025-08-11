@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace UniversityProcessing.API.TODO.Endpoints.Admin.Faculties.Create;
+namespace UniversityProcessing.API.Endpoints.Admin.Faculties.Create;
 
 public sealed class CreateFacultyRequestDto
 {

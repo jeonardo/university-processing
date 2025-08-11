@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Domain;
+using UniversityProcessing.Domain.Users;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
 using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 
-namespace UniversityProcessing.API.TODO.Endpoints.Admin.Faculties.Create;
+namespace UniversityProcessing.API.Endpoints.Admin.Faculties.Create;
 
 internal sealed class CreateFaculty : IEndpoint
 {

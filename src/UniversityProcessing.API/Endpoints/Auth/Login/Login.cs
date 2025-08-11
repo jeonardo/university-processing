@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.API.Endpoints.Converters;
 using UniversityProcessing.API.Services.Auth;
 using UniversityProcessing.Domain;
+using UniversityProcessing.Domain.Users;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
 using UniversityProcessing.GenericSubdomain.Identity;

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using UniversityProcessing.GenericSubdomain.Validation;
 
-namespace UniversityProcessing.Domain;
+namespace UniversityProcessing.Domain.Users;
 
 public sealed class UserRole : IdentityRole<Guid>
 {

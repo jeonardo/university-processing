@@ -1,3 +1,4 @@
+using UniversityProcessing.Domain.Users;
 using UniversityProcessing.GenericSubdomain.Identity;
 
 namespace UniversityProcessing.Domain;

@@ -1,13 +1,9 @@
 using System.ComponentModel.DataAnnotations;
-using UniversityProcessing.API.Services.Registration.Forms;
 
 namespace UniversityProcessing.API.Endpoints.Auth.Registration.Register;
 
-public sealed class RegisterRequestDto : IDeaneryRegistrationForm, ITeacherRegistrationForm, IStudentRegistrationForm
+public abstract class BaseRegisterRequestDto
 {
-    [Required]
-    public UserRoleDto Role { get; set; }
-
     [Required]
     public string UserName { get; set; } = string.Empty;
 
@@ -27,12 +23,4 @@ public sealed class RegisterRequestDto : IDeaneryRegistrationForm, ITeacherRegis
     public string? PhoneNumber { get; set; }
 
     public DateTime? Birthday { get; set; }
-
-    public Guid FacultyId { get; set; }
-
-    public string GroupNumber { get; set; } = string.Empty;
-
-    public Guid UniversityPositionId { get; set; }
-
-    public Guid DepartmentId { get; set; }
 }

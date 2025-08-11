@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Extensions;
 using UniversityProcessing.API.Services.Registration.Forms;
 using UniversityProcessing.Domain;
+using UniversityProcessing.Domain.Users;
 using UniversityProcessing.GenericSubdomain.Identity;
 using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
 using UniversityProcessing.Infrastructure;
@@ -70,7 +71,7 @@ internal sealed class RegistrationService(
                     throw new ArgumentException($"{nameof(form)} is not IAdminRegistrationForm", nameof(form));
                 }
 
-                return User.CreateAdmin(
+                return new Admin(
                     adminForm.UserName,
                     adminForm.FirstName,
                     adminForm.LastName,
@@ -85,10 +86,11 @@ internal sealed class RegistrationService(
                     throw new ArgumentException($"{nameof(form)} is not IDeaneryRegistrationForm", nameof(form));
                 }
 
-                return User.CreateDeanery(
+                return new Deanery(
                     deaneryForm.UserName,
                     deaneryForm.FirstName,
                     deaneryForm.LastName,
+                    deaneryForm.UniversityPositionId,
                     deaneryForm.FacultyId,
                     deaneryForm.MiddleName,
                     deaneryForm.Email,
@@ -101,10 +103,11 @@ internal sealed class RegistrationService(
                     throw new ArgumentException($"{nameof(form)} is not ITeacherRegistrationForm", nameof(form));
                 }
 
-                return User.CreateTeacher(
+                return new Teacher(
                     teacherForm.UserName,
                     teacherForm.FirstName,
                     teacherForm.LastName,
+                    teacherForm.UniversityPositionId,
                     teacherForm.FacultyId,
                     teacherForm.DepartmentId,
                     teacherForm.MiddleName,
@@ -121,7 +124,7 @@ internal sealed class RegistrationService(
 
                 var group = await GetRequiredGroupWithDepartment(studentForm.GroupNumber, cancellationToken);
 
-                return User.CreateStudent(
+                return new Student(
                     studentForm.UserName,
                     studentForm.FirstName,
                     studentForm.LastName,

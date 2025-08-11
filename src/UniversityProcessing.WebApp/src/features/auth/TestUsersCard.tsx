@@ -23,9 +23,7 @@ interface TestUsersCardProps {
     handleTestLogin: (username: string, password: string) => void;
 }
 
-// await AddAdmin("test_admin");
-// await AddStudent("test_student", bntu_studyGroup1);
-// await AddEmployee("test_employee", bntu_pos_1);
+
 
 const TestUsersCard: React.FC<TestUsersCardProps> = ({
     isLoading,
@@ -34,7 +32,7 @@ const TestUsersCard: React.FC<TestUsersCardProps> = ({
     const testUsers: TestUser[] = [
         { username: "test_admin", password: "test_admin", role: "admin", info: "some info" },
         { username: "test_student", password: "test_student", role: "student", info: "some info" },
-        { username: "test_employee", password: "test_employee", role: "employee", info: "some info" },
+        { username: "test_teacher", password: "test_teacher", role: "teacher", info: "some info" },
     ];
 
     return (

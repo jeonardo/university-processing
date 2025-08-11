@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Domain;
+using UniversityProcessing.Domain.Users;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Pagination;
 using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 using UniversityProcessing.Infrastructure.Interfaces.Specifications;
 
-namespace UniversityProcessing.API.TODO.Endpoints.Admin.Faculties.Get;
+namespace UniversityProcessing.API.Endpoints.Admin.Faculties.Get;
 
 internal sealed class GetFaculties : IEndpoint
 {

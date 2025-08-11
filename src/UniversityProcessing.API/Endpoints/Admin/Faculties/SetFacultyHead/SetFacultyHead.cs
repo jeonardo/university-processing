@@ -6,26 +6,29 @@ using UniversityProcessing.GenericSubdomain.Filters;
 using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 
-namespace UniversityProcessing.API.TODO.Endpoints.Employee.Deanery.Departments.Delete;
+namespace UniversityProcessing.API.Endpoints.Admin.Faculties.SetFacultyHead;
 
-internal sealed class DeleteDepartment : IEndpoint
+internal sealed class SetFacultyHead : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        var type = typeof(DeleteDepartment);
+        var type = typeof(SetFacultyHead);
         app
-            .MapDelete(NamespaceService.GetEndpointRoute(type), Handle)
+            .MapGet(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
             .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
-            .AddEndpointFilter<ValidationFilter<DeleteDepartmentRequestDto>>();
+            .AddEndpointFilter<ValidationFilter<SetFacultyHeadRequestDto>>();
     }
 
     private static async Task Handle(
-        [AsParameters] DeleteDepartmentRequestDto request,
-        [FromServices] IEfRepository<Department> repository,
+        [AsParameters] SetFacultyHeadRequestDto request,
+        [FromServices] IEfRepository<Faculty> repository,
         CancellationToken cancellationToken)
     {
-        var entity = await repository.GetByIdRequiredAsync(request.Id, cancellationToken);
-        await repository.DeleteAsync(entity, cancellationToken);
+        var faculty = await repository.GetByIdRequiredAsync(request.FacultyId, cancellationToken);
+
+        faculty.SetHead(request.UserId);
+
+        await repository.UpdateAsync(faculty, cancellationToken);
     }
 }

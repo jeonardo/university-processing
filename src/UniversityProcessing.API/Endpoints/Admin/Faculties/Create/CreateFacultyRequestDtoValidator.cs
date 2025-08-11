@@ -1,7 +1,7 @@
 using FluentValidation;
 using UniversityProcessing.GenericSubdomain.Validation;
 
-namespace UniversityProcessing.API.TODO.Endpoints.Admin.Faculties.Create;
+namespace UniversityProcessing.API.Endpoints.Admin.Faculties.Create;
 
 public sealed class CreateFacultyRequestDtoValidator : AbstractValidator<CreateFacultyRequestDto>
 {

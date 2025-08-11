@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UniversityProcessing.Domain;
+using UniversityProcessing.Domain.Users;
 using UniversityProcessing.GenericSubdomain.Configuration;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 using UniversityProcessing.Infrastructure.Options;

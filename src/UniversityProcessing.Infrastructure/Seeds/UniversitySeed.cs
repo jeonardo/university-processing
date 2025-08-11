@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using UniversityProcessing.Domain;
+using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 
 // ReSharper disable All
@@ -211,7 +212,7 @@ public class UniversitySeed(
 
     private async Task<User> AddAdmin(string username)
     {
-        var result = User.CreateAdmin(username, username, username);
+        var result = new Admin(username, username, username);
         result.UpdateVerificationStatus(true);
         await userManager.CreateAsync(result, username);
         await userManager.AddToRoleAsync(result, nameof(UserRoleType.Admin));
@@ -221,7 +222,7 @@ public class UniversitySeed(
 
     private async Task<User> AddStudent(string username, Group group)
     {
-        var result = User.CreateStudent(username, username, username, group.Department.FacultyId, group.DepartmentId, groupId: group.Id);
+        var result = new Student(username, username, username, group.Id);
         result.UpdateVerificationStatus(true);
         await userManager.CreateAsync(result, username);
         await userManager.AddToRoleAsync(result, nameof(UserRoleType.Student));
@@ -235,7 +236,7 @@ public class UniversitySeed(
         Guid facultyId,
         Guid departmentId)
     {
-        var result = User.CreateTeacher(username, username, username, facultyId, departmentId, universityPositionId: universityPosition.Id);
+        var result = new Teacher(username, username, username, universityPosition.Id, departmentId);
         result.UpdateVerificationStatus(true);
         await userManager.CreateAsync(result, username);
         await userManager.AddToRoleAsync(result, nameof(UserRoleType.Teacher));

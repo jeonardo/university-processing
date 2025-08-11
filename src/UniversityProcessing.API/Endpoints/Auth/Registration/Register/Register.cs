@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.API.Services.Registration;
-using UniversityProcessing.Domain;
+using UniversityProcessing.Domain.Users;
 using UniversityProcessing.GenericSubdomain.Endpoints;
 using UniversityProcessing.GenericSubdomain.Filters;
 using UniversityProcessing.GenericSubdomain.Routing;
@@ -15,25 +15,14 @@ internal sealed class Register : IEndpoint
         app
             .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
-            .AddEndpointFilter<ValidationFilter<RegisterRequestDto>>();
+            .AddEndpointFilter<ValidationFilter<RegisterTeacherRequestDto>>();
     }
 
     private static async Task Handle(
-        [FromBody] RegisterRequestDto request,
+        [FromBody] RegisterTeacherRequestDto request,
         [FromServices] IRegistrationService registrationService,
         CancellationToken cancellationToken)
     {
         await registrationService.Register(request, ToDomainRole(request.Role), cancellationToken);
-    }
-
-    private static UserRoleType ToDomainRole(UserRoleDto roleType)
-    {
-        return roleType switch
-        {
-            UserRoleDto.Deanery => UserRoleType.Deanery,
-            UserRoleDto.Teacher => UserRoleType.Teacher,
-            UserRoleDto.Student => UserRoleType.Student,
-            _ => UserRoleType.None
-        };
     }
 }
