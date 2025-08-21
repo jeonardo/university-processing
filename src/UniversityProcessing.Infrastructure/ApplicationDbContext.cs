@@ -103,12 +103,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
     {
         modelBuilder
             .Entity<User>()
-            .UseTphMappingStrategy()
-            .HasDiscriminator(x => x.Role)
-            .HasValue<Admin>(UserRoleType.Admin)
-            .HasValue<Deanery>(UserRoleType.Deanery)
-            .HasValue<Teacher>(UserRoleType.Teacher)
-            .HasValue<Student>(UserRoleType.Student);
+            .UseTptMappingStrategy();
 
         modelBuilder.Entity<Student>(
             x =>
