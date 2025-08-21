@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using UniversityProcessing.API.Endpoints.Common;
 using UniversityProcessing.API.Endpoints.Converters;
-using UniversityProcessing.API.Services.Auth;
 using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Utils.Endpoints;
 using UniversityProcessing.Utils.Middlewares.Exceptions;
