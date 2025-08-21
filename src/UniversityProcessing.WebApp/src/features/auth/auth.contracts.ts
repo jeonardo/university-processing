@@ -1,4 +1,4 @@
-import { AuthInfoResponse, ContractsToken, ContractsUserRoleType } from 'src/api/backendApi';
+import { AuthInfoResponse, ContractsToken } from 'src/api/backendApi';
 
 export type AuthTokens = {
   accessToken?: ContractsToken;

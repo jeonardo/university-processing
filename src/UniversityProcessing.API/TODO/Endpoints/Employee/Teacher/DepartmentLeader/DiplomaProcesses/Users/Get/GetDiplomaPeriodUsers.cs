@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Extensions;
 using UniversityProcessing.Domain.Users;
-using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Filters;
-using UniversityProcessing.GenericSubdomain.Routing;
+using UniversityProcessing.Utils.Endpoints;
+using UniversityProcessing.Utils.Filters;
+using UniversityProcessing.Utils.Routing;
 
 namespace UniversityProcessing.API.TODO.Endpoints.Employee.Teacher.DepartmentLeader.DiplomaProcesses.Users.Get;
 
@@ -36,7 +36,7 @@ internal sealed class GetDiplomaPeriodUsers : IEndpoint
             user.FirstName,
             user.LastName,
             user.MiddleName,
-            user.UniversityPosition?.Name,
-            user.DiplomaProcesses.Any(x => x.Id == request.DiplomaPeriodId));
+            "sfa",
+            true);
     }
 }

@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.API.Endpoints.Contracts;
 using UniversityProcessing.API.Services.Auth;
 using UniversityProcessing.Domain.Users;
-using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
+using UniversityProcessing.Utils.Endpoints;
+using UniversityProcessing.Utils.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Auth.Info;
 

@@ -1,11 +1,11 @@
 using UniversityProcessing.Domain.Users;
-using UniversityProcessing.GenericSubdomain.Identity;
+using UniversityProcessing.Utils.Identity;
 
 namespace UniversityProcessing.Domain;
 
-public sealed class Сommittee : BaseEntity
+public class Сommittee : BaseEntity
 {
-    public ICollection<User> Users { get; private set; } = [];
+    public virtual ICollection<User> Users { get; private set; } = null!;
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local

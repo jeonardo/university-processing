@@ -5,10 +5,9 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using UniversityProcessing.API.Options;
-using UniversityProcessing.Domain;
 using UniversityProcessing.Domain.Users;
-using UniversityProcessing.GenericSubdomain.Authorization;
-using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
+using UniversityProcessing.Utils.Authorization;
+using UniversityProcessing.Utils.Middlewares.Exceptions;
 
 namespace UniversityProcessing.API.Services.Auth;
 

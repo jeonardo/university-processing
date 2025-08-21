@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Identity;
-using UniversityProcessing.GenericSubdomain.Identity;
-using UniversityProcessing.GenericSubdomain.Validation;
+using UniversityProcessing.Utils.Identity;
+using UniversityProcessing.Utils.Validation;
 
 namespace UniversityProcessing.Domain.Users;
 
-public abstract class User : IdentityUser<Guid>, IAggregateRoot, IHasId
+public class User : IdentityUser<Guid>, IAggregateRoot, IHasId
 {
     public UserRoleType Role { get; private set; }
     public bool Blocked { get; private set; }
@@ -34,7 +34,6 @@ public abstract class User : IdentityUser<Guid>, IAggregateRoot, IHasId
     }
 
     protected User(
-        UserRoleType role,
         string userName,
         string firstName,
         string lastName,
@@ -45,7 +44,6 @@ public abstract class User : IdentityUser<Guid>, IAggregateRoot, IHasId
     {
         FirstName = firstName;
         LastName = lastName;
-        Role = role;
         MiddleName = middleName;
         Email = email;
         Birthday = birthday;

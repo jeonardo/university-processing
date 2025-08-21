@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Domain;
 using UniversityProcessing.Domain.Users;
-using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Pagination;
-using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
-using UniversityProcessing.Infrastructure.Interfaces.Specifications;
+using UniversityProcessing.Utils.Endpoints;
+using UniversityProcessing.Utils.Pagination;
+using UniversityProcessing.Utils.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Admin.Faculties.Get;
 
@@ -25,26 +24,12 @@ internal sealed class GetFaculties : IEndpoint
         [FromServices] IEfRepository<Faculty> repository,
         CancellationToken cancellationToken)
     {
-        var validRequest = request.GetValidQueryParameters();
-
-        var specification = new GetFacultiesSpec(validRequest.PageNumber, validRequest.PageSize, validRequest.OrderBy, validRequest.Desc);
-        var entities = await repository.ListAsync(specification, cancellationToken);
-
-        var count = validRequest.IsFilterSet
-            ? entities.Count
-            : await repository.CountAsync(cancellationToken);
-
-        return new GetFacultiesResponseDto(new PagedList<FacultyDto>(entities.Select(ToDto), count, validRequest.PageNumber, validRequest.PageSize));
+        var pagedList = await repository.TypedDbContext.ToPagedListAsync(request, null, cancellationToken);
+        return new GetFacultiesResponseDto(pagedList.Items.Select(ToDto), pagedList.TotalCount, pagedList.CurrentPage, pagedList.PageSize);
     }
 
     private static FacultyDto ToDto(Faculty input)
     {
         return new FacultyDto(input.Id, input.Name, input.ShortName);
-    }
-
-    private sealed class GetFacultiesSpec(int pageNumber, int pageSize, string orderBy, bool desc)
-        : BaseListSpec<Faculty>(pageNumber, pageSize, orderBy, desc)
-    {
-        protected override string[] AvailableProperties => ["id", "name", "short_name"];
     }
 }

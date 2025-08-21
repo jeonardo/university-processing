@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Extensions;
 using UniversityProcessing.API.Services.Registration.Forms;
 using UniversityProcessing.Domain;
 using UniversityProcessing.Domain.Users;
-using UniversityProcessing.GenericSubdomain.Identity;
-using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
 using UniversityProcessing.Infrastructure;
+using UniversityProcessing.Utils.Identity;
+using UniversityProcessing.Utils.Middlewares.Exceptions;
 
 namespace UniversityProcessing.API.Services.Registration;
 
@@ -96,44 +95,44 @@ internal sealed class RegistrationService(
                     deaneryForm.Email,
                     deaneryForm.Birthday);
 
-            case UserRoleType.Teacher:
-
-                if (form is not ITeacherRegistrationForm teacherForm)
-                {
-                    throw new ArgumentException($"{nameof(form)} is not ITeacherRegistrationForm", nameof(form));
-                }
-
-                return new Teacher(
-                    teacherForm.UserName,
-                    teacherForm.FirstName,
-                    teacherForm.LastName,
-                    teacherForm.UniversityPositionId,
-                    teacherForm.FacultyId,
-                    teacherForm.DepartmentId,
-                    teacherForm.MiddleName,
-                    teacherForm.Email,
-                    teacherForm.Birthday,
-                    teacherForm.UniversityPositionId);
-
-            case UserRoleType.Student:
-
-                if (form is not IStudentRegistrationForm studentForm)
-                {
-                    throw new ArgumentException($"{nameof(form)} is not IStudentRegistrationForm", nameof(form));
-                }
-
-                var group = await GetRequiredGroupWithDepartment(studentForm.GroupNumber, cancellationToken);
-
-                return new Student(
-                    studentForm.UserName,
-                    studentForm.FirstName,
-                    studentForm.LastName,
-                    group.Department.FacultyId,
-                    group.Department.Id,
-                    group.Id,
-                    studentForm.MiddleName,
-                    studentForm.Email,
-                    studentForm.Birthday);
+            // case UserRoleType.Teacher:
+            //
+            //     if (form is not ITeacherRegistrationForm teacherForm)
+            //     {
+            //         throw new ArgumentException($"{nameof(form)} is not ITeacherRegistrationForm", nameof(form));
+            //     }
+            //
+            //     return new Teacher(
+            //         teacherForm.UserName,
+            //         teacherForm.FirstName,
+            //         teacherForm.LastName,
+            //         teacherForm.UniversityPositionId,
+            //         teacherForm.FacultyId,
+            //         teacherForm.DepartmentId,
+            //         teacherForm.MiddleName,
+            //         teacherForm.Email,
+            //         teacherForm.Birthday,
+            //         teacherForm.UniversityPositionId);
+            //
+            // case UserRoleType.Student:
+            //
+            //     if (form is not IStudentRegistrationForm studentForm)
+            //     {
+            //         throw new ArgumentException($"{nameof(form)} is not IStudentRegistrationForm", nameof(form));
+            //     }
+            //
+            //     var group = await GetRequiredGroupWithDepartment(studentForm.GroupNumber, cancellationToken);
+            //
+            //     return new Student(
+            //         studentForm.UserName,
+            //         studentForm.FirstName,
+            //         studentForm.LastName,
+            //         group.Department.FacultyId,
+            //         group.Department.Id,
+            //         group.Id,
+            //         studentForm.MiddleName,
+            //         studentForm.Email,
+            //         studentForm.Birthday);
 
             default:
                 throw new ArgumentOutOfRangeException(nameof(role), role, null);
@@ -142,24 +141,26 @@ internal sealed class RegistrationService(
 
     private async Task<Group> GetRequiredGroupWithDepartment(string groupNumber, CancellationToken cancellationToken)
     {
-        var group = await dbContext.Groups
-            .Where(x => x.Number == groupNumber)
-            .Include(x => x.Department)
-            .ToArrayAsync(cancellationToken);
+        throw new NotImplementedException();
 
-        switch (group.Length)
-        {
-            case 0:
-                throw new NotFoundException($"Group with number {groupNumber} not found");
-            case > 1:
-                throw new ConflictException($"Group with number {groupNumber} is not unique");
-        }
-
-        if (group[0].Department is null)
-        {
-            throw new NotFoundException($"Department for group {groupNumber} not found");
-        }
-
-        return group[0];
+        // var group = await dbContext.Groups
+        //     .Where(x => x.Number == groupNumber)
+        //     .Include(x => x.Department)
+        //     .ToArrayAsync(cancellationToken);
+        //
+        // switch (group.Length)
+        // {
+        //     case 0:
+        //         throw new NotFoundException($"Group with number {groupNumber} not found");
+        //     case > 1:
+        //         throw new ConflictException($"Group with number {groupNumber} is not unique");
+        // }
+        //
+        // if (group[0].Department is null)
+        // {
+        //     throw new NotFoundException($"Department for group {groupNumber} not found");
+        // }
+        //
+        // return group[0];
     }
 }

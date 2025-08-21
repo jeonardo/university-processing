@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using UniversityProcessing.API.Endpoints.Converters;
 using UniversityProcessing.Domain;
-using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Pagination;
-using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
-using UniversityProcessing.Infrastructure.Interfaces.Specifications;
+using UniversityProcessing.Utils.Endpoints;
+using UniversityProcessing.Utils.Pagination;
+using UniversityProcessing.Utils.Routing;
 
 namespace UniversityProcessing.API.TODO.Endpoints.Periods.Get;
 
@@ -26,26 +26,12 @@ internal sealed class GetPeriods : IEndpoint
         [FromServices] IEfRepository<Period> repository,
         CancellationToken cancellationToken)
     {
-        var validRequest = request.GetValidQueryParameters();
-
-        var specification = new GetPeriodsSpec(validRequest.PageNumber, validRequest.PageSize);
-        var entities = await repository.ListAsync(specification, cancellationToken);
-
-        var count = validRequest.IsFilterSet
-            ? entities.Count
-            : await repository.CountAsync(cancellationToken);
-
-        return new GetPeriodsResponseDto(new PagedList<PeriodDto>(entities.Select(ToDto), count, validRequest.PageNumber, validRequest.PageSize));
+        var entities = await repository.TypedDbContext.ToPagedListAsync(request, null, cancellationToken);
+        return new GetPeriodsResponseDto(PagedListConverter.Convert(entities, ToDto));
     }
 
     private static PeriodDto ToDto(Period input)
     {
         return new PeriodDto(input.Id, input.From, input.To, input.Comments);
-    }
-
-    private sealed class GetPeriodsSpec(int pageNumber, int pageSize)
-        : BaseListSpec<Period>(pageNumber, pageSize, ORDER_BY_PROPERTY, true)
-    {
-        protected override string[] AvailableProperties => [ORDER_BY_PROPERTY];
     }
 }

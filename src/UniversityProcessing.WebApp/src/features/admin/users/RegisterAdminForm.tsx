@@ -23,15 +23,15 @@ const RegisterAdminForm = () => {
 
     const response = await tryRegister({
       adminRegisterRequest:
-      {
-        password: password,
-        userName: userName,
-        firstName: firstName,
-        lastName: lastName,
-        middleName: middleName,
-        birthday: birthday.toISOString(),
-        email: email
-      }
+        {
+          password: password,
+          userName: userName,
+          firstName: firstName,
+          lastName: lastName,
+          middleName: middleName,
+          birthday: birthday.toISOString(),
+          email: email
+        }
     });
 
     if (response.error) {

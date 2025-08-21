@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Domain;
-using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
+using UniversityProcessing.Utils.Endpoints;
+using UniversityProcessing.Utils.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Auth.Registration.GetAvailableUniversityPositions;
 

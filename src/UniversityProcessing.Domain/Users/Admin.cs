@@ -1,6 +1,6 @@
 namespace UniversityProcessing.Domain.Users;
 
-public sealed class Admin : User
+public class Admin : User
 {
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local
@@ -16,7 +16,6 @@ public sealed class Admin : User
         string? email = null,
         DateTime? birthday = null)
         : base(
-            UserRoleType.Admin,
             userName,
             firstName,
             lastName,

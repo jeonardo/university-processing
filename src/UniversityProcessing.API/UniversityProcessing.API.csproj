@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UniversityProcessing.GenericSubdomain\UniversityProcessing.GenericSubdomain.csproj"/>
+    <ProjectReference Include="..\UniversityProcessing.Utils\UniversityProcessing.Utils.csproj"/>
     <ProjectReference Include="..\UniversityProcessing.WebApp\UniversityProcessing.WebApp.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>

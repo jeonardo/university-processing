@@ -34,9 +34,9 @@ public sealed class RegisterUserRequestDto
 
     public Guid FacultyId { get; set; }
 
-    public string GroupNumber { get; set; } = string.Empty;
-
     public Guid UniversityPositionId { get; set; }
+
+    public string GroupNumber { get; set; } = string.Empty;
 
     public Guid DepartmentId { get; set; }
 }

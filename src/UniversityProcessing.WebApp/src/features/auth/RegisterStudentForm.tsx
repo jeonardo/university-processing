@@ -4,7 +4,10 @@ import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
 import { enqueueSnackbarError } from 'src/core/helpers';
-import { useLazyGetApiAuthRegistrationStudentGetAvailableGroupsQuery, usePostApiAuthRegistrationStudentRegisterMutation } from 'src/api/backendApi';
+import {
+  useLazyGetApiAuthRegistrationStudentGetAvailableGroupsQuery,
+  usePostApiAuthRegistrationStudentRegisterMutation
+} from 'src/api/backendApi';
 
 const RegisterStudentForm = () => {
   const [userName, setUserName] = useState('');

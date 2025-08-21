@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/core/hooks';
 import { setUser } from 'src/features/auth/auth.slice';
 import { useEffect } from 'react';

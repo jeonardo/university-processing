@@ -1,6 +1,6 @@
 using FluentValidation;
 using UniversityProcessing.Domain;
-using UniversityProcessing.GenericSubdomain.Validation;
+using UniversityProcessing.Utils.Validation;
 
 namespace UniversityProcessing.API.TODO.Endpoints.Employee.Teacher.DepartmentLeader.Specialties.Create;
 

@@ -1,4 +1,4 @@
-import { CheckBox, LockOutlined } from '@mui/icons-material';
+import { LockOutlined } from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -91,7 +91,9 @@ const LoginPage = () => {
             disabled={isLoading || username.length === 0 || password.length === 0}
             fullWidth
             variant="contained"
-            onClick={() => { handleLogin(username, password) }}
+            onClick={() => {
+              handleLogin(username, password);
+            }}
           >
             {
               isLoading
@@ -122,9 +124,9 @@ const LoginPage = () => {
           testVisible
             ? (
               <TestUsersCard isLoading={false} handleTestLogin={(username, password) => {
-                setUsername(username)
-                setPassword(password)
-                handleLogin(username, password)
+                setUsername(username);
+                setPassword(password);
+                handleLogin(username, password);
               }} />
             )
             : (<></>)

@@ -1,5 +1,5 @@
 using FluentValidation;
-using UniversityProcessing.GenericSubdomain.Validation;
+using UniversityProcessing.Utils.Validation;
 
 namespace UniversityProcessing.API.Endpoints.Auth.ChangePassword;
 

@@ -3,13 +3,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using UniversityProcessing.Domain;
 using UniversityProcessing.Domain.Users;
-using UniversityProcessing.GenericSubdomain.Configuration;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 using UniversityProcessing.Infrastructure.Options;
 using UniversityProcessing.Infrastructure.Repositories;
 using UniversityProcessing.Infrastructure.Seeds;
+using UniversityProcessing.Utils.Configuration;
 
 namespace UniversityProcessing.Infrastructure;
 

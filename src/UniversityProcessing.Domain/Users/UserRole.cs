@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
-using UniversityProcessing.GenericSubdomain.Validation;
+using UniversityProcessing.Utils.Validation;
 
 namespace UniversityProcessing.Domain.Users;
 
-public sealed class UserRole : IdentityRole<Guid>
+public class UserRole : IdentityRole<Guid>
 {
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 

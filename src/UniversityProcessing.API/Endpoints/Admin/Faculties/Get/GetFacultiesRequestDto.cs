@@ -1,4 +1,4 @@
-using UniversityProcessing.GenericSubdomain.Pagination;
+using UniversityProcessing.Utils.Pagination;
 
 namespace UniversityProcessing.API.Endpoints.Admin.Faculties.Get;
 

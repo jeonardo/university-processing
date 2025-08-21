@@ -6,12 +6,12 @@ using Serilog;
 using UniversityProcessing.API.Options;
 using UniversityProcessing.API.Services.Auth;
 using UniversityProcessing.API.Services.Registration;
-using UniversityProcessing.GenericSubdomain.Configuration;
-using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Middlewares.Extensions;
-using UniversityProcessing.GenericSubdomain.Swagger;
 using UniversityProcessing.Infrastructure;
 using UniversityProcessing.Infrastructure.Extensions;
+using UniversityProcessing.Utils.Configuration;
+using UniversityProcessing.Utils.Endpoints;
+using UniversityProcessing.Utils.Middlewares.Extensions;
+using UniversityProcessing.Utils.Swagger;
 
 namespace UniversityProcessing.API;
 

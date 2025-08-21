@@ -1,15 +1,16 @@
 using Ardalis.SharedKernel;
 using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
-using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
+using Microsoft.EntityFrameworkCore;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
+using UniversityProcessing.Utils.Middlewares.Exceptions;
 
 namespace UniversityProcessing.Infrastructure.Repositories;
 
 public sealed class EfRepository<T>(ApplicationDbContext dbContext) : RepositoryBase<T>(dbContext), IEfRepository<T>
     where T : class, IAggregateRoot
 {
-    public ApplicationDbContext DbContext => dbContext;
+    public DbSet<T> TypedDbContext => dbContext.Set<T>();
 
     public async Task<T> GetByIdRequiredAsync(Guid id, CancellationToken cancellationToken)
     {

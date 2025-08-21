@@ -1,27 +1,22 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using UniversityProcessing.Domain.Users;
-using UniversityProcessing.GenericSubdomain.Identity;
-using UniversityProcessing.GenericSubdomain.Validation;
+using UniversityProcessing.Utils.Identity;
+using UniversityProcessing.Utils.Validation;
 
 namespace UniversityProcessing.Domain;
 
 [Index(nameof(Number), IsUnique = true)]
-public sealed class Group : BaseEntity, IHasId
+public class Group : BaseEntity, IHasId
 {
     [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string Number { get; private set; } = null!;
 
     public DateTime StartDate { get; private set; }
     public DateTime EndDate { get; private set; }
-
-    public Guid DepartmentId { get; private set; }
-
-    public Department Department { get; private set; } = null!;
     public Guid SpecialtyId { get; private set; }
-    public Specialty Specialty { get; private set; } = null!;
-
-    public ICollection<User> Users { get; private set; } = [];
+    public virtual Specialty Specialty { get; private set; } = null!;
+    public virtual ICollection<Student> Students { get; private set; } = null!;
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local

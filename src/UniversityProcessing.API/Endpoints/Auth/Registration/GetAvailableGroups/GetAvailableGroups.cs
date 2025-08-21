@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using UniversityProcessing.Domain;
-using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Filters;
-using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
+using UniversityProcessing.Utils.Endpoints;
+using UniversityProcessing.Utils.Filters;
+using UniversityProcessing.Utils.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Auth.Registration.GetAvailableGroups;
 
@@ -23,8 +24,14 @@ internal sealed class GetAvailableGroups : IEndpoint
         [FromServices] IEfReadRepository<Group> repository,
         CancellationToken cancellationToken)
     {
-        var specification = new GetAvailableGroupsSpecification(request.Number);
-        var groups = await repository.ListAsync(specification, cancellationToken);
-        return new GetAvailableGroupsResponseDto(groups.ToArray());
+        var groups = await
+            (string.IsNullOrWhiteSpace(request.Number)
+                ? repository.TypedDbContext
+                : repository.TypedDbContext.Where(g => EF.Functions.Like(g.Number, $"%{request.Number}%")))
+            .OrderBy(g => g.Number)
+            .Select(g => g.Number)
+            .ToArrayAsync(cancellationToken: cancellationToken);
+
+        return new GetAvailableGroupsResponseDto(groups);
     }
 }

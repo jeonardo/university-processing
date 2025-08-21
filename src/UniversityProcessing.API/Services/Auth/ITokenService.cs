@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
-using UniversityProcessing.GenericSubdomain.Authorization;
+using UniversityProcessing.Utils.Authorization;
 
 namespace UniversityProcessing.API.Services.Auth;
 

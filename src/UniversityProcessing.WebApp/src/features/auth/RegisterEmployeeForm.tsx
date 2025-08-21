@@ -1,10 +1,13 @@
-import React, { useCallback, useState } from 'react';
-import { Autocomplete, Button, CircularProgress, debounce, FormControl, Stack, TextField } from '@mui/material';
+import React, { useState } from 'react';
+import { Autocomplete, Button, CircularProgress, FormControl, Stack, TextField } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
 import { enqueueSnackbarError } from 'src/core/helpers';
-import { useGetApiAuthRegistrationEmployeeGetAvailableUniversityPositionsQuery, usePostApiAuthRegistrationEmployeeRegisterMutation } from 'src/api/backendApi';
+import {
+  useGetApiAuthRegistrationEmployeeGetAvailableUniversityPositionsQuery,
+  usePostApiAuthRegistrationEmployeeRegisterMutation
+} from 'src/api/backendApi';
 
 const RegisterEmployeeForm = () => {
   const [userName, setUserName] = useState('');
@@ -28,16 +31,16 @@ const RegisterEmployeeForm = () => {
 
     const response = await tryregister({
       registrationEmployeeRegisterRequest:
-      {
-        password: password,
-        userName: userName,
-        firstName: firstName,
-        lastName: lastName,
-        middleName: middleName,
-        birthday: birthday.toISOString(),
-        email: email,
-        universityPositionId: getAvailableUniversityPositionsResponse?.data?.list?.filter(x => x.name === universityPosition)[0].id ?? ''
-      }
+        {
+          password: password,
+          userName: userName,
+          firstName: firstName,
+          lastName: lastName,
+          middleName: middleName,
+          birthday: birthday.toISOString(),
+          email: email,
+          universityPositionId: getAvailableUniversityPositionsResponse?.data?.list?.filter(x => x.name === universityPosition)[0].id ?? ''
+        }
     });
 
     if (response.error) {

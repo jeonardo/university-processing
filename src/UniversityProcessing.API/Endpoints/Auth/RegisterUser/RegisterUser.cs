@@ -3,9 +3,9 @@ using UniversityProcessing.API.Endpoints.Auth.Common;
 using UniversityProcessing.API.Services.Auth;
 using UniversityProcessing.API.Services.Registration;
 using UniversityProcessing.Domain.Users;
-using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Filters;
-using UniversityProcessing.GenericSubdomain.Routing;
+using UniversityProcessing.Utils.Endpoints;
+using UniversityProcessing.Utils.Filters;
+using UniversityProcessing.Utils.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Auth.RegisterUser;
 

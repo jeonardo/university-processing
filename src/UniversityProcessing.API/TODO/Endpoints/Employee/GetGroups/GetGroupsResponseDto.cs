@@ -1,4 +1,4 @@
-using UniversityProcessing.GenericSubdomain.Pagination;
+using UniversityProcessing.Utils.Pagination;
 
 namespace UniversityProcessing.API.TODO.Endpoints.Employee.GetGroups;
 

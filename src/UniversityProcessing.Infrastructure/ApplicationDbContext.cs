@@ -6,12 +6,18 @@ using Npgsql.NameTranslation;
 using UniversityProcessing.Domain;
 using UniversityProcessing.Domain.Users;
 
+// ReSharper disable PropertyCanBeMadeInitOnly.Global
+
 namespace UniversityProcessing.Infrastructure;
 
 #pragma warning disable CS8618 // Required by Entity Framework
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDomainEventDispatcher? dispatcher = null)
+public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDomainEventDispatcher? dispatcher = null)
     : IdentityDbContext<User, UserRole, Guid>(options)
 {
+    public DbSet<Admin> Admins { get; set; }
+    public DbSet<Deanery> Deaneries { get; set; }
+    public DbSet<Teacher> Teachers { get; set; }
+    public DbSet<Student> Students { get; set; }
     public DbSet<UniversityPosition> UniversityPositions { get; set; }
     public DbSet<Department> Departments { get; set; }
     public DbSet<DiplomaProcess> DiplomaPeriods { get; set; }
@@ -19,7 +25,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Diploma> Diplomas { get; set; }
     public DbSet<Specialty> Specialties { get; set; }
     public DbSet<Group> Groups { get; set; }
-    public DbSet<Notification> Notifications { get; set; }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
     {
@@ -51,17 +56,13 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
-
-        UseTphMappingStrategy(modelBuilder);
-
         ConfigureRelations(modelBuilder);
-
-        ApplyIdentitySnakeCaseNames(modelBuilder);
 
         ApplySnakeCaseNames(modelBuilder);
 
         AddInitData(modelBuilder);
+
+        base.OnModelCreating(modelBuilder);
     }
 
     private static void ApplyIdentitySnakeCaseNames(ModelBuilder modelBuilder)
@@ -88,6 +89,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                 property.SetColumnName(npgsqlColumnName);
             }
         }
+
+        ApplyIdentitySnakeCaseNames(modelBuilder);
     }
 
     // ReSharper disable once UnusedParameter.Local
@@ -95,19 +98,58 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     {
     }
 
-    private static void UseTphMappingStrategy(ModelBuilder modelBuilder)
+    // ReSharper disable once UnusedParameter.Local
+    private static void ConfigureRelations(ModelBuilder modelBuilder)
     {
-        // Configure TPH inheritance
-        modelBuilder.Entity<User>()
-            .HasDiscriminator(u => u.Role)
+        modelBuilder
+            .Entity<User>()
+            .UseTphMappingStrategy()
+            .HasDiscriminator(x => x.Role)
             .HasValue<Admin>(UserRoleType.Admin)
             .HasValue<Deanery>(UserRoleType.Deanery)
             .HasValue<Teacher>(UserRoleType.Teacher)
             .HasValue<Student>(UserRoleType.Student);
-    }
 
-    // ReSharper disable once UnusedParameter.Local
-    private static void ConfigureRelations(ModelBuilder modelBuilder)
-    {
+        modelBuilder.Entity<Student>(
+            x =>
+            {
+                x.HasOne(s => s.Diploma)
+                    .WithMany(d => d.Students)
+                    .HasForeignKey(s => s.DiplomaId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                x.HasOne(s => s.Group)
+                    .WithMany(g => g.Students)
+                    .HasForeignKey(s => s.GroupId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+        modelBuilder.Entity<Teacher>(
+            x =>
+            {
+                x.HasOne(t => t.UniversityPosition)
+                    .WithMany(up => up.Teachers)
+                    .HasForeignKey(t => t.UniversityPositionId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                x.HasOne(t => t.Department)
+                    .WithMany(d => d.Teachers)
+                    .HasForeignKey(t => t.DepartmentId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+        modelBuilder.Entity<Deanery>(
+            x =>
+            {
+                x.HasOne(t => t.UniversityPosition)
+                    .WithMany(up => up.Deaneries)
+                    .HasForeignKey(t => t.UniversityPositionId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                x.HasOne(d => d.Faculty)
+                    .WithMany(f => f.Deaneries)
+                    .HasForeignKey(d => d.FacultyId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
     }
 }

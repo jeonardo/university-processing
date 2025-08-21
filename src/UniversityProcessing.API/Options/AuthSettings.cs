@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using UniversityProcessing.GenericSubdomain.Configuration;
+using UniversityProcessing.Utils.Configuration;
 
 namespace UniversityProcessing.API.Options;
 

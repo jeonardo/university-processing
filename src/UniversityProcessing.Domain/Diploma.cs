@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using UniversityProcessing.Domain.Users;
-using UniversityProcessing.GenericSubdomain.Identity;
-using UniversityProcessing.GenericSubdomain.Validation;
+using UniversityProcessing.Utils.Identity;
+using UniversityProcessing.Utils.Validation;
 
 namespace UniversityProcessing.Domain;
 
-public sealed class Diploma : BaseEntity
+public class Diploma : BaseEntity
 {
     [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string Title { get; private set; } = null!;
@@ -19,11 +19,12 @@ public sealed class Diploma : BaseEntity
 
     public Guid? DiplomaProcessId { get; private set; }
 
-    public DiplomaProcess? DiplomaProcess { get; private set; }
+    public virtual DiplomaProcess? DiplomaProcess { get; private set; }
     public Guid? StudentId { get; private set; }
     public Guid? SupervisorId { get; private set; }
+    public virtual ICollection<Student> Students { get; private set; } = null!;
 
-    public ICollection<User> Users { get; private set; } = [];
+    public virtual ICollection<Teacher> Teachers { get; private set; } = null!;
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local

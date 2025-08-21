@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using UniversityProcessing.Domain;
 using UniversityProcessing.Domain.Users;
-using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Filters;
-using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
+using UniversityProcessing.Utils.Endpoints;
+using UniversityProcessing.Utils.Filters;
+using UniversityProcessing.Utils.Routing;
 
 namespace UniversityProcessing.API.TODO.Endpoints.Employee.Teacher.DepartmentLeader.DiplomaProcesses.Users.Remove;
 
@@ -29,18 +28,6 @@ internal sealed class RemoveUsers : IEndpoint
         [FromServices] UserManager<User> userManager,
         CancellationToken cancellationToken)
     {
-        var diplomaPeriod = await repository.GetByIdRequiredAsync(request.DiplomaPeriodId, cancellationToken);
-        var userIds = request.UserIds.ToHashSet();
-        var existingUsers = await userManager.Users
-            .Where(x => userIds.Contains(x.Id) && x.DiplomaProcesses.Any(y => y.Id == request.DiplomaPeriodId))
-            .Include(x => x.DiplomaProcesses)
-            .ToArrayAsync(cancellationToken: cancellationToken);
-
-        foreach (var user in existingUsers)
-        {
-            diplomaPeriod.Users.Remove(user);
-        }
-
-        await repository.SaveChangesAsync(cancellationToken);
+        throw new NotImplementedException();
     }
 }

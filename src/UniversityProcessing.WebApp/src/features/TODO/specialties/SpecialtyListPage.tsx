@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Container, Typography } from '@mui/material';
-import AppListPagination from '../../components/AppListPagination';
 // import { useLazyGetApiCommonGetSpecialtiesQuery } from 'src/api/backendApi';
-import AppList from 'src/components/lists/AppList';
-import SpecialtyItem from './Сomponents/SpecialtyItem';
 
 const SpecialtyListPage: React.FC = () => {
   const [pageNumber, setPageNumber] = useState(1);

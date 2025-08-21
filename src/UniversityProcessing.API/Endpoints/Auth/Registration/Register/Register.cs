@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.API.Services.Registration;
-using UniversityProcessing.Domain.Users;
-using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Filters;
-using UniversityProcessing.GenericSubdomain.Routing;
+using UniversityProcessing.Utils.Endpoints;
+using UniversityProcessing.Utils.Filters;
+using UniversityProcessing.Utils.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Auth.Registration.Register;
 
@@ -23,6 +22,7 @@ internal sealed class Register : IEndpoint
         [FromServices] IRegistrationService registrationService,
         CancellationToken cancellationToken)
     {
-        await registrationService.Register(request, ToDomainRole(request.Role), cancellationToken);
+        await Task.CompletedTask;
+        throw new NotImplementedException();
     }
 }

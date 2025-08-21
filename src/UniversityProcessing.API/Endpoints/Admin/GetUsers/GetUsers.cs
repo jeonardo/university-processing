@@ -1,11 +1,12 @@
+using System.Linq.Expressions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using UniversityProcessing.Domain;
+using UniversityProcessing.API.Endpoints.Converters;
+using UniversityProcessing.API.Services.Auth;
 using UniversityProcessing.Domain.Users;
-using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Pagination;
-using UniversityProcessing.GenericSubdomain.Routing;
-using UniversityProcessing.Infrastructure;
+using UniversityProcessing.Utils.Endpoints;
+using UniversityProcessing.Utils.Pagination;
+using UniversityProcessing.Utils.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Admin.GetUsers;
 
@@ -21,41 +22,23 @@ internal sealed class GetUsers : IEndpoint
     }
 
     private static async Task<GetUsersResponseDto> Handle(
+        HttpContext context,
         [AsParameters] GetUsersRequestDto request,
-        [FromServices] ApplicationDbContext context,
+        [FromServices] UserManager<User> userManager,
+        [FromServices] ITokenService tokenService,
         CancellationToken cancellationToken)
     {
-        var validRequest = request.GetValidQueryParameters();
+        var claims = tokenService.GetAuthorizationTokenClaims(context.User);
+        var pagedList = await userManager.Users.ToPagedListAsync(request, GetFilterExpression(claims), cancellationToken);
+        return new GetUsersResponseDto(PagedListConverter.Convert(pagedList, ToDto));
+    }
 
-        var roles = await context.Roles
-            .Where(x => x.Name == nameof(UserRoleType.Admin) || x.Name == nameof(UserRoleType.Deanery))
-            .ToArrayAsync(cancellationToken);
-
-        var users = Array.Empty<User>();
-        var totalCount = 0;
-
-        if (roles.Length != 0)
+    private static Expression<Func<User, bool>> GetFilterExpression(AuthTokenClaims authTokenClaims)
+    {
+        return authTokenClaims switch
         {
-            var query =
-                from userRole in context.UserRoles
-                join user in context.Users on userRole.UserId equals user.Id
-                where
-                    (userRole.RoleId == roles[0].Id || userRole.RoleId == roles[1].Id)
-                    && (string.IsNullOrEmpty(validRequest.Filter)
-                        || user.FirstName.Contains(validRequest.Filter)
-                        || (user.MiddleName != null && user.MiddleName.Contains(validRequest.Filter))
-                        || user.LastName.Contains(validRequest.Filter))
-                select user;
-
-            totalCount = await query.CountAsync(cancellationToken);
-
-            users = await query
-                .Skip((validRequest.PageNumber - 1) * validRequest.PageSize)
-                .Take(validRequest.PageSize)
-                .ToArrayAsync(cancellationToken);
-        }
-
-        return new GetUsersResponseDto(new PagedList<UserDto>(users.Select(ToDto), totalCount, validRequest.PageNumber, validRequest.PageSize));
+            _ => throw new ArgumentOutOfRangeException(nameof(authTokenClaims))
+        };
     }
 
     private static UserDto ToDto(User input)

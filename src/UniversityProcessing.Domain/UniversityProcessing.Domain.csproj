@@ -4,6 +4,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore"/>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UniversityProcessing.GenericSubdomain\UniversityProcessing.GenericSubdomain.csproj"/>
+    <ProjectReference Include="..\UniversityProcessing.Utils\UniversityProcessing.Utils.csproj"/>
   </ItemGroup>
 </Project>

@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using UniversityProcessing.Domain.Users;
-using UniversityProcessing.GenericSubdomain.Identity;
-using UniversityProcessing.GenericSubdomain.Validation;
+using UniversityProcessing.Utils.Identity;
+using UniversityProcessing.Utils.Validation;
 
 namespace UniversityProcessing.Domain;
 
-public sealed class Faculty : BaseEntity
+public class Faculty : BaseEntity
 {
     [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string Name { get; private set; } = null!;
@@ -15,9 +15,11 @@ public sealed class Faculty : BaseEntity
 
     public Guid? HeadUserId { get; private set; }
 
-    public ICollection<Department> Departments { get; private set; } = [];
+    public virtual ICollection<Department> Departments { get; private set; } = null!;
 
-    public ICollection<User> Users { get; private set; } = [];
+    public virtual ICollection<Student> Students { get; private set; } = null!;
+    public virtual ICollection<Teacher> Teachers { get; private set; } = null!;
+    public virtual ICollection<Deanery> Deaneries { get; set; } = null!;
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local

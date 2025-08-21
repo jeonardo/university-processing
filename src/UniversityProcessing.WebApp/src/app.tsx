@@ -1,12 +1,11 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { RouterProvider, Routes } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
 import AppRouter from './routes/AppRouter';
 import theme from './theme';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import 'dayjs/locale/de';
 import { SnackbarProvider } from 'notistack';
-import MyLayout from './components/layouts/MyLayout';
 
 const App: React.FC = () => {
   return (

@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using UniversityProcessing.API.Endpoints.Converters;
 using UniversityProcessing.Domain;
-using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Pagination;
-using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
-using UniversityProcessing.Infrastructure.Interfaces.Specifications;
+using UniversityProcessing.Utils.Endpoints;
+using UniversityProcessing.Utils.Pagination;
+using UniversityProcessing.Utils.Routing;
 
 namespace UniversityProcessing.API.TODO.Endpoints.Employee.GetGroups;
 
@@ -24,16 +24,8 @@ internal sealed class GetGroups : IEndpoint
         [FromServices] IEfReadRepository<Group> repository,
         CancellationToken cancellationToken)
     {
-        var validRequest = request.GetValidQueryParameters();
-
-        var specification = new GroupListSpec(validRequest.PageNumber, validRequest.PageSize, validRequest.OrderBy, validRequest.Desc);
-        var entities = await repository.ListAsync(specification, cancellationToken);
-
-        var count = validRequest.IsFilterSet
-            ? entities.Count
-            : await repository.CountAsync(cancellationToken);
-
-        return new GetGroupsResponseDto(new PagedList<GroupDto>(entities.Select(ToDto), count, validRequest.PageNumber, validRequest.PageSize));
+        var entities = await repository.TypedDbContext.ToPagedListAsync(request, null, cancellationToken);
+        return new GetGroupsResponseDto(PagedListConverter.Convert(entities, ToDto));
     }
 
     private static GroupDto ToDto(Group input)

@@ -1,5 +1,4 @@
 using UniversityProcessing.API.Services.Registration.Forms;
-using UniversityProcessing.Domain;
 using UniversityProcessing.Domain.Users;
 
 namespace UniversityProcessing.API.Services.Registration;

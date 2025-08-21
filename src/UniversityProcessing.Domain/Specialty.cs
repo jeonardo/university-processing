@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
-using UniversityProcessing.GenericSubdomain.Identity;
-using UniversityProcessing.GenericSubdomain.Validation;
+using UniversityProcessing.Utils.Identity;
+using UniversityProcessing.Utils.Validation;
 
 namespace UniversityProcessing.Domain;
 
 [Index(nameof(Code), IsUnique = true)]
-public sealed class Specialty : BaseEntity
+public class Specialty : BaseEntity
 {
     public const int CODE_LENGTH = 12;
 
@@ -21,9 +21,9 @@ public sealed class Specialty : BaseEntity
 
     public Guid DepartmentId { get; private set; }
 
-    public Department Department { get; private set; } = null!;
+    public virtual Department Department { get; private set; } = null!;
 
-    public ICollection<Group> Groups { get; private set; } = [];
+    public virtual ICollection<Group> Groups { get; private set; } = null!;
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local

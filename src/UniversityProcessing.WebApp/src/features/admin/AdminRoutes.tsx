@@ -1,6 +1,6 @@
-import FacultiesPage from "./faculties/FacultiesPage";
-import PeriodsPage from "../TODO/admin/periods/PeriodsPage";
-import UsersPage from "./users/UsersPage";
+import FacultiesPage from './faculties/FacultiesPage';
+import PeriodsPage from '../TODO/admin/periods/PeriodsPage';
+import UsersPage from './users/UsersPage';
 
 const AdminRoutes = {
   path: '/admin',

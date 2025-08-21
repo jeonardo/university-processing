@@ -1,14 +1,14 @@
 namespace UniversityProcessing.Domain.Users;
 
-public sealed class Teacher : User
+public class Teacher : User
 {
     public Guid UniversityPositionId { get; private set; }
 
-    public UniversityPosition UniversityPosition { get; private set; } = null!;
+    public virtual UniversityPosition UniversityPosition { get; private set; } = null!;
 
     public Guid DepartmentId { get; private set; }
 
-    public Department Department { get; private set; } = null!;
+    public virtual Department Department { get; private set; } = null!;
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local
@@ -26,7 +26,6 @@ public sealed class Teacher : User
         string? email = null,
         DateTime? birthday = null)
         : base(
-            UserRoleType.Teacher,
             userName,
             firstName,
             lastName,

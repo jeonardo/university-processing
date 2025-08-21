@@ -1,6 +1,5 @@
-using UniversityProcessing.Domain;
 using UniversityProcessing.Domain.Users;
-using UniversityProcessing.GenericSubdomain.Middlewares.Exceptions;
+using UniversityProcessing.Utils.Middlewares.Exceptions;
 
 namespace UniversityProcessing.API.Endpoints.Auth.Common;
 

@@ -43,6 +43,9 @@ public static class WebApplicationExtensions
 
             logger.LogInformation("Migrating database...");
 
+            dbContext.Database.EnsureDeleted();
+            dbContext.Database.EnsureCreated();
+
             dbContext.Database.Migrate();
 
             if (app.Environment.IsDevelopment())

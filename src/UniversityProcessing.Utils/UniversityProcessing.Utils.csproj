@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Ardalis.GuardClauses"/>
+    <PackageReference Include="Ardalis.Result"/>
+    <PackageReference Include="Ardalis.Specification"/>
+    <PackageReference Include="Ardalis.SharedKernel"/>
+    <PackageReference Include="FluentValidation"/>
+    <PackageReference Include="MediatR"/>
+    <PackageReference Include="MediatR.Contracts"/>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc"/>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
+    <PackageReference Include="Swashbuckle.AspNetCore"/>
+    <PackageReference Include="System.Text.Json"/>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore"/>
+    <PackageReference Include="System.Linq.Dynamic.Core"/>
+  </ItemGroup>
+</Project>

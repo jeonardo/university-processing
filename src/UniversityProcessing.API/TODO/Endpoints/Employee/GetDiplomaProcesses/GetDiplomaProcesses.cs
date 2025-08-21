@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using UniversityProcessing.API.Endpoints.Converters;
 using UniversityProcessing.API.Services.Auth;
 using UniversityProcessing.Domain;
-using UniversityProcessing.GenericSubdomain.Endpoints;
-using UniversityProcessing.GenericSubdomain.Pagination;
-using UniversityProcessing.GenericSubdomain.Routing;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
-using UniversityProcessing.Infrastructure.Interfaces.Specifications;
+using UniversityProcessing.Utils.Endpoints;
+using UniversityProcessing.Utils.Pagination;
+using UniversityProcessing.Utils.Routing;
 
 namespace UniversityProcessing.API.TODO.Endpoints.Employee.GetDiplomaProcesses;
 
@@ -25,16 +25,8 @@ internal sealed class GetDiplomaProcesses : IEndpoint
         [FromServices] IEfRepository<DiplomaProcess> repository,
         CancellationToken cancellationToken)
     {
-        var validRequest = request.GetValidQueryParameters();
-
-        var specification = new DiplomaPeriodListSpec(validRequest.PageNumber, validRequest.PageSize, validRequest.OrderBy, validRequest.Desc);
-        var entities = await repository.ListAsync(specification, cancellationToken);
-
-        var count = validRequest.IsFilterSet
-            ? entities.Count
-            : await repository.CountAsync(cancellationToken);
-
-        return new GetDiplomaProcessesResponseDto(new PagedList<DiplomaProcessDto>(entities.Select(ToDto), count, validRequest.PageNumber, validRequest.PageSize));
+        var entities = await repository.TypedDbContext.ToPagedListAsync(request, null, cancellationToken);
+        return new GetDiplomaProcessesResponseDto(PagedListConverter.Convert(entities, ToDto));
     }
 
     private static DiplomaProcessDto ToDto(DiplomaProcess input)

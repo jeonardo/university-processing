@@ -2,7 +2,7 @@ using Serilog;
 using Serilog.Configuration;
 using Serilog.Events;
 using Serilog.Formatting.Compact;
-using UniversityProcessing.GenericSubdomain.Configuration;
+using UniversityProcessing.Utils.Configuration;
 
 namespace UniversityProcessing.API.Options;
 
