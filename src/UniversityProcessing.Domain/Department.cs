@@ -5,7 +5,7 @@ using UniversityProcessing.Utils.Validation;
 
 namespace UniversityProcessing.Domain;
 
-public class Department : BaseEntity, IHasId
+public class Department : BaseEntity
 {
     [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string Name { get; private set; } = null!;

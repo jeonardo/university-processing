@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using UniversityProcessing.API.Endpoints.Auth.Registration.Common;
 using UniversityProcessing.API.Endpoints.Common;
 using UniversityProcessing.API.Options;
 using UniversityProcessing.Infrastructure;

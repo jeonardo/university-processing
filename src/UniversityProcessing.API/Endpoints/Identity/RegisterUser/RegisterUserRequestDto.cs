@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using UniversityProcessing.API.Endpoints.Auth.Registration.Common.Forms;
 
 namespace UniversityProcessing.API.Endpoints.Identity.RegisterUser;
 

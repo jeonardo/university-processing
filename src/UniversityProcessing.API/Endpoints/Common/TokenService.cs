@@ -5,7 +5,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using UniversityProcessing.API.Endpoints.Contracts;
 using UniversityProcessing.API.Options;
-using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Utils.Authorization;
 using UniversityProcessing.Utils.Middlewares.Exceptions;
 

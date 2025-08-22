@@ -28,7 +28,9 @@ internal sealed class GetAvailableGroups : IEndpoint
             (string.IsNullOrWhiteSpace(request.Number)
                 ? repository.TypedDbContext
                 : repository.TypedDbContext.Where(g => EF.Functions.Like(g.Number, $"%{request.Number}%")))
+            .AsNoTracking()
             .OrderBy(g => g.Number)
+            .Take(10)
             .Select(g => g.Number)
             .ToArrayAsync(cancellationToken: cancellationToken);
 

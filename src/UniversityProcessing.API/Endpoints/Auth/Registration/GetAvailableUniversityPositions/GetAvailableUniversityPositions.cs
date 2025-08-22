@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using UniversityProcessing.Domain;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 using UniversityProcessing.Utils.Endpoints;
@@ -20,8 +21,10 @@ internal sealed class GetAvailableUniversityPositions : IEndpoint
         [FromServices] IEfReadRepository<UniversityPosition> repository,
         CancellationToken cancellationToken)
     {
-        var specification = new GetAvailableUniversityPositionsSpecification();
-        var entities = await repository.ListAsync(specification, cancellationToken);
-        return new GetAvailableUniversityPositionsResponseDto(entities.ToArray());
+        var entities = await repository.TypedDbContext
+            .AsNoTracking()
+            .Select(x => new UniversityPositionDto(x.Id, x.Name))
+            .ToArrayAsync(cancellationToken);
+        return new GetAvailableUniversityPositionsResponseDto(entities);
     }
 }

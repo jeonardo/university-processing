@@ -11,13 +11,25 @@ internal static class UserAccessManager
         { UserRoleType.Deanery, [UserRoleType.Deanery, UserRoleType.Student, UserRoleType.Teacher] }
     };
 
-    public static void ThrowIfRoleIsNotAllowed(UserRoleType userRoleType, UserRoleType selectedRole)
+    public static void ThrowIfAccessToRoleIsNotAllowed(IEnumerable<UserRoleType> currentUserRoles, IEnumerable<UserRoleType> selectedUserRoles)
     {
-        if (_dictionary.TryGetValue(userRoleType, out var availableRoles) && availableRoles.Contains(selectedRole))
+        if (!currentUserRoles.Any(
+                x => _dictionary.TryGetValue(x, out var availableRoles)
+                    && selectedUserRoles.Any(availableRoles.Contains)))
         {
-            return;
+            throw new ConflictException("Action not allowed");
         }
+    }
 
-        throw new ConflictException("Action not allowed");
+    public static void ThrowIfAccessToRoleIsNotAllowed(IEnumerable<UserRoleType> currentUserRoles, IEnumerable<string> selectedUserRoles)
+    {
+        try
+        {
+            ThrowIfAccessToRoleIsNotAllowed(currentUserRoles, selectedUserRoles.Select(Enum.Parse<UserRoleType>));
+        }
+        catch (Exception)
+        {
+            throw new ConflictException("Action not allowed");
+        }
     }
 }

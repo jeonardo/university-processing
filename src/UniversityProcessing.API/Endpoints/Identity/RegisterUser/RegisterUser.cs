@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using UniversityProcessing.API.Endpoints.Auth.Registration.Common;
 using UniversityProcessing.API.Endpoints.Common;
 using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Utils.Endpoints;
@@ -15,7 +16,7 @@ internal sealed class RegisterUser : IEndpoint
         app
             .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin), nameof(UserRoleType.Deanery)))
+            .RequireAuthorization()
             .AddEndpointFilter<ValidationFilter<RegisterUserRequestDto>>();
     }
 
@@ -26,10 +27,10 @@ internal sealed class RegisterUser : IEndpoint
         [FromServices] ITokenService tokenService,
         CancellationToken cancellationToken)
     {
-        var claims = tokenService.GetAuthorizationTokenClaims(context.User);
+        var claims = context.User.GetAuthorizationTokenClaims();
         var selectedRole = ToDomainRole(request.Role);
 
-        UserAccessManager.ThrowIfRoleIsNotAllowed(claims.RoleType, selectedRole);
+        UserAccessManager.ThrowIfAccessToRoleIsNotAllowed(claims.Roles, [selectedRole]);
 
         await registrationService.Register(request, selectedRole, cancellationToken);
         await registrationService.Verify(request.UserName);

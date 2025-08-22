@@ -222,7 +222,7 @@ public class UniversitySeed(
 
     private async Task<User> AddStudent(string username, Group group)
     {
-        var result = new Student(username, username, username, group.Id);
+        var result = new Student(username, username, username, null, null, null, group.Id);
         result.UpdateVerificationStatus(true);
         await userManager.CreateAsync(result, username);
         await userManager.AddToRoleAsync(result, nameof(UserRoleType.Student));
@@ -236,7 +236,7 @@ public class UniversitySeed(
         Guid facultyId,
         Guid departmentId)
     {
-        var result = new Teacher(username, username, username, universityPosition.Id, departmentId);
+        var result = new Teacher(username, username, username, null, null, null, universityPosition.Id, departmentId);
         result.UpdateVerificationStatus(true);
         await userManager.CreateAsync(result, username);
         await userManager.AddToRoleAsync(result, nameof(UserRoleType.Teacher));

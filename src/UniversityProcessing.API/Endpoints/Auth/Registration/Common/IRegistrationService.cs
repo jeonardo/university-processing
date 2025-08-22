@@ -1,6 +1,7 @@
-using StoreTest.Services.Registration.Forms;
+using UniversityProcessing.API.Endpoints.Auth.Registration.Common.Forms;
+using UniversityProcessing.Domain.Users;
 
-namespace StoreTest.Services.Registration;
+namespace UniversityProcessing.API.Endpoints.Auth.Registration.Common;
 
 internal interface IRegistrationService
 {

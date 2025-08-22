@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace StoreTest.Services.Registration.Forms;
+namespace UniversityProcessing.API.Endpoints.Auth.Registration.Common.Forms;
 
 public interface IRegistrationForm
 {

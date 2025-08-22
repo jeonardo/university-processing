@@ -7,7 +7,7 @@ using UniversityProcessing.Utils.Validation;
 namespace UniversityProcessing.Domain;
 
 [Index(nameof(Number), IsUnique = true)]
-public class Group : BaseEntity, IHasId
+public class Group : BaseEntity
 {
     [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string Number { get; private set; } = null!;

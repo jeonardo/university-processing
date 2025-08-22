@@ -28,14 +28,14 @@ internal sealed class UpdateVerification : IEndpoint
         [FromServices] UserManager<User> userManager,
         [FromServices] ITokenService tokenService)
     {
-        var claims = tokenService.GetAuthorizationTokenClaims(context.User);
+        var claims = context.User.GetAuthorizationTokenClaims();
 
         var user = await userManager.FindByIdAsync(request.UserId.ToString())
             ?? throw new NotFoundException($"{nameof(User)} with id = {request.UserId} not found");
 
         var userRoles = await userManager.GetRolesAsync(user);
 
-        UserAccessManager.ThrowIfRoleIsNotAllowed(claims.RoleType, Enum.Parse<UserRoleType>(userRoles.First()));
+        UserAccessManager.ThrowIfAccessToRoleIsNotAllowed(claims.Roles, userRoles);
 
         user.UpdateVerificationStatus(request.IsApproved);
 

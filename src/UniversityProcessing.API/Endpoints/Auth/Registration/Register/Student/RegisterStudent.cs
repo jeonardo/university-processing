@@ -1,16 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
-using UniversityProcessing.API.Services.Registration;
+using UniversityProcessing.API.Endpoints.Auth.Registration.Common;
+using UniversityProcessing.API.Endpoints.Auth.Registration.Register.Teacher;
+using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Utils.Endpoints;
 using UniversityProcessing.Utils.Filters;
 using UniversityProcessing.Utils.Routing;
 
-namespace UniversityProcessing.API.Endpoints.Auth.Registration.Register;
+namespace UniversityProcessing.API.Endpoints.Auth.Registration.Register.Student;
 
-internal sealed class Register : IEndpoint
+internal sealed class RegisterStudent : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        var type = typeof(Register);
+        var type = typeof(RegisterStudent);
         app
             .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
@@ -18,11 +20,10 @@ internal sealed class Register : IEndpoint
     }
 
     private static async Task Handle(
-        [FromBody] RegisterTeacherRequestDto request,
+        [FromBody] RegisterStudentRequestDto request,
         [FromServices] IRegistrationService registrationService,
         CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-        throw new NotImplementedException();
+        await registrationService.Register(request, UserRoleType.Student, cancellationToken);
     }
 }

@@ -27,7 +27,7 @@ internal sealed class Info : IEndpoint
         [FromServices] UserManager<User> userManager,
         CancellationToken cancellationToken)
     {
-        var claims = tokenService.GetAuthorizationTokenClaims(context.User);
+        var claims = context.User.GetAuthorizationTokenClaims();
         var user = await repository.GetByIdRequiredAsync(claims.UserId, cancellationToken);
         var roles = await userManager.GetRolesAsync(user);
         return

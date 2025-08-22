@@ -29,16 +29,21 @@ internal static class ClaimsPrincipalExtensions
         return id;
     }
 
-    public static UserRoleType GetUserRole(this IEnumerable<Claim> claims)
+    public static IReadOnlySet<UserRoleType> GetUserRole(this IEnumerable<Claim> claims)
     {
         var claimValue = claims.FirstOrDefault(x => x.Type == AppClaimTypes.ROLE)?.Value;
 
-        if (claimValue is null || !Enum.TryParse<UserRoleType>(claimValue, out var role))
+        try
+        {
+            return claimValue!
+                .Split(',')
+                .Select(Enum.Parse<UserRoleType>)
+                .ToHashSet();
+        }
+        catch (Exception)
         {
             throw new InvalidTokenException();
         }
-
-        return role;
     }
 
     public static bool GetUserApproved(this IEnumerable<Claim> claims)

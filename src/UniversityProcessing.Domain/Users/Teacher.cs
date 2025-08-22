@@ -20,11 +20,11 @@ public class Teacher : User
         string userName,
         string firstName,
         string lastName,
+        string? middleName,
+        string? email,
+        DateTime? birthday,
         Guid universityPositionId,
-        Guid departmentId,
-        string? middleName = null,
-        string? email = null,
-        DateTime? birthday = null)
+        Guid departmentId)
         : base(
             userName,
             firstName,

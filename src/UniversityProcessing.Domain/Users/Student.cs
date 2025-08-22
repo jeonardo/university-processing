@@ -19,11 +19,11 @@ public class Student : User
         string userName,
         string firstName,
         string lastName,
+        string? middleName,
+        string? email,
+        DateTime? birthday,
         Guid groupId,
-        Guid? diplomaId = null,
-        string? middleName = null,
-        string? email = null,
-        DateTime? birthday = null)
+        Guid? diplomaId = null)
         : base(
             userName,
             firstName,
