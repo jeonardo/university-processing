@@ -18,11 +18,12 @@ internal sealed class RegisterTeacher : IEndpoint
             .AddEndpointFilter<ValidationFilter<RegisterTeacherRequestDto>>();
     }
 
-    private static async Task Handle(
+    private static async Task<RegisterResponseDto> Handle(
         [FromBody] RegisterTeacherRequestDto request,
         [FromServices] IRegistrationService registrationService,
         CancellationToken cancellationToken)
     {
-        await registrationService.Register(request, UserRoleType.Teacher, cancellationToken);
+        var userId = await registrationService.Register(request, UserRoleType.Teacher, cancellationToken);
+        return new RegisterResponseDto(userId);
     }
 }

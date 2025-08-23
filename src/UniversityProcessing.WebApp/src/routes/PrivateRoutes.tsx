@@ -1,58 +1,62 @@
-import LogoutPage from 'src/features/auth/LogoutPage';
-import DepartmentListPage from 'src/features/TODO/departments/DepartmentListPage';
-import DiplomaPeriodListPage from 'src/features/TODO/diplomaPeriods/DiplomaPeriodListPage';
-import GroupListPage from 'src/features/TODO/groups/GroupListPage';
-import NotFoundPage from 'src/features/notFound/NotFoundPage';
-import SpecialtyListPage from 'src/features/TODO/specialties/SpecialtyListPage';
-import UsersPage from 'src/features/admin/users/UsersPage';
-import PrivateLayout from 'src/features/PrivateLayout';
-import FacultiesPage from 'src/features/admin/faculties/FacultiesPage';
-import SettingsPage from 'src/features/TODO/settings/SettingsPage';
-import AdminRoutes from 'src/features/admin/AdminRoutes';
-import WelcomePage from 'src/features/TODO/welcomePage/WelcomePage';
+import PasswordChangePage from 'src/features/identity/PasswordChangePage';
+import NotFoundPage from 'src/features/NotFoundPage';
+import PrivateLayoutWrapper from 'src/features/PrivateLayoutWrapper';
+import WelcomePage from 'src/features/WelcomePage';
 
 const PrivateRoutes = {
   path: '/',
-  element: <PrivateLayout />,
+  element: <PrivateLayoutWrapper />,
   errorElement: <NotFoundPage />,
   children: [
-    AdminRoutes,
-    {
-      path: 'settings',
-      element: <SettingsPage />
-    },
     {
       path: '/',
       element: <WelcomePage />
     },
     {
-      path: '/faculties',
-      element: <FacultiesPage />
-    },
-    {
-      path: '/departments',
-      element: <DepartmentListPage />
-    },
-    {
-      path: '/diplomaPeriods',
-      element: <DiplomaPeriodListPage />
-    },
-    {
-      path: '/specialties',
-      element: <SpecialtyListPage />
-    },
-    {
-      path: '/groups',
-      element: <GroupListPage />
-    },
-    {
-      path: '/users',
-      element: <UsersPage />
-    },
-    {
-      path: '/logout',
-      element: <LogoutPage />
+      path: 'change-password',
+      element: <PasswordChangePage />
     }
+    //,
+    // {
+    //   path: 'faculties',
+    //   element: <FacultiesPage />
+    // },
+    // {
+    //   path: 'users',
+    //   element: <UsersPage />
+    // },
+    // {
+    //   path: 'periods',
+    //   element: <PeriodsPage />
+    // },
+    // {
+    //   path: 'settings',
+    //   element: <SettingsPage />
+    // },
+    // {
+    //   path: '/faculties',
+    //   element: <FacultiesPage />
+    // },
+    // {
+    //   path: '/departments',
+    //   element: <DepartmentListPage />
+    // },
+    // {
+    //   path: '/diplomaPeriods',
+    //   element: <DiplomaPeriodListPage />
+    // },
+    // {
+    //   path: '/specialties',
+    //   element: <SpecialtyListPage />
+    // },
+    // {
+    //   path: '/groups',
+    //   element: <GroupListPage />
+    // },
+    // {
+    //   path: '/users',
+    //   element: <UsersPage />
+    // }
   ]
 };
 

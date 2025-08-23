@@ -5,9 +5,9 @@ using UniversityProcessing.API.Endpoints.Common;
 using UniversityProcessing.API.Endpoints.Converters;
 using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Utils.Endpoints;
+using UniversityProcessing.Utils.Exceptions;
 using UniversityProcessing.Utils.Filters;
 using UniversityProcessing.Utils.Identity;
-using UniversityProcessing.Utils.Middlewares.Exceptions;
 using UniversityProcessing.Utils.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Auth.Login;

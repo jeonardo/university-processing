@@ -15,6 +15,7 @@ public class User : IdentityUser<Guid>, IAggregateRoot, IHasId
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 
     public sealed override string? Email { get; set; }
+    public sealed override string? PhoneNumber { get; set; }
 
     [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string FirstName { get; private set; } = null!;
@@ -39,7 +40,8 @@ public class User : IdentityUser<Guid>, IAggregateRoot, IHasId
         string lastName,
         string? middleName = null,
         string? email = null,
-        DateTime? birthday = null)
+        DateTime? birthday = null,
+        string? phoneNumber = null)
         : base(userName)
     {
         FirstName = firstName;
@@ -47,6 +49,7 @@ public class User : IdentityUser<Guid>, IAggregateRoot, IHasId
         MiddleName = middleName;
         Email = email;
         Birthday = birthday;
+        PhoneNumber = phoneNumber;
     }
 
     public string GetFullName()

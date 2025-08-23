@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using UniversityProcessing.API.Endpoints.Common;
 using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Utils.Endpoints;
+using UniversityProcessing.Utils.Exceptions;
 using UniversityProcessing.Utils.Filters;
 using UniversityProcessing.Utils.Identity;
-using UniversityProcessing.Utils.Middlewares.Exceptions;
 using UniversityProcessing.Utils.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Auth.ChangePassword;
@@ -17,17 +18,20 @@ internal sealed class ChangePassword : IEndpoint
         app
             .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
-            .AddEndpointFilter<ValidationFilter<ChangePasswordRequestDto>>();
+            .AddEndpointFilter<ValidationFilter<ChangePasswordRequestDto>>()
+            .RequireAuthorization();
     }
 
     private static async Task Handle(
         [FromBody] ChangePasswordRequestDto request,
+        [FromServices] IHttpContextAccessor contextAccessor,
         [FromServices] UserManager<User> userManager,
         [FromServices] ILogger<ChangePassword> logger,
         CancellationToken cancellationToken)
     {
-        var user = await userManager.FindByNameAsync(request.UserName)
-            ?? throw new NotFoundException($"User with username = {request.UserName} not found");
+        var claims = contextAccessor.HttpContext!.User.GetAuthorizationTokenClaims();
+        var user = await userManager.FindByIdAsync(claims.UserId.ToString())
+            ?? throw new NotFoundException("User not found");
 
         var createResult = await userManager.ChangePasswordAsync(user, request.Password, request.NewPassword);
 

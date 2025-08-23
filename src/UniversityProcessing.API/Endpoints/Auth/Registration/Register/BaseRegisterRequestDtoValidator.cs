@@ -12,10 +12,10 @@ public sealed class BaseRegisterRequestDtoValidator : AbstractValidator<BaseRegi
         var settings = options.Value;
 
         RuleFor(x => x.Email)
-            .NotEmpty()
             .EmailAddress()
+            .When(x => !string.IsNullOrWhiteSpace(x.Email))
             .MaximumLength(ValidationConstants.MAX_STRING_LENGTH)
-            .WithMessage("Email is required and must be valid. Max length = " + ValidationConstants.MAX_STRING_LENGTH);
+            .WithMessage("Email must be valid. Max length = " + ValidationConstants.MAX_STRING_LENGTH);
 
         RuleFor(x => x.Password)
             .NotEmpty()
@@ -48,9 +48,5 @@ public sealed class BaseRegisterRequestDtoValidator : AbstractValidator<BaseRegi
         RuleFor(x => x.PhoneNumber)
             .MaximumLength(ValidationConstants.MAX_STRING_LENGTH)
             .WithMessage("PhoneNumber must be valid. Max length = " + ValidationConstants.MAX_STRING_LENGTH);
-
-        RuleFor(x => x.Birthday)
-            .NotEmpty()
-            .WithMessage("Birthday is required");
     }
 }

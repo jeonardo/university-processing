@@ -5,6 +5,6 @@ namespace UniversityProcessing.API.Endpoints.Auth.Registration.Common;
 
 internal interface IRegistrationService
 {
-    Task Register(IRegistrationForm registrationForm, UserRoleType role, CancellationToken cancellationToken);
+    Task<Guid> Register(IRegistrationForm registrationForm, UserRoleType role, CancellationToken cancellationToken);
     Task Verify(string userName);
 }

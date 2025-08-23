@@ -14,14 +14,17 @@ public class Admin : User
         string lastName,
         string? middleName = null,
         string? email = null,
-        DateTime? birthday = null)
+        DateTime? birthday = null,
+        string? phoneNumber = null
+    )
         : base(
             userName,
             firstName,
             lastName,
             middleName,
             email,
-            birthday)
+            birthday,
+            phoneNumber)
     {
     }
 }

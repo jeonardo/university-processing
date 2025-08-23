@@ -24,13 +24,11 @@ internal sealed class GetAvailableGroups : IEndpoint
         [FromServices] IEfReadRepository<Group> repository,
         CancellationToken cancellationToken)
     {
-        var groups = await
-            (string.IsNullOrWhiteSpace(request.Number)
-                ? repository.TypedDbContext
-                : repository.TypedDbContext.Where(g => EF.Functions.Like(g.Number, $"%{request.Number}%")))
+        var groups = await repository.TypedDbContext
             .AsNoTracking()
+            .Where(g => EF.Functions.Like(g.Number, $"%{request.Number}%"))
             .OrderBy(g => g.Number)
-            .Take(10)
+            .Take(20)
             .Select(g => g.Number)
             .ToArrayAsync(cancellationToken: cancellationToken);
 

@@ -22,6 +22,7 @@ public class Student : User
         string? middleName,
         string? email,
         DateTime? birthday,
+        string? phoneNumber,
         Guid groupId,
         Guid? diplomaId = null)
         : base(
@@ -30,7 +31,8 @@ public class Student : User
             lastName,
             middleName,
             email,
-            birthday)
+            birthday,
+            phoneNumber)
     {
         GroupId = groupId;
         DiplomaId = diplomaId;

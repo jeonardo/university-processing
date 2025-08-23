@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.API.Endpoints.Auth.Registration.Common;
-using UniversityProcessing.API.Endpoints.Auth.Registration.Register.Teacher;
 using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Utils.Endpoints;
 using UniversityProcessing.Utils.Filters;
@@ -16,14 +15,15 @@ internal sealed class RegisterStudent : IEndpoint
         app
             .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
-            .AddEndpointFilter<ValidationFilter<RegisterTeacherRequestDto>>();
+            .AddEndpointFilter<ValidationFilter<RegisterStudentRequestDto>>();
     }
 
-    private static async Task Handle(
+    private static async Task<RegisterResponseDto> Handle(
         [FromBody] RegisterStudentRequestDto request,
         [FromServices] IRegistrationService registrationService,
         CancellationToken cancellationToken)
     {
-        await registrationService.Register(request, UserRoleType.Student, cancellationToken);
+        var userId = await registrationService.Register(request, UserRoleType.Student, cancellationToken);
+        return new RegisterResponseDto(userId);
     }
 }

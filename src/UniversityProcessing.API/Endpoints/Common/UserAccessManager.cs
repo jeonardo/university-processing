@@ -1,5 +1,5 @@
 using UniversityProcessing.Domain.Users;
-using UniversityProcessing.Utils.Middlewares.Exceptions;
+using UniversityProcessing.Utils.Exceptions;
 
 namespace UniversityProcessing.API.Endpoints.Common;
 

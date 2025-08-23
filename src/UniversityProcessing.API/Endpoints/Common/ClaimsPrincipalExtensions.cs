@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using UniversityProcessing.API.Endpoints.Contracts;
 using UniversityProcessing.Domain.Users;
-using UniversityProcessing.Utils.Middlewares.Exceptions;
+using UniversityProcessing.Utils.Exceptions;
 
 namespace UniversityProcessing.API.Endpoints.Common;
 

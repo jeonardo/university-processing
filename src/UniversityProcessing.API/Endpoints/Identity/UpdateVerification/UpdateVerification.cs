@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.API.Endpoints.Common;
 using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Utils.Endpoints;
+using UniversityProcessing.Utils.Exceptions;
 using UniversityProcessing.Utils.Filters;
 using UniversityProcessing.Utils.Identity;
-using UniversityProcessing.Utils.Middlewares.Exceptions;
 using UniversityProcessing.Utils.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Identity.UpdateVerification;

@@ -10,15 +10,15 @@ export interface UnprocessableEntityError {
   errors: any;
 }
 
-export function enqueueSnackbarError(error: FetchBaseQueryError | SerializedError) {
+export function enqueueSnackbarError(error: FetchBaseQueryError | SerializedError | String) {
   if (isFetchBaseQueryError(error)) {
     logDebug('FetchBaseQueryError', error);
     'One or more validation errors occurred.';// you can access all properties of `FetchBaseQueryError` here
     const errMsg = 'error' in error
       ? error.error
       : error.data
-      && typeof error.data === 'object'
-      && 'errors' in error.data
+        && typeof error.data === 'object'
+        && 'errors' in error.data
         ? JSON.stringify(error.data.errors)
         : JSON.stringify(error.data);
     enqueueSnackbar(errMsg, { variant: 'error' });
@@ -26,6 +26,9 @@ export function enqueueSnackbarError(error: FetchBaseQueryError | SerializedErro
     logDebug('FetchBaseQueryError', error);
     // you can access a string 'message' property here
     enqueueSnackbar(error.message, { variant: 'error' });
+  } else if (typeof error === 'string') {
+    logDebug('error', error);
+    enqueueSnackbar(error, { variant: 'error' });
   }
 }
 

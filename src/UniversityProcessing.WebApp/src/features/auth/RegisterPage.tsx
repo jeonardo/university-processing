@@ -1,14 +1,16 @@
 import { LockOutlined } from '@mui/icons-material';
 import { Avatar, Box, Container, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import { useState } from 'react';
-import RegisterEmployeeForm from './RegisterEmployeeForm';
-import RegisterStudentForm from './RegisterStudentForm';
+import RegisterAdminForm from './components/RegisterAdminForm';
+import RegisterStudentForm from './components/RegisterStudentForm';
 import { Link } from 'react-router-dom';
 import { ContractsUserRoleType } from 'src/api/backendApi';
+import RegisterTeacherForm from './components/RegisterTeacherForm';
+import RegisterDeaneryForm from './components/RegisterDeaneryForm';
+import { RoleLocalizationLabel } from 'src/core/labelStore';
 
 const RegisterPage = () => {
   const [userRole, setUserRole] = useState<ContractsUserRoleType>(ContractsUserRoleType.None);
-
   return (
     <Container
       className="flex flex-col max-h-full place-items-center"
@@ -28,31 +30,36 @@ const RegisterPage = () => {
           value={userRole}
           label="Роль"
           onChange={(e) => {
-            switch (e.target.value) {
-              case ContractsUserRoleType.Student:
-                setUserRole(ContractsUserRoleType.Student);
-                break;
-              case ContractsUserRoleType.Employee:
-                setUserRole(ContractsUserRoleType.Employee);
-                break;
-              default:
-                setUserRole(ContractsUserRoleType.None);
-                break;
-            }
+            setUserRole(e.target.value as ContractsUserRoleType);
           }}
         >
-          <MenuItem disabled value={ContractsUserRoleType.None}>Не выбрана</MenuItem>
-          <MenuItem value={ContractsUserRoleType.Student}>Студент</MenuItem>
-          <MenuItem value={ContractsUserRoleType.Employee}>Сотрудник университета</MenuItem>
+          <MenuItem disabled value={ContractsUserRoleType.None}>{RoleLocalizationLabel(ContractsUserRoleType.None)}</MenuItem>
+          <MenuItem value={ContractsUserRoleType.Admin}>{RoleLocalizationLabel(ContractsUserRoleType.Admin)}</MenuItem>
+          <MenuItem value={ContractsUserRoleType.Deanery}>{RoleLocalizationLabel(ContractsUserRoleType.Deanery)}</MenuItem>
+          <MenuItem value={ContractsUserRoleType.Teacher}>{RoleLocalizationLabel(ContractsUserRoleType.Teacher)}</MenuItem>
+          <MenuItem value={ContractsUserRoleType.Student}>{RoleLocalizationLabel(ContractsUserRoleType.Student)}</MenuItem>
         </Select>
       </FormControl>
 
       {
-        userRole == 'Employee'
-          ? <RegisterEmployeeForm />
-          : userRole == 'Student'
-            ? <RegisterStudentForm />
-            : <></>
+        userRole == 'Student'
+          ? <RegisterStudentForm />
+          : <></>
+      }
+      {
+        userRole == 'Admin'
+          ? <RegisterAdminForm />
+          : <></>
+      }
+      {
+        userRole == 'Teacher'
+          ? <RegisterTeacherForm />
+          : <></>
+      }
+      {
+        userRole == 'Deanery'
+          ? <RegisterDeaneryForm />
+          : <></>
       }
 
       <Box sx={{ p: 3, textAlign: 'center' }}>

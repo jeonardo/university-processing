@@ -7,11 +7,6 @@ public sealed class ChangePasswordRequestDtoValidator : AbstractValidator<Change
 {
     public ChangePasswordRequestDtoValidator()
     {
-        RuleFor(x => x.UserName)
-            .NotEmpty()
-            .MaximumLength(ValidationConstants.MAX_STRING_LENGTH)
-            .WithMessage("UserName is required. Max length = " + ValidationConstants.MAX_STRING_LENGTH);
-
         RuleFor(x => x.Password)
             .NotEmpty()
             .MaximumLength(ValidationConstants.MAX_STRING_LENGTH)

@@ -18,7 +18,7 @@ import { useAppDispatch } from '../../core/hooks';
 import { login } from './auth.slice';
 import { usePostApiAuthLoginMutation } from 'src/api/backendApi';
 import { enqueueSnackbarError } from 'src/core/helpers';
-import TestUsersCard from './TestUsersCard';
+import TestUsersCard from './components/TestUsersCard';
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
@@ -27,10 +27,10 @@ const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const [trylogin, { isLoading }] = usePostApiAuthLoginMutation();
+  const [tryLogin, { isLoading }] = usePostApiAuthLoginMutation();
 
   const handleLogin = async (userName: string, password: string) => {
-    const result = await trylogin({ authLoginRequest: { password: password, userName: userName } });
+    const result = await tryLogin({ authLoginRequest: { password: password, userName: userName } });
 
     if (result.error) {
       enqueueSnackbarError(result.error);

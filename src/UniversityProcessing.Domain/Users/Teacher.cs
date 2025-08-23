@@ -23,6 +23,7 @@ public class Teacher : User
         string? middleName,
         string? email,
         DateTime? birthday,
+        string? phoneNumber,
         Guid universityPositionId,
         Guid departmentId)
         : base(
@@ -31,7 +32,8 @@ public class Teacher : User
             lastName,
             middleName,
             email,
-            birthday)
+            birthday,
+            phoneNumber)
     {
         UniversityPositionId = universityPositionId;
         DepartmentId = departmentId;

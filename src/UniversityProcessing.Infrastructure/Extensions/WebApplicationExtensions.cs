@@ -43,6 +43,7 @@ public static class WebApplicationExtensions
 
             logger.LogInformation("Migrating database...");
 
+            // TODO
             dbContext.Database.EnsureDeleted();
             dbContext.Database.EnsureCreated();
 

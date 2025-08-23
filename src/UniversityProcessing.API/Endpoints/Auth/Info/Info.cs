@@ -1,10 +1,11 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using UniversityProcessing.API.Endpoints.Common;
-using UniversityProcessing.API.Endpoints.Contracts;
+using UniversityProcessing.API.Endpoints.Converters;
 using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 using UniversityProcessing.Utils.Endpoints;
+using UniversityProcessing.Utils.Exceptions;
 using UniversityProcessing.Utils.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Auth.Info;
@@ -22,22 +23,124 @@ internal sealed class Info : IEndpoint
 
     private static async Task<InfoResponseDto> Handle(
         HttpContext context,
-        [FromServices] IEfRepository<User> repository,
-        [FromServices] ITokenService tokenService,
-        [FromServices] UserManager<User> userManager,
+        [FromServices] IServiceProvider serviceProvider,
         CancellationToken cancellationToken)
     {
         var claims = context.User.GetAuthorizationTokenClaims();
-        var user = await repository.GetByIdRequiredAsync(claims.UserId, cancellationToken);
-        var roles = await userManager.GetRolesAsync(user);
-        return
-            new InfoResponseDto(
-                user.Id,
-                roles.Select(x => Enum.TryParse<UserRoleTypeDto>(x, out var role) ? role : UserRoleTypeDto.None).ToArray(),
-                user.Approved,
-                user.Blocked,
-                user.FirstName,
-                user.LastName,
-                user.MiddleName);
+
+        if (claims.Roles.Contains(UserRoleType.Admin))
+        {
+            var admin = await serviceProvider
+                .GetRequiredService<IEfReadRepository<Admin>>()
+                .TypedDbContext
+                .AsNoTracking()
+                .Where(x => x.Id == claims.UserId)
+                .FirstOrDefaultAsync(cancellationToken) ?? throw new NotFoundException("Admin not found");
+            return new InfoResponseDto(
+                claims.UserId,
+                claims.Roles.Select(UserRoleIdConverter.ToDto).ToArray(),
+                claims.Approved,
+                claims.Blocked,
+                admin.FirstName,
+                admin.LastName,
+                admin.MiddleName,
+                admin.UserName,
+                null,
+                null,
+                admin.Email,
+                null,
+                admin.PhoneNumber,
+                null,
+                null);
+        }
+
+        if (claims.Roles.Contains(UserRoleType.Deanery))
+        {
+            var deanery = await serviceProvider
+                .GetRequiredService<IEfReadRepository<Deanery>>()
+                .TypedDbContext
+                .AsNoTracking()
+                .Where(x => x.Id == claims.UserId)
+                .Include(x => x.Faculty)
+                .Include(x => x.UniversityPosition)
+                .FirstOrDefaultAsync(cancellationToken) ?? throw new NotFoundException("Deanery not found");
+            return new InfoResponseDto(
+                claims.UserId,
+                claims.Roles.Select(UserRoleIdConverter.ToDto).ToArray(),
+                claims.Approved,
+                claims.Blocked,
+                deanery.FirstName,
+                deanery.LastName,
+                deanery.MiddleName,
+                deanery.UserName,
+                deanery.Faculty.Name,
+                null,
+                deanery.Email,
+                deanery.UniversityPosition.Name,
+                deanery.PhoneNumber,
+                null,
+                null);
+        }
+
+        if (claims.Roles.Contains(UserRoleType.Teacher))
+        {
+            var teacher = await serviceProvider.GetRequiredService<IEfReadRepository<Teacher>>()
+                    .TypedDbContext
+                    .AsNoTracking()
+                    .Where(x => x.Id == claims.UserId)
+                    .Include(x => x.Department)
+                    .ThenInclude(x => x.Faculty)
+                    .Include(x => x.UniversityPosition)
+                    .FirstOrDefaultAsync(cancellationToken)
+                ?? throw new NotFoundException("Teacher not found");
+            return new InfoResponseDto(
+                claims.UserId,
+                claims.Roles.Select(UserRoleIdConverter.ToDto).ToArray(),
+                claims.Approved,
+                claims.Blocked,
+                teacher.FirstName,
+                teacher.LastName,
+                teacher.MiddleName,
+                teacher.UserName,
+                teacher.Department.Faculty.Name,
+                teacher.Department.Name,
+                teacher.Email,
+                teacher.UniversityPosition.Name,
+                teacher.PhoneNumber,
+                null,
+                null);
+        }
+
+        if (claims.Roles.Contains(UserRoleType.Student))
+        {
+            var student = await serviceProvider.GetRequiredService<IEfReadRepository<Student>>()
+                    .TypedDbContext
+                    .AsNoTracking()
+                    .Where(x => x.Id == claims.UserId)
+                    .Include(x => x.Group)
+                    .ThenInclude(x => x.Specialty)
+                    .ThenInclude(x => x.Department)
+                    .ThenInclude(x => x.Faculty)
+                    .FirstOrDefaultAsync(cancellationToken)
+                ?? throw new NotFoundException("Student not found");
+            return new InfoResponseDto(
+                claims.UserId,
+                claims.Roles.Select(UserRoleIdConverter.ToDto).ToArray(),
+                claims.Approved,
+                claims.Blocked,
+                student.FirstName,
+                student.LastName,
+                student.MiddleName,
+                student.UserName,
+                student.Group.Specialty.Department.Faculty.Name,
+                student.Group.Specialty.Department.Name,
+                student.Email,
+                null,
+                student.PhoneNumber,
+                student.Group.Specialty.Name,
+                student.Group.Number);
+        }
+
+        throw new NotFoundException("User not found");
     }
 }

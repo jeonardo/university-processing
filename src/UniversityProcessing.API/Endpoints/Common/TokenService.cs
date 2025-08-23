@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using UniversityProcessing.API.Endpoints.Contracts;
 using UniversityProcessing.API.Options;
 using UniversityProcessing.Utils.Authorization;
-using UniversityProcessing.Utils.Middlewares.Exceptions;
+using UniversityProcessing.Utils.Exceptions;
 
 namespace UniversityProcessing.API.Endpoints.Common;
 

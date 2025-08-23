@@ -3,7 +3,7 @@ using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
-using UniversityProcessing.Utils.Middlewares.Exceptions;
+using UniversityProcessing.Utils.Exceptions;
 
 namespace UniversityProcessing.Infrastructure.Repositories;
 

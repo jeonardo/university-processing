@@ -5,8 +5,8 @@ using UniversityProcessing.API.Endpoints.Auth.Registration.Common.Forms;
 using UniversityProcessing.Domain;
 using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Infrastructure;
+using UniversityProcessing.Utils.Exceptions;
 using UniversityProcessing.Utils.Identity;
-using UniversityProcessing.Utils.Middlewares.Exceptions;
 
 namespace UniversityProcessing.API.Endpoints.Auth.Registration.Common;
 
@@ -15,7 +15,26 @@ internal sealed class RegistrationService(
     UserManager<User> userManager,
     ILogger<RegistrationService> logger) : IRegistrationService
 {
-    public async Task Register(IRegistrationForm registrationForm, UserRoleType role, CancellationToken cancellationToken)
+    public async Task Verify(string userName)
+    {
+        var user = await userManager.FindByNameAsync(userName);
+
+        if (user is null)
+        {
+            throw new NotFoundException($"The user with username = {userName} not found");
+        }
+
+        user.UpdateVerificationStatus(true);
+
+        var updateResult = await userManager.UpdateAsync(user);
+
+        if (updateResult.IsFailed())
+        {
+            throw new ConflictException(updateResult.FullDescription());
+        }
+    }
+
+    public async Task<Guid> Register(IRegistrationForm registrationForm, UserRoleType role, CancellationToken cancellationToken)
     {
         var user = await BuildUser(registrationForm, role, cancellationToken);
 
@@ -39,25 +58,8 @@ internal sealed class RegistrationService(
 
             throw new ConflictException($"Registration failed. Message = {addToRoleResult.FullDescription()}");
         }
-    }
 
-    public async Task Verify(string userName)
-    {
-        var user = await userManager.FindByNameAsync(userName);
-
-        if (user is null)
-        {
-            throw new NotFoundException($"The user with username = {userName} not found");
-        }
-
-        user.UpdateVerificationStatus(true);
-
-        var updateResult = await userManager.UpdateAsync(user);
-
-        if (updateResult.IsFailed())
-        {
-            throw new ConflictException(updateResult.FullDescription());
-        }
+        return user.Id;
     }
 
     private async Task<User> BuildUser(IRegistrationForm form, UserRoleType role, CancellationToken cancellationToken)
@@ -93,6 +95,7 @@ internal sealed class RegistrationService(
                     deaneryForm.MiddleName,
                     deaneryForm.Email,
                     deaneryForm.Birthday,
+                    deaneryForm.PhoneNumber,
                     deaneryForm.UniversityPositionId,
                     deaneryForm.FacultyId);
 
@@ -110,6 +113,7 @@ internal sealed class RegistrationService(
                     teacherForm.MiddleName,
                     teacherForm.Email,
                     teacherForm.Birthday,
+                    teacherForm.PhoneNumber,
                     teacherForm.UniversityPositionId,
                     teacherForm.DepartmentId);
 
@@ -129,6 +133,7 @@ internal sealed class RegistrationService(
                     studentForm.MiddleName,
                     studentForm.Email,
                     studentForm.Birthday,
+                    studentForm.PhoneNumber,
                     group.Id);
 
             default:
