@@ -27,6 +27,7 @@ public class Teacher : User
         Guid universityPositionId,
         Guid departmentId)
         : base(
+            UserRoleType.Teacher,
             userName,
             firstName,
             lastName,

@@ -1,6 +1,9 @@
+import FacultiesPage from 'src/features/faculties/FacultiesPage';
+import FacultyPage from 'src/features/faculties/FacultiesPage';
 import PasswordChangePage from 'src/features/identity/PasswordChangePage';
 import NotFoundPage from 'src/features/NotFoundPage';
 import PrivateLayoutWrapper from 'src/features/PrivateLayoutWrapper';
+import AdministratorsPage from 'src/features/users/AdministratorsPage';
 import WelcomePage from 'src/features/WelcomePage';
 
 const PrivateRoutes = {
@@ -15,16 +18,15 @@ const PrivateRoutes = {
     {
       path: 'change-password',
       element: <PasswordChangePage />
+    },
+    {
+      path: 'administrators',
+      element: <AdministratorsPage />
+    },
+    {
+      path: 'faculties',
+      element: <FacultiesPage />
     }
-    //,
-    // {
-    //   path: 'faculties',
-    //   element: <FacultiesPage />
-    // },
-    // {
-    //   path: 'users',
-    //   element: <UsersPage />
-    // },
     // {
     //   path: 'periods',
     //   element: <PeriodsPage />
@@ -52,10 +54,6 @@ const PrivateRoutes = {
     // {
     //   path: '/groups',
     //   element: <GroupListPage />
-    // },
-    // {
-    //   path: '/users',
-    //   element: <UsersPage />
     // }
   ]
 };

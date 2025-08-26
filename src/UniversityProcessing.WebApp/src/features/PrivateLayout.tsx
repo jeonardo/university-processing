@@ -25,6 +25,9 @@ import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/core/hooks';
 import { logout } from './auth/auth.slice';
 import { RoleLocalizationLabel } from 'src/core/labelStore';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import SchoolIcon from '@mui/icons-material/School';
+import { ContractsUserRoleType } from 'src/api/backendApi';
 
 const PrivateLayout: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -34,7 +37,7 @@ const PrivateLayout: React.FC = () => {
   const dispatch = useAppDispatch();
   const nav = useNavigate();
 
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -50,10 +53,9 @@ const PrivateLayout: React.FC = () => {
 
   // Меню навигации
   const menuItems = [
-    { text: 'Главная', icon: <DashboardIcon />, path: '/' }
-    // { text: 'Пользователи', icon: <PeopleIcon />, path: '/admin/users', roles: ['admin'] }
-    // ,
-    // { text: 'Факультеты', icon: <SchoolIcon />, path: '/faculties', roles: ['admin'] },
+    { text: 'Главная', icon: <DashboardIcon />, path: '/' },
+    { text: 'Администраторы', icon: <PeopleAltIcon />, path: '/administrators', roles: [ContractsUserRoleType.Admin] },
+    { text: 'Факультеты', icon: <SchoolIcon />, path: '/faculties', roles: [ContractsUserRoleType.Admin] },
     // { text: 'Дипломные проекты', icon: <AssignmentIcon />, path: '/projects', roles: ['admin', 'deanery', 'departmentHead', 'supervisor', 'student'] },
     // { text: 'График защит', icon: <CalendarIcon />, path: '/schedule', roles: ['admin', 'deanery', 'departmentHead', 'commission'] },
     // { text: 'Оценки', icon: <GradeIcon />, path: '/grades', roles: ['commission', 'deanery'] },
@@ -61,11 +63,10 @@ const PrivateLayout: React.FC = () => {
     // { text: 'Темы работ', icon: <BookIcon />, path: '/topics', roles: ['departmentHead', 'supervisor'] }
   ];
 
-  // Фильтрация пунктов меню по роли пользователя
-  const filteredMenuItems = menuItems;
-  // .filter(item =>
-  //     !item.roles || item.roles.includes(user.role)
-  // );
+  const filteredMenuItems = menuItems
+    .filter(item =>
+      !item.roles || item.roles.includes(authState.user?.role ?? ContractsUserRoleType.None)
+    );
 
   // Верхняя панель
   const renderAppBar = () => (
@@ -75,7 +76,7 @@ const PrivateLayout: React.FC = () => {
           color="inherit"
           edge="start"
           onClick={handleDrawerToggle}
-          sx={{ mr: 2, display: { sm: 'none' } }}
+          sx={{ mr: 2, display: { md: 'none' } }}
         >
           <MenuIcon />
         </IconButton>
@@ -159,14 +160,12 @@ const PrivateLayout: React.FC = () => {
             <Typography variant="body2" color="textSecondary">{authState.user?.email}</Typography>
             <Typography variant="body2" color="textSecondary">{authState.user?.phoneNumber}</Typography>
             {
-              authState.user?.roleTypes?.map((roleType) => (
-                <Chip
-                  key={roleType}
-                  label={RoleLocalizationLabel(roleType)}
-                  size="small"
-                  sx={{ mt: 0.5, bgcolor: teal[50], color: teal[700] }}
-                />
-              ))
+              <Chip
+                key={authState.user?.role}
+                label={RoleLocalizationLabel(authState.user?.role ?? ContractsUserRoleType.None)}
+                size="small"
+                sx={{ mt: 0.5, bgcolor: teal[50], color: teal[700] }}
+              />
             }
           </Box>
         </Stack>
@@ -193,7 +192,7 @@ const PrivateLayout: React.FC = () => {
 
   // Основной контент
   const renderMainContent = () => (
-    <Box component="main" sx={{ flexGrow: 1, py: 15 }}>
+    <Box component="main" className='min-h-screen flex flex-grow bg-gray-100 py-12'>
       <Outlet />
     </Box>
   );
@@ -211,7 +210,7 @@ const PrivateLayout: React.FC = () => {
 // Иконка настроек (временная реализация)
 const SettingsIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-       strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="3"></circle>
     <path
       d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>

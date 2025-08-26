@@ -12,7 +12,7 @@ const SetAuthTokens = (authTokens: AuthTokens) => {
 };
 
 const ClearAuthTokens = () => {
-  localStorageSetData(TOKEN_KEY, '');
+  localStorageSetData(TOKEN_KEY, null);
 };
 
 export { GetAuthTokens, SetAuthTokens, ClearAuthTokens };

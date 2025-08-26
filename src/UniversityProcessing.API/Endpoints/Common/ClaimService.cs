@@ -4,27 +4,24 @@ using UniversityProcessing.Domain.Users;
 
 namespace UniversityProcessing.API.Endpoints.Common;
 
-public class ClaimService(UserManager<User> userManager) : IClaimService
+public sealed class ClaimService(UserManager<User> userManager) : IClaimService
 {
     public async Task<Claim[]> GetClaims(User user)
     {
-        var userRoles = await userManager.GetRolesAsync(user);
         var claims = await userManager.GetClaimsAsync(user);
-        var defaultClaims = GetDefaultClaims(user, userRoles);
+        var defaultClaims = GetDefaultClaims(user);
         return claims.Union(defaultClaims).ToArray();
     }
 
-    private static IEnumerable<Claim> GetDefaultClaims(User user, IEnumerable<string> roles)
+    private static IEnumerable<Claim> GetDefaultClaims(User user)
     {
         return
-            roles
-                .Select(role => new Claim(AppClaimTypes.ROLE, role))
-                .Union(
-                    new Claim[]
-                    {
-                        new(AppClaimTypes.USER_ID, user.Id.ToString()),
-                        new(AppClaimTypes.IS_APPROVED, user.Approved.ToString()),
-                        new(AppClaimTypes.IS_BLOCKED, user.Blocked.ToString())
-                    });
+            new Claim[]
+            {
+                new(AppClaimTypes.ROLE, user.Role.ToString()),
+                new(AppClaimTypes.USER_ID, user.Id.ToString()),
+                new(AppClaimTypes.IS_APPROVED, user.Approved.ToString()),
+                new(AppClaimTypes.IS_BLOCKED, user.Blocked.ToString())
+            };
     }
 }

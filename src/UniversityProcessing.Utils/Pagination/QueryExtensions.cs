@@ -6,10 +6,12 @@ namespace UniversityProcessing.Utils.Pagination;
 
 public static class QueryExtensions
 {
-    public static async Task<PagedList<T>> ToPagedListAsync<T>(
+    public static async Task<PagedList<TResult>> ToPagedListAsync<T, TResult>(
         this IQueryable<T> source,
         BaseGetListQueryParameters parameters,
         Expression<Func<T, bool>>? filter = null,
+        Expression<Func<T, TResult>>? select = null,
+        Func<IQueryable<T>, IQueryable<T>>? includes = null,
         CancellationToken cancellationToken = default) where T : class
     {
         ArgumentNullException.ThrowIfNull(source);
@@ -27,30 +29,54 @@ public static class QueryExtensions
 
         source = source.AsNoTracking();
 
+        if (includes is not null)
+        {
+            source = includes(source);
+        }
+
         // Apply filtering
         if (filter is not null)
         {
             source = source.Where(filter);
         }
 
-        var totalCount = await source.CountAsync(cancellationToken);
+        var countTask = source.CountAsync(cancellationToken);
 
         // Apply ordering
-        source = ApplyOrdering(source, parameters);
+        var orderedSource = ApplyOrdering(source, parameters);
 
-        // Apply pagination
-        if (parameters.PageSize > 0)
-        {
-            source = source
-                .Skip((parameters.PageNumber - 1) * parameters.PageSize)
-                .Take(parameters.PageSize);
-        }
+        // Apply paging
+        var pagedSource = orderedSource
+            .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+            .Take(parameters.PageSize);
 
-        return new PagedList<T>(
-            await source.ToListAsync(cancellationToken),
-            totalCount,
+        dynamic itemsTask = select is null
+            ? pagedSource.ToListAsync(cancellationToken)
+            : pagedSource.Select(select).ToListAsync(cancellationToken);
+
+        await Task.WhenAll(countTask, itemsTask);
+
+        return new PagedList<TResult>(
+            itemsTask.Result,
+            countTask.Result,
             parameters.PageNumber,
             parameters.PageSize);
+    }
+
+    public static async Task<PagedList<T>> ToPagedListAsync<T>(
+        this IQueryable<T> source,
+        BaseGetListQueryParameters parameters,
+        Expression<Func<T, bool>>? filter = null,
+        Func<IQueryable<T>, IQueryable<T>>? includes = null,
+        CancellationToken cancellationToken = default) where T : class
+    {
+        return await ToPagedListAsync<T, T>(
+            source,
+            parameters,
+            filter,
+            null,
+            includes,
+            cancellationToken);
     }
 
     private static IQueryable<T> ApplyOrdering<T>(IQueryable<T> source, BaseGetListQueryParameters parameters)

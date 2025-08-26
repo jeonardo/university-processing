@@ -4,13 +4,14 @@ import { RootState } from '../core/store';
 import { login, logout } from 'src/features/auth/auth.slice';
 import { appEnv } from '../core/appEnv';
 import { AuthRefreshResponse } from './backendApi';
-import { GetAuthTokens } from 'src/core/localStorageToken';
+import { GetAuthTokens, SetAuthTokens } from 'src/core/localStorageToken';
+import { logDebug } from 'src/core/logger';
 
 const mutex = new Mutex();
 
 const baseQuery = fetchBaseQuery({
   baseUrl: appEnv.VITE_BACKEND_BASEURL,
-  prepareHeaders: (headers, { getState }) => {
+  prepareHeaders: (headers, { getState, endpoint }) => {
     const stateToken = (getState() as RootState).auth.tokens?.accessToken;
     const localToken = GetAuthTokens()?.accessToken;
     const token = stateToken || localToken;
@@ -50,9 +51,8 @@ const baseQueryWithReauth: BaseQueryFn<
   try {
     const state = api.getState() as RootState;
     const stateTokens = state.auth.tokens || undefined;
-    const localTokens = GetAuthTokens() || undefined;
-    const accessToken = stateTokens?.accessToken || localTokens?.accessToken || '';
-    const refreshToken = stateTokens?.refreshToken || localTokens?.refreshToken || '';
+    const accessToken = stateTokens?.accessToken || '';
+    const refreshToken = stateTokens?.refreshToken || '';
 
     // Attempt to refresh the token
     const refreshResult = await baseQuery({
@@ -64,26 +64,25 @@ const baseQueryWithReauth: BaseQueryFn<
       }
     }, api, extraOptions);
 
-    if (refreshResult.error || !refreshResult.data) {
-      // Refresh failed - logout user
+
+    const newAccess = (refreshResult.data as AuthRefreshResponse)?.accessToken || '';
+    const newRefresh = (refreshResult.data as AuthRefreshResponse)?.refreshToken || '';
+
+    // Refresh failed - logout user
+    if (refreshResult.error
+      || !newAccess
+      || !newRefresh) {
+      logDebug('refresh failed');
       api.dispatch(logout());
-    } else {
-      // Refresh succeeded - update tokens and retry original request
-      const refreshData = refreshResult.data as AuthRefreshResponse;
+    }
+    // Refresh succeeded - update tokens and retry original request
+    else {
       api.dispatch(login({
-        accessToken: refreshData.accessToken ?? '',
-        refreshToken: refreshData.refreshToken ?? ''
+        accessToken: newAccess,
+        refreshToken: newRefresh
       }));
 
-      // Retry the original request with the new token.
-      // Remove any old headers from args so that prepareHeaders can set fresh Authorization.
-      const retryArgs: string | FetchArgs = typeof args === 'string'
-        ? args
-        : (() => {
-          const { headers: _oldHeaders, ...rest } = args as FetchArgs;
-          return { ...rest } as FetchArgs;
-        })();
-      result = await baseQuery(retryArgs, api, extraOptions);
+      result = await baseQuery(args, api, extraOptions);
     }
   } finally {
     // Always release the mutex lock

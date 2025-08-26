@@ -44,6 +44,7 @@ internal sealed class Login : IEndpoint
 
         var accessToken = tokenService.GenerateAccessToken(claims);
         var refreshToken = tokenService.GenerateRefreshToken(out var expirationTime);
+
         user.UpdateRefreshToken(refreshToken, expirationTime);
         await userManager.UpdateAsync(user);
 

@@ -26,6 +26,7 @@ public class Student : User
         Guid groupId,
         Guid? diplomaId = null)
         : base(
+            UserRoleType.Student,
             userName,
             firstName,
             lastName,

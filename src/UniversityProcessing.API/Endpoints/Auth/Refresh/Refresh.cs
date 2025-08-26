@@ -45,7 +45,10 @@ internal sealed class Refresh : IEndpoint
         var claims = await claimService.GetClaims(user);
 
         var accessToken = tokenService.GenerateAccessToken(claims);
-        var refreshToken = tokenService.GenerateRefreshToken(out _);
+        var refreshToken = tokenService.GenerateRefreshToken(out var expirationTime);
+
+        user.UpdateRefreshToken(refreshToken, expirationTime);
+        await userManager.UpdateAsync(user);
 
         return new RefreshResponseDto(accessToken, refreshToken);
     }

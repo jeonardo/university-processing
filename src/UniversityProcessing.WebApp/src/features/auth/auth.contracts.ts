@@ -13,7 +13,7 @@ export type AuthState = {
 
 export type AuthUser = {
   userId?: string;
-  roleTypes?: ContractsUserRoleType[] | null;
+  role?: ContractsUserRoleType | null;
   approved?: boolean;
   blocked?: boolean;
   firstName?: string | null;

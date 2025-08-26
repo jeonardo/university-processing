@@ -19,6 +19,7 @@ import { login } from './auth.slice';
 import { usePostApiAuthLoginMutation } from 'src/api/backendApi';
 import { enqueueSnackbarError } from 'src/core/helpers';
 import TestUsersCard from './components/TestUsersCard';
+import { logDebug } from 'src/core/logger';
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
@@ -36,11 +37,12 @@ const LoginPage = () => {
       enqueueSnackbarError(result.error);
       return;
     }
-
+    logDebug('login success started')
     dispatch(login({
       accessToken: result.data.accessToken ?? '',
       refreshToken: result.data.refreshToken ?? ''
     }));
+    logDebug('login success ended')
   };
 
   return (

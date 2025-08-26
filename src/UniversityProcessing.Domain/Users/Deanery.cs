@@ -27,6 +27,7 @@ public class Deanery : User
         Guid universityPositionId,
         Guid facultyId)
         : base(
+            UserRoleType.Deanery,
             userName,
             firstName,
             lastName,

@@ -4,7 +4,7 @@ namespace UniversityProcessing.API.Endpoints.Auth.Info;
 
 public sealed class InfoResponseDto(
     Guid userId,
-    UserRoleTypeDto[] roleTypes,
+    UserRoleTypeDto role,
     bool approved,
     bool blocked,
     string firstName,
@@ -20,7 +20,7 @@ public sealed class InfoResponseDto(
     string? groupNumber)
 {
     public Guid UserId { get; set; } = userId;
-    public UserRoleTypeDto[] RoleTypes { get; set; } = roleTypes;
+    public UserRoleTypeDto Role { get; set; } = role;
     public bool Approved { get; set; } = approved;
     public bool Blocked { get; set; } = blocked;
     public string FirstName { get; set; } = firstName;

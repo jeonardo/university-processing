@@ -6,6 +6,7 @@ import AppLoader from 'src/components/AppLoader';
 import { useGetApiAuthInfoQuery } from 'src/api/backendApi';
 import AccessBlocker from './AccessBlocker';
 import PrivateLayout from 'src/features/PrivateLayout';
+import { logDebug } from 'src/core/logger';
 
 const PrivateLayoutWrapper: React.FC = () => {
   const authState = useAppSelector(state => state.auth);
@@ -16,22 +17,17 @@ const PrivateLayoutWrapper: React.FC = () => {
     undefined,
     {
       refetchOnMountOrArgChange: true,
-      pollingInterval: 300000
+      pollingInterval: 5 * 60 * 1000
     });
 
   useEffect(() => {
+    if (!authState.authorized)
+      nav('/signin');
     if (isUninitialized || isFetching || isLoading)
       return;
-    if (isSuccess && data) {
+    else if (isSuccess && data) {
       dispatch(setUser(data));
       return;
-    }
-    if (isError && authState.tokens?.accessToken) {
-      dispatch(logout());
-      nav('/signin');
-    }
-    if (!authState.authorized) {
-      nav('/signin');
     }
 
   }, [isUninitialized, isFetching, isLoading, isSuccess, isError, data, authState.tokens?.accessToken]);

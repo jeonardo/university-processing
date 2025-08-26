@@ -17,10 +17,12 @@ const authSlice = createSlice({
       ClearAuthTokens();
       state.authorized = false;
       state.user = null;
+      state.tokens = null;
     },
     login: (state: AuthState, action: PayloadAction<AuthTokens>) => {
       SetAuthTokens(action.payload);
       state.authorized = true;
+      state.tokens = action.payload;
     },
     setUser: (state: AuthState, action: PayloadAction<AuthInfoResponse>) => {
       state.user = action.payload;

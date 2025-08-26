@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Endpoints\Identity\"/>
     <Folder Include="Logs\"/>
     <Folder Include="wwwroot\"/>
   </ItemGroup>

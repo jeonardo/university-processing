@@ -17,6 +17,7 @@ public class Admin : User
         DateTime? birthday = null,
         string? phoneNumber = null)
         : base(
+            UserRoleType.Admin,
             userName,
             firstName,
             lastName,

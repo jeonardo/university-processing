@@ -56,13 +56,13 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder); //Check table naming
+
         ConfigureRelations(modelBuilder);
 
         ApplySnakeCaseNames(modelBuilder);
 
         AddInitData(modelBuilder);
-
-        base.OnModelCreating(modelBuilder);
     }
 
     private static void ApplyIdentitySnakeCaseNames(ModelBuilder modelBuilder)
