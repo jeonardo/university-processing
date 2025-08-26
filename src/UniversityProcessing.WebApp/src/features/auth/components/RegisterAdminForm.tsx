@@ -1,24 +1,10 @@
-import React, { useState, useMemo } from 'react';
-import {
-  Autocomplete,
-  FormControl,
-  Stack,
-  TextField,
-} from '@mui/material';
+import React, { useState } from 'react';
+import { FormControl, Stack } from '@mui/material';
 import dayjs, { Dayjs } from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
 import { enqueueSnackbarError } from 'src/core/helpers';
-import {
-  AuthRegistrationGetAvailableDepartmentsDepartment,
-  AuthRegistrationGetAvailableFacultiesFaculty,
-  useGetApiAuthRegistrationGetAvailableFacultiesQuery,
-  useGetApiAuthRegistrationGetAvailableUniversityPositionsQuery,
-  useLazyGetApiAuthRegistrationGetAvailableDepartmentsQuery,
-  usePostApiAuthRegistrationRegisterAdminMutation,
-  usePostApiAuthRegistrationRegisterTeacherMutation,
-} from 'src/api/backendApi';
+import { usePostApiAuthRegistrationRegisterAdminMutation } from 'src/api/backendApi';
 import CommonFormFields, { CommonFormData } from './CommonFormFields';
-import DatePickerField from 'src/components/forms/DatePickerField';
 import SubmitButton from 'src/components/forms/SubmitButton';
 
 interface AdminFormData extends CommonFormData {
@@ -59,7 +45,7 @@ const RegisterAdminForm: React.FC = () => {
         firstName,
         ...rest,
         birthday: formData.birthday.toISOString()
-      },
+      }
     });
 
     if (response.error) {

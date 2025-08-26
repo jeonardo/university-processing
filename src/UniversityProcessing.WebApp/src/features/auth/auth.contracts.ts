@@ -1,14 +1,14 @@
-import { AuthInfoResponse, ContractsToken, ContractsUserRoleType } from 'src/api/backendApi';
+import { ContractsUserRoleType } from 'src/api/backendApi';
 
 export type AuthTokens = {
-  accessToken?: ContractsToken;
-  refreshToken?: ContractsToken;
+  accessToken?: string;
+  refreshToken?: string;
 }
 
 export type AuthState = {
   authorized: boolean,
   user: AuthUser | null,
-  tokens: AuthTokens | null
+  tokens?: AuthTokens | null,
 }
 
 export type AuthUser = {

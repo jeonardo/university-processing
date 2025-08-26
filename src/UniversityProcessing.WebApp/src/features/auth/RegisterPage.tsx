@@ -33,11 +33,15 @@ const RegisterPage = () => {
             setUserRole(e.target.value as ContractsUserRoleType);
           }}
         >
-          <MenuItem disabled value={ContractsUserRoleType.None}>{RoleLocalizationLabel(ContractsUserRoleType.None)}</MenuItem>
+          <MenuItem disabled
+                    value={ContractsUserRoleType.None}>{RoleLocalizationLabel(ContractsUserRoleType.None)}</MenuItem>
           <MenuItem value={ContractsUserRoleType.Admin}>{RoleLocalizationLabel(ContractsUserRoleType.Admin)}</MenuItem>
-          <MenuItem value={ContractsUserRoleType.Deanery}>{RoleLocalizationLabel(ContractsUserRoleType.Deanery)}</MenuItem>
-          <MenuItem value={ContractsUserRoleType.Teacher}>{RoleLocalizationLabel(ContractsUserRoleType.Teacher)}</MenuItem>
-          <MenuItem value={ContractsUserRoleType.Student}>{RoleLocalizationLabel(ContractsUserRoleType.Student)}</MenuItem>
+          <MenuItem
+            value={ContractsUserRoleType.Deanery}>{RoleLocalizationLabel(ContractsUserRoleType.Deanery)}</MenuItem>
+          <MenuItem
+            value={ContractsUserRoleType.Teacher}>{RoleLocalizationLabel(ContractsUserRoleType.Teacher)}</MenuItem>
+          <MenuItem
+            value={ContractsUserRoleType.Student}>{RoleLocalizationLabel(ContractsUserRoleType.Student)}</MenuItem>
         </Select>
       </FormControl>
 

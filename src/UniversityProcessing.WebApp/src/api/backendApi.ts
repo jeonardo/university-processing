@@ -1,4 +1,5 @@
-import { emptySplitApi as api } from "./emptyApi";
+import { emptySplitApi as api } from './emptyApi';
+
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
     postApiAuthRegistrationRegisterTeacher: build.mutation<
@@ -7,9 +8,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Auth/Registration/Register/Teacher`,
-        method: "POST",
-        body: queryArg.authRegistrationRegisterTeacherRequest,
-      }),
+        method: 'POST',
+        body: queryArg.authRegistrationRegisterTeacherRequest
+      })
     }),
     postApiAuthRegistrationRegisterStudent: build.mutation<
       PostApiAuthRegistrationRegisterStudentApiResponse,
@@ -17,9 +18,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Auth/Registration/Register/Student`,
-        method: "POST",
-        body: queryArg.authRegistrationRegisterStudentRequest,
-      }),
+        method: 'POST',
+        body: queryArg.authRegistrationRegisterStudentRequest
+      })
     }),
     postApiAuthRegistrationRegisterDeanery: build.mutation<
       PostApiAuthRegistrationRegisterDeaneryApiResponse,
@@ -27,9 +28,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Auth/Registration/Register/Deanery`,
-        method: "POST",
-        body: queryArg.authRegistrationRegisterDeaneryRequest,
-      }),
+        method: 'POST',
+        body: queryArg.authRegistrationRegisterDeaneryRequest
+      })
     }),
     postApiAuthRegistrationRegisterAdmin: build.mutation<
       PostApiAuthRegistrationRegisterAdminApiResponse,
@@ -37,17 +38,17 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Auth/Registration/Register/Admin`,
-        method: "POST",
-        body: queryArg.authRegistrationRegisterAdminRequest,
-      }),
+        method: 'POST',
+        body: queryArg.authRegistrationRegisterAdminRequest
+      })
     }),
     getApiAuthRegistrationGetAvailableUniversityPositions: build.query<
       GetApiAuthRegistrationGetAvailableUniversityPositionsApiResponse,
       GetApiAuthRegistrationGetAvailableUniversityPositionsApiArg
     >({
       query: () => ({
-        url: `/api/Auth/Registration/GetAvailableUniversityPositions`,
-      }),
+        url: `/api/Auth/Registration/GetAvailableUniversityPositions`
+      })
     }),
     getApiAuthRegistrationGetAvailableGroups: build.query<
       GetApiAuthRegistrationGetAvailableGroupsApiResponse,
@@ -56,15 +57,15 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/api/Auth/Registration/GetAvailableGroups`,
         params: {
-          Number: queryArg["number"],
-        },
-      }),
+          Number: queryArg['number']
+        }
+      })
     }),
     getApiAuthRegistrationGetAvailableFaculties: build.query<
       GetApiAuthRegistrationGetAvailableFacultiesApiResponse,
       GetApiAuthRegistrationGetAvailableFacultiesApiArg
     >({
-      query: () => ({ url: `/api/Auth/Registration/GetAvailableFaculties` }),
+      query: () => ({ url: `/api/Auth/Registration/GetAvailableFaculties` })
     }),
     getApiAuthRegistrationGetAvailableDepartments: build.query<
       GetApiAuthRegistrationGetAvailableDepartmentsApiResponse,
@@ -73,21 +74,25 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/api/Auth/Registration/GetAvailableDepartments`,
         params: {
-          FacultyId: queryArg.facultyId,
-        },
-      }),
+          FacultyId: queryArg.facultyId
+        }
+      })
     }),
-    getApiAuthRefresh: build.query<
-      GetApiAuthRefreshApiResponse,
-      GetApiAuthRefreshApiArg
+    postApiAuthRefresh: build.mutation<
+      PostApiAuthRefreshApiResponse,
+      PostApiAuthRefreshApiArg
     >({
-      query: () => ({ url: `/api/Auth/Refresh` }),
+      query: (queryArg) => ({
+        url: `/api/Auth/Refresh`,
+        method: 'POST',
+        body: queryArg.authRefreshRequest
+      })
     }),
     postApiAuthLogout: build.mutation<
       PostApiAuthLogoutApiResponse,
       PostApiAuthLogoutApiArg
     >({
-      query: () => ({ url: `/api/Auth/Logout`, method: "POST" }),
+      query: () => ({ url: `/api/Auth/Logout`, method: 'POST' })
     }),
     postApiAuthLogin: build.mutation<
       PostApiAuthLoginApiResponse,
@@ -95,15 +100,15 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Auth/Login`,
-        method: "POST",
-        body: queryArg.authLoginRequest,
-      }),
+        method: 'POST',
+        body: queryArg.authLoginRequest
+      })
     }),
     getApiAuthInfo: build.query<
       GetApiAuthInfoApiResponse,
       GetApiAuthInfoApiArg
     >({
-      query: () => ({ url: `/api/Auth/Info` }),
+      query: () => ({ url: `/api/Auth/Info` })
     }),
     postApiAuthChangePassword: build.mutation<
       PostApiAuthChangePasswordApiResponse,
@@ -111,9 +116,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Auth/ChangePassword`,
-        method: "POST",
-        body: queryArg.authChangePasswordRequest,
-      }),
+        method: 'POST',
+        body: queryArg.authChangePasswordRequest
+      })
     }),
     putApiIdentityUpdateVerification: build.mutation<
       PutApiIdentityUpdateVerificationApiResponse,
@@ -121,9 +126,9 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Identity/UpdateVerification`,
-        method: "PUT",
-        body: queryArg.identityUpdateVerificationRequest,
-      }),
+        method: 'PUT',
+        body: queryArg.identityUpdateVerificationRequest
+      })
     }),
     putApiIdentityUpdateBlocking: build.mutation<
       PutApiIdentityUpdateBlockingApiResponse,
@@ -131,57 +136,59 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({
         url: `/api/Identity/UpdateBlocking`,
-        method: "PUT",
-        body: queryArg.identityUpdateBlockingRequest,
-      }),
-    }),
+        method: 'PUT',
+        body: queryArg.identityUpdateBlockingRequest
+      })
+    })
   }),
-  overrideExisting: false,
+  overrideExisting: false
 });
 export { injectedRtkApi as backendApi };
 export type PostApiAuthRegistrationRegisterTeacherApiResponse =
-  /** status 200 OK */ AuthRegistrationRegisterResponse;
+/** status 200 OK */ AuthRegistrationRegisterResponse;
 export type PostApiAuthRegistrationRegisterTeacherApiArg = {
   authRegistrationRegisterTeacherRequest: AuthRegistrationRegisterTeacherRequest;
 };
 export type PostApiAuthRegistrationRegisterStudentApiResponse =
-  /** status 200 OK */ AuthRegistrationRegisterResponse;
+/** status 200 OK */ AuthRegistrationRegisterResponse;
 export type PostApiAuthRegistrationRegisterStudentApiArg = {
   authRegistrationRegisterStudentRequest: AuthRegistrationRegisterStudentRequest;
 };
 export type PostApiAuthRegistrationRegisterDeaneryApiResponse =
-  /** status 200 OK */ AuthRegistrationRegisterResponse;
+/** status 200 OK */ AuthRegistrationRegisterResponse;
 export type PostApiAuthRegistrationRegisterDeaneryApiArg = {
   authRegistrationRegisterDeaneryRequest: AuthRegistrationRegisterDeaneryRequest;
 };
 export type PostApiAuthRegistrationRegisterAdminApiResponse =
-  /** status 200 OK */ AuthRegistrationRegisterResponse;
+/** status 200 OK */ AuthRegistrationRegisterResponse;
 export type PostApiAuthRegistrationRegisterAdminApiArg = {
   authRegistrationRegisterAdminRequest: AuthRegistrationRegisterAdminRequest;
 };
 export type GetApiAuthRegistrationGetAvailableUniversityPositionsApiResponse =
-  /** status 200 OK */ AuthRegistrationGetAvailableUniversityPositionsResponse;
+/** status 200 OK */ AuthRegistrationGetAvailableUniversityPositionsResponse;
 export type GetApiAuthRegistrationGetAvailableUniversityPositionsApiArg = void;
 export type GetApiAuthRegistrationGetAvailableGroupsApiResponse =
-  /** status 200 OK */ AuthRegistrationGetAvailableGroupsResponse;
+/** status 200 OK */ AuthRegistrationGetAvailableGroupsResponse;
 export type GetApiAuthRegistrationGetAvailableGroupsApiArg = {
   number: string;
 };
 export type GetApiAuthRegistrationGetAvailableFacultiesApiResponse =
-  /** status 200 OK */ AuthRegistrationGetAvailableFacultiesResponse;
+/** status 200 OK */ AuthRegistrationGetAvailableFacultiesResponse;
 export type GetApiAuthRegistrationGetAvailableFacultiesApiArg = void;
 export type GetApiAuthRegistrationGetAvailableDepartmentsApiResponse =
-  /** status 200 OK */ AuthRegistrationGetAvailableDepartmentsResponse;
+/** status 200 OK */ AuthRegistrationGetAvailableDepartmentsResponse;
 export type GetApiAuthRegistrationGetAvailableDepartmentsApiArg = {
   facultyId: string;
 };
-export type GetApiAuthRefreshApiResponse =
-  /** status 200 OK */ AuthRefreshResponse;
-export type GetApiAuthRefreshApiArg = void;
+export type PostApiAuthRefreshApiResponse =
+/** status 200 OK */ AuthRefreshResponse;
+export type PostApiAuthRefreshApiArg = {
+  authRefreshRequest: AuthRefreshRequest;
+};
 export type PostApiAuthLogoutApiResponse = unknown;
 export type PostApiAuthLogoutApiArg = void;
 export type PostApiAuthLoginApiResponse =
-  /** status 200 OK */ AuthLoginResponse;
+/** status 200 OK */ AuthLoginResponse;
 export type PostApiAuthLoginApiArg = {
   authLoginRequest: AuthLoginRequest;
 };
@@ -274,17 +281,17 @@ export type AuthRegistrationGetAvailableDepartmentsDepartment = {
 export type AuthRegistrationGetAvailableDepartmentsResponse = {
   departments?: AuthRegistrationGetAvailableDepartmentsDepartment[] | null;
 };
-export type ContractsToken = {
-  value?: string | null;
-  expiration?: string;
-};
 export type AuthRefreshResponse = {
-  accessToken?: ContractsToken;
-  refreshToken?: ContractsToken;
+  accessToken?: string | null;
+  refreshToken?: string | null;
+};
+export type AuthRefreshRequest = {
+  accessToken: string;
+  refreshToken: string;
 };
 export type AuthLoginResponse = {
-  accessToken?: ContractsToken;
-  refreshToken?: ContractsToken;
+  accessToken?: string | null;
+  refreshToken?: string | null;
 };
 export type AuthLoginRequest = {
   userName: string;
@@ -319,13 +326,15 @@ export type IdentityUpdateBlockingRequest = {
   userId: string;
   isBlocked: boolean;
 };
+
 export enum ContractsUserRoleType {
-  None = "None",
-  Admin = "Admin",
-  Deanery = "Deanery",
-  Teacher = "Teacher",
-  Student = "Student",
+  None = 'None',
+  Admin = 'Admin',
+  Deanery = 'Deanery',
+  Teacher = 'Teacher',
+  Student = 'Student',
 }
+
 export const {
   usePostApiAuthRegistrationRegisterTeacherMutation,
   usePostApiAuthRegistrationRegisterStudentMutation,
@@ -339,13 +348,12 @@ export const {
   useLazyGetApiAuthRegistrationGetAvailableFacultiesQuery,
   useGetApiAuthRegistrationGetAvailableDepartmentsQuery,
   useLazyGetApiAuthRegistrationGetAvailableDepartmentsQuery,
-  useGetApiAuthRefreshQuery,
-  useLazyGetApiAuthRefreshQuery,
+  usePostApiAuthRefreshMutation,
   usePostApiAuthLogoutMutation,
   usePostApiAuthLoginMutation,
   useGetApiAuthInfoQuery,
   useLazyGetApiAuthInfoQuery,
   usePostApiAuthChangePasswordMutation,
   usePutApiIdentityUpdateVerificationMutation,
-  usePutApiIdentityUpdateBlockingMutation,
+  usePutApiIdentityUpdateBlockingMutation
 } = injectedRtkApi;

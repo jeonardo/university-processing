@@ -1,8 +1,6 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.API.Endpoints.Common;
-using UniversityProcessing.API.Endpoints.Converters;
 using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Utils.Endpoints;
 using UniversityProcessing.Utils.Exceptions;
@@ -28,16 +26,13 @@ internal sealed class Login : IEndpoint
         [FromServices] UserManager<User> userManager,
         [FromServices] SignInManager<User> signInManager,
         [FromServices] ITokenService tokenService,
+        [FromServices] IClaimService claimService,
         CancellationToken cancellationToken)
     {
         var user = await userManager.FindByNameAsync(request.UserName)
             ?? throw new NotFoundException($"User with username = {request.UserName} not found");
 
-        var signInResult = await signInManager.PasswordSignInAsync(
-            user,
-            request.Password,
-            false,
-            false);
+        var signInResult = await signInManager.PasswordSignInAsync(user, request.Password, false, false);
 
         if (signInResult.IsFailed())
         {
@@ -45,29 +40,13 @@ internal sealed class Login : IEndpoint
             throw new ConflictException(errorMessage);
         }
 
-        var userRoles = await userManager.GetRolesAsync(user);
-
-        var claims = GetDefaultClaims(user, userRoles);
-        var additionalClaims = await userManager.GetClaimsAsync(user);
-        claims.AddRange(additionalClaims);
+        var claims = await claimService.GetClaims(user);
 
         var accessToken = tokenService.GenerateAccessToken(claims);
-        var refreshToken = tokenService.GenerateRefreshToken(claims);
+        var refreshToken = tokenService.GenerateRefreshToken(out var expirationTime);
+        user.UpdateRefreshToken(refreshToken, expirationTime);
+        await userManager.UpdateAsync(user);
 
-        return new LoginResponseDto(TokenConverter.ToDto(accessToken), TokenConverter.ToDto(refreshToken));
-    }
-
-    private static List<Claim> GetDefaultClaims(User user, IEnumerable<string> roles)
-    {
-        var list = new List<Claim>
-        {
-            new(AppClaimTypes.USER_ID, user.Id.ToString()),
-            new(AppClaimTypes.IS_APPROVED, user.Approved.ToString()),
-            new(AppClaimTypes.IS_BLOCKED, user.Blocked.ToString())
-        };
-
-        list.AddRange(roles.Select(role => new Claim(AppClaimTypes.ROLE, role)));
-
-        return list;
+        return new LoginResponseDto(accessToken, refreshToken);
     }
 }

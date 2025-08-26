@@ -1,9 +1,7 @@
-﻿using UniversityProcessing.API.Endpoints.Contracts;
+﻿namespace UniversityProcessing.API.Endpoints.Auth.Login;
 
-namespace UniversityProcessing.API.Endpoints.Auth.Login;
-
-public sealed class LoginResponseDto(TokenDto accessToken, TokenDto refreshToken)
+public sealed class LoginResponseDto(string? accessToken, string? refreshToken)
 {
-    public TokenDto AccessToken { get; set; } = accessToken;
-    public TokenDto RefreshToken { get; set; } = refreshToken;
+    public string? AccessToken { get; set; } = accessToken;
+    public string? RefreshToken { get; set; } = refreshToken;
 }

@@ -1,20 +1,14 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import {
-  Autocomplete,
-  FormControl,
-  Stack,
-  TextField,
-} from '@mui/material';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Autocomplete, FormControl, Stack, TextField } from '@mui/material';
 import dayjs, { Dayjs } from 'dayjs';
 import { debounce } from '@mui/material/utils';
 import RegisterResultModal from './RegisterResultModal';
 import { enqueueSnackbarError } from 'src/core/helpers';
 import {
   useLazyGetApiAuthRegistrationGetAvailableGroupsQuery,
-  usePostApiAuthRegistrationRegisterStudentMutation,
+  usePostApiAuthRegistrationRegisterStudentMutation
 } from 'src/api/backendApi';
 import CommonFormFields, { CommonFormData } from './CommonFormFields';
-import DatePickerField from 'src/components/forms/DatePickerField';
 import SubmitButton from 'src/components/forms/SubmitButton';
 
 interface StudentFormData extends CommonFormData {
@@ -31,7 +25,7 @@ const RegisterStudentForm: React.FC = () => {
     birthday: dayjs(),
     email: '',
     phoneNumber: '',
-    groupNumber: '',
+    groupNumber: ''
   });
 
   const [inputGroupValue, setInputGroupValue] = useState('');
@@ -74,8 +68,8 @@ const RegisterStudentForm: React.FC = () => {
     const response = await tryRegister({
       authRegistrationRegisterStudentRequest: {
         ...formData,
-        birthday: formData.birthday.toISOString(),
-      },
+        birthday: formData.birthday.toISOString()
+      }
     });
 
     if (response.error) {

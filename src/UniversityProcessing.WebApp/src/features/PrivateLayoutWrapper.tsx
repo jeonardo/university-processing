@@ -1,38 +1,51 @@
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/core/hooks';
 import { logout, setUser } from 'src/features/auth/auth.slice';
-import { Component, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import AppLoader from 'src/components/AppLoader';
-import { useGetApiAuthInfoQuery, useLazyGetApiAuthInfoQuery } from 'src/api/backendApi';
+import { useGetApiAuthInfoQuery } from 'src/api/backendApi';
 import AccessBlocker from './AccessBlocker';
 import PrivateLayout from 'src/features/PrivateLayout';
 
 const PrivateLayoutWrapper: React.FC = () => {
   const authState = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
-  const { data, isLoading, isSuccess, isError } = useGetApiAuthInfoQuery(undefined, { refetchOnMountOrArgChange: true, pollingInterval: 300000 });
+  const nav = useNavigate();
+
+  const { data, isSuccess, isError, isFetching, isLoading, isUninitialized } = useGetApiAuthInfoQuery(
+    undefined,
+    {
+      refetchOnMountOrArgChange: true,
+      pollingInterval: 300000
+    });
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isUninitialized || isFetching || isLoading)
+      return;
+    if (isSuccess && data) {
       dispatch(setUser(data));
+      return;
     }
-    else if (!isLoading)
+    if (isError && authState.tokens?.accessToken) {
       dispatch(logout());
-  });
+      nav('/signin');
+    }
+    if (!authState.authorized) {
+      nav('/signin');
+    }
 
-  if (isLoading) {
-    return <AppLoader />
-  }
+  }, [isUninitialized, isFetching, isLoading, isSuccess, isError, data, authState.tokens?.accessToken]);
 
-  if (!isLoading && isError) {
-    return <Navigate to="/signin" />
-  }
+  if (isLoading)
+    return <AppLoader />;
 
-  if (!authState.user?.approved || authState.user.blocked) {
-    return <AccessBlocker authState={authState} />
-  }
+  if (!authState.user)
+    return;
 
-  return <PrivateLayout />
+  if (!authState.user.approved || authState.user.blocked)
+    return <AccessBlocker authState={authState} />;
+
+  return <PrivateLayout />;
 };
 
 export default PrivateLayoutWrapper;

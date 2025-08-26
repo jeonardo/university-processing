@@ -1,14 +1,12 @@
 using System.Security.Claims;
-using UniversityProcessing.API.Endpoints.Contracts;
-using UniversityProcessing.Utils.Authorization;
 
 namespace UniversityProcessing.API.Endpoints.Common;
 
 public interface ITokenService
 {
-    Token GenerateRefreshToken(IEnumerable<Claim> claims);
+    string GenerateRefreshToken(out DateTime expirationTime);
 
-    Token GenerateAccessToken(IEnumerable<Claim> claims);
+    string GenerateAccessToken(IEnumerable<Claim> claims);
 
-    RefreshTokenClaims GetRefreshTokenClaims(string token);
+    ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
 }

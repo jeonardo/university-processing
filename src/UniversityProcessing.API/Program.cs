@@ -112,7 +112,8 @@ public static partial class Program
         var services = builder.Services;
         var settings = builder.Configuration.GetSettings<AuthSettings>();
 
-        services.AddSingleton<ITokenService, TokenService>();
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IClaimService, ClaimService>();
 
         services.AddControllersWithViews();
         services.AddAuthentication(
@@ -131,7 +132,9 @@ public static partial class Program
                         ValidateIssuerSigningKey = true,
                         ValidateIssuer = true,
                         ValidateAudience = false,
-                        ValidateLifetime = true
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero,
+                        RequireExpirationTime = true
                     };
                     options.Events = new JwtBearerEvents
                     {

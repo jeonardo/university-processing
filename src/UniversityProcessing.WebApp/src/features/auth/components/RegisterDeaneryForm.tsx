@@ -1,24 +1,15 @@
-import React, { useState, useMemo } from 'react';
-import {
-  Autocomplete,
-  FormControl,
-  Stack,
-  TextField,
-} from '@mui/material';
+import React, { useMemo, useState } from 'react';
+import { Autocomplete, FormControl, Stack, TextField } from '@mui/material';
 import dayjs, { Dayjs } from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
 import { enqueueSnackbarError } from 'src/core/helpers';
 import {
-  AuthRegistrationGetAvailableDepartmentsDepartment,
   AuthRegistrationGetAvailableFacultiesFaculty,
   useGetApiAuthRegistrationGetAvailableFacultiesQuery,
   useGetApiAuthRegistrationGetAvailableUniversityPositionsQuery,
-  useLazyGetApiAuthRegistrationGetAvailableDepartmentsQuery,
-  usePostApiAuthRegistrationRegisterDeaneryMutation,
-  usePostApiAuthRegistrationRegisterTeacherMutation,
+  usePostApiAuthRegistrationRegisterDeaneryMutation
 } from 'src/api/backendApi';
 import CommonFormFields, { CommonFormData } from './CommonFormFields';
-import DatePickerField from 'src/components/forms/DatePickerField';
 import SubmitButton from 'src/components/forms/SubmitButton';
 
 interface DeaneryFormData extends CommonFormData {
@@ -37,7 +28,7 @@ const RegisterDeaneryForm: React.FC = () => {
     email: '',
     phoneNumber: '',
     universityPosition: '',
-    faculty: null,
+    faculty: null
   });
 
   const [tryRegister, { isLoading, isSuccess }] = usePostApiAuthRegistrationRegisterDeaneryMutation();
@@ -74,8 +65,8 @@ const RegisterDeaneryForm: React.FC = () => {
         universityPositionId: positionsData?.list?.find(
           pos => pos.name === universityPosition
         )?.id || '',
-        facultyId: faculty.id ?? '',
-      },
+        facultyId: faculty.id ?? ''
+      }
     });
 
     if (response.error) {

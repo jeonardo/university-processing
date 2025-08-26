@@ -1,3 +1,3 @@
 namespace UniversityProcessing.Utils.Authorization;
 
-public sealed record Token(string Value, DateTime Expiration);
+public sealed record Token(string Value);

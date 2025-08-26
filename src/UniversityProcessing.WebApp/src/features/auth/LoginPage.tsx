@@ -38,8 +38,8 @@ const LoginPage = () => {
     }
 
     dispatch(login({
-      accessToken: result.data.accessToken,
-      refreshToken: result.data.refreshToken
+      accessToken: result.data.accessToken ?? '',
+      refreshToken: result.data.refreshToken ?? ''
     }));
   };
 

@@ -17,8 +17,8 @@ export function enqueueSnackbarError(error: FetchBaseQueryError | SerializedErro
     const errMsg = 'error' in error
       ? error.error
       : error.data
-        && typeof error.data === 'object'
-        && 'errors' in error.data
+      && typeof error.data === 'object'
+      && 'errors' in error.data
         ? JSON.stringify(error.data.errors)
         : JSON.stringify(error.data);
     enqueueSnackbar(errMsg, { variant: 'error' });

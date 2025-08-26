@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.API.Endpoints.Common;
-using UniversityProcessing.API.Endpoints.Converters;
 using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Utils.Endpoints;
 using UniversityProcessing.Utils.Exceptions;
+using UniversityProcessing.Utils.Filters;
 using UniversityProcessing.Utils.Routing;
 
 namespace UniversityProcessing.API.Endpoints.Auth.Refresh;
@@ -15,28 +15,38 @@ internal sealed class Refresh : IEndpoint
     {
         var type = typeof(Refresh);
         app
-            .MapGet(NamespaceService.GetEndpointRoute(type), Handle)
+            .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
-            .RequireAuthorization();
+            .AddEndpointFilter<ValidationFilter<RefreshRequestDto>>();
     }
 
     private async Task<RefreshResponseDto> Handle(
-        HttpContext context,
+        [FromBody] RefreshRequestDto request,
         [FromServices] UserManager<User> userManager,
         [FromServices] ITokenService tokenService,
+        [FromServices] IClaimService claimService,
         CancellationToken cancellationToken)
     {
-        var refreshClaims = tokenService.GetRefreshTokenClaims(context.Request.Headers.Authorization.ToString());
-        var userId = refreshClaims.UserId;
+        var claimsPrincipal = tokenService.GetPrincipalFromExpiredToken(request.AccessToken);
+        var authTokenClaims = claimsPrincipal.GetAuthorizationTokenClaims();
 
-        var user = await userManager.FindByIdAsync(userId.ToString())
-            ?? throw new InvalidTokenException();
+        var user = await userManager.FindByIdAsync(authTokenClaims.UserId.ToString());
 
-        var claims = await userManager.GetClaimsAsync(user);
+        if (user is null)
+        {
+            throw new NotFoundException($"{nameof(User)} not found");
+        }
+
+        if (user.RefreshToken != request.RefreshToken || user.RefreshTokenExpiration < DateTime.UtcNow)
+        {
+            throw new InvalidTokenException();
+        }
+
+        var claims = await claimService.GetClaims(user);
 
         var accessToken = tokenService.GenerateAccessToken(claims);
-        var refreshToken = tokenService.GenerateRefreshToken(claims);
+        var refreshToken = tokenService.GenerateRefreshToken(out _);
 
-        return new RefreshResponseDto(TokenConverter.ToDto(accessToken), TokenConverter.ToDto(refreshToken));
+        return new RefreshResponseDto(accessToken, refreshToken);
     }
 }

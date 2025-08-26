@@ -12,6 +12,10 @@ public class User : IdentityUser<Guid>, IAggregateRoot, IHasId
     public bool Blocked { get; private set; }
     public bool Approved { get; private set; }
 
+    [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
+    public string? RefreshToken { get; private set; }
+
+    public DateTime? RefreshTokenExpiration { get; private set; }
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 
     public sealed override string? Email { get; set; }
@@ -67,5 +71,11 @@ public class User : IdentityUser<Guid>, IAggregateRoot, IHasId
     public void UpdateBlockingStatus(bool isBlocked)
     {
         Blocked = isBlocked;
+    }
+
+    public void UpdateRefreshToken(string refreshToken, DateTime expirationTime)
+    {
+        RefreshToken = refreshToken;
+        RefreshTokenExpiration = expirationTime;
     }
 }

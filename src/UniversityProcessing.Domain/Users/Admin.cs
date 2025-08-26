@@ -15,8 +15,7 @@ public class Admin : User
         string? middleName = null,
         string? email = null,
         DateTime? birthday = null,
-        string? phoneNumber = null
-    )
+        string? phoneNumber = null)
         : base(
             userName,
             firstName,

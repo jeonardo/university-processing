@@ -1,11 +1,9 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
+using System.Security.Cryptography;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using UniversityProcessing.API.Endpoints.Contracts;
 using UniversityProcessing.API.Options;
-using UniversityProcessing.Utils.Authorization;
 using UniversityProcessing.Utils.Exceptions;
 
 namespace UniversityProcessing.API.Endpoints.Common;
@@ -14,61 +12,53 @@ internal sealed class TokenService(IOptions<AuthSettings> authOptions, ILogger<T
 {
     private readonly AuthSettings _authSettings = authOptions.Value;
 
-    public Token GenerateRefreshToken(IEnumerable<Claim> claims)
+    public string GenerateRefreshToken(out DateTime expirationTime)
     {
-        var expires = DateTime.UtcNow.AddMinutes(_authSettings.RefreshTokenLifetimeInMinutes);
-        return GetAuthorizationToken(claims, expires, _authSettings.RefreshKey);
+        expirationTime = DateTime.UtcNow.AddMinutes(_authSettings.RefreshTokenLifetimeInMinutes);
+        var randomNumber = new byte[32];
+        using var rng = RandomNumberGenerator.Create();
+        rng.GetBytes(randomNumber);
+        return Convert.ToBase64String(randomNumber);
     }
 
-    public Token GenerateAccessToken(IEnumerable<Claim> claims)
+    public string GenerateAccessToken(IEnumerable<Claim> claims)
     {
+        var symmetricSecurityKey = new SymmetricSecurityKey(Convert.FromBase64String(_authSettings.AccessKey));
+        var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
         var expires = DateTime.UtcNow.AddMinutes(_authSettings.AccessTokenLifetimeInMinutes);
-        return GetAuthorizationToken(claims, expires, _authSettings.AccessKey);
+        var token = new JwtSecurityToken(_authSettings.Issuer, claims: claims, expires: expires, signingCredentials: signingCredentials);
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public RefreshTokenClaims GetRefreshTokenClaims(string token)
+    public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
     {
+        var symmetricSecurityKey = new SymmetricSecurityKey(Convert.FromBase64String(_authSettings.AccessKey));
         var tokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
             ValidateAudience = false,
-            ValidateLifetime = true,
+            ValidateLifetime = false,
             ValidateIssuerSigningKey = true,
             ValidIssuer = _authSettings.Issuer,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authSettings.RefreshKey))
+            IssuerSigningKey = symmetricSecurityKey
         };
 
         try
         {
-            var claims = new JwtSecurityTokenHandler()
-                .ValidateToken(token, tokenValidationParameters, out var securityToken);
+            var claims = new JwtSecurityTokenHandler().ValidateToken(token, tokenValidationParameters, out var securityToken);
 
-            if (securityToken is not JwtSecurityToken jwtSecurityToken
-                || !jwtSecurityToken.Header.Alg.Equals(
-                    SecurityAlgorithms.HmacSha256,
-                    StringComparison.InvariantCultureIgnoreCase))
+            if (securityToken is JwtSecurityToken jwtSecurityToken
+                && jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
             {
-                throw new InvalidTokenException();
+                return claims;
             }
 
-            return new RefreshTokenClaims(claims.Claims.GetUserId());
+            throw new InvalidTokenException();
         }
         catch (Exception e)
         {
             logger.LogError(e, "Error validating token");
             throw new InvalidTokenException();
         }
-    }
-
-    private Token GetAuthorizationToken(IEnumerable<Claim> claims, DateTime expires, string key)
-    {
-        var token = new JwtSecurityToken(
-            _authSettings.Issuer,
-            claims: claims,
-            expires: expires,
-            signingCredentials: new SigningCredentials(
-                new SymmetricSecurityKey(Convert.FromBase64String(key)),
-                SecurityAlgorithms.HmacSha256));
-        return new Token(new JwtSecurityTokenHandler().WriteToken(token), expires);
     }
 }
