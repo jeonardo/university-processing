@@ -15,7 +15,9 @@ internal static class UserAccessManager
     {
         if (_dictionary.TryGetValue(currentUserRole, out var availableRoles) && availableRoles.Contains(selectedUserRole))
         {
-            throw new ConflictException("Action not allowed");
+            return;
         }
+
+        throw new ConflictException("Action not allowed");
     }
 }

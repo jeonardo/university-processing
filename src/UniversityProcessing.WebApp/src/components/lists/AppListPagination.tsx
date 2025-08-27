@@ -9,7 +9,7 @@ interface PaginationProps {
 
 const AppListPagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
   return (
-    <Box className="flex justify-center pt-4">
+    <Box className={`flex justify-center`}>
       <MUIPagination
         count={totalPages}
         page={currentPage}

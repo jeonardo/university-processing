@@ -37,12 +37,10 @@ const LoginPage = () => {
       enqueueSnackbarError(result.error);
       return;
     }
-    logDebug('login success started')
     dispatch(login({
       accessToken: result.data.accessToken ?? '',
       refreshToken: result.data.refreshToken ?? ''
     }));
-    logDebug('login success ended')
   };
 
   return (

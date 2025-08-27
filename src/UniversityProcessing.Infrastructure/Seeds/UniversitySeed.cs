@@ -156,17 +156,12 @@ public class UniversitySeed(
 
         for (var i = 0; i < 30; i++)
         {
-            _ = await AddStudent($"Student_{bntu_studyGroup4.Number + 100}_{i}", bntu_studyGroup4);
+            _ = await AddAdmin($"Admin_{i}");
         }
 
         for (var i = 0; i < 30; i++)
         {
-            _ = await AddStudent($"Student_{bntu_studyGroup5.Number + 100}_{i}", bntu_studyGroup5);
-        }
-
-        for (var i = 0; i < 30; i++)
-        {
-            _ = await AddStudent($"Student_{bntu_studyGroup6.Number + 100}_{i}", bntu_studyGroup6);
+            _ = await AddTeacher($"Teacher_{i}", bntu_pos_7, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
         }
 
         await AddAdmin("test_admin");

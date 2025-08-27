@@ -70,7 +70,13 @@ const PrivateLayout: React.FC = () => {
 
   // Верхняя панель
   const renderAppBar = () => (
-    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+    <AppBar
+      position="fixed"
+      sx={{
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+        height: { xs: 56, sm: 64 }
+      }}
+    >
       <Toolbar>
         <IconButton
           color="inherit"
@@ -192,13 +198,31 @@ const PrivateLayout: React.FC = () => {
 
   // Основной контент
   const renderMainContent = () => (
-    <Box component="main" className='min-h-screen flex flex-grow bg-gray-100 py-12'>
+    <Box
+      component="main"
+      className='min-h-screen flex flex-grow bg-gray-100'
+      sx={{
+        pt: { xs: 12, sm: 13 },
+        pl: { xs: 0, md: 33 },
+        pr: { xs: 0, md: 3 },
+        pb: 2
+      }}
+    >
       <Outlet />
     </Box>
   );
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box
+      component="main"
+      sx={{
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+        backgroundColor: 'grey.100'
+      }}
+    >
       {renderAppBar()}
       {renderDrawer()}
       {renderMainContent()}
