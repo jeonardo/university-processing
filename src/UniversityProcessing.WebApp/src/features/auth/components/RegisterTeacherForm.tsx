@@ -1,27 +1,33 @@
-import React, { useMemo, useState } from 'react';
-import { Autocomplete, FormControl, Stack, TextField } from '@mui/material';
-import dayjs, { Dayjs } from 'dayjs';
+import React from 'react';
+import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
-import { enqueueSnackbarError } from 'src/core/helpers';
+import { usePostApiAuthRegistrationRegisterTeacherMutation, usePutApiUsersUpdateVerificationMutation } from 'src/api/backendApi';
 import {
-  AuthRegistrationGetAvailableDepartmentsDepartment,
-  AuthRegistrationGetAvailableFacultiesFaculty,
-  useGetApiAuthRegistrationGetAvailableFacultiesQuery,
-  useGetApiAuthRegistrationGetAvailableUniversityPositionsQuery,
-  useLazyGetApiAuthRegistrationGetAvailableDepartmentsQuery,
-  usePostApiAuthRegistrationRegisterTeacherMutation
-} from 'src/api/backendApi';
-import CommonFormFields, { CommonFormData } from './CommonFormFields';
-import SubmitButton from 'src/components/forms/SubmitButton';
+  FormContainer,
+  PositionSelector,
+  FacultySelector,
+  DepartmentSelector,
+  useFormState,
+  useFormValidation,
+  ValidationRules,
+  CommonFormData
+} from './index';
+import { AuthRegistrationGetAvailableUniversityPositionsUniversityPosition } from 'src/api/backendApi';
+import { enqueueSnackbarError } from 'src/core/helpers';
+import { IRegisterFormProps } from './RegisterFormProps';
+import { enqueueSnackbar } from 'notistack';
 
 interface TeacherFormData extends CommonFormData {
-  universityPosition: string;
-  faculty: AuthRegistrationGetAvailableFacultiesFaculty | null;
-  department: AuthRegistrationGetAvailableDepartmentsDepartment | null;
+  universityPosition: AuthRegistrationGetAvailableUniversityPositionsUniversityPosition | null;
+  faculty: any;
+  department: any;
 }
 
-const RegisterTeacherForm: React.FC = () => {
-  const [formData, setFormData] = useState<TeacherFormData>({
+const RegisterTeacherForm: React.FC<IRegisterFormProps> = ({
+  buttonLabel,
+  verify,
+  redirectToLogin }) => {
+  const initialFormData: TeacherFormData = {
     userName: '',
     password: '',
     firstName: '',
@@ -30,118 +36,107 @@ const RegisterTeacherForm: React.FC = () => {
     birthday: dayjs(),
     email: '',
     phoneNumber: '',
-    universityPosition: '',
+    universityPosition: null,
     faculty: null,
     department: null
-  });
-
-  const [tryRegister, { isLoading, isSuccess }] = usePostApiAuthRegistrationRegisterTeacherMutation();
-  const { data: positionsData } = useGetApiAuthRegistrationGetAvailableUniversityPositionsQuery();
-  const { data: facultiesData } = useGetApiAuthRegistrationGetAvailableFacultiesQuery();
-  const [fetchDepartments, { data: departmentsData }] = useLazyGetApiAuthRegistrationGetAvailableDepartmentsQuery();
-
-  const universityPositions = useMemo(() =>
-    positionsData?.list?.map((item) => item.name) || [], [positionsData]);
-
-  const faculties = useMemo(() =>
-    facultiesData?.faculties || [], [facultiesData]);
-
-  const departments = useMemo(() =>
-    departmentsData?.departments || [], [departmentsData]);
-
-  const handleFormDataChange = (field: keyof TeacherFormData, value: string | Dayjs) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
   };
+
+  const { formData, handleFormDataChange, updateFormData } = useFormState(initialFormData);
+  const [tryRegister, { isLoading, isSuccess }] = usePostApiAuthRegistrationRegisterTeacherMutation();
+  const { validateForm } = useFormValidation();
+  const [tryVerify, { }] = usePutApiUsersUpdateVerificationMutation();
+
+  const validationRules: ValidationRules<TeacherFormData> = {
+    requiredFields: ['userName', 'password', 'firstName', 'faculty', 'department']
+  };
+
+  const transformRequest = (formData: TeacherFormData) => ({
+    password: formData.password,
+    userName: formData.userName,
+    firstName: formData.firstName,
+    middleName: formData.middleName,
+    lastName: formData.lastName,
+    birthday: formData.birthday.toISOString(),
+    email: formData.email,
+    phoneNumber: formData.phoneNumber,
+    universityPositionId: formData.universityPosition?.id || '',
+    departmentId: formData.department?.id ?? ''
+  });
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const { userName, password, firstName, faculty, department, universityPosition, ...rest } = formData;
-
-    if (!userName || !password || !firstName || !faculty || !department) {
-      enqueueSnackbarError('Заполните обязательные поля');
+    if (!validateForm(formData, validationRules)) {
       return;
     }
 
     const response = await tryRegister({
-      authRegistrationRegisterTeacherRequest: {
-        password,
-        userName,
-        firstName,
-        ...rest,
-        birthday: formData.birthday.toISOString(),
-        universityPositionId: positionsData?.list?.find(
-          pos => pos.name === universityPosition
-        )?.id || '',
-        departmentId: department.id ?? ''
-      }
+      authRegistrationRegisterTeacherRequest: transformRequest(formData)
     });
 
     if (response.error) {
       enqueueSnackbarError(response.error);
+      return;
+    }
+
+    if (redirectToLogin)
+      return;
+
+    updateFormData(initialFormData);
+    enqueueSnackbar('Пользователь создан', { variant: 'success' });
+
+    if (verify) {
+      const verifyResponse = await tryVerify({ usersUpdateVerificationRequest: { userId: response.data.userId, isApproved: true } });
+
+      if (verifyResponse.error) {
+        enqueueSnackbarError(verifyResponse.error);
+        return;
+      }
+
+      enqueueSnackbar('Пользователь верифицирован', { variant: 'success' });
     }
   };
 
-  if (isSuccess) {
+  const handleFacultyChange = (faculty: any) => {
+    updateFormData({ faculty, department: null });
+  };
+
+  if (isSuccess && redirectToLogin) {
     return <RegisterResultModal />;
   }
 
+  const additionalFields = (
+    <>
+      <PositionSelector
+        value={formData.universityPosition}
+        onChange={(value) => handleFormDataChange('universityPosition', value)}
+        required
+      />
+
+      <FacultySelector
+        value={formData.faculty}
+        onChange={handleFacultyChange}
+        required
+      />
+
+      <DepartmentSelector
+        value={formData.department}
+        onChange={(value) => handleFormDataChange('department', value)}
+        facultyId={formData.faculty?.id}
+        required
+      />
+    </>
+  );
+
   return (
-    <FormControl component="form" fullWidth sx={{ pt: 2 }} onSubmit={handleSubmit}>
-      <Stack spacing={2}>
-        <CommonFormFields
-          formData={formData}
-          onFormDataChange={handleFormDataChange}
-          isLoading={isLoading}
-        />
-
-        <Autocomplete
-          options={universityPositions}
-          value={formData.universityPosition}
-          onChange={(_, value) => handleFormDataChange('universityPosition', value || '')}
-          renderInput={(params) => (
-            <TextField {...params} label="Должность" required />
-          )}
-        />
-
-        <Autocomplete
-          options={faculties}
-          getOptionLabel={(option) => option.name || ''}
-          value={formData.faculty}
-          onChange={
-            (_: React.SyntheticEvent, newValue: AuthRegistrationGetAvailableFacultiesFaculty | null) => {
-              setFormData(prev => ({ ...prev, faculty: newValue, department: null }));
-              if (newValue?.id) {
-                fetchDepartments({ facultyId: newValue.id });
-              }
-            }
-          }
-          renderInput={(params) => (
-            <TextField {...params} label="Факультет" required />
-          )}
-        />
-
-        <Autocomplete
-          options={departments}
-          getOptionLabel={(option) => option.name || ''}
-          value={formData.department}
-          onChange={
-            (_: React.SyntheticEvent, newValue: AuthRegistrationGetAvailableDepartmentsDepartment | null) => {
-              setFormData(prev => ({ ...prev, department: newValue }));
-            }
-          }
-          disabled={!formData.faculty}
-          renderInput={(params) => (
-            <TextField {...params} label="Кафедра" required />
-          )}
-        />
-
-        <SubmitButton
-          isLoading={isLoading}
-          label="Зарегистрироваться"
-        />
-      </Stack>
-    </FormControl>
+    <FormContainer
+      formData={formData}
+      onFormDataChange={handleFormDataChange}
+      onSubmit={handleSubmit}
+      isLoading={isLoading}
+      submitButtonLabel={buttonLabel ?? "Зарегистрироваться"}
+      additionalFields={additionalFields}
+    />
   );
 };
 

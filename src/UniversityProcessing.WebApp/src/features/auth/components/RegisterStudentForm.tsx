@@ -1,22 +1,28 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { Autocomplete, FormControl, Stack, TextField } from '@mui/material';
-import dayjs, { Dayjs } from 'dayjs';
-import { debounce } from '@mui/material/utils';
+import React from 'react';
+import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
-import { enqueueSnackbarError } from 'src/core/helpers';
+import { usePostApiAuthRegistrationRegisterStudentMutation, usePutApiUsersUpdateVerificationMutation } from 'src/api/backendApi';
 import {
-  useLazyGetApiAuthRegistrationGetAvailableGroupsQuery,
-  usePostApiAuthRegistrationRegisterStudentMutation
-} from 'src/api/backendApi';
-import CommonFormFields, { CommonFormData } from './CommonFormFields';
-import SubmitButton from 'src/components/forms/SubmitButton';
+  FormContainer,
+  GroupSelector,
+  useFormState,
+  useFormValidation,
+  ValidationRules,
+  CommonFormData
+} from './index';
+import { enqueueSnackbarError } from 'src/core/helpers';
+import { IRegisterFormProps } from './RegisterFormProps';
+import { enqueueSnackbar } from 'notistack';
 
 interface StudentFormData extends CommonFormData {
   groupNumber: string;
 }
 
-const RegisterStudentForm: React.FC = () => {
-  const [formData, setFormData] = useState<StudentFormData>({
+const RegisterStudentForm: React.FC<IRegisterFormProps> = ({
+  buttonLabel,
+  verify,
+  redirectToLogin }) => {
+  const initialFormData: StudentFormData = {
     userName: '',
     password: '',
     firstName: '',
@@ -26,88 +32,77 @@ const RegisterStudentForm: React.FC = () => {
     email: '',
     phoneNumber: '',
     groupNumber: ''
-  });
-
-  const [inputGroupValue, setInputGroupValue] = useState('');
-  const [tryRegister, { isLoading, isSuccess }] = usePostApiAuthRegistrationRegisterStudentMutation();
-  const [fetchGroups, { data: groupsData }] = useLazyGetApiAuthRegistrationGetAvailableGroupsQuery();
-
-  const groups = useMemo(() => groupsData?.groupNumbers || [], [groupsData]);
-
-  const debouncedFetchGroups = useCallback(
-    debounce((searchValue: string) => {
-      if (searchValue) {
-        fetchGroups({ number: searchValue });
-      }
-    }, 500),
-    [fetchGroups]
-  );
-
-  const handleFormDataChange = (field: keyof StudentFormData, value: string | Dayjs) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleGroupInputChange = useCallback(
-    (event: React.SyntheticEvent, value: string) => {
-      setInputGroupValue(value);
-      debouncedFetchGroups(value);
-    },
-    [debouncedFetchGroups]
-  );
+  const { formData, handleFormDataChange, updateFormData } = useFormState(initialFormData);
+  const [tryRegister, { isLoading, isSuccess }] = usePostApiAuthRegistrationRegisterStudentMutation();
+  const { validateForm } = useFormValidation();
+  const [tryVerify, { }] = usePutApiUsersUpdateVerificationMutation();
+
+  const validationRules: ValidationRules<StudentFormData> = {
+    requiredFields: ['userName', 'password', 'firstName', 'groupNumber']
+  };
+
+  const transformRequest = (formData: StudentFormData) => ({
+    ...formData,
+    birthday: formData.birthday.toISOString()
+  });
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const { userName, password, firstName, groupNumber, ...rest } = formData;
-
-    if (!userName || !password || !firstName || !groupNumber) {
-      enqueueSnackbarError('Заполните обязательные поля');
+    if (!validateForm(formData, validationRules)) {
       return;
     }
 
     const response = await tryRegister({
-      authRegistrationRegisterStudentRequest: {
-        ...formData,
-        birthday: formData.birthday.toISOString()
-      }
+      authRegistrationRegisterStudentRequest: transformRequest(formData)
     });
 
     if (response.error) {
       enqueueSnackbarError(response.error);
+      return;
+    }
+
+    if (redirectToLogin)
+      return;
+
+    updateFormData(initialFormData);
+    enqueueSnackbar('Пользователь создан', { variant: 'success' });
+
+    if (verify) {
+      const verifyResponse = await tryVerify({ usersUpdateVerificationRequest: { userId: response.data.userId, isApproved: true } });
+
+      if (verifyResponse.error) {
+        enqueueSnackbarError(verifyResponse.error);
+        return;
+      }
+
+      enqueueSnackbar('Пользователь верифицирован', { variant: 'success' });
     }
   };
 
-  if (isSuccess) {
+  if (isSuccess && redirectToLogin) {
     return <RegisterResultModal />;
   }
 
+  const additionalFields = (
+    <GroupSelector
+      value={formData.groupNumber}
+      onChange={(value) => handleFormDataChange('groupNumber', value)}
+      required
+    />
+  );
+
   return (
-    <FormControl component="form" fullWidth sx={{ pt: 2 }} onSubmit={handleSubmit}>
-      <Stack spacing={2}>
-        <CommonFormFields
-          formData={formData}
-          onFormDataChange={handleFormDataChange}
-          isLoading={isLoading}
-        />
-
-        <Autocomplete
-          freeSolo
-          options={groups}
-          inputValue={inputGroupValue}
-          onInputChange={handleGroupInputChange}
-          value={formData.groupNumber}
-          onChange={(_, value) => handleFormDataChange('groupNumber', value || '')}
-          renderInput={(params) => (
-            <TextField {...params} label="Номер группы" required />
-          )}
-        />
-
-        <SubmitButton
-          isLoading={isLoading}
-          label="Зарегистрироваться"
-        />
-      </Stack>
-    </FormControl>
+    <FormContainer
+      formData={formData}
+      onFormDataChange={handleFormDataChange}
+      onSubmit={handleSubmit}
+      isLoading={isLoading}
+      submitButtonLabel={buttonLabel ?? "Зарегистрироваться"}
+      additionalFields={additionalFields}
+    />
   );
 };
 

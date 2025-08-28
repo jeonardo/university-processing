@@ -119,12 +119,13 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.authChangePasswordRequest,
       }),
     }),
-    getApiFacultiesSetFacultyHead: build.query<
-      GetApiFacultiesSetFacultyHeadApiResponse,
-      GetApiFacultiesSetFacultyHeadApiArg
+    patchApiFacultiesSetFacultyHead: build.mutation<
+      PatchApiFacultiesSetFacultyHeadApiResponse,
+      PatchApiFacultiesSetFacultyHeadApiArg
     >({
       query: (queryArg) => ({
         url: `/api/Faculties/SetFacultyHead`,
+        method: "PATCH",
         params: {
           FacultyId: queryArg.facultyId,
           UserId: queryArg.userId,
@@ -143,6 +144,17 @@ const injectedRtkApi = api.injectEndpoints({
           Filter: queryArg.filter,
           Desc: queryArg.desc,
           OrderBy: queryArg.orderBy,
+        },
+      }),
+    }),
+    getApiFacultiesGetFullDescription: build.query<
+      GetApiFacultiesGetFullDescriptionApiResponse,
+      GetApiFacultiesGetFullDescriptionApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Faculties/GetFullDescription`,
+        params: {
+          Id: queryArg.id,
         },
       }),
     }),
@@ -306,8 +318,8 @@ export type PostApiAuthChangePasswordApiResponse = unknown;
 export type PostApiAuthChangePasswordApiArg = {
   authChangePasswordRequest: AuthChangePasswordRequest;
 };
-export type GetApiFacultiesSetFacultyHeadApiResponse = unknown;
-export type GetApiFacultiesSetFacultyHeadApiArg = {
+export type PatchApiFacultiesSetFacultyHeadApiResponse = unknown;
+export type PatchApiFacultiesSetFacultyHeadApiArg = {
   facultyId: string;
   userId: string;
 };
@@ -319,6 +331,11 @@ export type GetApiFacultiesGetApiArg = {
   filter?: string;
   desc?: boolean;
   orderBy?: string;
+};
+export type GetApiFacultiesGetFullDescriptionApiResponse =
+  /** status 200 OK */ FacultiesGetFullDescriptionResponse;
+export type GetApiFacultiesGetFullDescriptionApiArg = {
+  id: string;
 };
 export type DeleteApiFacultiesDeleteApiResponse = unknown;
 export type DeleteApiFacultiesDeleteApiArg = {
@@ -504,6 +521,24 @@ export type FacultiesGetResponseRead = {
   hasPrevious?: boolean;
   hasNext?: boolean;
 };
+export type FacultiesGetFullDescriptionFacultyFullDescriptionUser = {
+  id?: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  middleName?: string | null;
+  email?: string | null;
+  phoneNumber?: string | null;
+  position?: string | null;
+  blocked?: boolean;
+  approved?: boolean;
+};
+export type FacultiesGetFullDescriptionResponse = {
+  id?: string;
+  name?: string | null;
+  shortName?: string | null;
+  head?: FacultiesGetFullDescriptionFacultyFullDescriptionUser;
+  deaneries?: FacultiesGetFullDescriptionFacultyFullDescriptionUser[] | null;
+};
 export type FacultiesCreateResponse = {
   id?: string;
 };
@@ -659,10 +694,11 @@ export const {
   useGetApiAuthInfoQuery,
   useLazyGetApiAuthInfoQuery,
   usePostApiAuthChangePasswordMutation,
-  useGetApiFacultiesSetFacultyHeadQuery,
-  useLazyGetApiFacultiesSetFacultyHeadQuery,
+  usePatchApiFacultiesSetFacultyHeadMutation,
   useGetApiFacultiesGetQuery,
   useLazyGetApiFacultiesGetQuery,
+  useGetApiFacultiesGetFullDescriptionQuery,
+  useLazyGetApiFacultiesGetFullDescriptionQuery,
   useDeleteApiFacultiesDeleteMutation,
   usePostApiFacultiesCreateMutation,
   usePutApiUsersUpdateVerificationMutation,

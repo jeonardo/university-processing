@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Alert, Box, Button, IconButton, InputAdornment, Paper, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, CircularProgress, Container, IconButton, InputAdornment, Paper, TextField, Typography } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { usePostApiAuthChangePasswordMutation } from 'src/api/backendApi';
+import { enqueueSnackbarError } from 'src/core/helpers';
+import { enqueueSnackbar } from 'notistack';
 
 interface FormState {
   currentPassword: string;
@@ -22,8 +24,6 @@ const PasswordChangePage: React.FC = () => {
     showConfirmPassword: false
   });
 
-  const [error, setError] = useState<string>('');
-  const [success, setSuccess] = useState<boolean>(false);
   const [changePassword, { isLoading, data }] = usePostApiAuthChangePasswordMutation();
 
   const handleChange = (prop: keyof FormState) => (
@@ -38,15 +38,14 @@ const PasswordChangePage: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setError('');
 
     if (formState.newPassword !== formState.confirmPassword) {
-      setError('Новые пароли не совпадают');
+      enqueueSnackbarError('Новые пароли не совпадают');
       return;
     }
 
     if (formState.newPassword.length < 4) {
-      setError('Пароль должен содержать минимум 4 символов');
+      enqueueSnackbarError('Пароль должен содержать минимум 4 символов');
       return;
     }
 
@@ -58,36 +57,34 @@ const PasswordChangePage: React.FC = () => {
         }
       });
 
-      if (error && typeof error === 'string') {
-        setError(error);
+      if (error) {
+        enqueueSnackbarError(error);
       } else {
-        setSuccess(true);
+        enqueueSnackbar('Пароль успешно изменен', { variant: 'success' });
+        setFormState({
+          currentPassword: '',
+          newPassword: '',
+          confirmPassword: '',
+          showPassword: false,
+          showNewPassword: false,
+          showConfirmPassword: false
+        });
       }
     } catch (error: any) {
-      setError(error.data.message);
+      enqueueSnackbarError(error.data.message);
     }
   };
 
   return (
-    <Box className="flex justify-center items-center h-full"
-    >
-      <Paper elevation={3} sx={{ padding: 4, width: 400 }}>
-        <Typography variant="h5" component="h1" gutterBottom align="center">
-          Смена пароля
-        </Typography>
+    <Container>
+      <Box className="flex justify-center h-full"
+      >
+        <Paper elevation={3} sx={{ padding: 4 }}>
+          <Typography variant="h5" component="h1" gutterBottom align="center">
+            Смена пароля
+          </Typography>
 
-        <Box component="form" onSubmit={handleSubmit}>
-          {error && (
-            <Alert severity="error" sx={{ mb: 2 }}>
-              {error}
-            </Alert>
-          )}
-
-          {success ? (
-            <Alert severity="success">
-              Пароль успешно изменен!
-            </Alert>
-          ) : (
+          <Box component="form" onSubmit={handleSubmit}>
             <>
               <TextField
                 fullWidth
@@ -160,14 +157,20 @@ const PasswordChangePage: React.FC = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3 }}
+                disabled={isLoading}
               >
-                Сменить пароль
+                {
+                  isLoading
+                    ? <CircularProgress size={24} />
+                    : <span>Сменить пароль</span>
+                }
+
               </Button>
             </>
-          )}
-        </Box>
-      </Paper>
-    </Box>
+          </Box>
+        </Paper>
+      </Box>
+    </Container>
   );
 };
 

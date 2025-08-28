@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using UniversityProcessing.Domain;
 using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
@@ -24,12 +25,13 @@ internal sealed class GetFaculties : IEndpoint
         [FromServices] IEfRepository<Faculty> repository,
         CancellationToken cancellationToken)
     {
-        var pagedList = await repository.TypedDbContext.ToPagedListAsync(request, null, null, cancellationToken);
-        return new GetFacultiesResponseDto(pagedList.Items.Select(ToDto), pagedList.TotalCount, pagedList.CurrentPage, pagedList.PageSize);
-    }
-
-    private static FacultyDto ToDto(Faculty input)
-    {
-        return new FacultyDto(input.Id, input.Name, input.ShortName);
+        var pagedList = await repository.TypedDbContext.ToPagedListAsync(
+            request,
+            x => EF.Functions.Like(x.Name, $"%{request.Filter}%")
+                || EF.Functions.Like(x.ShortName, $"%{request.Filter}%"),
+            x => new FacultyDto(x.Id, x.Name, x.ShortName),
+            null,
+            cancellationToken);
+        return new GetFacultiesResponseDto(pagedList);
     }
 }

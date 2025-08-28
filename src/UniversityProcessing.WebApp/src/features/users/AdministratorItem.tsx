@@ -9,6 +9,7 @@ import {
 } from '@mui/icons-material';
 import { enqueueSnackbarError } from 'src/core/helpers';
 import { enqueueSnackbar } from 'notistack';
+import { namingTools } from 'src/core/namingTools';
 
 interface UserItemProps<T> {
   item: T;
@@ -16,13 +17,14 @@ interface UserItemProps<T> {
   showVerificationAction?: boolean;
 }
 
-const UserItem: React.FC<UserItemProps<UsersGetAdminsAdmin>> = ({
+const AdministratorItem: React.FC<UserItemProps<UsersGetAdminsAdmin>> = ({
   item,
   currentUser,
   showVerificationAction
 }) => {
   const [updateVerification, { isLoading: isLoadingVerification }] = usePutApiUsersUpdateVerificationMutation();
   const [verification, setVerification] = useState(item.approved);
+  const fullName = namingTools.fullName(item);
 
   const handleUpdateApproval = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -50,7 +52,7 @@ const UserItem: React.FC<UserItemProps<UsersGetAdminsAdmin>> = ({
   return (
     <ListItem key={item.id} className="py-4 flex justify-between items-center">
       <ListItemText
-        primary={`${item.lastName} ${item.firstName} ${item.middleName ?? ''}`}
+        primary={fullName}
       />
       {
         item.id == currentUser?.userId
@@ -109,4 +111,4 @@ const UserItem: React.FC<UserItemProps<UsersGetAdminsAdmin>> = ({
     </ListItem>);
 };
 
-export default UserItem;
+export default AdministratorItem;

@@ -14,6 +14,13 @@ export interface CommonFormData {
   phoneNumber: string;
 }
 
+export interface ExtendedFormData extends CommonFormData {
+  universityPosition?: string;
+  faculty?: any;
+  department?: any;
+  groupNumber?: string;
+}
+
 interface CommonFormFieldsProps {
   formData: CommonFormData;
   onFormDataChange: (field: keyof CommonFormData, value: string | Dayjs) => void;

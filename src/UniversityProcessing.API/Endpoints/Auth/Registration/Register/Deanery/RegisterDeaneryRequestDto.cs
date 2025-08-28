@@ -3,7 +3,7 @@ using UniversityProcessing.API.Endpoints.Auth.Registration.Common.Forms;
 
 namespace UniversityProcessing.API.Endpoints.Auth.Registration.Register.Deanery;
 
-public sealed class RegisterDeaneryRequestDto : BaseRegisterRequestDto, IAdminRegistrationForm
+public sealed class RegisterDeaneryRequestDto : BaseRegisterRequestDto, IDeaneryRegistrationForm
 {
     [Required]
     public Guid UniversityPositionId { get; set; }

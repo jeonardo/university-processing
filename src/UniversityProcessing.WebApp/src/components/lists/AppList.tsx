@@ -5,17 +5,17 @@ interface AppListProps {
   isEmpty: boolean;
   isLoading: boolean;
   children?: ReactNode;
-  maxHeight?: number | string;
+  height?: number | string;
 }
 
-const AppList: React.FC<AppListProps> = ({ isEmpty, isLoading, children, maxHeight = '60vh' }) => {
+const AppList: React.FC<AppListProps> = ({ isEmpty, isLoading, children, height = '60vh' }) => {
 
   if (isEmpty) {
     return <Typography className="text-center py-4">Информация не найдена</Typography>;
   }
 
   return (
-    <Box sx={{ position: 'relative', maxHeight, overflowY: 'auto' }}>
+    <Box sx={{ position: 'relative', height, overflowY: 'auto' }}>
       {isLoading && (
         <Box className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-50">
           <CircularProgress />

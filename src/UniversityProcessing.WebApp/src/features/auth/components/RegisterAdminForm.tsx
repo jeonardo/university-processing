@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
-import { FormControl, Stack } from '@mui/material';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
+import { usePostApiAuthRegistrationRegisterAdminMutation, usePutApiUsersUpdateVerificationMutation } from 'src/api/backendApi';
+import {
+  FormContainer,
+  useFormState,
+  useFormValidation,
+  ValidationRules,
+  CommonFormData
+} from './index';
 import { enqueueSnackbarError } from 'src/core/helpers';
-import { usePostApiAuthRegistrationRegisterAdminMutation } from 'src/api/backendApi';
-import CommonFormFields, { CommonFormData } from './CommonFormFields';
-import SubmitButton from 'src/components/forms/SubmitButton';
+import { IRegisterFormProps } from './RegisterFormProps';
+import { enqueueSnackbar } from 'notistack';
 
-interface AdminFormData extends CommonFormData {
-}
+interface AdminFormData extends CommonFormData { }
 
-const RegisterAdminForm: React.FC = () => {
-  const [formData, setFormData] = useState<AdminFormData>({
+const RegisterAdminForm: React.FC<IRegisterFormProps> = ({
+  buttonLabel,
+  verify,
+  redirectToLogin }) => {
+  const initialFormData: AdminFormData = {
     userName: '',
     password: '',
     firstName: '',
@@ -20,58 +28,74 @@ const RegisterAdminForm: React.FC = () => {
     birthday: dayjs(),
     email: '',
     phoneNumber: ''
-  });
-
-  const [tryRegister, { isLoading, isSuccess }] = usePostApiAuthRegistrationRegisterAdminMutation();
-
-  const handleFormDataChange = (field: keyof AdminFormData, value: string | Dayjs) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
   };
+
+  const { formData, handleFormDataChange, updateFormData } = useFormState(initialFormData);
+  const [tryRegister, { isLoading, isSuccess }] = usePostApiAuthRegistrationRegisterAdminMutation();
+  const { validateForm } = useFormValidation();
+  const [tryVerify, { }] = usePutApiUsersUpdateVerificationMutation();
+
+  const validationRules: ValidationRules = {
+    requiredFields: ['userName', 'password', 'firstName']
+  };
+
+  const transformRequest = (formData: AdminFormData) => ({
+    password: formData.password,
+    userName: formData.userName,
+    firstName: formData.firstName,
+    middleName: formData.middleName,
+    lastName: formData.lastName,
+    birthday: formData.birthday.toISOString(),
+    email: formData.email,
+    phoneNumber: formData.phoneNumber
+  });
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const { userName, password, firstName, ...rest } = formData;
-
-    if (!userName || !password || !firstName) {
-      enqueueSnackbarError('Заполните обязательные поля');
+    if (!validateForm(formData, validationRules)) {
       return;
     }
 
     const response = await tryRegister({
-      authRegistrationRegisterAdminRequest: {
-        password,
-        userName,
-        firstName,
-        ...rest,
-        birthday: formData.birthday.toISOString()
-      }
+      authRegistrationRegisterAdminRequest: transformRequest(formData)
     });
 
     if (response.error) {
       enqueueSnackbarError(response.error);
+      return;
+    }
+
+    if (redirectToLogin)
+      return;
+
+    updateFormData(initialFormData);
+    enqueueSnackbar('Пользователь создан', { variant: 'success' });
+
+    if (verify) {
+      const verifyResponse = await tryVerify({ usersUpdateVerificationRequest: { userId: response.data.userId, isApproved: true } });
+
+      if (verifyResponse.error) {
+        enqueueSnackbarError(verifyResponse.error);
+        return;
+      }
+
+      enqueueSnackbar('Пользователь верифицирован', { variant: 'success' });
     }
   };
 
-  if (isSuccess) {
+  if (isSuccess && redirectToLogin) {
     return <RegisterResultModal />;
   }
 
   return (
-    <FormControl component="form" fullWidth sx={{ pt: 2 }} onSubmit={handleSubmit}>
-      <Stack spacing={2}>
-        <CommonFormFields
-          formData={formData}
-          onFormDataChange={handleFormDataChange}
-          isLoading={isLoading}
-        />
-
-        <SubmitButton
-          isLoading={isLoading}
-          label="Зарегистрироваться"
-        />
-      </Stack>
-    </FormControl>
+    <FormContainer
+      formData={formData}
+      onFormDataChange={handleFormDataChange}
+      onSubmit={handleSubmit}
+      isLoading={isLoading}
+      submitButtonLabel={buttonLabel ?? "Зарегистрироваться"}
+    />
   );
 };
 

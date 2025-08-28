@@ -34,7 +34,7 @@ const RegisterPage = () => {
           }}
         >
           <MenuItem disabled
-                    value={ContractsUserRoleType.None}>{RoleLocalizationLabel(ContractsUserRoleType.None)}</MenuItem>
+            value={ContractsUserRoleType.None}>{RoleLocalizationLabel(ContractsUserRoleType.None)}</MenuItem>
           <MenuItem value={ContractsUserRoleType.Admin}>{RoleLocalizationLabel(ContractsUserRoleType.Admin)}</MenuItem>
           <MenuItem
             value={ContractsUserRoleType.Deanery}>{RoleLocalizationLabel(ContractsUserRoleType.Deanery)}</MenuItem>
@@ -52,7 +52,7 @@ const RegisterPage = () => {
       }
       {
         userRole == 'Admin'
-          ? <RegisterAdminForm />
+          ? <RegisterAdminForm redirectToLogin={true} />
           : <></>
       }
       {

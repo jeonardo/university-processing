@@ -1,5 +1,5 @@
 import FacultiesPage from 'src/features/faculties/FacultiesPage';
-import FacultyPage from 'src/features/faculties/FacultiesPage';
+import FacultyPage from 'src/features/faculty/FacultyPage';
 import PasswordChangePage from 'src/features/identity/PasswordChangePage';
 import NotFoundPage from 'src/features/NotFoundPage';
 import PrivateLayoutWrapper from 'src/features/PrivateLayoutWrapper';
@@ -26,7 +26,11 @@ const PrivateRoutes = {
     {
       path: 'faculties',
       element: <FacultiesPage />
-    }
+    },
+    {
+      path: 'faculties/:id',
+      element: <FacultyPage />
+    },
     // {
     //   path: 'periods',
     //   element: <PeriodsPage />

@@ -13,4 +13,8 @@ public class PagedList<T>(IEnumerable<T> items, int count, int currentPage, int 
 
     public bool HasPrevious => CurrentPage > 1;
     public bool HasNext => CurrentPage < TotalPages;
+
+    public PagedList(PagedList<T> pagedList) : this(pagedList.Items, pagedList.TotalCount, pagedList.CurrentPage, pagedList.PageSize)
+    {
+    }
 }
