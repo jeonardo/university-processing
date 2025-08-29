@@ -10,8 +10,8 @@ import {
   ValidationRules,
   CommonFormData
 } from './index';
-import { enqueueSnackbarError } from 'src/core/helpers';
 import { IRegisterFormProps } from './RegisterFormProps';
+import { useRegistrationSubmit } from './useRegistrationSubmit';
 import { enqueueSnackbar } from 'notistack';
 
 interface StudentFormData extends CommonFormData {
@@ -21,7 +21,8 @@ interface StudentFormData extends CommonFormData {
 const RegisterStudentForm: React.FC<IRegisterFormProps> = ({
   buttonLabel,
   verify,
-  redirectToLogin }) => {
+  redirectToLogin,
+  onSuccess }) => {
   const initialFormData: StudentFormData = {
     userName: '',
     password: '',
@@ -48,39 +49,20 @@ const RegisterStudentForm: React.FC<IRegisterFormProps> = ({
     birthday: formData.birthday.toISOString()
   });
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    if (!validateForm(formData, validationRules)) {
-      return;
-    }
-
-    const response = await tryRegister({
-      authRegistrationRegisterStudentRequest: transformRequest(formData)
-    });
-
-    if (response.error) {
-      enqueueSnackbarError(response.error);
-      return;
-    }
-
-    if (redirectToLogin)
-      return;
-
-    updateFormData(initialFormData);
-    enqueueSnackbar('Пользователь создан', { variant: 'success' });
-
-    if (verify) {
-      const verifyResponse = await tryVerify({ usersUpdateVerificationRequest: { userId: response.data.userId, isApproved: true } });
-
-      if (verifyResponse.error) {
-        enqueueSnackbarError(verifyResponse.error);
-        return;
-      }
-
-      enqueueSnackbar('Пользователь верифицирован', { variant: 'success' });
-    }
-  };
+  const { handleSubmit } = useRegistrationSubmit<StudentFormData>({
+    formData,
+    validateForm,
+    validationRules,
+    tryRegister,
+    requestKey: 'authRegistrationRegisterStudentRequest',
+    transformRequest,
+    redirectToLogin,
+    verify,
+    tryVerify,
+    updateFormData,
+    initialFormData,
+    onSuccess,
+  });
 
   if (isSuccess && redirectToLogin) {
     return <RegisterResultModal />;

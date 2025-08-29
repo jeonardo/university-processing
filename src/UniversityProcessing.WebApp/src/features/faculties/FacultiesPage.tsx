@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Box, Button, Container, Dialog, DialogContent, DialogTitle, Paper, Switch, Tooltip, Typography } from '@mui/material';
+import { Box, Button, Container, Dialog, DialogContent, DialogTitle, FormControl, Paper, Stack, TextField, Typography } from '@mui/material';
+import ModalForm from 'src/components/layout/ModalForm';
 import AppList from 'src/components/lists/AppList';
 import FacultyItem from './FacultyItem';
 import AppListPagination from 'src/components/lists/AppListPagination';
-import { ContractsUserRoleType, useGetApiFacultiesGetQuery, useLazyGetApiFacultiesGetQuery } from 'src/api/backendApi';
-import { useAppSelector } from 'src/core/hooks';
+import { ContractsUserRoleType, useGetApiFacultiesGetQuery, useLazyGetApiFacultiesGetQuery, usePostApiFacultiesCreateMutation } from 'src/api/backendApi';
+import { useAppSelector, useRequireAdmin } from 'src/core/hooks';
 import { useNavigate } from 'react-router-dom';
 import { RegisterAdminForm } from '../auth/components';
 import AppListSearch from 'src/components/lists/AppListSearch';
@@ -19,24 +20,74 @@ import {
   VerifiedUser as VerifiedUserIcon,
   Work as WorkIcon
 } from '@mui/icons-material';
+import SubmitButton from 'src/components/forms/SubmitButton';
+import { enqueueSnackbar } from 'notistack';
+import { on } from 'events';
+import { enqueueSnackbarError } from 'src/core/helpers';
+import { usePagedSearch } from 'src/core/usePagedSearch';
 
 const AddFacultyModal: React.FC<{
   open: boolean;
   onClose: () => void;
-}> = ({ open, onClose }) => {
-  return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Добавить новый факультет</DialogTitle>
-      <DialogContent>
+  onSuccess: () => void;
+}> = ({ open, onClose, onSuccess }) => {
+  const [name, setName] = useState('');
+  const [shortName, setShortName] = useState('');
 
-      </DialogContent>
-    </Dialog>
+  const [createFaculty, { isLoading, error }] = usePostApiFacultiesCreateMutation();
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const result = await createFaculty({
+      facultiesCreateRequest: {
+        name: name,
+        shortName: shortName
+      }
+    });
+    if (result.error) {
+      enqueueSnackbarError(result.error);
+    }
+    else {
+      enqueueSnackbar('Факультет добавлен', { variant: 'success' });
+      onClose();
+      onSuccess();
+    }
+  };
+
+  return (
+    <ModalForm open={open} onClose={onClose} title="Добавить новый факультет">
+      <FormControl component="form" fullWidth sx={{ pt: 2 }} onSubmit={handleSubmit}>
+        <Stack spacing={2}>
+          <TextField
+            required
+            label="Название"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            disabled={isLoading}
+          />
+          <TextField
+            required
+            label="Короткое название"
+            value={shortName}
+            onChange={(event) => setShortName(event.target.value)}
+            disabled={isLoading}
+          />
+          <SubmitButton
+            isLoading={isLoading}
+            label={'Добавить'}
+          />
+        </Stack>
+      </FormControl>
+    </ModalForm>
   );
 };
 
 const FacultiesPage = () => {
-  const [pageNumber, setPageNumber] = useState(1);
-  const [search, setSearch] = useState('');
+  const { pageNumber, setPageNumber, onSearchValueChanged, search } = usePagedSearch({
+    getData: (args: any) => getData(args),
+    pageSize: 25,
+  });
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -45,19 +96,16 @@ const FacultiesPage = () => {
       pollingInterval: 15000
     });
 
+
+  useRequireAdmin();
   const currentUser = useAppSelector(state => state.auth.user);
   const isAdmin = currentUser?.role == ContractsUserRoleType.Admin;
 
   useEffect(() => {
-    if (!isAdmin)
-      navigate('/');
-    getData({ filter: search, pageNumber: pageNumber, pageSize: 25 });
-  }, [pageNumber, search, currentUser]);
+    // загрузка делается внутри usePagedSearch
+  }, [currentUser]);
 
-  const SearchValueChanged = (newSearch: string) => {
-    setPageNumber(1);
-    setSearch(newSearch);
-  };
+  const SearchValueChanged = onSearchValueChanged;
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -72,6 +120,7 @@ const FacultiesPage = () => {
       <AddFacultyModal
         open={isModalOpen}
         onClose={handleCloseModal}
+        onSuccess={() => getData({ filter: search, pageNumber: pageNumber, pageSize: 25 })}
       />
       <Paper className="p-6">
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>

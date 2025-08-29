@@ -1,7 +1,7 @@
 import React from 'react';
-import { Autocomplete, TextField } from '@mui/material';
 import { AuthRegistrationGetAvailableFacultiesFaculty } from 'src/api/backendApi';
 import { useGetApiAuthRegistrationGetAvailableFacultiesQuery } from 'src/api/backendApi';
+import AutocompleteField from 'src/components/forms/AutocompleteField';
 
 interface FacultySelectorProps {
   value: AuthRegistrationGetAvailableFacultiesFaculty | null;
@@ -22,15 +22,14 @@ const FacultySelector: React.FC<FacultySelectorProps> = ({
     facultiesData?.faculties || [], [facultiesData]);
 
   return (
-    <Autocomplete
+    <AutocompleteField
       options={faculties}
       getOptionLabel={(option) => option.name || ''}
       value={value}
-      onChange={(_, newValue) => onChange(newValue)}
+      onChange={onChange}
       disabled={disabled}
-      renderInput={(params) => (
-        <TextField {...params} label="Факультет" required={required} />
-      )}
+      required={required}
+      label={'Факультет'}
     />
   );
 };

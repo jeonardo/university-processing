@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
 import { usePostApiAuthRegistrationRegisterAdminMutation, usePutApiUsersUpdateVerificationMutation } from 'src/api/backendApi';
@@ -9,16 +9,16 @@ import {
   ValidationRules,
   CommonFormData
 } from './index';
-import { enqueueSnackbarError } from 'src/core/helpers';
 import { IRegisterFormProps } from './RegisterFormProps';
-import { enqueueSnackbar } from 'notistack';
+import { useRegistrationSubmit } from './useRegistrationSubmit';
 
 interface AdminFormData extends CommonFormData { }
 
 const RegisterAdminForm: React.FC<IRegisterFormProps> = ({
   buttonLabel,
   verify,
-  redirectToLogin }) => {
+  redirectToLogin,
+  onSuccess }) => {
   const initialFormData: AdminFormData = {
     userName: '',
     password: '',
@@ -50,39 +50,20 @@ const RegisterAdminForm: React.FC<IRegisterFormProps> = ({
     phoneNumber: formData.phoneNumber
   });
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    if (!validateForm(formData, validationRules)) {
-      return;
-    }
-
-    const response = await tryRegister({
-      authRegistrationRegisterAdminRequest: transformRequest(formData)
-    });
-
-    if (response.error) {
-      enqueueSnackbarError(response.error);
-      return;
-    }
-
-    if (redirectToLogin)
-      return;
-
-    updateFormData(initialFormData);
-    enqueueSnackbar('Пользователь создан', { variant: 'success' });
-
-    if (verify) {
-      const verifyResponse = await tryVerify({ usersUpdateVerificationRequest: { userId: response.data.userId, isApproved: true } });
-
-      if (verifyResponse.error) {
-        enqueueSnackbarError(verifyResponse.error);
-        return;
-      }
-
-      enqueueSnackbar('Пользователь верифицирован', { variant: 'success' });
-    }
-  };
+  const { handleSubmit } = useRegistrationSubmit<AdminFormData>({
+    formData,
+    validateForm,
+    validationRules,
+    tryRegister,
+    requestKey: 'authRegistrationRegisterAdminRequest',
+    transformRequest,
+    redirectToLogin,
+    verify,
+    tryVerify,
+    updateFormData,
+    initialFormData,
+    onSuccess,
+  });
 
   if (isSuccess && redirectToLogin) {
     return <RegisterResultModal />;

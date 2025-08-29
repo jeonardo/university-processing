@@ -12,21 +12,21 @@ import {
   ValidationRules,
   CommonFormData
 } from './index';
-import { AuthRegistrationGetAvailableUniversityPositionsUniversityPosition } from 'src/api/backendApi';
-import { enqueueSnackbarError } from 'src/core/helpers';
+import { AuthRegistrationGetAvailableUniversityPositionsUniversityPosition, AuthRegistrationGetAvailableFacultiesFaculty, AuthRegistrationGetAvailableDepartmentsDepartment } from 'src/api/backendApi';
 import { IRegisterFormProps } from './RegisterFormProps';
-import { enqueueSnackbar } from 'notistack';
+import { useRegistrationSubmit } from './useRegistrationSubmit';
 
 interface TeacherFormData extends CommonFormData {
   universityPosition: AuthRegistrationGetAvailableUniversityPositionsUniversityPosition | null;
-  faculty: any;
-  department: any;
+  faculty: AuthRegistrationGetAvailableFacultiesFaculty | null;
+  department: AuthRegistrationGetAvailableDepartmentsDepartment | null;
 }
 
 const RegisterTeacherForm: React.FC<IRegisterFormProps> = ({
   buttonLabel,
   verify,
-  redirectToLogin }) => {
+  redirectToLogin,
+  onSuccess }) => {
   const initialFormData: TeacherFormData = {
     userName: '',
     password: '',
@@ -63,41 +63,22 @@ const RegisterTeacherForm: React.FC<IRegisterFormProps> = ({
     departmentId: formData.department?.id ?? ''
   });
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const { handleSubmit } = useRegistrationSubmit<TeacherFormData>({
+    formData,
+    validateForm,
+    validationRules,
+    tryRegister,
+    requestKey: 'authRegistrationRegisterTeacherRequest',
+    transformRequest,
+    redirectToLogin,
+    verify,
+    tryVerify,
+    updateFormData,
+    initialFormData,
+    onSuccess,
+  });
 
-    if (!validateForm(formData, validationRules)) {
-      return;
-    }
-
-    const response = await tryRegister({
-      authRegistrationRegisterTeacherRequest: transformRequest(formData)
-    });
-
-    if (response.error) {
-      enqueueSnackbarError(response.error);
-      return;
-    }
-
-    if (redirectToLogin)
-      return;
-
-    updateFormData(initialFormData);
-    enqueueSnackbar('Пользователь создан', { variant: 'success' });
-
-    if (verify) {
-      const verifyResponse = await tryVerify({ usersUpdateVerificationRequest: { userId: response.data.userId, isApproved: true } });
-
-      if (verifyResponse.error) {
-        enqueueSnackbarError(verifyResponse.error);
-        return;
-      }
-
-      enqueueSnackbar('Пользователь верифицирован', { variant: 'success' });
-    }
-  };
-
-  const handleFacultyChange = (faculty: any) => {
+  const handleFacultyChange = (faculty: AuthRegistrationGetAvailableFacultiesFaculty | null) => {
     updateFormData({ faculty, department: null });
   };
 

@@ -3,7 +3,11 @@ using UniversityProcessing.Domain;
 using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 
-// ReSharper disable All
+// ReSharper disable CollectionNeverQueried.Local
+// ReSharper disable ClassCanBeSealed.Global
+// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedVariable
+// ReSharper disable IdentifierTypo
 
 namespace UniversityProcessing.Infrastructure.Seeds;
 
@@ -22,9 +26,11 @@ public class UniversitySeed(
 
     private List<User> StudentValues { get; set; } = [];
 
-    private List<User> EmployeeValues { get; set; } = [];
+    private List<User> TeacherValues { get; set; } = [];
 
     private List<User> AdminValues { get; set; } = [];
+
+    private List<User> DeaneryValues { get; set; } = [];
 
     private List<UniversityPosition> UniversityPositionValues { get; set; } = [];
 
@@ -81,14 +87,14 @@ public class UniversitySeed(
         var bntu_faculty_fitr_poisit = await AddDepartment(
             "Программное обеспечение информационных систем и технологий",
             "ПОИСиТ",
-            bntu_faculty_fmmp);
+            bntu_faculty_fitr);
         var bntu_faculty_fitr_zaputk = await AddDepartment(
             "Электропривод и автоматизация промышленных установок и технологических комплексов",
             "ЭАПУиТК",
-            bntu_faculty_fmmp);
-        var bntu_faculty_fitr_rts = await AddDepartment("Робототехнические системы", "РТС", bntu_faculty_fmmp);
-        var bntu_faculty_fitr_tf = await AddDepartment("Техническая физика", "ТФ", bntu_faculty_fmmp);
-        var bntu_faculty_fitr_vm = await AddDepartment("Высшая математика", "ВМ", bntu_faculty_fmmp);
+            bntu_faculty_fitr);
+        var bntu_faculty_fitr_rts = await AddDepartment("Робототехнические системы", "РТС", bntu_faculty_fitr);
+        var bntu_faculty_fitr_tf = await AddDepartment("Техническая физика", "ТФ", bntu_faculty_fitr);
+        var bntu_faculty_fitr_vm = await AddDepartment("Высшая математика", "ВМ", bntu_faculty_fitr);
 
         var bntu_faculty_fitr_sp1 = await AddSpecialty(
             "Автоматизация технологических процессов и производств в энергетике",
@@ -117,20 +123,20 @@ public class UniversitySeed(
             "6-05-0713-05",
             bntu_faculty_fitr_poisit);
 
-        var bntu_polozkov = await AddTeacher("Polozkov_Yuri_Vladimirovich", bntu_pos_8, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
-        var bntu_shchukin = await AddTeacher("Shchukin_Mikhail_Vladimirovich", bntu_pos_8, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
-        var bntu_khorunzhiy = await AddTeacher("Khorunzhiy_Igor_Anatolievich", bntu_pos_8, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
-        var bntu_borodulya = await AddTeacher("Borodulya_Alexey_Valentinovich", bntu_pos_8, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
-        var bntu_pavlyukovets = await AddTeacher("Pavlyukovets_Sergey_Anatolievich", bntu_pos_8, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
+        var bntu_polozkov = await AddTeacher("Polozkov_Yuri_Vladimirovich", bntu_pos_8, bntu_faculty_fitr_poisit.Id);
+        var bntu_shchukin = await AddTeacher("Shchukin_Mikhail_Vladimirovich", bntu_pos_8, bntu_faculty_fitr_poisit.Id);
+        var bntu_khorunzhiy = await AddTeacher("Khorunzhiy_Igor_Anatolievich", bntu_pos_8, bntu_faculty_fitr_poisit.Id);
+        var bntu_borodulya = await AddTeacher("Borodulya_Alexey_Valentinovich", bntu_pos_8, bntu_faculty_fitr_poisit.Id);
+        var bntu_pavlyukovets = await AddTeacher("Pavlyukovets_Sergey_Anatolievich", bntu_pos_8, bntu_faculty_fitr_poisit.Id);
 
-        var bntu_prikhozhy = await AddTeacher("Prikhozhy_Anatoly_Alekseevich", bntu_pos_7, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
-        var bntu_gursky = await AddTeacher("Gursky_Nikolai_Nikolaevich", bntu_pos_6, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
-        var bntu_kovaleva = await AddTeacher("Kovaleva_Irina_Lvovna", bntu_pos_6, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
-        var bntu_kunkevich = await AddTeacher("Kunkevich_Dmitry_Petrovich", bntu_pos_6, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
-        var bntu_kupriyanov = await AddTeacher("Kupriyanov_Andrey_Borisovich", bntu_pos_6, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
-        var bntu_naprasnikov = await AddTeacher("Naprasnikov_Vladimir_Vladimirovich", bntu_pos_6, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
-        var bntu_sidorik = await AddTeacher("Sidorik_Valery_Vladimirovich", bntu_pos_6, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
-        var bntu_yudenkov = await AddTeacher("Yudenkov_Viktor_Stepanovich", bntu_pos_6, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
+        var bntu_prikhozhy = await AddTeacher("Prikhozhy_Anatoly_Alekseevich", bntu_pos_7, bntu_faculty_fitr_poisit.Id);
+        var bntu_gursky = await AddTeacher("Gursky_Nikolai_Nikolaevich", bntu_pos_6, bntu_faculty_fitr_poisit.Id);
+        var bntu_kovaleva = await AddTeacher("Kovaleva_Irina_Lvovna", bntu_pos_6, bntu_faculty_fitr_poisit.Id);
+        var bntu_kunkevich = await AddTeacher("Kunkevich_Dmitry_Petrovich", bntu_pos_6, bntu_faculty_fitr_poisit.Id);
+        var bntu_kupriyanov = await AddTeacher("Kupriyanov_Andrey_Borisovich", bntu_pos_6, bntu_faculty_fitr_poisit.Id);
+        var bntu_naprasnikov = await AddTeacher("Naprasnikov_Vladimir_Vladimirovich", bntu_pos_6, bntu_faculty_fitr_poisit.Id);
+        var bntu_sidorik = await AddTeacher("Sidorik_Valery_Vladimirovich", bntu_pos_6, bntu_faculty_fitr_poisit.Id);
+        var bntu_yudenkov = await AddTeacher("Yudenkov_Viktor_Stepanovich", bntu_pos_6, bntu_faculty_fitr_poisit.Id);
 
         var bntu_studyGroup1 = await AddGroup("1", bntu_faculty_fitr_sp1, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
         var bntu_studyGroup2 = await AddGroup("2", bntu_faculty_fitr_sp2, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
@@ -161,12 +167,21 @@ public class UniversitySeed(
 
         for (var i = 0; i < 30; i++)
         {
-            _ = await AddTeacher($"Teacher_{i}", bntu_pos_7, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
+            _ = await AddTeacher($"Teacher_{i}", bntu_pos_7, bntu_faculty_fitr_poisit.Id);
+        }
+
+        foreach (var facultyId in FacultyValues.Select(x => x.Id))
+        {
+            for (var i = 0; i < 5; i++)
+            {
+                _ = await AddDeanery($"Deanery_{facultyId}_{i}", bntu_pos_6, facultyId);
+            }
         }
 
         await AddAdmin("test_admin");
         await AddStudent("test_student", bntu_studyGroup1);
-        await AddTeacher("test_teacher", bntu_pos_1, bntu_faculty_fmmp.Id, bntu_faculty_fitr_poisit.Id);
+        await AddTeacher("test_teacher", bntu_pos_1, bntu_faculty_fitr_poisit.Id);
+        await AddDeanery("test_deanery", bntu_pos_1, bntu_faculty_fmmp.Id);
     }
 
     private async Task<Faculty> AddFaculty(string name, string shortName)
@@ -209,8 +224,20 @@ public class UniversitySeed(
     {
         var result = new Admin(username, username, username, email: $"{username}@gmail.com", phoneNumber: "+375257521111");
         result.UpdateVerificationStatus(true);
-        await userManager.CreateAsync(result, username);
-        await userManager.AddToRoleAsync(result, nameof(UserRoleType.Admin));
+        var createResult = await userManager.CreateAsync(result, username);
+
+        if (!createResult.Succeeded)
+        {
+            throw new InvalidOperationException(string.Join("; ", createResult.Errors.Select(e => e.Description)));
+        }
+
+        var roleResult = await userManager.AddToRoleAsync(result, nameof(UserRoleType.Admin));
+
+        if (!roleResult.Succeeded)
+        {
+            throw new InvalidOperationException(string.Join("; ", roleResult.Errors.Select(e => e.Description)));
+        }
+
         AdminValues.Add(result);
         return result;
     }
@@ -219,8 +246,20 @@ public class UniversitySeed(
     {
         var result = new Student(username, username, username, null, $"{username}@gmail.com", null, "+375257521111", group.Id);
         result.UpdateVerificationStatus(true);
-        await userManager.CreateAsync(result, username);
-        await userManager.AddToRoleAsync(result, nameof(UserRoleType.Student));
+        var createResult = await userManager.CreateAsync(result, username);
+
+        if (!createResult.Succeeded)
+        {
+            throw new InvalidOperationException(string.Join("; ", createResult.Errors.Select(e => e.Description)));
+        }
+
+        var roleResult = await userManager.AddToRoleAsync(result, nameof(UserRoleType.Student));
+
+        if (!roleResult.Succeeded)
+        {
+            throw new InvalidOperationException(string.Join("; ", roleResult.Errors.Select(e => e.Description)));
+        }
+
         StudentValues.Add(result);
         return result;
     }
@@ -228,14 +267,50 @@ public class UniversitySeed(
     private async Task<User> AddTeacher(
         string username,
         UniversityPosition universityPosition,
-        Guid facultyId,
         Guid departmentId)
     {
         var result = new Teacher(username, username, username, null, $"{username}@gmail.com", null, "+375257521111", universityPosition.Id, departmentId);
         result.UpdateVerificationStatus(true);
-        await userManager.CreateAsync(result, username);
-        await userManager.AddToRoleAsync(result, nameof(UserRoleType.Teacher));
-        EmployeeValues.Add(result);
+        var createResult = await userManager.CreateAsync(result, username);
+
+        if (!createResult.Succeeded)
+        {
+            throw new InvalidOperationException(string.Join("; ", createResult.Errors.Select(e => e.Description)));
+        }
+
+        var roleResult = await userManager.AddToRoleAsync(result, nameof(UserRoleType.Teacher));
+
+        if (!roleResult.Succeeded)
+        {
+            throw new InvalidOperationException(string.Join("; ", roleResult.Errors.Select(e => e.Description)));
+        }
+
+        TeacherValues.Add(result);
+        return result;
+    }
+
+    private async Task<User> AddDeanery(
+        string username,
+        UniversityPosition universityPosition,
+        Guid facultyId)
+    {
+        var result = new Deanery(username, username, username, null, $"{username}@gmail.com", null, "+375257521111", universityPosition.Id, facultyId);
+        result.UpdateVerificationStatus(true);
+        var createResult = await userManager.CreateAsync(result, username);
+
+        if (!createResult.Succeeded)
+        {
+            throw new InvalidOperationException(string.Join("; ", createResult.Errors.Select(e => e.Description)));
+        }
+
+        var roleResult = await userManager.AddToRoleAsync(result, nameof(UserRoleType.Deanery));
+
+        if (!roleResult.Succeeded)
+        {
+            throw new InvalidOperationException(string.Join("; ", roleResult.Errors.Select(e => e.Description)));
+        }
+
+        DeaneryValues.Add(result);
         return result;
     }
 

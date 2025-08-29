@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Alert, Box, Button, CircularProgress, Container, IconButton, InputAdornment, Paper, TextField, Typography } from '@mui/material';
+
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { usePostApiAuthChangePasswordMutation } from 'src/api/backendApi';
 import { enqueueSnackbarError } from 'src/core/helpers';
@@ -76,14 +77,12 @@ const PasswordChangePage: React.FC = () => {
   };
 
   return (
-    <Container>
-      <Box className="flex justify-center h-full"
-      >
+    <Container sx={{ display: 'flex', flexDirection: 'column', gap: 1 }} maxWidth="md">
+      <Box className="flex justify-center h-full">
         <Paper elevation={3} sx={{ padding: 4 }}>
           <Typography variant="h5" component="h1" gutterBottom align="center">
             Смена пароля
           </Typography>
-
           <Box component="form" onSubmit={handleSubmit}>
             <>
               <TextField

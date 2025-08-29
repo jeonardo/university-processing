@@ -1,9 +1,9 @@
 import React from 'react';
-import { Autocomplete, TextField } from '@mui/material';
 import { 
   useGetApiAuthRegistrationGetAvailableUniversityPositionsQuery,
   AuthRegistrationGetAvailableUniversityPositionsUniversityPosition
 } from 'src/api/backendApi';
+import AutocompleteField from 'src/components/forms/AutocompleteField';
 
 interface PositionSelectorProps {
   value: AuthRegistrationGetAvailableUniversityPositionsUniversityPosition | null;
@@ -24,15 +24,14 @@ const PositionSelector: React.FC<PositionSelectorProps> = ({
     positionsData?.list || [], [positionsData]);
 
   return (
-    <Autocomplete
+    <AutocompleteField
       options={universityPositions}
       getOptionLabel={(option) => option.name || ''}
       value={value}
-      onChange={(_, newValue) => onChange(newValue)}
+      onChange={onChange}
       disabled={disabled}
-      renderInput={(params) => (
-        <TextField {...params} label="Должность" required={required} />
-      )}
+      required={required}
+      label={'Должность'}
     />
   );
 };

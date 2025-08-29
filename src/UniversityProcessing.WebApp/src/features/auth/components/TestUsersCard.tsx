@@ -16,13 +16,14 @@ interface TestUsersCardProps {
 
 
 const TestUsersCard: React.FC<TestUsersCardProps> = ({
-                                                       isLoading,
-                                                       handleTestLogin
-                                                     }) => {
+  isLoading,
+  handleTestLogin
+}) => {
   const testUsers: TestUser[] = [
     { username: 'test_admin', password: 'test_admin', role: 'admin', info: 'some info' },
     { username: 'test_student', password: 'test_student', role: 'student', info: 'some info' },
-    { username: 'test_teacher', password: 'test_teacher', role: 'teacher', info: 'some info' }
+    { username: 'test_teacher', password: 'test_teacher', role: 'teacher', info: 'some info' },
+    { username: 'test_deanery', password: 'test_deanery', role: 'deanery', info: 'some info' },
   ];
 
   return (

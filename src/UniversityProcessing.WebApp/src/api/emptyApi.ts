@@ -5,7 +5,6 @@ import { login, logout } from 'src/features/auth/auth.slice';
 import { appEnv } from '../core/appEnv';
 import { AuthRefreshResponse } from './backendApi';
 import { GetAuthTokens, SetAuthTokens } from 'src/core/localStorageToken';
-import { logDebug } from 'src/core/logger';
 
 const mutex = new Mutex();
 
@@ -72,7 +71,6 @@ const baseQueryWithReauth: BaseQueryFn<
     if (refreshResult.error
       || !newAccess
       || !newRefresh) {
-      logDebug('refresh failed');
       api.dispatch(logout());
     }
     // Refresh succeeded - update tokens and retry original request

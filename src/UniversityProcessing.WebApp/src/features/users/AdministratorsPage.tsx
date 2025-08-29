@@ -1,21 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Box, Button, Container, InputAdornment, Paper,
-  Switch,
-  TextField, Tooltip, Typography
-} from '@mui/material';
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from '@mui/material';
-import { useAppSelector } from 'src/core/hooks';
+import { Box, Button, Container, Paper, Switch, Tooltip, Typography } from '@mui/material';
+import ModalForm from 'src/components/layout/ModalForm';
+import { useAppSelector, useRequireAdmin } from 'src/core/hooks';
 import AppListPagination from 'src/components/lists/AppListPagination';
 import AppList from 'src/components/lists/AppList';
 import AdministratorItem from './AdministratorItem';
 import AppListSearch from 'src/components/lists/AppListSearch';
-import { ContractsUserRoleType, useLazyGetApiUsersGetAdminsQuery, usePatchApiFacultiesSetFacultyHeadMutation } from 'src/api/backendApi';
+import { ContractsUserRoleType, useLazyGetApiUsersGetAdminsQuery, useLazyGetApiUsersGetDeaneriesQuery, useLazyGetApiUsersGetStudentsQuery, useLazyGetApiUsersGetTeachersQuery, usePatchApiFacultiesSetFacultyHeadMutation } from 'src/api/backendApi';
 import {
   Add as AddIcon,
   Block as BlockIcon,
@@ -29,6 +20,8 @@ import {
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import RegisterAdminForm from '../auth/components/RegisterAdminForm';
+import { usePagedSearch } from 'src/core/usePagedSearch';
+import RoleSwitchPanel from './RoleSwitchPanel';
 
 const AddUserModal: React.FC<{
   open: boolean;
@@ -36,32 +29,31 @@ const AddUserModal: React.FC<{
 }> = ({ open, onClose }) => {
   const [verification, setVerification] = useState(false);
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Добавить нового пользователя</DialogTitle>
-      <DialogContent>
-        <RegisterAdminForm buttonLabel='Добавить' verify={verification} />
-        <Container className="flex items-center gap-2 mt-4">
-          <Tooltip title="Будет ли пользователь верифицирован при создании">
-            <Switch
-              checked={verification}
-              onChange={(e: any) => setVerification(e.target.checked)}
-              color="success"
-              size="small"
-              className='opacity-50'
-            />
-          </Tooltip>
-          <Typography variant="body2" className="font-medium">
-            {verification ? 'Верифицировать' : 'Не верифицировать'}
-          </Typography>
-        </Container>
-      </DialogContent>
-    </Dialog>
+    <ModalForm open={open} onClose={onClose} title="Добавить нового пользователя">
+      <RegisterAdminForm buttonLabel='Добавить' verify={verification} />
+      <Box className="flex items-center gap-2 mt-4">
+        <Tooltip title="Будет ли пользователь верифицирован при создании">
+          <Switch
+            checked={verification}
+            onChange={(e: any) => setVerification(e.target.checked)}
+            color="success"
+            size="small"
+            className='opacity-50'
+          />
+        </Tooltip>
+        <Typography variant="body2" className="font-medium">
+          {verification ? 'Верифицировать' : 'Не верифицировать'}
+        </Typography>
+      </Box>
+    </ModalForm>
   );
 };
 
 const AdministratorsPage: React.FC = () => {
-  const [pageNumber, setPageNumber] = useState(1);
-  const [search, setSearch] = useState('');
+  const { pageNumber, setPageNumber, onSearchValueChanged } = usePagedSearch({
+    getData: (args: any) => getData(args),
+    pageSize: 25,
+  });
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -70,19 +62,15 @@ const AdministratorsPage: React.FC = () => {
       pollingInterval: 15000
     });
 
+  useRequireAdmin();
   const currentUser = useAppSelector(state => state.auth.user);
   const isAdmin = currentUser?.role == ContractsUserRoleType.Admin;
 
   useEffect(() => {
-    if (!isAdmin)
-      navigate('/');
-    getData({ filter: search, pageNumber: pageNumber, pageSize: 25 });
-  }, [pageNumber, search, currentUser]);
+    // загрузка делается внутри usePagedSearch
+  }, [currentUser]);
 
-  const SearchValueChanged = (newSearch: string) => {
-    setPageNumber(1);
-    setSearch(newSearch);
-  };
+  const SearchValueChanged = onSearchValueChanged;
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -98,6 +86,7 @@ const AdministratorsPage: React.FC = () => {
         open={isModalOpen}
         onClose={handleCloseModal}
       />
+      <RoleSwitchPanel />
       <Paper className="p-6">
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
           <Typography variant="h4" component="h1" className="font-bold">

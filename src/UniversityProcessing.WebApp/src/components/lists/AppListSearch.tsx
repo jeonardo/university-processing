@@ -1,5 +1,6 @@
-import { debounce, InputAdornment, TextField } from '@mui/material';
+import { InputAdornment, TextField } from '@mui/material';
 import { useCallback, useState } from 'react';
+import { useDebouncedCallback } from 'src/core/hooks';
 import {
   Add as AddIcon,
   Block as BlockIcon,
@@ -21,9 +22,9 @@ const AppListSearch = ({ label, onSearchValueChangedDebounced: onValueChangedDeb
 
   const [search, setSearch] = useState('');
 
-  const handleSearchDebounced = useCallback(debounce((filter: string) => {
+  const handleSearchDebounced = useDebouncedCallback((filter: string) => {
     onValueChangedDebounced(filter);
-  }, 1000), []);
+  }, 1000);
 
   const handleSearch = (query: string) => {
     setSearch(query);

@@ -108,12 +108,10 @@ const DeaneryItem = ({ currentUser, faculty, item, refetch }: DeaneryItemProps) 
                 !isDean(item) &&
                 <IconButton
                     edge="end"
-                    onClick={(e) => handleMenuOpen(e, item)}
-                >
+                    onClick={(e) => handleMenuOpen(e, item)}>
                     <MoreVert />
                 </IconButton>
-            }
-        >
+            }>
             <ListItemText
                 primary={
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -129,10 +127,21 @@ const DeaneryItem = ({ currentUser, faculty, item, refetch }: DeaneryItemProps) 
                     </Box>
                 }
                 secondary={
-                    <React.Fragment>
-                        <Typography variant="body2">{item.position}</Typography>
-                        <Typography variant="body2">{item.email}</Typography>
-                    </React.Fragment>
+                    <>
+                        <Typography
+                            variant="body2"
+                            sx={{ display: 'block' }}
+                            component="span">
+                            {item.position}
+                        </Typography>
+                        <Typography
+                            variant="body2"
+                            sx={{ display: 'block' }}
+                            component="span">
+                            {item.email}
+                        </Typography>
+
+                    </>
                 }
             />
 

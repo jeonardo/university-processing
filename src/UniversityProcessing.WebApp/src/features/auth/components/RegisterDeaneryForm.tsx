@@ -11,20 +11,20 @@ import {
   ValidationRules,
   CommonFormData
 } from './index';
-import { AuthRegistrationGetAvailableUniversityPositionsUniversityPosition } from 'src/api/backendApi';
-import { enqueueSnackbarError } from 'src/core/helpers';
+import { AuthRegistrationGetAvailableUniversityPositionsUniversityPosition, AuthRegistrationGetAvailableFacultiesFaculty } from 'src/api/backendApi';
 import { IRegisterFormProps } from './RegisterFormProps';
-import { enqueueSnackbar } from 'notistack';
+import { useRegistrationSubmit } from './useRegistrationSubmit';
 
 interface DeaneryFormData extends CommonFormData {
   universityPosition: AuthRegistrationGetAvailableUniversityPositionsUniversityPosition | null;
-  faculty: any;
+  faculty: AuthRegistrationGetAvailableFacultiesFaculty | null;
 }
 
 const RegisterDeaneryForm: React.FC<IRegisterFormProps> = ({
   buttonLabel,
   verify,
-  redirectToLogin }) => {
+  redirectToLogin,
+  onSuccess }) => {
   const initialFormData: DeaneryFormData = {
     userName: '',
     password: '',
@@ -60,39 +60,20 @@ const RegisterDeaneryForm: React.FC<IRegisterFormProps> = ({
     facultyId: formData.faculty?.id ?? ''
   });
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    if (!validateForm(formData, validationRules)) {
-      return;
-    }
-
-    const response = await tryRegister({
-      authRegistrationRegisterDeaneryRequest: transformRequest(formData)
-    });
-
-    if (response.error) {
-      enqueueSnackbarError(response.error);
-      return;
-    }
-
-    if (redirectToLogin)
-      return;
-
-    updateFormData(initialFormData);
-    enqueueSnackbar('Пользователь создан', { variant: 'success' });
-
-    if (verify) {
-      const verifyResponse = await tryVerify({ usersUpdateVerificationRequest: { userId: response.data.userId, isApproved: true } });
-
-      if (verifyResponse.error) {
-        enqueueSnackbarError(verifyResponse.error);
-        return;
-      }
-
-      enqueueSnackbar('Пользователь верифицирован', { variant: 'success' });
-    }
-  };
+  const { handleSubmit } = useRegistrationSubmit<DeaneryFormData>({
+    formData,
+    validateForm,
+    validationRules,
+    tryRegister,
+    requestKey: 'authRegistrationRegisterDeaneryRequest',
+    transformRequest,
+    redirectToLogin,
+    verify,
+    tryVerify,
+    updateFormData,
+    initialFormData,
+    onSuccess,
+  });
 
   if (isSuccess && redirectToLogin) {
     return <RegisterResultModal />;

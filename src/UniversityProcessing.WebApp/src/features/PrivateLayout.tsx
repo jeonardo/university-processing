@@ -54,7 +54,7 @@ const PrivateLayout: React.FC = () => {
   // Меню навигации
   const menuItems = [
     { text: 'Главная', icon: <DashboardIcon />, path: '/' },
-    { text: 'Администраторы', icon: <PeopleAltIcon />, path: '/administrators', roles: [ContractsUserRoleType.Admin] },
+    { text: 'Пользователи', icon: <PeopleAltIcon />, path: '/users' },
     { text: 'Факультеты', icon: <SchoolIcon />, path: '/faculties', roles: [ContractsUserRoleType.Admin] },
     // { text: 'Дипломные проекты', icon: <AssignmentIcon />, path: '/projects', roles: ['admin', 'deanery', 'departmentHead', 'supervisor', 'student'] },
     // { text: 'График защит', icon: <CalendarIcon />, path: '/schedule', roles: ['admin', 'deanery', 'departmentHead', 'commission'] },

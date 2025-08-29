@@ -47,7 +47,7 @@ const RegisterPage = () => {
 
       {
         userRole == 'Student'
-          ? <RegisterStudentForm />
+          ? <RegisterStudentForm redirectToLogin={true} />
           : <></>
       }
       {
@@ -57,12 +57,12 @@ const RegisterPage = () => {
       }
       {
         userRole == 'Teacher'
-          ? <RegisterTeacherForm />
+          ? <RegisterTeacherForm redirectToLogin={true} />
           : <></>
       }
       {
         userRole == 'Deanery'
-          ? <RegisterDeaneryForm />
+          ? <RegisterDeaneryForm redirectToLogin={true} />
           : <></>
       }
 

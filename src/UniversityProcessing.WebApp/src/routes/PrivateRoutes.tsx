@@ -3,7 +3,7 @@ import FacultyPage from 'src/features/faculty/FacultyPage';
 import PasswordChangePage from 'src/features/identity/PasswordChangePage';
 import NotFoundPage from 'src/features/NotFoundPage';
 import PrivateLayoutWrapper from 'src/features/PrivateLayoutWrapper';
-import AdministratorsPage from 'src/features/users/AdministratorsPage';
+import UsersPage from 'src/features/users/UsersPage';
 import WelcomePage from 'src/features/WelcomePage';
 
 const PrivateRoutes = {
@@ -20,8 +20,8 @@ const PrivateRoutes = {
       element: <PasswordChangePage />
     },
     {
-      path: 'administrators',
-      element: <AdministratorsPage />
+      path: 'users',
+      element: <UsersPage />
     },
     {
       path: 'faculties',

@@ -6,7 +6,6 @@ import AppLoader from 'src/components/AppLoader';
 import { useGetApiAuthInfoQuery } from 'src/api/backendApi';
 import AccessBlocker from './AccessBlocker';
 import PrivateLayout from 'src/features/PrivateLayout';
-import { logDebug } from 'src/core/logger';
 
 const PrivateLayoutWrapper: React.FC = () => {
   const authState = useAppSelector(state => state.auth);

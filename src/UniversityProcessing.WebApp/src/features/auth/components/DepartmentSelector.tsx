@@ -1,7 +1,7 @@
 import React from 'react';
-import { Autocomplete, TextField } from '@mui/material';
 import { AuthRegistrationGetAvailableDepartmentsDepartment } from 'src/api/backendApi';
 import { useLazyGetApiAuthRegistrationGetAvailableDepartmentsQuery } from 'src/api/backendApi';
+import AutocompleteField from 'src/components/forms/AutocompleteField';
 
 interface DepartmentSelectorProps {
   value: AuthRegistrationGetAvailableDepartmentsDepartment | null;
@@ -30,15 +30,14 @@ const DepartmentSelector: React.FC<DepartmentSelectorProps> = ({
   }, [facultyId, fetchDepartments]);
 
   return (
-    <Autocomplete
+    <AutocompleteField
       options={departments}
       getOptionLabel={(option) => option.name || ''}
       value={value}
-      onChange={(_, newValue) => onChange(newValue)}
+      onChange={onChange}
       disabled={disabled || !facultyId}
-      renderInput={(params) => (
-        <TextField {...params} label="Кафедра" required={required} />
-      )}
+      required={required}
+      label={'Кафедра'}
     />
   );
 };
