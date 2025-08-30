@@ -3,7 +3,6 @@ export * from './accessRules';
 export * from './store';
 export * from './helpers';
 export * from './namingTools';
-export * from './usePagedSearch';
 export * from './validation';
 export * from './logger';
 export * from './localStorage';

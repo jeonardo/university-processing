@@ -8,9 +8,14 @@ interface AppListProps {
   height?: number | string;
 }
 
-const AppList: React.FC<AppListProps> = ({ isEmpty, isLoading, children, height = '60vh' }) => {
+const AppList: React.FC<AppListProps> = ({ 
+  isEmpty, 
+  isLoading, 
+  children, 
+  height = '60vh'
+}) => {
 
-  if (isEmpty) {
+  if (isEmpty && !isLoading) {
     return <Typography className="text-center py-4">Информация не найдена</Typography>;
   }
 
@@ -28,4 +33,4 @@ const AppList: React.FC<AppListProps> = ({ isEmpty, isLoading, children, height 
   );
 };
 
-export default AppList;
+export default React.memo(AppList);

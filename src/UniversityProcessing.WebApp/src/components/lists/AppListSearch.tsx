@@ -1,17 +1,7 @@
 import { InputAdornment, TextField } from '@mui/material';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useDebouncedCallback } from 'src/core/hooks';
-import {
-  Add as AddIcon,
-  Block as BlockIcon,
-  CheckCircle as CheckCircleIcon,
-  Delete as DeleteIcon,
-  Edit as EditIcon,
-  School as SchoolIcon,
-  Search as SearchIcon,
-  VerifiedUser as VerifiedUserIcon,
-  Work as WorkIcon
-} from '@mui/icons-material';
+import { Search as SearchIcon } from '@mui/icons-material';
 interface AppListSearchProps {
   label: string,
   placeholder: string,
@@ -24,7 +14,7 @@ const AppListSearch = ({ label, onSearchValueChangedDebounced: onValueChangedDeb
 
   const handleSearchDebounced = useDebouncedCallback((filter: string) => {
     onValueChangedDebounced(filter);
-  }, 1000);
+  }, 500); // Уменьшаем задержку с 1000мс до 500мс
 
   const handleSearch = (query: string) => {
     setSearch(query);

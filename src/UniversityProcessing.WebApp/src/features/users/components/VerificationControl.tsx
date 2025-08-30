@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { Stack, Tooltip, CircularProgress, Typography, Switch } from '@mui/material';
 import { Verified as VerifiedIcon } from '@mui/icons-material';
 import { usePutApiUsersUpdateVerificationMutation } from 'src/api/backendApi';
-import { useState } from 'react';
 import { enqueueSnackbarError } from 'src/core/helpers';
 import { enqueueSnackbar } from 'notistack';
 
@@ -11,11 +10,11 @@ interface VerificationControlProps {
   isApproved: boolean;
 }
 
-export const VerificationControl: React.FC<VerificationControlProps> = ({ userId, isApproved }) => {
+export const VerificationControl = React.memo<VerificationControlProps>(({ userId, isApproved }) => {
   const [verification, setVerificationState] = useState(isApproved);
   const [setVerification, { isLoading }] = usePutApiUsersUpdateVerificationMutation();
 
-  const handleVerificationChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleVerificationChange = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
     const newVerification = event.target.checked;
     const result = await setVerification({ 
       usersUpdateVerificationRequest: { 
@@ -34,11 +33,35 @@ export const VerificationControl: React.FC<VerificationControlProps> = ({ userId
       newVerification ? 'Пользователь верифицирован' : 'Пользователь заблокирован',
       { variant: 'success' }
     );
-  };
+  }, [setVerification, userId]);
+
+  const tooltipTitle = useMemo(() => 
+    verification ? 'Снять верификацию' : 'Подтвердить верификацию', 
+    [verification]
+  );
+
+  const switchTooltipTitle = useMemo(() => 
+    isLoading
+      ? "Загружается"
+      : verification
+        ? "Заблокировать"
+        : "Верифицировать",
+    [isLoading, verification]
+  );
+
+  const statusText = useMemo(() => 
+    verification ? 'Верифицирован' : 'Не верифицирован', 
+    [verification]
+  );
+
+  const iconClassName = useMemo(() => 
+    `text-sm ${verification ? 'text-green-500' : 'text-gray-400'}`, 
+    [verification]
+  );
 
   return (
     <Stack direction="row" spacing={1} alignItems="center">
-      <Tooltip title={verification ? 'Снять верификацию' : 'Подтвердить верификацию'}>
+      <Tooltip title={tooltipTitle}>
         {isLoading ? (
           <>
             <CircularProgress size={16} />
@@ -48,23 +71,14 @@ export const VerificationControl: React.FC<VerificationControlProps> = ({ userId
           </>
         ) : (
           <>
-            <VerifiedIcon className={`text-sm ${verification ? 'text-green-500' : 'text-gray-400'}`} />
+            <VerifiedIcon className={iconClassName} />
             <Typography variant="body2" className="font-medium">
-              {verification ? 'Верифицирован' : 'Не верифицирован'}
+              {statusText}
             </Typography>
           </>
         )}
       </Tooltip>
-      <Tooltip
-        title={
-          isLoading
-            ? "Загружается"
-            : verification
-              ? "Заблокировать"
-              : "Верифицировать"
-        }
-        arrow
-      >
+      <Tooltip title={switchTooltipTitle} arrow>
         <span>
           <Switch
             checked={verification}
@@ -78,4 +92,6 @@ export const VerificationControl: React.FC<VerificationControlProps> = ({ userId
       </Tooltip>
     </Stack>
   );
-};
+});
+
+VerificationControl.displayName = 'VerificationControl';

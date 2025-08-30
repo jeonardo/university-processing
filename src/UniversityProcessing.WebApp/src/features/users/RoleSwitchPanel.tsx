@@ -24,7 +24,7 @@ const Thumb = styled(Box)(({ theme }) => ({
 }));
 
 interface RoleSwitchPanelProps {
-    onChange: (role: ContractsUserRoleType) => void;
+    onChange?: (role: ContractsUserRoleType) => void;
     currentUserRole?: ContractsUserRoleType | null;
 }
 
@@ -56,13 +56,13 @@ export default function RoleSwitchPanel({ onChange, currentUserRole }: RoleSwitc
             const availableRole = roles.find(r => r.value === paramRole);
             if (availableRole) {
                 setRole(paramRole as ContractsUserRoleType);
-                onChange(paramRole as ContractsUserRoleType);
+                onChange?.(paramRole as ContractsUserRoleType);
             } else {
                 // Если выбранная роль недоступна, устанавливаем первую доступную
                 const firstAvailableRole = roles[0];
                 if (firstAvailableRole) {
                     setRole(firstAvailableRole.value);
-                    onChange(firstAvailableRole.value);
+                    onChange?.(firstAvailableRole.value);
                     setSearchParams({ role: firstAvailableRole.value });
                 }
             }
@@ -71,7 +71,7 @@ export default function RoleSwitchPanel({ onChange, currentUserRole }: RoleSwitc
             const firstAvailableRole = roles[0];
             if (firstAvailableRole) {
                 setRole(firstAvailableRole.value);
-                onChange(firstAvailableRole.value);
+                onChange?.(firstAvailableRole.value);
                 setSearchParams({ role: firstAvailableRole.value });
             }
         }

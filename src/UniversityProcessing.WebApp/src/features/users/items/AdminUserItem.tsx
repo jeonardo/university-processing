@@ -1,3 +1,4 @@
+import React from 'react';
 import { ListItem, ListItemText } from '@mui/material';
 import { UsersGetAdminsAdmin } from 'src/api/backendApi';
 import { namingTools } from 'src/core/namingTools';
@@ -7,8 +8,8 @@ interface Props {
   item: UsersGetAdminsAdmin;
 }
 
-export default function AdminUserItem({ item }: Props) {
-  const fullName = namingTools.fullName(item);
+const AdminUserItem = React.memo(({ item }: Props) => {
+  const fullName = React.useMemo(() => namingTools.fullName(item), [item]);
 
   return (
     <ListItem>
@@ -16,6 +17,10 @@ export default function AdminUserItem({ item }: Props) {
       <VerificationControl userId={item.id!} isApproved={item.approved ?? false} />
     </ListItem>
   );
-}
+});
+
+AdminUserItem.displayName = 'AdminUserItem';
+
+export default AdminUserItem;
 
 

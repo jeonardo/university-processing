@@ -1,3 +1,4 @@
+import React from 'react';
 import { ListItem, ListItemText } from '@mui/material';
 import { UsersGetTeachersTeacher } from 'src/api/backendApi';
 import { namingTools } from 'src/core/namingTools';
@@ -7,9 +8,9 @@ interface Props {
   item: UsersGetTeachersTeacher;
 }
 
-export default function TeacherUserItem({ item }: Props) {
-  const fullName = namingTools.fullName(item);
-  const secondary = item?.position || '';
+const TeacherUserItem = React.memo(({ item }: Props) => {
+  const fullName = React.useMemo(() => namingTools.fullName(item), [item]);
+  const secondary = React.useMemo(() => item?.position || '', [item?.position]);
 
   return (
     <ListItem>
@@ -17,6 +18,10 @@ export default function TeacherUserItem({ item }: Props) {
       <VerificationControl userId={item.id!} isApproved={item.approved ?? false} />
     </ListItem>
   );
-}
+});
+
+TeacherUserItem.displayName = 'TeacherUserItem';
+
+export default TeacherUserItem;
 
 

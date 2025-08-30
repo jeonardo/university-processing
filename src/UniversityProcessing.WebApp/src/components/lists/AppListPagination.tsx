@@ -8,17 +8,23 @@ interface PaginationProps {
 }
 
 const AppListPagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
+  if (totalPages <= 1) {
+    return null;
+  }
+
+  // Проверяем, что currentPage в допустимом диапазоне
+  const validCurrentPage = Math.min(Math.max(1, currentPage), totalPages);
   return (
     <Box className={`flex justify-center`}>
       <MUIPagination
         count={totalPages}
-        page={currentPage}
+        page={validCurrentPage}
         onChange={(_, page) => {
-          if (page <= 0) return;
           onPageChange(page);
         }}
         color="primary"
       />
+
     </Box>
   );
 };

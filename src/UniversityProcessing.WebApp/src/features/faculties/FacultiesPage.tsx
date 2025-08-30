@@ -24,7 +24,8 @@ import SubmitButton from 'src/components/forms/SubmitButton';
 import { enqueueSnackbar } from 'notistack';
 import { on } from 'events';
 import { enqueueSnackbarError } from 'src/core/helpers';
-import { usePagedSearch } from 'src/core/usePagedSearch';
+import { useSearchParams } from 'react-router-dom';
+
 
 const AddFacultyModal: React.FC<{
   open: boolean;
@@ -84,28 +85,41 @@ const AddFacultyModal: React.FC<{
 };
 
 const FacultiesPage = () => {
-  const { pageNumber, setPageNumber, onSearchValueChanged, search } = usePagedSearch({
-    getData: (args: any) => getData(args),
-    pageSize: 25,
-  });
+  const [getData, { data, isLoading }] = useLazyGetApiFacultiesGetQuery();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Получаем параметры из URL
+  const pageNumber = parseInt(searchParams.get('page') || '1');
+  const search = searchParams.get('search') || '';
+
+  // Загружаем данные при изменении параметров
+  useEffect(() => {
+    getData({ filter: search, pageNumber, pageSize: 25 });
+  }, [getData, search, pageNumber]);
+
+  const onSearchValueChanged = (value: string) => {
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev);
+      newParams.set('search', value);
+      newParams.set('page', '1'); // Сбрасываем на первую страницу при поиске
+      return newParams;
+    });
+  };
+
+  const onPageChange = (newPage: number) => {
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev);
+      newParams.set('page', newPage.toString());
+      return newParams;
+    });
+  };
+  
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const [getData, { data, isLoading }] = useLazyGetApiFacultiesGetQuery(
-    {
-      pollingInterval: 15000
-    });
-
 
   useRequireAdmin();
   const currentUser = useAppSelector(state => state.auth.user);
   const isAdmin = currentUser?.role == ContractsUserRoleType.Admin;
-
-  useEffect(() => {
-    // загрузка делается внутри usePagedSearch
-  }, [currentUser]);
-
-  const SearchValueChanged = onSearchValueChanged;
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -139,7 +153,7 @@ const FacultiesPage = () => {
         <AppListSearch
           label="Поиск"
           placeholder='Введите название факультета'
-          onSearchValueChangedDebounced={SearchValueChanged} />
+          onSearchValueChangedDebounced={onSearchValueChanged} />
       </Paper>
       <Paper className="p-6" sx={{ display: 'flex', flexGrow: 1, flexDirection: 'column', minHeight: 0 }}>
         <Box sx={{ flex: 1, minHeight: 0 }}>
@@ -165,7 +179,7 @@ const FacultiesPage = () => {
         <AppListPagination
           currentPage={pageNumber}
           totalPages={data?.totalPages ?? 0}
-          onPageChange={setPageNumber}
+          onPageChange={onPageChange}
         />
       </Paper>
     </Container >
