@@ -8,10 +8,10 @@ interface AppListProps {
   height?: number | string;
 }
 
-const AppList: React.FC<AppListProps> = ({ 
-  isEmpty, 
-  isLoading, 
-  children, 
+const AppList: React.FC<AppListProps> = ({
+  isEmpty,
+  isLoading,
+  children,
   height = '60vh'
 }) => {
 
@@ -24,11 +24,11 @@ const AppList: React.FC<AppListProps> = ({
       {isLoading && (
         <Box className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-50">
           <CircularProgress />
-        </Box>
-      )}
-      <List className={`divide-y divide-gray-300 ${isLoading ? 'blur-sm pointer-events-none' : ''}`}>
-        {children}
-      </List>
+        </Box>)
+        || (<List className={`divide-y divide-gray-300 ${isLoading ? 'blur-sm pointer-events-none' : ''}`}>
+          {children}
+        </List>)
+      }
     </Box>
   );
 };

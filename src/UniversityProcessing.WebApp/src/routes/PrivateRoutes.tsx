@@ -7,6 +7,9 @@ import UsersProxyPage from 'src/features/users/UsersProxyPage';
 import PrivateLayoutWrapper from 'src/features/components/PrivateLayoutWrapper';
 import UsersLayout from 'src/features/users/components/UsersLayout';
 import AdministratorsPage from 'src/features/users/AdministratorsPage';
+import path from 'path';
+import { element } from 'prop-types';
+import DeaneriesPage from 'src/features/users/DeaneriesPage';
 
 const PrivateRoutes = {
   path: '/',
@@ -32,6 +35,10 @@ const PrivateRoutes = {
         {
           path: 'admins',
           element: <AdministratorsPage />
+        },
+        {
+          path: 'deanery',
+          element: <DeaneriesPage />
         }
       ]
     },

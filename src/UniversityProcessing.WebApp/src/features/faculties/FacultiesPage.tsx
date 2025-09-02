@@ -85,6 +85,8 @@ const AddFacultyModal: React.FC<{
 };
 
 const FacultiesPage = () => {
+  useRequireAdmin();
+
   const [getData, { data, isLoading }] = useLazyGetApiFacultiesGetQuery();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -117,9 +119,6 @@ const FacultiesPage = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useRequireAdmin();
-  const currentUser = useAppSelector(state => state.auth.user);
-  const isAdmin = currentUser?.role == ContractsUserRoleType.Admin;
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -176,8 +175,7 @@ const FacultiesPage = () => {
         </Box>
       </Paper>
       {
-        !isLoading
-        && data
+        data
         && data.totalPages
         && data.totalPages > 1 && (
           <Paper sx={{ p: 1.5, display: 'flex', justifyContent: 'center' }}>

@@ -13,7 +13,7 @@ import {
 import { useAppSelector } from 'src/core/hooks';
 import AppListPagination from 'src/components/lists/AppListPagination';
 import AppList from 'src/components/lists/AppList';
-import AdministratorItem from './AdministratorItem';
+import UserItem from './components/UserItem';
 import AppListSearch from 'src/components/lists/AppListSearch';
 import { ContractsUserRoleType, useLazyGetApiUsersGetAdminsQuery, usePatchApiFacultiesSetFacultyHeadMutation } from 'src/api/backendApi';
 import {
@@ -62,7 +62,6 @@ const AddUserModal: React.FC<{
 const AdministratorsPage: React.FC = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [search, setSearch] = useState('');
-  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [getData, { data, isLoading }] = useLazyGetApiUsersGetAdminsQuery(
@@ -71,11 +70,8 @@ const AdministratorsPage: React.FC = () => {
     });
 
   const currentUser = useAppSelector(state => state.auth.user);
-  const isAdmin = currentUser?.role == ContractsUserRoleType.Admin;
 
   useEffect(() => {
-    if (!isAdmin)
-      navigate('/');
     getData({ filter: search, pageNumber: pageNumber, pageSize: 25 });
   }, [pageNumber, search, currentUser]);
 
@@ -125,11 +121,10 @@ const AdministratorsPage: React.FC = () => {
             height={'55vh'}>
             {
               data?.list?.items?.map((item) => (
-                <AdministratorItem
+                <UserItem
                   key={item.id}
                   item={item}
                   currentUser={currentUser}
-                  showVerificationAction={isAdmin}
                 />
               ))
             }
