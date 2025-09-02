@@ -11,7 +11,7 @@ import {
   CommonFormData
 } from './index';
 import { IRegisterFormProps } from './RegisterFormProps';
-import { useRegistrationSubmit } from './useRegistrationSubmit';
+import { useRegistrationSubmit } from '../hooks/useRegistrationSubmit';
 import { enqueueSnackbar } from 'notistack';
 
 interface StudentFormData extends CommonFormData {

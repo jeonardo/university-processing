@@ -1,1 +1,0 @@
-export { VerificationControl } from './VerificationControl';

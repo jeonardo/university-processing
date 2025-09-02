@@ -13,7 +13,7 @@ import {
 } from './index';
 import { AuthRegistrationGetAvailableUniversityPositionsUniversityPosition, AuthRegistrationGetAvailableFacultiesFaculty } from 'src/api/backendApi';
 import { IRegisterFormProps } from './RegisterFormProps';
-import { useRegistrationSubmit } from './useRegistrationSubmit';
+import { useRegistrationSubmit } from '../hooks/useRegistrationSubmit';
 
 interface DeaneryFormData extends CommonFormData {
   universityPosition: AuthRegistrationGetAvailableUniversityPositionsUniversityPosition | null;

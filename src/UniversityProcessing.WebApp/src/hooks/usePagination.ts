@@ -1,22 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-const initialData = {
-  currentPage: 1,
-  itemsPerPage: 10
-};
+export const usePagination = (pageSize: number = 25) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [page, setPage] = useState(1);
 
-export function usePagination<T>(items: T) {
-  const [currentPage, setCurrentPage] = useState(initialData.currentPage);
-  const [itemsPerPage] = useState(initialData.itemsPerPage);
+  const pageParamString = searchParams.get('page')
+  const pageParam = pageParamString ? parseInt(pageParamString) : 1;
 
-  if (!Array.isArray(items))
-    throw 'Expected items to be an array';
+  const resetPage = () => setPage(1);
 
-  const indexOfLast = currentPage * itemsPerPage;
-  const indexOfFirst = indexOfLast - itemsPerPage;
+  const changePage = (newPage: number) => {
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set('page', newPage.toString());
+    setSearchParams(newSearchParams);
+  };
 
-  const currentItems = items.slice(indexOfFirst, indexOfLast);
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  useEffect(() => {
+    setPage(pageParam)
+  }, [pageParam]);
 
-  return { currentItems, itemsPerPage, paginate };
+  return { page, pageSize, changePage, resetPage };
 }

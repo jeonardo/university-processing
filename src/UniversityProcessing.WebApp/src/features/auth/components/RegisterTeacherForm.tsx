@@ -14,7 +14,7 @@ import {
 } from './index';
 import { AuthRegistrationGetAvailableUniversityPositionsUniversityPosition, AuthRegistrationGetAvailableFacultiesFaculty, AuthRegistrationGetAvailableDepartmentsDepartment } from 'src/api/backendApi';
 import { IRegisterFormProps } from './RegisterFormProps';
-import { useRegistrationSubmit } from './useRegistrationSubmit';
+import { useRegistrationSubmit } from '../hooks/useRegistrationSubmit';
 
 interface TeacherFormData extends CommonFormData {
   universityPosition: AuthRegistrationGetAvailableUniversityPositionsUniversityPosition | null;

@@ -10,7 +10,7 @@ import {
   CommonFormData
 } from './index';
 import { IRegisterFormProps } from './RegisterFormProps';
-import { useRegistrationSubmit } from './useRegistrationSubmit';
+import { useRegistrationSubmit } from '../hooks/useRegistrationSubmit';
 
 interface AdminFormData extends CommonFormData { }
 

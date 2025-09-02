@@ -113,7 +113,7 @@ const FacultiesPage = () => {
       return newParams;
     });
   };
-  
+
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -175,13 +175,19 @@ const FacultiesPage = () => {
           </AppList>
         </Box>
       </Paper>
-      <Paper sx={{ p: 1.5, display: 'flex', justifyContent: 'center' }}>
-        <AppListPagination
-          currentPage={pageNumber}
-          totalPages={data?.totalPages ?? 0}
-          onPageChange={onPageChange}
-        />
-      </Paper>
+      {
+        !isLoading
+        && data
+        && data.totalPages
+        && data.totalPages > 1 && (
+          <Paper sx={{ p: 1.5, display: 'flex', justifyContent: 'center' }}>
+            <AppListPagination
+              currentPage={pageNumber}
+              totalPages={data?.totalPages ?? 0}
+              onPageChange={onPageChange}
+            />
+          </Paper>)
+      }
     </Container >
   );
 };

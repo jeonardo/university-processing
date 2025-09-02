@@ -1,6 +1,6 @@
 import { useAppDispatch } from 'src/core/hooks';
-import { AuthState } from './auth/auth.contracts';
-import { logout } from './auth/auth.slice';
+import { AuthState } from '../auth/auth.contracts';
+import { logout } from '../auth/auth.slice';
 
 interface AccessBlockerProps {
   authState: AuthState;

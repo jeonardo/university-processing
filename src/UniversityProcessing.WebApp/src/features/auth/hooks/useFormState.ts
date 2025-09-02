@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Dayjs } from 'dayjs';
-import { CommonFormData } from './CommonFormFields';
+import { CommonFormData } from '../components/CommonFormFields';
 
 export const useFormState = <T extends CommonFormData>(initialData: T) => {
   const [formData, setFormData] = useState<T>(initialData);

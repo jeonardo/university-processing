@@ -7,14 +7,14 @@ export { default as DepartmentSelector } from './DepartmentSelector';
 export { default as GroupSelector } from './GroupSelector';
 
 // Общие хуки
-export { useFormValidation } from './useFormValidation';
-export { useFormSubmission } from './useFormSubmission';
-export { useFormState } from './useFormState';
+export { useFormValidation } from '../hooks/useFormValidation';
+export { useFormSubmission } from '../hooks/useFormSubmission';
+export { useFormState } from '../hooks/useFormState';
 
 // Типы
 export type { CommonFormData, ExtendedFormData } from './CommonFormFields';
-export type { ValidationRules } from './useFormValidation';
-export type { FormSubmissionConfig } from './useFormSubmission';
+export type { ValidationRules } from '../hooks/useFormValidation';
+export type { FormSubmissionConfig } from '../hooks/useFormSubmission';
 
 // Существующие компоненты
 export { default as RegisterAdminForm } from './RegisterAdminForm';

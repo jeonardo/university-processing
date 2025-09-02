@@ -23,7 +23,7 @@ import { pink, teal } from '@mui/material/colors';
 import theme from 'src/theme';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/core/hooks';
-import { logout } from './auth/auth.slice';
+import { logout } from '../auth/auth.slice';
 import { RoleLocalizationLabel } from 'src/core/labelStore';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SchoolIcon from '@mui/icons-material/School';
@@ -74,7 +74,7 @@ const PrivateLayout: React.FC = () => {
       position="fixed"
       sx={{
         zIndex: (theme) => theme.zIndex.drawer + 1,
-        height: { xs: 56, sm: 64 }
+        height: { xs: 56, md: 64 }
       }}
     >
       <Toolbar>
@@ -202,10 +202,9 @@ const PrivateLayout: React.FC = () => {
       component="main"
       className='min-h-screen flex flex-grow bg-gray-100'
       sx={{
-        pt: { xs: 12, sm: 13 },
-        pl: { xs: 0, md: 33 },
-        pr: { xs: 0, md: 3 },
-        pb: 2
+        pt: { xs: 10, md: 10 },
+        pl: { xs: 0, md: 30 },
+        pb: { xs: 1, md: 1 },
       }}
     >
       <Outlet />

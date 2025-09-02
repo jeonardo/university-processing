@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import AppLoader from 'src/components/AppLoader';
 import { useGetApiAuthInfoQuery } from 'src/api/backendApi';
 import AccessBlocker from './AccessBlocker';
-import PrivateLayout from 'src/features/PrivateLayout';
+import PrivateLayout from 'src/features/components/PrivateLayout';
 
 const PrivateLayoutWrapper: React.FC = () => {
   const authState = useAppSelector(state => state.auth);

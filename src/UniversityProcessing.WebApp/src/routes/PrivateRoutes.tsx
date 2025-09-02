@@ -2,9 +2,11 @@ import FacultiesPage from 'src/features/faculties/FacultiesPage';
 import FacultyPage from 'src/features/faculty/FacultyPage';
 import PasswordChangePage from 'src/features/identity/PasswordChangePage';
 import NotFoundPage from 'src/features/NotFoundPage';
-import PrivateLayoutWrapper from 'src/features/PrivateLayoutWrapper';
-import UsersPage from 'src/features/users/UsersPage';
 import WelcomePage from 'src/features/WelcomePage';
+import UsersProxyPage from 'src/features/users/UsersProxyPage';
+import PrivateLayoutWrapper from 'src/features/components/PrivateLayoutWrapper';
+import UsersLayout from 'src/features/users/components/UsersLayout';
+import AdministratorsPage from 'src/features/users/AdministratorsPage';
 
 const PrivateRoutes = {
   path: '/',
@@ -21,7 +23,17 @@ const PrivateRoutes = {
     },
     {
       path: 'users',
-      element: <UsersPage />
+      element: <UsersLayout />,
+      children: [
+        {
+          index: true,
+          element: <UsersProxyPage />
+        },
+        {
+          path: 'admins',
+          element: <AdministratorsPage />
+        }
+      ]
     },
     {
       path: 'faculties',
