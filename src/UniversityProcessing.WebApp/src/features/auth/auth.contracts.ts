@@ -27,4 +27,6 @@ export type AuthUser = {
   phoneNumber?: string | null;
   speciality?: string | null;
   groupNumber?: string | null;
+  facultyId?: string | null;
+  departmentId?: string | null;
 };

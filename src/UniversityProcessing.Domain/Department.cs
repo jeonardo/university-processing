@@ -41,7 +41,7 @@ public class Department : BaseEntity
         };
     }
 
-    public void SetLeader(Guid leaderId)
+    public void SetHead(Guid leaderId)
     {
         HeadUserId = leaderId;
     }

@@ -17,9 +17,9 @@ export const roleSetByString: { [key: string]: ContractsUserRoleType } = {
 }
 
 export const labels: Record<ContractsUserRoleType, string> = {
-    [ContractsUserRoleType.Admin]: "Админ",
+    [ContractsUserRoleType.Admin]: "Админы",
     [ContractsUserRoleType.Deanery]: "Деканат",
-    [ContractsUserRoleType.Teacher]: "Преподаватель",
-    [ContractsUserRoleType.Student]: "Студент",
+    [ContractsUserRoleType.Teacher]: "Преподаватели",
+    [ContractsUserRoleType.Student]: "Студенты",
     [ContractsUserRoleType.None]: "Неизвестно",
 };

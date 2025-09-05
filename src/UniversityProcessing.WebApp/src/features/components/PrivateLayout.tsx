@@ -28,6 +28,7 @@ import { RoleLocalizationLabel } from 'src/core/labelStore';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SchoolIcon from '@mui/icons-material/School';
 import { ContractsUserRoleType } from 'src/api/backendApi';
+import { text } from 'stream/consumers';
 
 const PrivateLayout: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -56,6 +57,7 @@ const PrivateLayout: React.FC = () => {
     { text: 'Главная', icon: <DashboardIcon />, path: '/' },
     { text: 'Пользователи', icon: <PeopleAltIcon />, path: '/users' },
     { text: 'Факультеты', icon: <SchoolIcon />, path: '/faculties', roles: [ContractsUserRoleType.Admin] },
+    { text: 'Кафедры', icon: <SchoolIcon />, path: '/departments', roles: [ContractsUserRoleType.Deanery] },
     // { text: 'Дипломные проекты', icon: <AssignmentIcon />, path: '/projects', roles: ['admin', 'deanery', 'departmentHead', 'supervisor', 'student'] },
     // { text: 'График защит', icon: <CalendarIcon />, path: '/schedule', roles: ['admin', 'deanery', 'departmentHead', 'commission'] },
     // { text: 'Оценки', icon: <GradeIcon />, path: '/grades', roles: ['commission', 'deanery'] },

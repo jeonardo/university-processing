@@ -27,7 +27,7 @@ export const useUserRedirect = () => {
                     navigate(`/users/${roleSetByType[availableRoles[0]]}`, { replace: true });
                 break;
         }
-    }, [currentUserRole]);
+    }, [currentUserRole, location]);
 
     return { availableRoles, routeRole };
 };

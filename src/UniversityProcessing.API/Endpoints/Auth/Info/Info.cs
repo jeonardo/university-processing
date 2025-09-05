@@ -52,6 +52,8 @@ internal sealed class Info : IEndpoint
                     null,
                     admin.PhoneNumber,
                     null,
+                    null,
+                    null,
                     null);
 
             case UserRoleType.Deanery:
@@ -78,6 +80,8 @@ internal sealed class Info : IEndpoint
                     deanery.UniversityPosition.Name,
                     deanery.PhoneNumber,
                     null,
+                    null,
+                    deanery.FacultyId,
                     null);
 
             case UserRoleType.Teacher:
@@ -105,7 +109,9 @@ internal sealed class Info : IEndpoint
                     teacher.UniversityPosition.Name,
                     teacher.PhoneNumber,
                     null,
-                    null);
+                    null,
+                    teacher.Department.FacultyId,
+                    teacher.DepartmentId);
 
             case UserRoleType.Student:
                 var student = await serviceProvider.GetRequiredService<IEfReadRepository<Student>>()
@@ -133,7 +139,9 @@ internal sealed class Info : IEndpoint
                     null,
                     student.PhoneNumber,
                     student.Group.Specialty.Name,
-                    student.Group.Number);
+                    student.Group.Number,
+                    student.Group.Specialty.Department.FacultyId,
+                    student.Group.Specialty.DepartmentId);
 
             default:
                 throw new NotFoundException("User not found");

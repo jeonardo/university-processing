@@ -18,7 +18,8 @@ public class UniversitySeed(
     IEfRepository<Group> repositoryGroup,
     IEfRepository<Specialty> repositorySpecialty,
     UserManager<User> userManager,
-    RoleManager<UserRole> roleManager)
+    RoleManager<UserRole> roleManager,
+    IEfRepository<Period> periodRepository)
 {
     private List<Faculty> FacultyValues { get; set; } = [];
 
@@ -138,12 +139,17 @@ public class UniversitySeed(
         var bntu_sidorik = await AddTeacher("Sidorik_Valery_Vladimirovich", bntu_pos_6, bntu_faculty_fitr_poisit.Id);
         var bntu_yudenkov = await AddTeacher("Yudenkov_Viktor_Stepanovich", bntu_pos_6, bntu_faculty_fitr_poisit.Id);
 
-        var bntu_studyGroup1 = await AddGroup("1", bntu_faculty_fitr_sp1, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
-        var bntu_studyGroup2 = await AddGroup("2", bntu_faculty_fitr_sp2, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
-        var bntu_studyGroup3 = await AddGroup("3", bntu_faculty_fitr_sp3, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
-        var bntu_studyGroup4 = await AddGroup("4", bntu_faculty_fitr_sp4, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
-        var bntu_studyGroup5 = await AddGroup("5", bntu_faculty_fitr_sp5, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
-        var bntu_studyGroup6 = await AddGroup("6", bntu_faculty_fitr_sp6, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
+        var period1 = await AddPeriod("2023-2024 (зима)", new DateTime(2023, 9, 1), new DateTime(2024, 9, 1));
+        var period2 = await AddPeriod("2024-2025 (зима)", new DateTime(2024, 9, 1), new DateTime(2025, 9, 1));
+        var period3 = await AddPeriod("2025-2026 (лето)", new DateTime(2025, 9, 1), new DateTime(2026, 9, 1));
+        var period4 = await AddPeriod("2026-2027 (лето)", new DateTime(2026, 9, 1), new DateTime(2027, 9, 1));
+
+        var bntu_studyGroup1 = await AddGroup(period2.Id, "164464645", bntu_faculty_fitr_sp1, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
+        var bntu_studyGroup2 = await AddGroup(period2.Id, "264464645", bntu_faculty_fitr_sp2, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
+        var bntu_studyGroup3 = await AddGroup(period3.Id, "364464645", bntu_faculty_fitr_sp3, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
+        var bntu_studyGroup4 = await AddGroup(period3.Id, "464464645", bntu_faculty_fitr_sp4, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
+        var bntu_studyGroup5 = await AddGroup(period3.Id, "564464645", bntu_faculty_fitr_sp5, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
+        var bntu_studyGroup6 = await AddGroup(period3.Id, "664464645", bntu_faculty_fitr_sp6, new DateTime(2023, 9, 1), new DateTime(2027, 9, 1));
 
         for (var i = 0; i < 30; i++)
         {
@@ -181,7 +187,7 @@ public class UniversitySeed(
         await AddAdmin("test_admin");
         await AddStudent("test_student", bntu_studyGroup1);
         await AddTeacher("test_teacher", bntu_pos_1, bntu_faculty_fitr_poisit.Id);
-        await AddDeanery("test_deanery", bntu_pos_1, bntu_faculty_fmmp.Id);
+        await AddDeanery("test_deanery", bntu_pos_1, bntu_faculty_fitr.Id);
     }
 
     private async Task<Faculty> AddFaculty(string name, string shortName)
@@ -209,12 +215,13 @@ public class UniversitySeed(
     }
 
     private async Task<Group> AddGroup(
+        Guid periodId,
         string groupNumber,
         Specialty specialty,
         DateTime startDate,
         DateTime endDate)
     {
-        var result = Group.Create(groupNumber, startDate, endDate, specialty.Id);
+        var result = Group.Create(groupNumber, startDate, endDate, specialty.Id, periodId);
         GroupValues.Add(result);
         await repositoryGroup.AddAsync(result);
         return result;
@@ -319,6 +326,13 @@ public class UniversitySeed(
         var result = UniversityPosition.Create(name);
         UniversityPositionValues.Add(result);
         await repositoryUniversityPosition.AddAsync(result);
+        return result;
+    }
+
+    private async Task<Period> AddPeriod(string name, DateTime startDate, DateTime endDate)
+    {
+        var result = Period.Create(name, startDate, endDate);
+        await periodRepository.AddAsync(result);
         return result;
     }
 }

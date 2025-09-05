@@ -23,12 +23,12 @@ export const accessRules: Record<ContractsUserRoleType, AccessRule> = {
     canCreateStudents: false,
   },
   [ContractsUserRoleType.Deanery]: {
-    canViewAdmins: true,
+    canViewAdmins: false,
     canViewDeanery: true,
     canViewTeachers: true,
     canViewStudents: true,
     canCreateAdmins: false,
-    canCreateDeanery: false,
+    canCreateDeanery: true,
     canCreateTeachers: true,
     canCreateStudents: true,
   },
@@ -73,10 +73,14 @@ export const getAvailableRoles = (userRole: ContractsUserRoleType | null | undef
   const rules = accessRules[userRole];
   const availableRoles: ContractsUserRoleType[] = [];
 
-  if (rules.canViewAdmins) availableRoles.push(ContractsUserRoleType.Admin);
-  if (rules.canViewDeanery) availableRoles.push(ContractsUserRoleType.Deanery);
-  if (rules.canViewTeachers) availableRoles.push(ContractsUserRoleType.Teacher);
-  if (rules.canViewStudents) availableRoles.push(ContractsUserRoleType.Student);
+  if (rules.canViewAdmins)
+    availableRoles.push(ContractsUserRoleType.Admin);
+  if (rules.canViewDeanery)
+    availableRoles.push(ContractsUserRoleType.Deanery);
+  if (rules.canViewTeachers)
+    availableRoles.push(ContractsUserRoleType.Teacher);
+  if (rules.canViewStudents)
+    availableRoles.push(ContractsUserRoleType.Student);
 
   return availableRoles;
 };
@@ -87,7 +91,7 @@ export const canCreateUser = (userRole: ContractsUserRoleType | null | undefined
   }
 
   const rules = accessRules[userRole];
-  
+
   switch (targetRole) {
     case ContractsUserRoleType.Admin:
       return rules.canCreateAdmins;
@@ -108,7 +112,7 @@ export const canViewRole = (userRole: ContractsUserRoleType | null | undefined, 
   }
 
   const rules = accessRules[userRole];
-  
+
   switch (targetRole) {
     case ContractsUserRoleType.Admin:
       return rules.canViewAdmins;

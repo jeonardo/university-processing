@@ -22,10 +22,6 @@ public class DiplomaProcess : BaseEntity
 
     public virtual Сommittee? Committee { get; private set; }
 
-    public Guid? PeriodId { get; private set; }
-
-    public virtual Period? Period { get; private set; }
-
     public virtual ICollection<Diploma> Diplomas { get; private set; } = null!;
 
     // Parameterless constructor used by EF Core
@@ -34,12 +30,11 @@ public class DiplomaProcess : BaseEntity
     {
     }
 
-    public static DiplomaProcess Create(string name, Guid periodId)
+    public static DiplomaProcess Create(string name)
     {
         return new DiplomaProcess
         {
-            Name = name,
-            PeriodId = periodId
+            Name = name
         };
     }
 }

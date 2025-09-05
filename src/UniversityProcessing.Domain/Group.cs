@@ -16,6 +16,9 @@ public class Group : BaseEntity
     public DateTime EndDate { get; private set; }
     public Guid SpecialtyId { get; private set; }
     public virtual Specialty Specialty { get; private set; } = null!;
+    public Guid PeriodId { get; private set; }
+
+    public virtual Period Period { get; private set; } = null!;
     public virtual ICollection<Student> Students { get; private set; } = null!;
 
     // Parameterless constructor used by EF Core
@@ -24,14 +27,15 @@ public class Group : BaseEntity
     {
     }
 
-    public static Group Create(string number, DateTime startDate, DateTime endDate, Guid specialtyId)
+    public static Group Create(string number, DateTime startDate, DateTime endDate, Guid specialtyId, Guid periodId)
     {
         return new Group
         {
             Number = number,
             StartDate = startDate,
             EndDate = endDate,
-            SpecialtyId = specialtyId
+            SpecialtyId = specialtyId,
+            PeriodId = periodId
         };
     }
 }

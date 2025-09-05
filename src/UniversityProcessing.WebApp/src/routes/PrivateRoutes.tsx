@@ -10,6 +10,8 @@ import AdministratorsPage from 'src/features/users/AdministratorsPage';
 import path from 'path';
 import { element } from 'prop-types';
 import DeaneriesPage from 'src/features/users/DeaneriesPage';
+import DepartmentsPage from 'src/features/departments/DepartmentsPage';
+import DepartmentPage from 'src/features/department/DepartmentPage';
 
 const PrivateRoutes = {
   path: '/',
@@ -50,34 +52,14 @@ const PrivateRoutes = {
       path: 'faculties/:id',
       element: <FacultyPage />
     },
-    // {
-    //   path: 'periods',
-    //   element: <PeriodsPage />
-    // },
-    // {
-    //   path: 'settings',
-    //   element: <SettingsPage />
-    // },
-    // {
-    //   path: '/faculties',
-    //   element: <FacultiesPage />
-    // },
-    // {
-    //   path: '/departments',
-    //   element: <DepartmentListPage />
-    // },
-    // {
-    //   path: '/diplomaPeriods',
-    //   element: <DiplomaPeriodListPage />
-    // },
-    // {
-    //   path: '/specialties',
-    //   element: <SpecialtyListPage />
-    // },
-    // {
-    //   path: '/groups',
-    //   element: <GroupListPage />
-    // }
+    {
+      path: '/departments',
+      element: <DepartmentsPage />
+    },
+    {
+      path: 'departments/:id',
+      element: <DepartmentPage />
+    }
   ]
 };
 

@@ -17,7 +17,9 @@ public sealed class InfoResponseDto(
     string? position,
     string? phoneNumber,
     string? speciality,
-    string? groupNumber)
+    string? groupNumber,
+    Guid? facultyId,
+    Guid? departmentId)
 {
     public Guid UserId { get; set; } = userId;
     public UserRoleTypeDto Role { get; set; } = role;
@@ -34,4 +36,6 @@ public sealed class InfoResponseDto(
     public string? PhoneNumber { get; set; } = phoneNumber;
     public string? Speciality { get; set; } = speciality;
     public string? GroupNumber { get; set; } = groupNumber;
+    public Guid? FacultyId { get; set; } = facultyId;
+    public Guid? DepartmentId { get; set; } = departmentId;
 }

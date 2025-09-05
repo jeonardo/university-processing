@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Typography, Box, Paper, List, Button, TextField, Grid, Chip, Avatar, Tooltip, Switch, IconButton, Stack, useMediaQuery } from '@mui/material';
 import { Person, Add, Edit, Star, StarBorder, MoreVert } from '@mui/icons-material';
 import { useGetApiFacultiesGetFullDescriptionQuery, usePatchApiFacultiesSetFacultyHeadMutation } from "src/api/backendApi";
@@ -72,9 +72,16 @@ const FacultyPage: React.FC = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const { id } = useParams<{ id: string }>();
-    const { data, isLoading, refetch } = useGetApiFacultiesGetFullDescriptionQuery({ id: id ?? '' });
+    const { data, isLoading, refetch, error } = useGetApiFacultiesGetFullDescriptionQuery({ id: id ?? '' });
     const [isModalOpen, setIsModalOpen] = useState(false);
     const currentUser = useAppSelector(state => state.auth.user);
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (error) {
+            navigate('/')
+        }
+    }, [error]);
 
     const handleOpenModal = () => {
         setIsModalOpen(true);

@@ -119,6 +119,68 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.authChangePasswordRequest,
       }),
     }),
+    patchApiDepartmentsSetDepartmentHead: build.mutation<
+      PatchApiDepartmentsSetDepartmentHeadApiResponse,
+      PatchApiDepartmentsSetDepartmentHeadApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Departments/SetDepartmentHead`,
+        method: "PATCH",
+        params: {
+          DepartmentId: queryArg.departmentId,
+          UserId: queryArg.userId,
+        },
+      }),
+    }),
+    getApiDepartmentsGet: build.query<
+      GetApiDepartmentsGetApiResponse,
+      GetApiDepartmentsGetApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Departments/Get`,
+        params: {
+          FacultyId: queryArg.facultyId,
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter,
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+        },
+      }),
+    }),
+    getApiDepartmentsGetFullDescription: build.query<
+      GetApiDepartmentsGetFullDescriptionApiResponse,
+      GetApiDepartmentsGetFullDescriptionApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Departments/GetFullDescription`,
+        params: {
+          Id: queryArg.id,
+        },
+      }),
+    }),
+    deleteApiDepartmentsDelete: build.mutation<
+      DeleteApiDepartmentsDeleteApiResponse,
+      DeleteApiDepartmentsDeleteApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Departments/Delete`,
+        method: "DELETE",
+        params: {
+          Id: queryArg.id,
+        },
+      }),
+    }),
+    postApiDepartmentsCreate: build.mutation<
+      PostApiDepartmentsCreateApiResponse,
+      PostApiDepartmentsCreateApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Departments/Create`,
+        method: "POST",
+        body: queryArg.departmentsCreateRequest,
+      }),
+    }),
     patchApiFacultiesSetFacultyHead: build.mutation<
       PatchApiFacultiesSetFacultyHeadApiResponse,
       PatchApiFacultiesSetFacultyHeadApiArg
@@ -237,6 +299,7 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/api/Users/GetDeaneries`,
         params: {
+          FacultyId: queryArg.facultyId,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
           Filter: queryArg.filter,
@@ -318,6 +381,35 @@ export type PostApiAuthChangePasswordApiResponse = unknown;
 export type PostApiAuthChangePasswordApiArg = {
   authChangePasswordRequest: AuthChangePasswordRequest;
 };
+export type PatchApiDepartmentsSetDepartmentHeadApiResponse = unknown;
+export type PatchApiDepartmentsSetDepartmentHeadApiArg = {
+  departmentId: string;
+  userId: string;
+};
+export type GetApiDepartmentsGetApiResponse =
+  /** status 200 OK */ DepartmentsGetResponseRead;
+export type GetApiDepartmentsGetApiArg = {
+  facultyId: string;
+  pageNumber: number;
+  pageSize: number;
+  filter?: string;
+  desc?: boolean;
+  orderBy?: string;
+};
+export type GetApiDepartmentsGetFullDescriptionApiResponse =
+  /** status 200 OK */ DepartmentsGetFullDescriptionResponse;
+export type GetApiDepartmentsGetFullDescriptionApiArg = {
+  id: string;
+};
+export type DeleteApiDepartmentsDeleteApiResponse = unknown;
+export type DeleteApiDepartmentsDeleteApiArg = {
+  id: string;
+};
+export type PostApiDepartmentsCreateApiResponse =
+  /** status 200 OK */ DepartmentsCreateResponse;
+export type PostApiDepartmentsCreateApiArg = {
+  departmentsCreateRequest: DepartmentsCreateRequest;
+};
 export type PatchApiFacultiesSetFacultyHeadApiResponse = unknown;
 export type PatchApiFacultiesSetFacultyHeadApiArg = {
   facultyId: string;
@@ -375,6 +467,7 @@ export type GetApiUsersGetStudentsApiArg = {
 export type GetApiUsersGetDeaneriesApiResponse =
   /** status 200 OK */ UsersGetDeaneriesResponseRead;
 export type GetApiUsersGetDeaneriesApiArg = {
+  facultyId?: string;
   pageNumber: number;
   pageSize: number;
   filter?: string;
@@ -497,10 +590,59 @@ export type AuthInfoResponse = {
   phoneNumber?: string | null;
   speciality?: string | null;
   groupNumber?: string | null;
+  facultyId?: string | null;
+  departmentId?: string | null;
 };
 export type AuthChangePasswordRequest = {
   password: string;
   newPassword: string;
+};
+export type DepartmentsGetDepartment = {
+  id?: string;
+  name?: string | null;
+  shortName?: string | null;
+};
+export type DepartmentsGetResponse = {
+  items?: DepartmentsGetDepartment[] | null;
+  currentPage?: number;
+  pageSize?: number;
+};
+export type DepartmentsGetResponseRead = {
+  items?: DepartmentsGetDepartment[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
+export type DepartmentsGetFullDescriptionDepartmentFullDescriptionUser = {
+  id?: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  middleName?: string | null;
+  email?: string | null;
+  phoneNumber?: string | null;
+  position?: string | null;
+  blocked?: boolean;
+  approved?: boolean;
+};
+export type DepartmentsGetFullDescriptionResponse = {
+  id?: string;
+  name?: string | null;
+  shortName?: string | null;
+  head?: DepartmentsGetFullDescriptionDepartmentFullDescriptionUser;
+  teachers?:
+    | DepartmentsGetFullDescriptionDepartmentFullDescriptionUser[]
+    | null;
+};
+export type DepartmentsCreateResponse = {
+  id: string;
+};
+export type DepartmentsCreateRequest = {
+  name: string;
+  shortName: string;
+  facultyId: string;
 };
 export type FacultiesGetFaculty = {
   id?: string;
@@ -694,6 +836,13 @@ export const {
   useGetApiAuthInfoQuery,
   useLazyGetApiAuthInfoQuery,
   usePostApiAuthChangePasswordMutation,
+  usePatchApiDepartmentsSetDepartmentHeadMutation,
+  useGetApiDepartmentsGetQuery,
+  useLazyGetApiDepartmentsGetQuery,
+  useGetApiDepartmentsGetFullDescriptionQuery,
+  useLazyGetApiDepartmentsGetFullDescriptionQuery,
+  useDeleteApiDepartmentsDeleteMutation,
+  usePostApiDepartmentsCreateMutation,
   usePatchApiFacultiesSetFacultyHeadMutation,
   useGetApiFacultiesGetQuery,
   useLazyGetApiFacultiesGetQuery,

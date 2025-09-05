@@ -73,7 +73,7 @@ const DeaneriesPage: React.FC = () => {
   const currentUser = useAppSelector(state => state.auth.user);
 
   useEffect(() => {
-    getData({ filter: search, pageNumber: pageNumber, pageSize: 25 });
+    getData({ filter: search, pageNumber: pageNumber, pageSize: 25, facultyId: currentUser?.facultyId ?? undefined });
   }, [pageNumber, search, currentUser]);
 
   const SearchValueChanged = (newSearch: string) => {
