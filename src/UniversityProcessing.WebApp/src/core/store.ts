@@ -1,11 +1,13 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import authReducer from '../features/auth/auth.slice';
+import periodReducer from '../features/periods/period.slice';
 import { backendApi } from '../api/backendApi';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    period: periodReducer,
     [backendApi.reducerPath]: backendApi.reducer
   },
   // Adding the api middleware enables caching, invalidation, polling,

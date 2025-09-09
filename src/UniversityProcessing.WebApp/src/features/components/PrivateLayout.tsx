@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AppBar,
   Avatar,
@@ -13,12 +13,13 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Select,
   Stack,
   Toolbar,
   Typography,
   useMediaQuery
 } from '@mui/material';
-import { Dashboard as DashboardIcon, ExitToApp as ExitToAppIcon, Menu as MenuIcon } from '@mui/icons-material';
+import { Book, Dashboard as DashboardIcon, ExitToApp as ExitToAppIcon, Menu as MenuIcon } from '@mui/icons-material';
 import { pink, teal } from '@mui/material/colors';
 import theme from 'src/theme';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
@@ -27,18 +28,36 @@ import { logout } from '../auth/auth.slice';
 import { RoleLocalizationLabel } from 'src/core/labelStore';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SchoolIcon from '@mui/icons-material/School';
-import { ContractsUserRoleType } from 'src/api/backendApi';
+import { ContractsUserRoleType, useGetApiPeriodsGetQuery } from 'src/api/backendApi';
 import { text } from 'stream/consumers';
+import { setPeriod } from '../periods/period.slice';
 
 const PrivateLayout: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const authState = useAppSelector(state => state.auth);
+  const periodState = useAppSelector(state => state.period);
   const dispatch = useAppDispatch();
   const nav = useNavigate();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const usePeriods = authState.user?.role != ContractsUserRoleType.Admin;
+
+  const { data, isSuccess } = useGetApiPeriodsGetQuery();
+
+  useEffect(() => {
+    if (isSuccess && data.list && data.list.length > 0) {
+      dispatch(setPeriod({ id: data.list[0].id, name: data?.list[0].name }));
+    }
+  }, [isSuccess]);
+
+  const handlePeriodChange = (event) => {
+    const periodName = event.target.value;
+    const periodId = data?.list?.find(period => period.name === periodName)?.id ?? null;
+    dispatch(setPeriod({ id: periodId ?? '', name: periodName ?? '' }));
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -55,6 +74,7 @@ const PrivateLayout: React.FC = () => {
   // Меню навигации
   const menuItems = [
     { text: 'Главная', icon: <DashboardIcon />, path: '/' },
+    { text: 'Учебные периоды', icon: <Book />, path: '/periods', roles: [ContractsUserRoleType.Deanery] },
     { text: 'Пользователи', icon: <PeopleAltIcon />, path: '/users' },
     { text: 'Факультеты', icon: <SchoolIcon />, path: '/faculties', roles: [ContractsUserRoleType.Admin] },
     { text: 'Кафедры', icon: <SchoolIcon />, path: '/departments', roles: [ContractsUserRoleType.Deanery] },
@@ -62,7 +82,6 @@ const PrivateLayout: React.FC = () => {
     // { text: 'График защит', icon: <CalendarIcon />, path: '/schedule', roles: ['admin', 'deanery', 'departmentHead', 'commission'] },
     // { text: 'Оценки', icon: <GradeIcon />, path: '/grades', roles: ['commission', 'deanery'] },
     // { text: 'ГЭК', icon: <GroupWorkIcon />, path: '/commissions', roles: ['admin', 'deanery', 'departmentHead'] },
-    // { text: 'Темы работ', icon: <BookIcon />, path: '/topics', roles: ['departmentHead', 'supervisor'] }
   ];
 
   const filteredMenuItems = menuItems
@@ -88,9 +107,31 @@ const PrivateLayout: React.FC = () => {
         >
           <MenuIcon />
         </IconButton>
+
         <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
           Дипломное проектирование
         </Typography>
+
+        {
+          usePeriods && periodState && <Select
+            value={periodState.name}
+            onChange={handlePeriodChange}
+            size="small"
+            sx={{
+              color: 'white',
+              borderColor: 'white',
+              '.MuiSvgIcon-root': { color: 'white' },
+              mr: 2,
+              minWidth: 140
+            }}
+          >
+            {
+              data?.list?.map(period => (
+                <MenuItem key={period.id} value={period.name}>{period.name}</MenuItem>
+              ))
+            }
+          </Select>
+        }
 
         <IconButton color="inherit" onClick={handleMenuOpen}>
           <Avatar

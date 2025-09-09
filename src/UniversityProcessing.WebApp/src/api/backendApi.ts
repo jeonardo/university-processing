@@ -181,6 +181,79 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.departmentsCreateRequest,
       }),
     }),
+    deleteApiDiplomaProcessesUsersRemove: build.mutation<
+      DeleteApiDiplomaProcessesUsersRemoveApiResponse,
+      DeleteApiDiplomaProcessesUsersRemoveApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/Users/Remove`,
+        method: "DELETE",
+        params: {
+          DiplomaPeriodId: queryArg.diplomaPeriodId,
+          UserIds: queryArg.userIds,
+        },
+      }),
+    }),
+    getApiDiplomaProcessesUsersGet: build.query<
+      GetApiDiplomaProcessesUsersGetApiResponse,
+      GetApiDiplomaProcessesUsersGetApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/Users/Get`,
+        params: {
+          DiplomaPeriodId: queryArg.diplomaPeriodId,
+          RoleType: queryArg.roleType,
+        },
+      }),
+    }),
+    postApiDiplomaProcessesUsersAdd: build.mutation<
+      PostApiDiplomaProcessesUsersAddApiResponse,
+      PostApiDiplomaProcessesUsersAddApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/Users/Add`,
+        method: "POST",
+        body: queryArg.diplomaProcessesUsersAddRequest,
+      }),
+    }),
+    getApiDiplomaProcessesGet: build.query<
+      GetApiDiplomaProcessesGetApiResponse,
+      GetApiDiplomaProcessesGetApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/Get`,
+        params: {
+          PeriodId: queryArg.periodId,
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter,
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+        },
+      }),
+    }),
+    deleteApiDiplomaProcessesDelete: build.mutation<
+      DeleteApiDiplomaProcessesDeleteApiResponse,
+      DeleteApiDiplomaProcessesDeleteApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/Delete`,
+        method: "DELETE",
+        params: {
+          Id: queryArg.id,
+        },
+      }),
+    }),
+    postApiDiplomaProcessesCreate: build.mutation<
+      PostApiDiplomaProcessesCreateApiResponse,
+      PostApiDiplomaProcessesCreateApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/Create`,
+        method: "POST",
+        body: queryArg.diplomaProcessesCreateRequest,
+      }),
+    }),
     patchApiFacultiesSetFacultyHead: build.mutation<
       PatchApiFacultiesSetFacultyHeadApiResponse,
       PatchApiFacultiesSetFacultyHeadApiArg
@@ -240,6 +313,108 @@ const injectedRtkApi = api.injectEndpoints({
         url: `/api/Faculties/Create`,
         method: "POST",
         body: queryArg.facultiesCreateRequest,
+      }),
+    }),
+    getApiGroupsGet: build.query<
+      GetApiGroupsGetApiResponse,
+      GetApiGroupsGetApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Groups/Get`,
+        params: {
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter,
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+        },
+      }),
+    }),
+    deleteApiGroupsDelete: build.mutation<
+      DeleteApiGroupsDeleteApiResponse,
+      DeleteApiGroupsDeleteApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Groups/Delete`,
+        method: "DELETE",
+        params: {
+          Id: queryArg.id,
+        },
+      }),
+    }),
+    postApiGroupsCreate: build.mutation<
+      PostApiGroupsCreateApiResponse,
+      PostApiGroupsCreateApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Groups/Create`,
+        method: "POST",
+        body: queryArg.groupsCreateRequest,
+      }),
+    }),
+    getApiPeriodsGet: build.query<
+      GetApiPeriodsGetApiResponse,
+      GetApiPeriodsGetApiArg
+    >({
+      query: () => ({ url: `/api/Periods/Get` }),
+    }),
+    deleteApiPeriodsDelete: build.mutation<
+      DeleteApiPeriodsDeleteApiResponse,
+      DeleteApiPeriodsDeleteApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Periods/Delete`,
+        method: "DELETE",
+        params: {
+          Id: queryArg.id,
+        },
+      }),
+    }),
+    postApiPeriodsCreate: build.mutation<
+      PostApiPeriodsCreateApiResponse,
+      PostApiPeriodsCreateApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Periods/Create`,
+        method: "POST",
+        body: queryArg.periodsCreateRequest,
+      }),
+    }),
+    getApiSpecialtiesGet: build.query<
+      GetApiSpecialtiesGetApiResponse,
+      GetApiSpecialtiesGetApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Specialties/Get`,
+        params: {
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter,
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+        },
+      }),
+    }),
+    deleteApiSpecialtiesDelete: build.mutation<
+      DeleteApiSpecialtiesDeleteApiResponse,
+      DeleteApiSpecialtiesDeleteApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Specialties/Delete`,
+        method: "DELETE",
+        params: {
+          Id: queryArg.id,
+        },
+      }),
+    }),
+    postApiSpecialtiesCreate: build.mutation<
+      PostApiSpecialtiesCreateApiResponse,
+      PostApiSpecialtiesCreateApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/Specialties/Create`,
+        method: "POST",
+        body: queryArg.specialtiesCreateRequest,
       }),
     }),
     putApiUsersUpdateVerification: build.mutation<
@@ -410,6 +585,40 @@ export type PostApiDepartmentsCreateApiResponse =
 export type PostApiDepartmentsCreateApiArg = {
   departmentsCreateRequest: DepartmentsCreateRequest;
 };
+export type DeleteApiDiplomaProcessesUsersRemoveApiResponse = unknown;
+export type DeleteApiDiplomaProcessesUsersRemoveApiArg = {
+  diplomaPeriodId: string;
+  userIds: string[];
+};
+export type GetApiDiplomaProcessesUsersGetApiResponse =
+  /** status 200 OK */ DiplomaProcessesUsersGetResponse;
+export type GetApiDiplomaProcessesUsersGetApiArg = {
+  diplomaPeriodId: string;
+  roleType: ContractsUserRoleType;
+};
+export type PostApiDiplomaProcessesUsersAddApiResponse = unknown;
+export type PostApiDiplomaProcessesUsersAddApiArg = {
+  diplomaProcessesUsersAddRequest: DiplomaProcessesUsersAddRequest;
+};
+export type GetApiDiplomaProcessesGetApiResponse =
+  /** status 200 OK */ DiplomaProcessesGetResponseRead;
+export type GetApiDiplomaProcessesGetApiArg = {
+  periodId: string;
+  pageNumber: number;
+  pageSize: number;
+  filter?: string;
+  desc?: boolean;
+  orderBy?: string;
+};
+export type DeleteApiDiplomaProcessesDeleteApiResponse = unknown;
+export type DeleteApiDiplomaProcessesDeleteApiArg = {
+  id: string;
+};
+export type PostApiDiplomaProcessesCreateApiResponse =
+  /** status 200 OK */ DiplomaProcessesCreateResponse;
+export type PostApiDiplomaProcessesCreateApiArg = {
+  diplomaProcessesCreateRequest: DiplomaProcessesCreateRequest;
+};
 export type PatchApiFacultiesSetFacultyHeadApiResponse = unknown;
 export type PatchApiFacultiesSetFacultyHeadApiArg = {
   facultyId: string;
@@ -437,6 +646,54 @@ export type PostApiFacultiesCreateApiResponse =
   /** status 200 OK */ FacultiesCreateResponse;
 export type PostApiFacultiesCreateApiArg = {
   facultiesCreateRequest: FacultiesCreateRequest;
+};
+export type GetApiGroupsGetApiResponse =
+  /** status 200 OK */ GroupsGetResponseRead;
+export type GetApiGroupsGetApiArg = {
+  pageNumber: number;
+  pageSize: number;
+  filter?: string;
+  desc?: boolean;
+  orderBy?: string;
+};
+export type DeleteApiGroupsDeleteApiResponse = unknown;
+export type DeleteApiGroupsDeleteApiArg = {
+  id: string;
+};
+export type PostApiGroupsCreateApiResponse =
+  /** status 200 OK */ GroupsCreateResponse;
+export type PostApiGroupsCreateApiArg = {
+  groupsCreateRequest: GroupsCreateRequest;
+};
+export type GetApiPeriodsGetApiResponse =
+  /** status 200 OK */ PeriodsGetResponse;
+export type GetApiPeriodsGetApiArg = void;
+export type DeleteApiPeriodsDeleteApiResponse = unknown;
+export type DeleteApiPeriodsDeleteApiArg = {
+  id: string;
+};
+export type PostApiPeriodsCreateApiResponse =
+  /** status 200 OK */ PeriodsCreateResponse;
+export type PostApiPeriodsCreateApiArg = {
+  periodsCreateRequest: PeriodsCreateRequest;
+};
+export type GetApiSpecialtiesGetApiResponse =
+  /** status 200 OK */ SpecialtiesGetResponseRead;
+export type GetApiSpecialtiesGetApiArg = {
+  pageNumber: number;
+  pageSize: number;
+  filter?: string;
+  desc?: boolean;
+  orderBy?: string;
+};
+export type DeleteApiSpecialtiesDeleteApiResponse = unknown;
+export type DeleteApiSpecialtiesDeleteApiArg = {
+  id: string;
+};
+export type PostApiSpecialtiesCreateApiResponse =
+  /** status 200 OK */ SpecialtiesCreateResponse;
+export type PostApiSpecialtiesCreateApiArg = {
+  specialtiesCreateRequest: SpecialtiesCreateRequest;
 };
 export type PutApiUsersUpdateVerificationApiResponse = unknown;
 export type PutApiUsersUpdateVerificationApiArg = {
@@ -644,6 +901,46 @@ export type DepartmentsCreateRequest = {
   shortName: string;
   facultyId: string;
 };
+export type DiplomaProcessesUsersGetDiplomaPeriodUser = {
+  id?: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  middleName?: string | null;
+  universityPosition?: string | null;
+  added?: boolean;
+};
+export type DiplomaProcessesUsersGetResponse = {
+  list?: DiplomaProcessesUsersGetDiplomaPeriodUser[] | null;
+};
+export type DiplomaProcessesUsersAddRequest = {
+  diplomaPeriodId: string;
+  userIds: string[];
+};
+export type DiplomaProcessesGetDiplomaProcess = {
+  id?: string;
+  name?: string | null;
+};
+export type DiplomaProcessesGetResponse = {
+  items?: DiplomaProcessesGetDiplomaProcess[] | null;
+  currentPage?: number;
+  pageSize?: number;
+};
+export type DiplomaProcessesGetResponseRead = {
+  items?: DiplomaProcessesGetDiplomaProcess[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
+export type DiplomaProcessesCreateResponse = {
+  id?: string;
+};
+export type DiplomaProcessesCreateRequest = {
+  periodId: string;
+  name: string;
+};
 export type FacultiesGetFaculty = {
   id?: string;
   name?: string | null;
@@ -687,6 +984,82 @@ export type FacultiesCreateResponse = {
 export type FacultiesCreateRequest = {
   name: string;
   shortName: string;
+};
+export type GroupsGetGroup = {
+  id?: string;
+  number?: string | null;
+};
+export type GroupsGetResponse = {
+  items?: GroupsGetGroup[] | null;
+  currentPage?: number;
+  pageSize?: number;
+};
+export type GroupsGetResponseRead = {
+  items?: GroupsGetGroup[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
+export type GroupsCreateResponse = {
+  id: string;
+};
+export type GroupsCreateRequest = {
+  groupNumber: string;
+  startDate: string;
+  endDate: string;
+  specialtyId: string;
+  periodId: string;
+};
+export type PeriodsGetPeriod = {
+  id: string;
+  name: string;
+  from: string;
+  to: string;
+  comments?: string | null;
+};
+export type PeriodsGetResponse = {
+  list?: PeriodsGetPeriod[] | null;
+};
+export type PeriodsCreateResponse = {
+  id: string;
+};
+export type PeriodsCreateRequest = {
+  name: string;
+  from: string;
+  to: string;
+  comments?: string | null;
+};
+export type SpecialtiesGetSpecialty = {
+  id?: string;
+  name?: string | null;
+  shortName?: string | null;
+  code?: string | null;
+};
+export type SpecialtiesGetResponse = {
+  items?: SpecialtiesGetSpecialty[] | null;
+  currentPage?: number;
+  pageSize?: number;
+};
+export type SpecialtiesGetResponseRead = {
+  items?: SpecialtiesGetSpecialty[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
+export type SpecialtiesCreateResponse = {
+  id?: string;
+};
+export type SpecialtiesCreateRequest = {
+  name: string;
+  shortName: string;
+  code: string;
+  departmentId: string;
 };
 export type UsersUpdateVerificationRequest = {
   userId: string;
@@ -843,6 +1216,14 @@ export const {
   useLazyGetApiDepartmentsGetFullDescriptionQuery,
   useDeleteApiDepartmentsDeleteMutation,
   usePostApiDepartmentsCreateMutation,
+  useDeleteApiDiplomaProcessesUsersRemoveMutation,
+  useGetApiDiplomaProcessesUsersGetQuery,
+  useLazyGetApiDiplomaProcessesUsersGetQuery,
+  usePostApiDiplomaProcessesUsersAddMutation,
+  useGetApiDiplomaProcessesGetQuery,
+  useLazyGetApiDiplomaProcessesGetQuery,
+  useDeleteApiDiplomaProcessesDeleteMutation,
+  usePostApiDiplomaProcessesCreateMutation,
   usePatchApiFacultiesSetFacultyHeadMutation,
   useGetApiFacultiesGetQuery,
   useLazyGetApiFacultiesGetQuery,
@@ -850,6 +1231,18 @@ export const {
   useLazyGetApiFacultiesGetFullDescriptionQuery,
   useDeleteApiFacultiesDeleteMutation,
   usePostApiFacultiesCreateMutation,
+  useGetApiGroupsGetQuery,
+  useLazyGetApiGroupsGetQuery,
+  useDeleteApiGroupsDeleteMutation,
+  usePostApiGroupsCreateMutation,
+  useGetApiPeriodsGetQuery,
+  useLazyGetApiPeriodsGetQuery,
+  useDeleteApiPeriodsDeleteMutation,
+  usePostApiPeriodsCreateMutation,
+  useGetApiSpecialtiesGetQuery,
+  useLazyGetApiSpecialtiesGetQuery,
+  useDeleteApiSpecialtiesDeleteMutation,
+  usePostApiSpecialtiesCreateMutation,
   usePutApiUsersUpdateVerificationMutation,
   usePutApiUsersUpdateBlockingMutation,
   useGetApiUsersGetTeachersQuery,

@@ -17,6 +17,8 @@ public class Period : BaseEntity
 
     public virtual ICollection<Group> Groups { get; private set; } = null!;
 
+    public virtual ICollection<DiplomaProcess> DiplomaProcesses { get; private set; } = null!;
+
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local
     private Period()

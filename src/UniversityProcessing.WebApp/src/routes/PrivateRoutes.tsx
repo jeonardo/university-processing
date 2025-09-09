@@ -12,6 +12,7 @@ import { element } from 'prop-types';
 import DeaneriesPage from 'src/features/users/DeaneriesPage';
 import DepartmentsPage from 'src/features/departments/DepartmentsPage';
 import DepartmentPage from 'src/features/department/DepartmentPage';
+import { PeriodsPage } from 'src/features/periods/PeriodsPage';
 
 const PrivateRoutes = {
   path: '/',
@@ -59,6 +60,10 @@ const PrivateRoutes = {
     {
       path: 'departments/:id',
       element: <DepartmentPage />
+    },
+    {
+      path: 'periods',
+      element: <PeriodsPage />
     }
   ]
 };
