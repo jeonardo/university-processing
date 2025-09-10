@@ -3,47 +3,42 @@ import {
   Dialog, DialogTitle, DialogContent, DialogActions,
   TextField, Button, FormControlLabel, Switch, Box, Alert
 } from "@mui/material";
-import { Period } from "./period";
+import { PeriodsGetPeriod } from "src/api/backendApi";
 
 type Props = {
   open: boolean;
   onClose: () => void;
-  onSubmit: (values: Omit<Period, "id">) => Promise<void> | void;
-  initial?: Period | null;
-  existing: Period[];
+  onSubmit: (values: Omit<PeriodsGetPeriod, "id">) => Promise<void> | void;
+  initial?: PeriodsGetPeriod | null;
+  existing: PeriodsGetPeriod[];
 };
 
-type Errors = Partial<Record<keyof Omit<Period, "id">, string>> & { general?: string };
+type Errors = Partial<Record<keyof Omit<PeriodsGetPeriod, "id">, string>> & { general?: string };
 
 function normalizeDate(value: string): string {
-  // ожидаем YYYY-MM-DD, оставляем как есть
   return value;
 }
 
 function datesOverlap(aStart: string, aEnd: string, bStart: string, bEnd: string) {
-  // [aStart, aEnd] пересекается с [bStart, bEnd], если max(start) <= min(end)
   return (aStart <= bEnd) && (bStart <= aEnd);
 }
 
 export const PeriodFormDialog: React.FC<Props> = ({ open, onClose, onSubmit, initial, existing }) => {
   const [name, setName] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [isActive, setIsActive] = useState<boolean>(false);
+  const [from, setStartDate] = useState("");
+  const [to, setEndDate] = useState("");
   const [errors, setErrors] = useState<Errors>({});
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (initial) {
       setName(initial.name ?? "");
-      setStartDate(initial.startDate ?? "");
-      setEndDate(initial.endDate ?? "");
-      setIsActive(Boolean(initial.isActive));
+      setStartDate(initial.from ?? "");
+      setEndDate(initial.to ?? "");
     } else {
       setName("");
       setStartDate("");
       setEndDate("");
-      setIsActive(false);
     }
     setErrors({});
     setSubmitting(false);
@@ -57,21 +52,11 @@ export const PeriodFormDialog: React.FC<Props> = ({ open, onClose, onSubmit, ini
   const validate = (): boolean => {
     const next: Errors = {};
     if (!name.trim()) next.name = "Название обязательно";
-    if (!startDate) next.startDate = "Дата начала обязательна";
-    if (!endDate) next.endDate = "Дата окончания обязательна";
+    if (!from) next.from = "Дата начала обязательна";
+    if (!to) next.to = "Дата окончания обязательна";
 
-    if (!next.startDate && !next.endDate && startDate > endDate) {
-      next.endDate = "Дата окончания не может быть раньше начала";
-    }
-
-    // Пересечения периодов
-    if (!next.startDate && !next.endDate) {
-      const hasOverlap = existingForValidation.some(p =>
-        datesOverlap(startDate, endDate, p.startDate, p.endDate)
-      );
-      if (hasOverlap) {
-        next.general = "Период пересекается с существующими периодами";
-      }
+    if (!next.from && !next.to && from > to) {
+      next.to = "Дата окончания не может быть раньше начала";
     }
 
     setErrors(next);
@@ -84,9 +69,8 @@ export const PeriodFormDialog: React.FC<Props> = ({ open, onClose, onSubmit, ini
     try {
       await onSubmit({
         name: name.trim(),
-        startDate: normalizeDate(startDate),
-        endDate: normalizeDate(endDate),
-        isActive,
+        from: normalizeDate(from),
+        to: normalizeDate(to),
       });
       onClose();
     } catch (e: any) {
@@ -113,31 +97,22 @@ export const PeriodFormDialog: React.FC<Props> = ({ open, onClose, onSubmit, ini
           <TextField
             label="Дата начала"
             type="date"
-            value={startDate}
+            value={from}
             onChange={(e) => setStartDate(e.target.value)}
-            error={Boolean(errors.startDate)}
-            helperText={errors.startDate || "Формат: ГГГГ-ММ-ДД"}
+            error={Boolean(errors.from)}
+            helperText={errors.from || "Формат: ГГГГ-ММ-ДД"}
             InputLabelProps={{ shrink: true }}
             fullWidth
           />
           <TextField
             label="Дата окончания"
             type="date"
-            value={endDate}
+            value={to}
             onChange={(e) => setEndDate(e.target.value)}
-            error={Boolean(errors.endDate)}
-            helperText={errors.endDate || "Формат: ГГГГ-ММ-ДД"}
+            error={Boolean(errors.to)}
+            helperText={errors.to || "Формат: ГГГГ-ММ-ДД"}
             InputLabelProps={{ shrink: true }}
             fullWidth
-          />
-          <FormControlLabel
-            control={
-              <Switch
-                checked={isActive}
-                onChange={(e) => setIsActive(e.target.checked)}
-              />
-            }
-            label="Сделать активным"
           />
         </Box>
       </DialogContent>

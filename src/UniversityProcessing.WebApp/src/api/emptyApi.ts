@@ -5,6 +5,8 @@ import { login, logout } from 'src/features/auth/auth.slice';
 import { appEnv } from '../core/appEnv';
 import { AuthRefreshResponse } from './backendApi';
 import { GetAuthTokens, SetAuthTokens } from 'src/core/localStorageToken';
+import { enqueueSnackbar } from 'notistack';
+import { enqueueSnackbarError } from 'src/core';
 
 const mutex = new Mutex();
 
@@ -34,7 +36,14 @@ const baseQueryWithReauth: BaseQueryFn<
   let result = await baseQuery(args, api, extraOptions);
 
   // If the request succeeded or the error is not 401, return the result
-  if (!result.error || result.error.status !== 401) {
+  if (!result.error) {
+    return result;
+  }
+
+  if (result.error.status !== 401) {
+    const data = result.error.data as any;
+    if (data.message && data.message && typeof data.message as any === 'string')
+      enqueueSnackbar(data.message, { variant: 'error' });
     return result;
   }
 

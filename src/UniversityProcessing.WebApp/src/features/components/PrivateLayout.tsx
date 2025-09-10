@@ -30,7 +30,7 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SchoolIcon from '@mui/icons-material/School';
 import { ContractsUserRoleType, useGetApiPeriodsGetQuery } from 'src/api/backendApi';
 import { text } from 'stream/consumers';
-import { setPeriod } from '../periods/period.slice';
+import { setPeriod, setPeriods } from '../periods/period.slice';
 
 const PrivateLayout: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -49,14 +49,17 @@ const PrivateLayout: React.FC = () => {
 
   useEffect(() => {
     if (isSuccess && data.list && data.list.length > 0) {
-      dispatch(setPeriod({ id: data.list[0].id, name: data?.list[0].name }));
+      const el = data.list[0];
+      dispatch(setPeriod(el));
+      dispatch(setPeriods(data.list));
     }
   }, [isSuccess]);
 
   const handlePeriodChange = (event) => {
     const periodName = event.target.value;
-    const periodId = data?.list?.find(period => period.name === periodName)?.id ?? null;
-    dispatch(setPeriod({ id: periodId ?? '', name: periodName ?? '' }));
+    const period = data?.list?.find(period => period.name === periodName) ?? null;
+    if (period)
+      dispatch(setPeriod(period));
   };
 
   const handleDrawerToggle = () => {
@@ -114,7 +117,7 @@ const PrivateLayout: React.FC = () => {
 
         {
           usePeriods && periodState && <Select
-            value={periodState.name}
+            value={periodState.SelectedPeriod.name}
             onChange={handlePeriodChange}
             size="small"
             sx={{
@@ -126,7 +129,7 @@ const PrivateLayout: React.FC = () => {
             }}
           >
             {
-              data?.list?.map(period => (
+              periodState?.Periods?.map(period => (
                 <MenuItem key={period.id} value={period.name}>{period.name}</MenuItem>
               ))
             }

@@ -7,22 +7,12 @@ import AppListPagination from 'src/components/lists/AppListPagination';
 import { ContractsUserRoleType, useGetApiFacultiesGetQuery, useLazyGetApiFacultiesGetQuery, usePostApiFacultiesCreateMutation } from 'src/api/backendApi';
 import { useAppSelector, useRequireAdmin } from 'src/core/hooks';
 import { useNavigate } from 'react-router-dom';
-import { RegisterAdminForm } from '../auth/components';
 import AppListSearch from 'src/components/lists/AppListSearch';
 import {
   Add as AddIcon,
-  Block as BlockIcon,
-  CheckCircle as CheckCircleIcon,
-  Delete as DeleteIcon,
-  Edit as EditIcon,
-  School as SchoolIcon,
-  Search as SearchIcon,
-  VerifiedUser as VerifiedUserIcon,
-  Work as WorkIcon
 } from '@mui/icons-material';
 import SubmitButton from 'src/components/forms/SubmitButton';
 import { enqueueSnackbar } from 'notistack';
-import { on } from 'events';
 import { enqueueSnackbarError } from 'src/core/helpers';
 import { useSearchParams } from 'react-router-dom';
 

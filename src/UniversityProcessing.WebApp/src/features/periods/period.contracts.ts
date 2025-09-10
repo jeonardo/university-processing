@@ -1,4 +1,6 @@
+import { PeriodsGetPeriod } from "src/api/backendApi";
+
 export interface PeriodState {
-    id: string;
-    name: string;
+    SelectedPeriod: PeriodsGetPeriod;
+    Periods: PeriodsGetPeriod[];
 }
