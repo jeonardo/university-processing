@@ -4,7 +4,7 @@ import AppRouter from './routes/AppRouter';
 import theme from './theme';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import 'dayjs/locale/de';
+import 'dayjs/locale/ru';
 import { SnackbarProvider } from 'notistack';
 
 const App: React.FC = () => {
@@ -17,7 +17,7 @@ const App: React.FC = () => {
         horizontal: 'right'
       }}>
       <ThemeProvider theme={theme}>
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="de">
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
           <CssBaseline />
           <RouterProvider router={AppRouter} />
         </LocalizationProvider>

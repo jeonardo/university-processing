@@ -19,7 +19,7 @@ import {
   Typography,
   useMediaQuery
 } from '@mui/material';
-import { Book, Dashboard as DashboardIcon, ExitToApp as ExitToAppIcon, Menu as MenuIcon } from '@mui/icons-material';
+import { Book, Dashboard as DashboardIcon, ExitToApp as ExitToAppIcon, Menu as MenuIcon, Groups as GroupsIcon } from '@mui/icons-material';
 import { pink, teal } from '@mui/material/colors';
 import theme from 'src/theme';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
@@ -81,6 +81,7 @@ const PrivateLayout: React.FC = () => {
     { text: 'Пользователи', icon: <PeopleAltIcon />, path: '/users' },
     { text: 'Факультеты', icon: <SchoolIcon />, path: '/faculties', roles: [ContractsUserRoleType.Admin] },
     { text: 'Кафедры', icon: <SchoolIcon />, path: '/departments', roles: [ContractsUserRoleType.Deanery] },
+    { text: 'Группы', icon: <GroupsIcon />, path: '/groups', roles: [ContractsUserRoleType.Admin, ContractsUserRoleType.Deanery] },
     // { text: 'Дипломные проекты', icon: <AssignmentIcon />, path: '/projects', roles: ['admin', 'deanery', 'departmentHead', 'supervisor', 'student'] },
     // { text: 'График защит', icon: <CalendarIcon />, path: '/schedule', roles: ['admin', 'deanery', 'departmentHead', 'commission'] },
     // { text: 'Оценки', icon: <GradeIcon />, path: '/grades', roles: ['commission', 'deanery'] },

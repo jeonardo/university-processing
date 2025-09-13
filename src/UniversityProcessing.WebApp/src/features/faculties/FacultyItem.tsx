@@ -1,7 +1,7 @@
 import React from 'react';
 import { ListItem, ListItemText, Typography } from '@mui/material';
 import { SxProps, Theme } from '@mui/material/styles';
-import { FacultiesGetFaculty } from 'src/api/backendApi';
+import { FacultiesGetFaculty, useGetApiGroupsGetQuery } from 'src/api/backendApi';
 
 interface FacultyItemProps<T> {
   item: T;
