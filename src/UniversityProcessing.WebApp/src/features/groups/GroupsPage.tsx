@@ -27,11 +27,13 @@ import {
   GroupsGetGroup
 } from 'src/api/backendApi';
 import { useAppSelector, useRequireAdmin } from 'src/core/hooks';
+import { useNavigate } from 'react-router-dom';
 import { enqueueSnackbar } from 'notistack';
 import { enqueueSnackbarError } from 'src/core/helpers';
 
 const GroupsPage: React.FC = () => {
   useRequireAdmin();
+  const navigate = useNavigate();
 
   const [pageNumber, setPageNumber] = useState(1);
   const [search, setSearch] = useState('');
@@ -175,8 +177,8 @@ const GroupsPage: React.FC = () => {
                   position: 'relative'
                 }}
                 onClick={() => {
-                  // Можно добавить навигацию к детальной странице группы
-                  console.log('Group clicked:', group);
+                  // Переходим к студентам этой группы
+                  navigate(`/users/students?groupId=${group.id}&groupNumber=${group.number}`);
                 }}
                 onDelete={handleDeleteClick}
               />

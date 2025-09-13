@@ -18,6 +18,7 @@ import AppListSearch from 'src/components/lists/AppListSearch';
 import { ContractsUserRoleType, useLazyGetApiUsersGetStudentsQuery } from 'src/api/backendApi';
 import {
   Add as AddIcon,
+  ArrowBack as ArrowBackIcon,
   Block as BlockIcon,
   CheckCircle as CheckCircleIcon,
   Delete as DeleteIcon,
@@ -27,7 +28,7 @@ import {
   VerifiedUser as VerifiedUserIcon,
   Work as WorkIcon
 } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import RegisterStudentForm from '../auth/components/RegisterStudentForm';
 
 const AddUserModal: React.FC<{
@@ -63,6 +64,8 @@ const StudentsPage: React.FC = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [search, setSearch] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const [getData, { data, isLoading }] = useLazyGetApiUsersGetStudentsQuery(
     {
@@ -71,17 +74,22 @@ const StudentsPage: React.FC = () => {
 
   const currentUser = useAppSelector(state => state.auth.user);
   const periodId = useAppSelector(state => state.period.SelectedPeriod.id);
+  
+  // Получаем параметры из URL
+  const groupId = searchParams.get('groupId');
+  const groupNumber = searchParams.get('groupNumber');
 
   useEffect(() => {
     if (periodId) {
       getData({ 
         periodId: periodId,
+        groupId: groupId || undefined,
         filter: search, 
         pageNumber: pageNumber, 
         pageSize: 25 
       });
     }
-  }, [pageNumber, search, currentUser, periodId]);
+  }, [pageNumber, search, currentUser, periodId, groupId]);
 
   const SearchValueChanged = (newSearch: string) => {
     setPageNumber(1);
@@ -104,17 +112,36 @@ const StudentsPage: React.FC = () => {
       />
       <Paper className="p-6">
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
-          <Typography variant="h4" component="h1" className="font-bold">
-            Студенты
-          </Typography>
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={handleOpenModal}
-            sx={{ borderRadius: 2 }}
-          >
-            <span className="hidden sm:inline">Добавить студента</span>
-          </Button>
+          <Box>
+            <Typography variant="h4" component="h1" className="font-bold">
+              {groupId ? `Студенты группы ${groupNumber}` : 'Студенты'}
+            </Typography>
+            {groupId && (
+              <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                Показаны только студенты из выбранной группы
+              </Typography>
+            )}
+          </Box>
+          <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+            {groupId && (
+              <Button
+                variant="outlined"
+                startIcon={<ArrowBackIcon />}
+                onClick={() => navigate('/groups')}
+                sx={{ borderRadius: 2 }}
+              >
+                <span className="hidden sm:inline">Назад к группам</span>
+              </Button>
+            )}
+            <Button
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={handleOpenModal}
+              sx={{ borderRadius: 2 }}
+            >
+              <span className="hidden sm:inline">Добавить студента</span>
+            </Button>
+          </Box>
         </Box>
         <AppListSearch
           label="Поиск"
