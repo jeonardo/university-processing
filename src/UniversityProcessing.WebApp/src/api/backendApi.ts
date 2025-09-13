@@ -322,6 +322,7 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/api/Groups/Get`,
         params: {
+          PeriodId: queryArg.periodId,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
           Filter: queryArg.filter,
@@ -459,6 +460,7 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/api/Users/GetStudents`,
         params: {
+          PeriodId: queryArg.periodId,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
           Filter: queryArg.filter,
@@ -650,6 +652,7 @@ export type PostApiFacultiesCreateApiArg = {
 export type GetApiGroupsGetApiResponse =
   /** status 200 OK */ GroupsGetResponseRead;
 export type GetApiGroupsGetApiArg = {
+  periodId: string;
   pageNumber: number;
   pageSize: number;
   filter?: string;
@@ -715,6 +718,7 @@ export type GetApiUsersGetTeachersApiArg = {
 export type GetApiUsersGetStudentsApiResponse =
   /** status 200 OK */ UsersGetStudentsResponseRead;
 export type GetApiUsersGetStudentsApiArg = {
+  periodId: string;
   pageNumber: number;
   pageSize: number;
   filter?: string;

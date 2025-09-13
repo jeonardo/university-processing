@@ -38,6 +38,9 @@ const GroupsPage: React.FC = () => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<GroupsGetGroup | null>(null);
 
+  // Получаем periodId из состояния
+  const periodId = useAppSelector(state => state.period.SelectedPeriod.id);
+
   // API хуки
   const [getData, { data, isLoading }] = useLazyGetApiGroupsGetQuery({
     pollingInterval: 15000
@@ -48,14 +51,17 @@ const GroupsPage: React.FC = () => {
 
   // Загружаем данные при изменении параметров
   useEffect(() => {
-    getData({
-      filter: search,
-      pageNumber: pageNumber,
-      pageSize: 25,
-      desc: false,
-      orderBy: 'number'
-    });
-  }, [pageNumber, search, getData]);
+    if (periodId) {
+      getData({
+        periodId: periodId,
+        filter: search,
+        pageNumber: pageNumber,
+        pageSize: 25,
+        desc: false,
+        orderBy: 'number'
+      });
+    }
+  }, [pageNumber, search, periodId, getData]);
 
   const handleSearchChange = (value: string) => {
     setPageNumber(1);
@@ -68,15 +74,18 @@ const GroupsPage: React.FC = () => {
       enqueueSnackbar('Группа успешно создана', { variant: 'success' });
       setIsCreateDialogOpen(false);
       // Перезагружаем данные
-      getData({
-        filter: search,
-        pageNumber: pageNumber,
-        pageSize: 25,
-        desc: false,
-        orderBy: 'number'
-      });
-    } catch (error) {
-      enqueueSnackbarError(error);
+      if (periodId) {
+        getData({
+          periodId: periodId,
+          filter: search,
+          pageNumber: pageNumber,
+          pageSize: 25,
+          desc: false,
+          orderBy: 'number'
+        });
+      }
+    } catch (error: any) {
+      enqueueSnackbarError(error as any);
     }
   };
 
@@ -92,15 +101,18 @@ const GroupsPage: React.FC = () => {
       enqueueSnackbar('Группа успешно удалена', { variant: 'success' });
       setDeleteTarget(null);
       // Перезагружаем данные
-      getData({
-        filter: search,
-        pageNumber: pageNumber,
-        pageSize: 25,
-        desc: false,
-        orderBy: 'number'
-      });
-    } catch (error) {
-      enqueueSnackbarError(error);
+      if (periodId) {
+        getData({
+          periodId: periodId,
+          filter: search,
+          pageNumber: pageNumber,
+          pageSize: 25,
+          desc: false,
+          orderBy: 'number'
+        });
+      }
+    } catch (error: any) {
+      enqueueSnackbarError(error as any);
     }
   };
 
