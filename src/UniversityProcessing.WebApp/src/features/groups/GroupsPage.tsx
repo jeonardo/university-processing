@@ -2,16 +2,13 @@ import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
-  Container,
   Paper,
-  Stack,
   Typography,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
-  IconButton,
-  Chip
+  Container
 } from '@mui/material';
 import {
   Add as AddIcon,
@@ -24,7 +21,7 @@ import AppListSearch from 'src/components/lists/AppListSearch';
 import GroupItem from './GroupItem';
 import GroupFormDialog from './GroupFormDialog';
 import {
-  useGetApiGroupsGetQuery,
+  useLazyGetApiGroupsGetQuery,
   useDeleteApiGroupsDeleteMutation,
   usePostApiGroupsCreateMutation,
   GroupsGetGroup
@@ -32,46 +29,37 @@ import {
 import { useAppSelector, useRequireAdmin } from 'src/core/hooks';
 import { enqueueSnackbar } from 'notistack';
 import { enqueueSnackbarError } from 'src/core/helpers';
-import { useSearchParams } from 'react-router-dom';
 
 const GroupsPage: React.FC = () => {
   useRequireAdmin();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [pageNumber, setPageNumber] = useState(1);
+  const [search, setSearch] = useState('');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<GroupsGetGroup | null>(null);
 
-  // Получаем параметры из URL
-  const pageNumber = parseInt(searchParams.get('page') || '1');
-  const search = searchParams.get('search') || '';
-
   // API хуки
-  const { data, isLoading, refetch } = useGetApiGroupsGetQuery({
-    pageNumber,
-    pageSize: 25,
-    filter: search,
-    desc: false,
-    orderBy: 'number'
+  const [getData, { data, isLoading }] = useLazyGetApiGroupsGetQuery({
+    pollingInterval: 15000
   });
 
   const [createGroup, { isLoading: isCreating }] = usePostApiGroupsCreateMutation();
   const [deleteGroup, { isLoading: isDeleting }] = useDeleteApiGroupsDeleteMutation();
 
-  const handleSearchChange = (value: string) => {
-    setSearchParams(prev => {
-      const newParams = new URLSearchParams(prev);
-      newParams.set('search', value);
-      newParams.set('page', '1'); // Сбрасываем на первую страницу при поиске
-      return newParams;
+  // Загружаем данные при изменении параметров
+  useEffect(() => {
+    getData({
+      filter: search,
+      pageNumber: pageNumber,
+      pageSize: 25,
+      desc: false,
+      orderBy: 'number'
     });
-  };
+  }, [pageNumber, search, getData]);
 
-  const handlePageChange = (newPage: number) => {
-    setSearchParams(prev => {
-      const newParams = new URLSearchParams(prev);
-      newParams.set('page', newPage.toString());
-      return newParams;
-    });
+  const handleSearchChange = (value: string) => {
+    setPageNumber(1);
+    setSearch(value);
   };
 
   const handleCreateGroup = async (groupData: any) => {
@@ -79,7 +67,14 @@ const GroupsPage: React.FC = () => {
       const result = await createGroup({ groupsCreateRequest: groupData }).unwrap();
       enqueueSnackbar('Группа успешно создана', { variant: 'success' });
       setIsCreateDialogOpen(false);
-      refetch();
+      // Перезагружаем данные
+      getData({
+        filter: search,
+        pageNumber: pageNumber,
+        pageSize: 25,
+        desc: false,
+        orderBy: 'number'
+      });
     } catch (error) {
       enqueueSnackbarError(error);
     }
@@ -96,7 +91,14 @@ const GroupsPage: React.FC = () => {
       await deleteGroup({ id: deleteTarget.id! }).unwrap();
       enqueueSnackbar('Группа успешно удалена', { variant: 'success' });
       setDeleteTarget(null);
-      refetch();
+      // Перезагружаем данные
+      getData({
+        filter: search,
+        pageNumber: pageNumber,
+        pageSize: 25,
+        desc: false,
+        orderBy: 'number'
+      });
     } catch (error) {
       enqueueSnackbarError(error);
     }
@@ -108,9 +110,17 @@ const GroupsPage: React.FC = () => {
 
   return (
     <Container sx={{ display: 'flex', flexDirection: 'column', gap: 1 }} maxWidth="md">
+      {/* Диалог создания группы */}
+      <GroupFormDialog
+        open={isCreateDialogOpen}
+        onClose={() => setIsCreateDialogOpen(false)}
+        onSubmit={handleCreateGroup}
+        isLoading={isCreating}
+      />
+
       {/* Заголовок и кнопка создания */}
       <Paper className="p-6">
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <SchoolIcon color="primary" />
             <Typography variant="h4" component="h1" className="font-bold">
@@ -126,7 +136,7 @@ const GroupsPage: React.FC = () => {
             <span className="hidden sm:inline">Добавить группу</span>
           </Button>
         </Box>
-        
+
         <AppListSearch
           label="Поиск"
           placeholder="Введите номер группы"
@@ -147,8 +157,8 @@ const GroupsPage: React.FC = () => {
                 key={group.id}
                 item={group}
                 className="cursor-pointer hover:bg-gray-50 rounded-md"
-                sx={{ 
-                  '&:hover': { bgcolor: 'action.hover' }, 
+                sx={{
+                  '&:hover': { bgcolor: 'action.hover' },
                   borderRadius: 1,
                   position: 'relative'
                 }}
@@ -164,23 +174,13 @@ const GroupsPage: React.FC = () => {
       </Paper>
 
       {/* Пагинация */}
-      {data && data.totalPages && data.totalPages > 1 && (
-        <Paper sx={{ p: 1.5, display: 'flex', justifyContent: 'center' }}>
-          <AppListPagination
-            currentPage={pageNumber}
-            totalPages={data.totalPages}
-            onPageChange={handlePageChange}
-          />
-        </Paper>
-      )}
-
-      {/* Диалог создания группы */}
-      <GroupFormDialog
-        open={isCreateDialogOpen}
-        onClose={() => setIsCreateDialogOpen(false)}
-        onSubmit={handleCreateGroup}
-        isLoading={isCreating}
-      />
+      <Paper sx={{ p: 1.5, display: 'flex', justifyContent: 'center' }}>
+        <AppListPagination
+          currentPage={pageNumber}
+          totalPages={data?.totalPages ?? 0}
+          onPageChange={setPageNumber}
+        />
+      </Paper>
 
       {/* Диалог подтверждения удаления */}
       <Dialog open={!!deleteTarget} onClose={handleDeleteCancel}>
@@ -196,9 +196,9 @@ const GroupsPage: React.FC = () => {
           <Button onClick={handleDeleteCancel} disabled={isDeleting}>
             Отмена
           </Button>
-          <Button 
-            onClick={handleDeleteConfirm} 
-            color="error" 
+          <Button
+            onClick={handleDeleteConfirm}
+            color="error"
             variant="contained"
             disabled={isDeleting}
           >
