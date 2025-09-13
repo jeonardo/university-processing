@@ -25,7 +25,9 @@ internal sealed class GetGroups : IEndpoint
     {
         var entities = await repository.TypedDbContext.ToPagedListAsync(
             request,
-            null,
+            request.Filter is null
+                ? x => x.PeriodId == request.PeriodId
+                : x => x.PeriodId == request.PeriodId && x.Number.Contains(request.Filter),
             x => new GroupDto(x.Id, x.Number),
             null,
             cancellationToken);

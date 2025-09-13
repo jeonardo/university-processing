@@ -28,9 +28,11 @@ internal sealed class GetStudents : IEndpoint
     {
         var pagedList = await repository.TypedDbContext.ToPagedListAsync(
             request,
-            x => EF.Functions.Like(x.FullName, $"%{request.Filter}%"),
+            request.Filter is null
+                ? x => x.Group.PeriodId == request.PeriodId
+                : x => x.Group.PeriodId == request.PeriodId && x.FullName.Contains(request.Filter),
             x => new StudentDto(x.Id, x.FirstName, x.LastName, x.MiddleName, x.Approved, x.Blocked),
-            null,
+            x => x.Include(y => y.Group),
             cancellationToken);
         return new GetStudentsResponseDto(pagedList);
     }
