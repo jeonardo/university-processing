@@ -461,6 +461,7 @@ const injectedRtkApi = api.injectEndpoints({
         url: `/api/Users/GetStudents`,
         params: {
           PeriodId: queryArg.periodId,
+          GroupId: queryArg.groupId,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
           Filter: queryArg.filter,
@@ -719,6 +720,7 @@ export type GetApiUsersGetStudentsApiResponse =
   /** status 200 OK */ UsersGetStudentsResponseRead;
 export type GetApiUsersGetStudentsApiArg = {
   periodId: string;
+  groupId?: string;
   pageNumber: number;
   pageSize: number;
   filter?: string;

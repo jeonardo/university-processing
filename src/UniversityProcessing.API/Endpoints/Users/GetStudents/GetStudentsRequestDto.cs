@@ -7,4 +7,6 @@ public sealed class GetStudentsRequestDto : BaseGetListQueryParameters
 {
     [Required]
     public Guid PeriodId { get; set; }
+
+    public Guid? GroupId { get; set; }
 }

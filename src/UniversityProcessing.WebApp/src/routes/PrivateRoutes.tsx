@@ -7,6 +7,8 @@ import UsersProxyPage from 'src/features/users/UsersProxyPage';
 import PrivateLayoutWrapper from 'src/features/components/PrivateLayoutWrapper';
 import UsersLayout from 'src/features/users/components/UsersLayout';
 import AdministratorsPage from 'src/features/users/AdministratorsPage';
+import TeachersPage from 'src/features/users/TeachersPage';
+import StudentsPage from 'src/features/users/StudentsPage';
 import path from 'path';
 import { element } from 'prop-types';
 import DeaneriesPage from 'src/features/users/DeaneriesPage';
@@ -43,6 +45,14 @@ const PrivateRoutes = {
         {
           path: 'deanery',
           element: <DeaneriesPage />
+        },
+        {
+          path: 'teachers',
+          element: <TeachersPage />
+        },
+        {
+          path: 'students',
+          element: <StudentsPage />
         }
       ]
     },

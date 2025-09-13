@@ -28,9 +28,9 @@ internal sealed class GetStudents : IEndpoint
     {
         var pagedList = await repository.TypedDbContext.ToPagedListAsync(
             request,
-            request.Filter is null
-                ? x => x.Group.PeriodId == request.PeriodId
-                : x => x.Group.PeriodId == request.PeriodId && x.FullName.Contains(request.Filter),
+            x => x.Group.PeriodId == request.PeriodId
+                && (request.Filter == null || x.FullName.Contains(request.Filter))
+                && (request.GroupId == null || x.GroupId == request.GroupId),
             x => new StudentDto(x.Id, x.FirstName, x.LastName, x.MiddleName, x.Approved, x.Blocked),
             x => x.Include(y => y.Group),
             cancellationToken);
