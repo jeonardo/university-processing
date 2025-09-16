@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.Domain;
-using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 using UniversityProcessing.Utils.Endpoints;
 using UniversityProcessing.Utils.Filters;
@@ -16,7 +15,7 @@ internal sealed class CreateFaculty : IEndpoint
         app
             .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
+            .RequireAuthorization()
             .AddEndpointFilter<ValidationFilter<CreateFacultyRequestDto>>();
     }
 

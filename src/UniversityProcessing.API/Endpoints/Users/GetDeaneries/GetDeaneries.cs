@@ -17,7 +17,7 @@ internal sealed class GetDeaneries : IEndpoint
         app
             .MapGet(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin), nameof(UserRoleType.Deanery), nameof(UserRoleType.Teacher)))
+            .RequireAuthorization()
             .AddEndpointFilter<ValidationFilter<GetDeaneriesRequestDto>>();
     }
 

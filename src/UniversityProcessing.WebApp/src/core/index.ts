@@ -1,5 +1,4 @@
 export * from './hooks';
-export * from './accessRules';
 export * from './store';
 export * from './helpers';
 export * from './namingTools';

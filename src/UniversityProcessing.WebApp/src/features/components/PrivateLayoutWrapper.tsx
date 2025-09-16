@@ -28,7 +28,6 @@ const PrivateLayoutWrapper: React.FC = () => {
       dispatch(setUser(data));
       return;
     }
-
   }, [isUninitialized, isFetching, isLoading, isSuccess, isError, data, authState.tokens?.accessToken]);
 
   if (isLoading)

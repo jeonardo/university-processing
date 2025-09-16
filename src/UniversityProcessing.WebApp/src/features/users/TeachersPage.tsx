@@ -88,6 +88,10 @@ const TeachersPage: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  const canCreate = currentUser?.role === ContractsUserRoleType.Deanery
+    || currentUser?.departmentHead;
+  const canVerify = canCreate;
+
   return (
     <>
       <AddUserModal
@@ -99,14 +103,17 @@ const TeachersPage: React.FC = () => {
           <Typography variant="h4" component="h1" className="font-bold">
             Преподаватели
           </Typography>
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={handleOpenModal}
-            sx={{ borderRadius: 2 }}
-          >
-            <span className="hidden sm:inline">Добавить преподавателя</span>
-          </Button>
+          {
+            canCreate &&
+            <Button
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={handleOpenModal}
+              sx={{ borderRadius: 2 }}
+            >
+              <span className="hidden sm:inline">Добавить преподавателя</span>
+            </Button>
+          }
         </Box>
         <AppListSearch
           label="Поиск"
@@ -125,6 +132,7 @@ const TeachersPage: React.FC = () => {
                   key={item.id}
                   item={item}
                   currentUser={currentUser}
+                  canVerify={canVerify}
                 />
               ))
             }

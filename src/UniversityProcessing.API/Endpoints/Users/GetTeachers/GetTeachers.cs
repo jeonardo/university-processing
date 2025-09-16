@@ -17,7 +17,7 @@ internal sealed class GetTeachers : IEndpoint
         app
             .MapGet(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Deanery), nameof(UserRoleType.Teacher), nameof(UserRoleType.Student)))
+            .RequireAuthorization()
             .AddEndpointFilter<ValidationFilter<GetTeachersRequestDto>>();
     }
 

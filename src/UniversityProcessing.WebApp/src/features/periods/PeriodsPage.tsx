@@ -1,19 +1,15 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
-    Box, Button, IconButton, Paper, Snackbar, Alert, Dialog,
+    Box, Button, IconButton, Paper, Dialog,
     DialogTitle, DialogContent, DialogActions, Typography, Table, TableHead,
-    TableRow, TableCell, TableBody, Chip, Stack,
+    TableRow, TableCell, TableBody, Stack,
     Container
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { PeriodFormDialog } from "./PeriodFormDialog";
-import { useSelector } from "react-redux";
 import { enqueueSnackbarError, useAppDispatch, useAppSelector } from "src/core";
-import { PeriodsGetPeriod, useDeleteApiPeriodsDeleteMutation, useLazyGetApiPeriodsGetQuery, usePostApiPeriodsCreateMutation } from "src/api/backendApi";
-import { enqueueSnackbar } from "notistack";
-import { setPeriod, setPeriods } from "./period.slice";
+import { ContractsUserRoleType, PeriodsGetPeriod, useDeleteApiPeriodsDeleteMutation, useLazyGetApiPeriodsGetQuery, usePostApiPeriodsCreateMutation } from "src/api/backendApi";
 import { loadPeriods } from "./period.service";
 
 type PendingDelete = { id: string; name: string } | null;
@@ -23,6 +19,8 @@ function formatRange(start: string, end: string) {
 }
 
 export const PeriodsPage: React.FC = () => {
+    const user = useAppSelector((state) => state.auth.user);
+
     const dispatch = useAppDispatch();
     const periods = useAppSelector((state) => state.period.Periods);
 
@@ -69,15 +67,25 @@ export const PeriodsPage: React.FC = () => {
         [periods]
     );
 
+    const canCreate =
+        user?.role === ContractsUserRoleType.Deanery
+        || user?.departmentHead;
+
+    const canDelete = canCreate;
+
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', gap: 1 }} maxWidth="md">
 
             <Paper className="p-6">
                 <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
                     <Typography variant="h5">Учебные периоды</Typography>
-                    <Button startIcon={<AddIcon />} variant="contained" onClick={openCreate}>
-                        Добавить период
-                    </Button>
+                    {
+                        canCreate &&
+                        <Button startIcon={<AddIcon />} variant="contained" onClick={openCreate}>
+                            Добавить период
+                        </Button>
+                    }
+
                 </Stack>
             </Paper>
 
@@ -96,9 +104,12 @@ export const PeriodsPage: React.FC = () => {
                                 <TableCell>{p.name}</TableCell>
                                 <TableCell>{formatRange(p.from, p.to)}</TableCell>
                                 <TableCell align="right">
-                                    <IconButton aria-label="Удалить" color="error" onClick={() => confirmDelete(p)}>
-                                        <DeleteIcon />
-                                    </IconButton>
+                                    {
+                                        canDelete &&
+                                        <IconButton aria-label="Удалить" color="error" onClick={() => confirmDelete(p)}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    }
                                 </TableCell>
                             </TableRow>
                         ))}

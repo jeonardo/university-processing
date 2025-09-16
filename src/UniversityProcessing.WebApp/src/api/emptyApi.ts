@@ -42,7 +42,7 @@ const baseQueryWithReauth: BaseQueryFn<
 
   if (result.error.status !== 401) {
     const data = result.error.data as any;
-    if (data.message && data.message && typeof data.message as any === 'string')
+    if (data && data.message && data.message && typeof data.message as any === 'string')
       enqueueSnackbar(data.message, { variant: 'error' });
     return result;
   }

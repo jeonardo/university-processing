@@ -17,7 +17,7 @@ internal sealed class GetAdmins : IEndpoint
         app
             .MapGet(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
+            .RequireAuthorization()
             .AddEndpointFilter<ValidationFilter<GetAdminsRequestDto>>();
     }
 

@@ -1,7 +1,22 @@
 import { useEffect, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getAvailableRoles, useAppSelector } from 'src/core';
+import { useAppSelector } from 'src/core';
 import { roleSetByString, roleSetByType } from '../tools/users.contracts';
+import { ContractsUserRoleType } from 'src/api/backendApi';
+
+export const getAvailableRoles = (userRole: ContractsUserRoleType | null | undefined): ContractsUserRoleType[] => {
+    if (!userRole
+        || userRole === ContractsUserRoleType.None) {
+        return [];
+    }
+
+    switch (userRole) {
+        case ContractsUserRoleType.Admin:
+            return [ContractsUserRoleType.Admin, ContractsUserRoleType.Deanery];
+        default:
+            return [ContractsUserRoleType.Deanery, ContractsUserRoleType.Teacher, ContractsUserRoleType.Student];
+    }
+};
 
 export const useUserRedirect = () => {
     const currentUserRole = useAppSelector(state => state.auth.user?.role);

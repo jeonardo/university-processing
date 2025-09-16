@@ -18,7 +18,7 @@ internal sealed class UpdateVerification : IEndpoint
         app
             .MapPut(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin), nameof(UserRoleType.Deanery), nameof(UserRoleType.Teacher)))
+            .RequireAuthorization()
             .AddEndpointFilter<ValidationFilter<UpdateVerificationRequestDto>>();
     }
 

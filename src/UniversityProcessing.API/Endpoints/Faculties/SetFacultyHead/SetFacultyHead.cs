@@ -18,7 +18,7 @@ internal sealed class SetFacultyHead : IEndpoint
         app
             .MapPatch(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)))
+            .RequireAuthorization()
             .AddEndpointFilter<ValidationFilter<SetFacultyHeadRequestDto>>();
     }
 

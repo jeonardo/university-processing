@@ -88,6 +88,9 @@ const AdministratorsPage: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  const canCreate = currentUser?.role === ContractsUserRoleType.Admin;
+  const canVerify = canCreate;
+
   return (
     <>
       <AddUserModal
@@ -99,14 +102,17 @@ const AdministratorsPage: React.FC = () => {
           <Typography variant="h4" component="h1" className="font-bold">
             Администраторы
           </Typography>
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={handleOpenModal}
-            sx={{ borderRadius: 2 }}
-          >
-            <span className="hidden sm:inline">Добавить пользователя</span>
-          </Button>
+          {
+            canCreate &&
+            <Button
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={handleOpenModal}
+              sx={{ borderRadius: 2 }}
+            >
+              <span className="hidden sm:inline">Добавить пользователя</span>
+            </Button>
+          }
         </Box>
         <AppListSearch
           label="Поиск"
@@ -125,6 +131,7 @@ const AdministratorsPage: React.FC = () => {
                   key={item.id}
                   item={item}
                   currentUser={currentUser}
+                  canVerify={canVerify}
                 />
               ))
             }

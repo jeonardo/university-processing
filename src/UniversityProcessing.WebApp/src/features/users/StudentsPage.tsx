@@ -74,19 +74,19 @@ const StudentsPage: React.FC = () => {
 
   const currentUser = useAppSelector(state => state.auth.user);
   const periodId = useAppSelector(state => state.period.SelectedPeriod.id);
-  
+
   // Получаем параметры из URL
   const groupId = searchParams.get('groupId');
   const groupNumber = searchParams.get('groupNumber');
 
   useEffect(() => {
     if (periodId) {
-      getData({ 
+      getData({
         periodId: periodId,
         groupId: groupId || undefined,
-        filter: search, 
-        pageNumber: pageNumber, 
-        pageSize: 25 
+        filter: search,
+        pageNumber: pageNumber,
+        pageSize: 25
       });
     }
   }, [pageNumber, search, currentUser, periodId, groupId]);
@@ -103,6 +103,10 @@ const StudentsPage: React.FC = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  const canCreate = currentUser?.role === ContractsUserRoleType.Deanery
+    || currentUser?.departmentHead;
+  const canVerify = canCreate;
 
   return (
     <>
@@ -133,14 +137,18 @@ const StudentsPage: React.FC = () => {
                 <span className="hidden sm:inline">Назад к группам</span>
               </Button>
             )}
-            <Button
-              variant="contained"
-              startIcon={<AddIcon />}
-              onClick={handleOpenModal}
-              sx={{ borderRadius: 2 }}
-            >
-              <span className="hidden sm:inline">Добавить студента</span>
-            </Button>
+            {
+              canCreate && (
+                <Button
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                  onClick={handleOpenModal}
+                  sx={{ borderRadius: 2 }}
+                >
+                  <span className="hidden sm:inline">Добавить студента</span>
+                </Button>
+              )
+            }
           </Box>
         </Box>
         <AppListSearch
@@ -160,6 +168,7 @@ const StudentsPage: React.FC = () => {
                   key={item.id}
                   item={item}
                   currentUser={currentUser}
+                  canVerify={canVerify}
                 />
               ))
             }

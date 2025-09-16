@@ -89,6 +89,10 @@ const DeaneriesPage: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  const canCreate = currentUser?.role === ContractsUserRoleType.Admin
+    || currentUser?.role === ContractsUserRoleType.Deanery;
+  const canVerify = canCreate;
+
   return (
     <>
       <AddUserModal
@@ -100,14 +104,16 @@ const DeaneriesPage: React.FC = () => {
           <Typography variant="h4" component="h1" className="font-bold">
             Деканат
           </Typography>
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={handleOpenModal}
-            sx={{ borderRadius: 2 }}
-          >
-            <span className="hidden sm:inline">Добавить пользователя</span>
-          </Button>
+          {canCreate &&
+            <Button
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={handleOpenModal}
+              sx={{ borderRadius: 2 }}
+            >
+              <span className="hidden sm:inline">Добавить пользователя</span>
+            </Button>
+          }
         </Box>
         <AppListSearch
           label="Поиск"
@@ -126,6 +132,7 @@ const DeaneriesPage: React.FC = () => {
                   key={item.id}
                   item={item}
                   currentUser={currentUser}
+                  canVerify={canVerify}
                 />
               ))
             }

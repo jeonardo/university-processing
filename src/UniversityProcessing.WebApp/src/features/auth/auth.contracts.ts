@@ -29,4 +29,5 @@ export type AuthUser = {
   groupNumber?: string | null;
   facultyId?: string | null;
   departmentId?: string | null;
+  departmentHead?: boolean;
 };

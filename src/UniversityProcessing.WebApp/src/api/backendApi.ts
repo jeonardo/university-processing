@@ -855,6 +855,7 @@ export type AuthInfoResponse = {
   groupNumber?: string | null;
   facultyId?: string | null;
   departmentId?: string | null;
+  departmentHead?: boolean;
 };
 export type AuthChangePasswordRequest = {
   password: string;

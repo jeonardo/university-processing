@@ -1,5 +1,4 @@
 using FluentValidation;
-using UniversityProcessing.Utils.Pagination;
 
 namespace UniversityProcessing.API.Endpoints.Periods.Get;
 

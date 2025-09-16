@@ -18,7 +18,7 @@ internal sealed class SetDepartmentHead : IEndpoint
         app
             .MapPatch(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Deanery)))
+            .RequireAuthorization()
             .AddEndpointFilter<ValidationFilter<SetDepartmentHeadRequestDto>>();
     }
 

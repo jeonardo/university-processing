@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UniversityProcessing.Domain;
-using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 using UniversityProcessing.Utils.Endpoints;
 using UniversityProcessing.Utils.Exceptions;
@@ -18,7 +17,7 @@ internal sealed class DeleteDepartment : IEndpoint
         app
             .MapDelete(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Deanery)))
+            .RequireAuthorization()
             .AddEndpointFilter<ValidationFilter<DeleteDepartmentRequestDto>>();
     }
 

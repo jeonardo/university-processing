@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UniversityProcessing.Domain;
-using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 using UniversityProcessing.Utils.Endpoints;
 using UniversityProcessing.Utils.Pagination;
@@ -17,7 +16,7 @@ internal sealed class GetFaculties : IEndpoint
         app
             .MapGet(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
-            .RequireAuthorization(x => x.RequireRole(nameof(UserRoleType.Admin)));
+            .RequireAuthorization();
     }
 
     private static async Task<GetFacultiesResponseDto> Handle(

@@ -77,11 +77,11 @@ const PrivateLayout: React.FC = () => {
   // Меню навигации
   const menuItems = [
     { text: 'Главная', icon: <DashboardIcon />, path: '/' },
-    { text: 'Учебные периоды', icon: <Book />, path: '/periods', roles: [ContractsUserRoleType.Deanery] },
+    { text: 'Учебные периоды', icon: <Book />, path: '/periods', roles: [ContractsUserRoleType.Deanery, ContractsUserRoleType.Teacher] },
     { text: 'Пользователи', icon: <PeopleAltIcon />, path: '/users' },
     { text: 'Факультеты', icon: <SchoolIcon />, path: '/faculties', roles: [ContractsUserRoleType.Admin] },
-    { text: 'Кафедры', icon: <SchoolIcon />, path: '/departments', roles: [ContractsUserRoleType.Deanery] },
-    { text: 'Группы', icon: <GroupsIcon />, path: '/groups', roles: [ContractsUserRoleType.Admin, ContractsUserRoleType.Deanery] },
+    { text: 'Кафедры', icon: <SchoolIcon />, path: '/departments', roles: [ContractsUserRoleType.Deanery, ContractsUserRoleType.Teacher] },
+    { text: 'Группы', icon: <GroupsIcon />, path: '/groups', roles: [ContractsUserRoleType.Deanery, ContractsUserRoleType.Teacher] },
     // { text: 'Дипломные проекты', icon: <AssignmentIcon />, path: '/projects', roles: ['admin', 'deanery', 'departmentHead', 'supervisor', 'student'] },
     // { text: 'График защит', icon: <CalendarIcon />, path: '/schedule', roles: ['admin', 'deanery', 'departmentHead', 'commission'] },
     // { text: 'Оценки', icon: <GradeIcon />, path: '/grades', roles: ['commission', 'deanery'] },

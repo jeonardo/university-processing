@@ -111,7 +111,8 @@ internal sealed class Info : IEndpoint
                     null,
                     null,
                     teacher.Department.FacultyId,
-                    teacher.DepartmentId);
+                    teacher.DepartmentId,
+                    teacher.Department.HeadUserId == teacher.Id);
 
             case UserRoleType.Student:
                 var student = await serviceProvider.GetRequiredService<IEfReadRepository<Student>>()

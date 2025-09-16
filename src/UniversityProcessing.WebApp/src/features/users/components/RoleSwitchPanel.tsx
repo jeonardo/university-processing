@@ -1,9 +1,8 @@
 import { Box, Paper } from "@mui/material";
 import { styled } from "@mui/system";
-import { useEffect, useMemo, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { ContractsUserRoleType } from "src/api/backendApi";
-import { getAvailableRoles } from "src/core";
 import { labels, roleSetByType } from "../tools/users.contracts";
 
 const SwitchRoot = styled(Paper)(({ theme }) => ({

@@ -16,11 +16,13 @@ import UserActions from './UserActions';
 interface UserItemProps<T> {
   item: T;
   currentUser: AuthUser | null;
+  canVerify?: boolean;
 }
 
 const UserItem: React.FC<UserItemProps<UsersGetAdminsAdmin>> = ({
   item,
-  currentUser
+  currentUser,
+  canVerify
 }) => {
   const fullName = namingTools.fullName(item);
 
@@ -41,6 +43,7 @@ const UserItem: React.FC<UserItemProps<UsersGetAdminsAdmin>> = ({
           )
           :
           (
+            canVerify &&
             <UserActions
               isLoading={isVerificationLoading}
               isVerified={verification}
