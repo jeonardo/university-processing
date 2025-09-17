@@ -20,6 +20,7 @@ import {
   useMediaQuery
 } from '@mui/material';
 import { Book, Dashboard as DashboardIcon, ExitToApp as ExitToAppIcon, Menu as MenuIcon, Groups as GroupsIcon } from '@mui/icons-material';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { pink, teal } from '@mui/material/colors';
 import theme from 'src/theme';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
@@ -77,11 +78,12 @@ const PrivateLayout: React.FC = () => {
   // Меню навигации
   const menuItems = [
     { text: 'Главная', icon: <DashboardIcon />, path: '/' },
-    { text: 'Учебные периоды', icon: <Book />, path: '/periods', roles: [ContractsUserRoleType.Deanery, ContractsUserRoleType.Teacher] },
+    { text: 'Учебные периоды', icon: <Book />, path: '/periods', roles: [ContractsUserRoleType.Deanery], forDepartmentHead: true },
     { text: 'Пользователи', icon: <PeopleAltIcon />, path: '/users' },
     { text: 'Факультеты', icon: <SchoolIcon />, path: '/faculties', roles: [ContractsUserRoleType.Admin] },
-    { text: 'Кафедры', icon: <SchoolIcon />, path: '/departments', roles: [ContractsUserRoleType.Deanery, ContractsUserRoleType.Teacher] },
-    { text: 'Группы', icon: <GroupsIcon />, path: '/groups', roles: [ContractsUserRoleType.Deanery, ContractsUserRoleType.Teacher] },
+    { text: 'Кафедры', icon: <SchoolIcon />, path: '/departments', roles: [ContractsUserRoleType.Deanery] },
+    { text: 'Специальности', icon: <MenuBookIcon />, path: '/specialties', roles: [], forDepartmentHead: true },
+    { text: 'Группы', icon: <GroupsIcon />, path: '/groups', roles: [], forDepartmentHead: true },
     // { text: 'Дипломные проекты', icon: <AssignmentIcon />, path: '/projects', roles: ['admin', 'deanery', 'departmentHead', 'supervisor', 'student'] },
     // { text: 'График защит', icon: <CalendarIcon />, path: '/schedule', roles: ['admin', 'deanery', 'departmentHead', 'commission'] },
     // { text: 'Оценки', icon: <GradeIcon />, path: '/grades', roles: ['commission', 'deanery'] },
@@ -90,7 +92,9 @@ const PrivateLayout: React.FC = () => {
 
   const filteredMenuItems = menuItems
     .filter(item =>
-      !item.roles || item.roles.includes(authState.user?.role ?? ContractsUserRoleType.None)
+      !item.roles
+      || item.roles.includes(authState.user?.role ?? ContractsUserRoleType.None)
+      || (item.forDepartmentHead && authState.user?.departmentHead)
     );
 
   // Верхняя панель

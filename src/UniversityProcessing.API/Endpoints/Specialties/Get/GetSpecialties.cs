@@ -25,7 +25,7 @@ internal sealed class GetSpecialties : IEndpoint
     {
         var entities = await repository.TypedDbContext.ToPagedListAsync(
             request,
-            null,
+            x => x.DepartmentId == request.DepartmentId,
             x => new SpecialtyDto(x.Id, x.Name, x.ShortName, x.Code),
             null,
             cancellationToken);

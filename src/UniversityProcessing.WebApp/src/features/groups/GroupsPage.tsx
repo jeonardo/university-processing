@@ -32,7 +32,8 @@ import { enqueueSnackbar } from 'notistack';
 import { enqueueSnackbarError } from 'src/core/helpers';
 
 const GroupsPage: React.FC = () => {
-  useRequireAdmin();
+  const user = useAppSelector(state => state.auth.user);
+
   const navigate = useNavigate();
 
   const [pageNumber, setPageNumber] = useState(1);
@@ -125,12 +126,15 @@ const GroupsPage: React.FC = () => {
   return (
     <Container sx={{ display: 'flex', flexDirection: 'column', gap: 1 }} maxWidth="md">
       {/* Диалог создания группы */}
-      <GroupFormDialog
-        open={isCreateDialogOpen}
-        onClose={() => setIsCreateDialogOpen(false)}
-        onSubmit={handleCreateGroup}
-        isLoading={isCreating}
-      />
+      {
+        user &&
+        <GroupFormDialog
+          open={isCreateDialogOpen}
+          onClose={() => setIsCreateDialogOpen(false)}
+          onSubmit={handleCreateGroup}
+          user={user}
+        />
+      }
 
       {/* Заголовок и кнопка создания */}
       <Paper className="p-6">

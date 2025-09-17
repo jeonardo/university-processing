@@ -118,11 +118,11 @@ const StudentsPage: React.FC = () => {
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
           <Box>
             <Typography variant="h4" component="h1" className="font-bold">
-              {groupId ? `Студенты группы ${groupNumber}` : 'Студенты'}
+              Студенты
             </Typography>
             {groupId && (
               <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                Показаны только студенты из выбранной группы
+                Группа {groupNumber}
               </Typography>
             )}
           </Box>

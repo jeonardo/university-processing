@@ -17,25 +17,27 @@ import {
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
-import { 
-  GroupsCreateRequest, 
-  useGetApiSpecialtiesGetQuery, 
-  useGetApiPeriodsGetQuery 
+import {
+  GroupsCreateRequest,
+  useGetApiSpecialtiesGetQuery,
+  useGetApiPeriodsGetQuery,
+  useLazyGetApiSpecialtiesGetQuery
 } from 'src/api/backendApi';
 import { enqueueSnackbar } from 'notistack';
+import { AuthUser } from '../auth/auth.contracts';
 
 interface GroupFormDialogProps {
   open: boolean;
   onClose: () => void;
   onSubmit: (data: GroupsCreateRequest) => void;
-  isLoading?: boolean;
+  user: AuthUser
 }
 
 const GroupFormDialog: React.FC<GroupFormDialogProps> = ({
   open,
   onClose,
   onSubmit,
-  isLoading = false
+  user
 }) => {
   const [formData, setFormData] = useState<GroupsCreateRequest>({
     groupNumber: '',
@@ -50,23 +52,22 @@ const GroupFormDialog: React.FC<GroupFormDialogProps> = ({
 
   const [errors, setErrors] = useState<Partial<GroupsCreateRequest>>({});
 
-  // Загружаем специальности и периоды
+  const { data: periodsData } = useGetApiPeriodsGetQuery();
+
   const { data: specialtiesData } = useGetApiSpecialtiesGetQuery({
     pageNumber: 1,
-    pageSize: 1000,
-    filter: '',
-    desc: false,
-    orderBy: 'name'
+    pageSize: 100,
+    departmentId: user?.departmentId ?? ''
   });
 
-  const { data: periodsData } = useGetApiPeriodsGetQuery();
+  const isLoading = false;
 
   const handleInputChange = (field: keyof GroupsCreateRequest) => (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | any
   ) => {
     const value = event.target?.value || event;
     setFormData(prev => ({ ...prev, [field]: value }));
-    
+
     // Очищаем ошибку при изменении поля
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: undefined }));
@@ -77,7 +78,7 @@ const GroupFormDialog: React.FC<GroupFormDialogProps> = ({
     if (date) {
       const isoString = date.format('YYYY-MM-DD');
       setFormData(prev => ({ ...prev, [field]: isoString }));
-      
+
       if (field === 'startDate') {
         setStartDate(date);
       } else {
@@ -120,7 +121,7 @@ const GroupFormDialog: React.FC<GroupFormDialogProps> = ({
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    
+
     if (validateForm()) {
       onSubmit(formData);
     }
@@ -189,63 +190,63 @@ const GroupFormDialog: React.FC<GroupFormDialogProps> = ({
               />
             </Box>
 
-              <FormControl fullWidth required error={!!errors.specialtyId}>
-                <InputLabel>Специальность</InputLabel>
-                <Select
-                  value={formData.specialtyId}
-                  onChange={handleInputChange('specialtyId')}
-                  label="Специальность"
-                  disabled={isLoading}
-                >
-                  {specialtiesData?.items?.map((specialty) => (
-                    <MenuItem key={specialty.id} value={specialty.id}>
-                      {specialty.name} ({specialty.code})
-                    </MenuItem>
-                  ))}
-                </Select>
-                {errors.specialtyId && (
-                  <Typography variant="caption" color="error" sx={{ mt: 0.5, ml: 1.75 }}>
-                    {errors.specialtyId}
-                  </Typography>
-                )}
-              </FormControl>
+            <FormControl fullWidth required error={!!errors.specialtyId}>
+              <InputLabel>Специальность</InputLabel>
+              <Select
+                value={formData.specialtyId}
+                onChange={handleInputChange('specialtyId')}
+                label="Специальность"
+                disabled={isLoading}
+              >
+                {specialtiesData?.items?.map((specialty) => (
+                  <MenuItem key={specialty.id} value={specialty.id}>
+                    {specialty.name} ({specialty.code})
+                  </MenuItem>
+                ))}
+              </Select>
+              {errors.specialtyId && (
+                <Typography variant="caption" color="error" sx={{ mt: 0.5, ml: 1.75 }}>
+                  {errors.specialtyId}
+                </Typography>
+              )}
+            </FormControl>
 
-              <FormControl fullWidth required error={!!errors.periodId}>
-                <InputLabel>Период</InputLabel>
-                <Select
-                  value={formData.periodId}
-                  onChange={handleInputChange('periodId')}
-                  label="Период"
-                  disabled={isLoading}
-                >
-                  {periodsData?.list?.map((period) => (
-                    <MenuItem key={period.id} value={period.id}>
-                      {period.name} ({period.from} - {period.to})
-                    </MenuItem>
-                  ))}
-                </Select>
-                {errors.periodId && (
-                  <Typography variant="caption" color="error" sx={{ mt: 0.5, ml: 1.75 }}>
-                    {errors.periodId}
-                  </Typography>
-                )}
-              </FormControl>
-            </Stack>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} disabled={isLoading}>
-              Отмена
-            </Button>
-            <Button 
-              type="submit" 
-              variant="contained" 
-              disabled={isLoading}
-            >
-              {isLoading ? 'Создание...' : 'Создать'}
-            </Button>
-          </DialogActions>
-        </form>
-      </Dialog>
+            <FormControl fullWidth required error={!!errors.periodId}>
+              <InputLabel>Период</InputLabel>
+              <Select
+                value={formData.periodId}
+                onChange={handleInputChange('periodId')}
+                label="Период"
+                disabled={isLoading}
+              >
+                {periodsData?.list?.map((period) => (
+                  <MenuItem key={period.id} value={period.id}>
+                    {period.name} ({period.from} - {period.to})
+                  </MenuItem>
+                ))}
+              </Select>
+              {errors.periodId && (
+                <Typography variant="caption" color="error" sx={{ mt: 0.5, ml: 1.75 }}>
+                  {errors.periodId}
+                </Typography>
+              )}
+            </FormControl>
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} disabled={isLoading}>
+            Отмена
+          </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={isLoading}
+          >
+            {isLoading ? 'Создание...' : 'Создать'}
+          </Button>
+        </DialogActions>
+      </form>
+    </Dialog>
   );
 };
 

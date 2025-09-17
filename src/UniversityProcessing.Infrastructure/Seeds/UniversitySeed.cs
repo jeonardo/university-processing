@@ -187,7 +187,11 @@ public class UniversitySeed(
         await AddAdmin("test_admin");
         await AddStudent("test_student", bntu_studyGroup1);
         await AddTeacher("test_teacher", bntu_pos_1, bntu_faculty_fitr_poisit.Id);
-        await AddDeanery("test_deanery", bntu_pos_1, bntu_faculty_fitr.Id);
+        await AddDeanery("test_deanery", bntu_pos_3, bntu_faculty_fitr.Id);
+
+        var test_teacher_head = await AddTeacher("test_teacher_head", bntu_pos_2, bntu_faculty_fitr_poisit.Id);
+        bntu_faculty_fitr_poisit.SetHead(test_teacher_head.Id);
+        await repositoryDepartment.UpdateAsync(bntu_faculty_fitr_poisit);
     }
 
     private async Task<Faculty> AddFaculty(string name, string shortName)

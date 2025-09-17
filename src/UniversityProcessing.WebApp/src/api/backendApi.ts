@@ -388,6 +388,7 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: `/api/Specialties/Get`,
         params: {
+          DepartmentId: queryArg.departmentId,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
           Filter: queryArg.filter,
@@ -684,6 +685,7 @@ export type PostApiPeriodsCreateApiArg = {
 export type GetApiSpecialtiesGetApiResponse =
   /** status 200 OK */ SpecialtiesGetResponseRead;
 export type GetApiSpecialtiesGetApiArg = {
+  departmentId: string;
   pageNumber: number;
   pageSize: number;
   filter?: string;

@@ -24,6 +24,7 @@ const TestUsersCard: React.FC<TestUsersCardProps> = ({
     { username: 'test_student', password: 'test_student', role: 'student', info: 'some info' },
     { username: 'test_teacher', password: 'test_teacher', role: 'teacher', info: 'some info' },
     { username: 'test_deanery', password: 'test_deanery', role: 'deanery', info: 'some info' },
+    { username: 'test_teacher_head', password: 'test_teacher_head', role: 'teacher_head', info: 'some info' },
   ];
 
   return (

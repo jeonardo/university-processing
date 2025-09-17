@@ -44,8 +44,8 @@ public static class WebApplicationExtensions
             logger.LogInformation("Migrating database...");
 
             // Uncommit when a new clear db structure needs
-            // dbContext.Database.EnsureDeleted();
-            // dbContext.Database.EnsureCreated();
+            dbContext.Database.EnsureDeleted();
+            dbContext.Database.EnsureCreated();
 
             dbContext.Database.Migrate();
 

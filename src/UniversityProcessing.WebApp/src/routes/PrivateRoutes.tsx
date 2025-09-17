@@ -16,6 +16,7 @@ import DepartmentsPage from 'src/features/departments/DepartmentsPage';
 import DepartmentPage from 'src/features/department/DepartmentPage';
 import { PeriodsPage } from 'src/features/periods/PeriodsPage';
 import GroupsPage from 'src/features/groups/GroupsPage';
+import SpecialtiesPage from 'src/features/specialties/SpecialtiesPage';
 
 const PrivateRoutes = {
   path: '/',
@@ -79,6 +80,11 @@ const PrivateRoutes = {
     {
       path: 'groups',
       element: <GroupsPage />
+    }
+    ,
+    {
+      path: 'specialties',
+      element: <SpecialtiesPage />
     }
   ]
 };
