@@ -159,6 +159,24 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
                             j.HasKey("teacher_id", "diploma_process_id");
                             j.ToTable("teacher_diploma_processes");
                         });
+
+                x.HasMany(t => t.Committees)
+                    .WithMany(c => c.Teachers)
+                    .UsingEntity<Dictionary<string, object>>(
+                        "TeacherCommittee",
+                        j => j.HasOne<Committee>()
+                            .WithMany()
+                            .HasForeignKey("committee_id")
+                            .OnDelete(DeleteBehavior.Cascade),
+                        j => j.HasOne<Teacher>()
+                            .WithMany()
+                            .HasForeignKey("teacher_id")
+                            .OnDelete(DeleteBehavior.Cascade),
+                        j =>
+                        {
+                            j.HasKey("teacher_id", "committee_id");
+                            j.ToTable("teacher_committees");
+                        });
             });
 
         modelBuilder.Entity<Deanery>(

@@ -3,18 +3,18 @@ using UniversityProcessing.Utils.Identity;
 
 namespace UniversityProcessing.Domain;
 
-public class Сommittee : BaseEntity
+public class Committee : BaseEntity
 {
-    public virtual ICollection<User> Users { get; private set; } = null!;
+    public virtual ICollection<Teacher> Teachers { get; private set; } = null!;
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local
-    private Сommittee()
+    private Committee()
     {
     }
 
-    public static Сommittee Create()
+    public static Committee Create()
     {
-        return new Сommittee();
+        return new Committee();
     }
 }

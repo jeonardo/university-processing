@@ -21,7 +21,7 @@ public class DiplomaProcess : BaseEntity
 
     public Guid? СommitteeId { get; private set; }
 
-    public virtual Сommittee? Committee { get; private set; }
+    public virtual Committee? Committee { get; private set; }
 
     public Guid PeriodId { get; private set; }
 
