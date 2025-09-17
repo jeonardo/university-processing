@@ -17,14 +17,14 @@ public class Diploma : BaseEntity
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public DiplomaStatus Status { get; private set; } = DiplomaStatus.Created;
 
-    public Guid? DiplomaProcessId { get; private set; }
+    public Guid DiplomaProcessId { get; private set; }
 
-    public virtual DiplomaProcess? DiplomaProcess { get; private set; }
-    public Guid? StudentId { get; private set; }
+    public virtual DiplomaProcess DiplomaProcess { get; private set; } = null!;
+    public Guid StudentId { get; private set; }
+    public virtual Student Student { get; private set; } = null!;
     public Guid? SupervisorId { get; private set; }
-    public virtual ICollection<Student> Students { get; private set; } = null!;
 
-    public virtual ICollection<Teacher> Teachers { get; private set; } = null!;
+    public virtual Teacher? Supervisor { get; private set; }
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local
@@ -32,7 +32,7 @@ public class Diploma : BaseEntity
     {
     }
 
-    public static Diploma Create(string title, Guid? diplomaProcessId = null, Guid? studentId = null, Guid? supervisorId = null)
+    public static Diploma Create(string title, Guid diplomaProcessId, Guid studentId, Guid? supervisorId = null)
     {
         return new Diploma
         {

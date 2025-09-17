@@ -109,8 +109,13 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
             x =>
             {
                 x.HasOne(s => s.Diploma)
+                    .WithOne(d => d.Student)
+                    .HasForeignKey<Student>(c => c.DiplomaId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                x.HasOne(s => s.DiplomaProcess)
                     .WithMany(d => d.Students)
-                    .HasForeignKey(s => s.DiplomaId)
+                    .HasForeignKey(c => c.DiplomaProcessId)
                     .OnDelete(DeleteBehavior.Cascade);
 
                 x.HasOne(s => s.Group)
@@ -131,6 +136,29 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
                     .WithMany(d => d.Teachers)
                     .HasForeignKey(t => t.DepartmentId)
                     .OnDelete(DeleteBehavior.Cascade);
+
+                x.HasMany(t => t.Diplomas)
+                    .WithOne(d => d.Supervisor)
+                    .HasForeignKey(d => d.SupervisorId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                x.HasMany(t => t.DiplomaProcesses)
+                    .WithMany(dp => dp.Teachers)
+                    .UsingEntity<Dictionary<string, object>>(
+                        "TeacherDiplomaProcess",
+                        j => j.HasOne<DiplomaProcess>()
+                            .WithMany()
+                            .HasForeignKey("diploma_process_id")
+                            .OnDelete(DeleteBehavior.Cascade),
+                        j => j.HasOne<Teacher>()
+                            .WithMany()
+                            .HasForeignKey("teacher_id")
+                            .OnDelete(DeleteBehavior.Cascade),
+                        j =>
+                        {
+                            j.HasKey("teacher_id", "diploma_process_id");
+                            j.ToTable("teacher_diploma_processes");
+                        });
             });
 
         modelBuilder.Entity<Deanery>(

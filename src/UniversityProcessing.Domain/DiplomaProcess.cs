@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Utils.Identity;
 using UniversityProcessing.Utils.Validation;
 
@@ -25,6 +26,10 @@ public class DiplomaProcess : BaseEntity
     public Guid PeriodId { get; private set; }
 
     public virtual Period Period { get; private set; } = null!;
+
+    public virtual ICollection<Student> Students { get; private set; } = null!;
+
+    public virtual ICollection<Teacher> Teachers { get; private set; } = null!;
 
     public virtual ICollection<Diploma> Diplomas { get; private set; } = null!;
 

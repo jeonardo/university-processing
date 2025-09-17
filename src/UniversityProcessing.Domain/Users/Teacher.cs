@@ -10,6 +10,10 @@ public class Teacher : User
 
     public virtual Department Department { get; private set; } = null!;
 
+    public virtual ICollection<Diploma> Diplomas { get; private set; } = null!;
+
+    public virtual ICollection<DiplomaProcess> DiplomaProcesses { get; private set; } = null!;
+
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local
     private Teacher()
