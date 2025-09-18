@@ -113,11 +113,6 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
                     .HasForeignKey<Student>(c => c.DiplomaId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-                x.HasOne(s => s.DiplomaProcess)
-                    .WithMany(d => d.Students)
-                    .HasForeignKey(c => c.DiplomaProcessId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
                 x.HasOne(s => s.Group)
                     .WithMany(g => g.Students)
                     .HasForeignKey(s => s.GroupId)

@@ -1,7 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
-import { usePostApiAuthRegistrationRegisterAdminMutation, usePutApiUsersUpdateVerificationMutation } from 'src/api/backendApi';
+import { usePostApiRegistrationRegisterAdminMutation, usePutApiUsersUpdateVerificationMutation } from 'src/api/backendApi';
 import {
   FormContainer,
   useFormState,
@@ -31,7 +31,7 @@ const RegisterAdminForm: React.FC<IRegisterFormProps> = ({
   };
 
   const { formData, handleFormDataChange, updateFormData } = useFormState(initialFormData);
-  const [tryRegister, { isLoading, isSuccess }] = usePostApiAuthRegistrationRegisterAdminMutation();
+  const [tryRegister, { isLoading, isSuccess }] = usePostApiRegistrationRegisterAdminMutation();
   const { validateForm } = useFormValidation();
   const [tryVerify, { }] = usePutApiUsersUpdateVerificationMutation();
 

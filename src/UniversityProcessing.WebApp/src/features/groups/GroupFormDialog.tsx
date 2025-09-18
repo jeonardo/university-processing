@@ -18,10 +18,10 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 import {
-  GroupsCreateRequest,
   useGetApiSpecialtiesGetQuery,
   useGetApiPeriodsGetQuery,
-  useLazyGetApiSpecialtiesGetQuery
+  useLazyGetApiSpecialtiesGetQuery,
+  ApiGroupsCreateRequestDto
 } from 'src/api/backendApi';
 import { enqueueSnackbar } from 'notistack';
 import { AuthUser } from '../auth/auth.contracts';
@@ -29,7 +29,7 @@ import { AuthUser } from '../auth/auth.contracts';
 interface GroupFormDialogProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (data: GroupsCreateRequest) => void;
+  onSubmit: (data: ApiGroupsCreateRequestDto) => void;
   user: AuthUser
 }
 
@@ -39,7 +39,7 @@ const GroupFormDialog: React.FC<GroupFormDialogProps> = ({
   onSubmit,
   user
 }) => {
-  const [formData, setFormData] = useState<GroupsCreateRequest>({
+  const [formData, setFormData] = useState<ApiGroupsCreateRequestDto>({
     groupNumber: '',
     startDate: '',
     endDate: '',
@@ -50,7 +50,7 @@ const GroupFormDialog: React.FC<GroupFormDialogProps> = ({
   const [startDate, setStartDate] = useState<Dayjs | null>(null);
   const [endDate, setEndDate] = useState<Dayjs | null>(null);
 
-  const [errors, setErrors] = useState<Partial<GroupsCreateRequest>>({});
+  const [errors, setErrors] = useState<Partial<ApiGroupsCreateRequestDto>>({});
 
   const { data: periodsData } = useGetApiPeriodsGetQuery();
 
@@ -62,7 +62,7 @@ const GroupFormDialog: React.FC<GroupFormDialogProps> = ({
 
   const isLoading = false;
 
-  const handleInputChange = (field: keyof GroupsCreateRequest) => (
+  const handleInputChange = (field: keyof ApiGroupsCreateRequestDto) => (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | any
   ) => {
     const value = event.target?.value || event;
@@ -88,7 +88,7 @@ const GroupFormDialog: React.FC<GroupFormDialogProps> = ({
   };
 
   const validateForm = (): boolean => {
-    const newErrors: Partial<GroupsCreateRequest> = {};
+    const newErrors: Partial<ApiGroupsCreateRequestDto> = {};
 
     if (!formData.groupNumber.trim()) {
       newErrors.groupNumber = 'Номер группы обязателен';

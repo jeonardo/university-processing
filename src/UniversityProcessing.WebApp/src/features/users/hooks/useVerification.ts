@@ -15,7 +15,7 @@ const useVerification = ({ isApproved }: { isApproved: boolean; }) => {
 
     const handleUpdateVerification = async ({ userId, isApproved }: VerificationProps) => {
         const result = await updateVerification({
-            usersUpdateVerificationRequest: {
+            apiUsersUpdateVerificationRequestDto: {
                 isApproved,
                 userId,
             },

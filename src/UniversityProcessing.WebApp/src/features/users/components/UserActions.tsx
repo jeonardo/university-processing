@@ -1,14 +1,7 @@
-import React, { useState } from 'react';
-import { Box, Button, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, ListItem, ListItemText, Switch, Tooltip, Typography } from '@mui/material';
-import { usePutApiUsersUpdateBlockingMutation, usePutApiUsersUpdateVerificationMutation, UsersGetAdminsAdmin } from 'src/api/backendApi';
+import React from 'react';
+import { Box, CircularProgress, Switch, Tooltip, Typography } from '@mui/material';
 import {
-    Block as BlockIcon,
-    Verified as VerifiedIcon,
-    Person as PersonIcon
-} from '@mui/icons-material';
-import { enqueueSnackbarError } from 'src/core/helpers';
-import { enqueueSnackbar } from 'notistack';
-import { namingTools } from 'src/core/namingTools';
+    Verified as VerifiedIcon} from '@mui/icons-material';
 
 const UserActions = ({ isLoading, isVerified, handleUpdateVerification }: {
     isLoading: boolean,

@@ -1,11 +1,11 @@
 import React from 'react';
-import { AuthRegistrationGetAvailableDepartmentsDepartment } from 'src/api/backendApi';
-import { useLazyGetApiAuthRegistrationGetAvailableDepartmentsQuery } from 'src/api/backendApi';
+import { ApiRegistrationGetAvailableDepartmentsDepartmentDto } from 'src/api/backendApi';
+import { useLazyGetApiRegistrationGetAvailableDepartmentsQuery } from 'src/api/backendApi';
 import AutocompleteField from 'src/components/forms/AutocompleteField';
 
 interface DepartmentSelectorProps {
-  value: AuthRegistrationGetAvailableDepartmentsDepartment | null;
-  onChange: (value: AuthRegistrationGetAvailableDepartmentsDepartment | null) => void;
+  value: ApiRegistrationGetAvailableDepartmentsDepartmentDto | null;
+  onChange: (value: ApiRegistrationGetAvailableDepartmentsDepartmentDto | null) => void;
   facultyId?: string;
   disabled?: boolean;
   required?: boolean;
@@ -18,7 +18,7 @@ const DepartmentSelector: React.FC<DepartmentSelectorProps> = ({
   disabled = false,
   required = false
 }) => {
-  const [fetchDepartments, { data: departmentsData }] = useLazyGetApiAuthRegistrationGetAvailableDepartmentsQuery();
+  const [fetchDepartments, { data: departmentsData }] = useLazyGetApiRegistrationGetAvailableDepartmentsQuery();
 
   const departments = React.useMemo(() =>
     departmentsData?.departments || [], [departmentsData]);

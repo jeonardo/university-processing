@@ -4,7 +4,7 @@ import ModalForm from 'src/components/layout/ModalForm';
 import AppList from 'src/components/lists/AppList';
 import FacultyItem from './FacultyItem';
 import AppListPagination from 'src/components/lists/AppListPagination';
-import { ContractsUserRoleType, useGetApiFacultiesGetQuery, useLazyGetApiFacultiesGetQuery, usePostApiFacultiesCreateMutation } from 'src/api/backendApi';
+import { ApiContractsUserRoleTypeDto, useGetApiFacultiesGetQuery, useLazyGetApiFacultiesGetQuery, usePostApiFacultiesCreateMutation } from 'src/api/backendApi';
 import { useAppSelector, useRequireAdmin } from 'src/core/hooks';
 import { useNavigate } from 'react-router-dom';
 import AppListSearch from 'src/components/lists/AppListSearch';
@@ -31,7 +31,7 @@ const AddFacultyModal: React.FC<{
     event.preventDefault();
 
     const result = await createFaculty({
-      facultiesCreateRequest: {
+      apiFacultiesCreateRequestDto: {
         name: name,
         shortName: shortName
       }

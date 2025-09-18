@@ -31,7 +31,7 @@ const LoginPage = () => {
   const [tryLogin, { isLoading }] = usePostApiAuthLoginMutation();
 
   const handleLogin = async (userName: string, password: string) => {
-    const result = await tryLogin({ authLoginRequest: { password: password, userName: userName } });
+    const result = await tryLogin({ apiAuthLoginRequestDto: { password: password, userName: userName } });
 
     if (result.error) {
       enqueueSnackbarError(result.error);

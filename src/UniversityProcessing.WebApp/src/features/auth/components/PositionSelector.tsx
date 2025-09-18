@@ -1,13 +1,13 @@
 import React from 'react';
 import { 
-  useGetApiAuthRegistrationGetAvailableUniversityPositionsQuery,
-  AuthRegistrationGetAvailableUniversityPositionsUniversityPosition
+  useGetApiRegistrationGetAvailableUniversityPositionsQuery,
+  ApiRegistrationGetAvailableUniversityPositionsUniversityPositionDto
 } from 'src/api/backendApi';
 import AutocompleteField from 'src/components/forms/AutocompleteField';
 
 interface PositionSelectorProps {
-  value: AuthRegistrationGetAvailableUniversityPositionsUniversityPosition | null;
-  onChange: (value: AuthRegistrationGetAvailableUniversityPositionsUniversityPosition | null) => void;
+  value: ApiRegistrationGetAvailableUniversityPositionsUniversityPositionDto | null;
+  onChange: (value: ApiRegistrationGetAvailableUniversityPositionsUniversityPositionDto | null) => void;
   disabled?: boolean;
   required?: boolean;
 }
@@ -18,7 +18,7 @@ const PositionSelector: React.FC<PositionSelectorProps> = ({
   disabled = false,
   required = false
 }) => {
-  const { data: positionsData } = useGetApiAuthRegistrationGetAvailableUniversityPositionsQuery();
+  const { data: positionsData } = useGetApiRegistrationGetAvailableUniversityPositionsQuery();
 
   const universityPositions = React.useMemo(() =>
     positionsData?.list || [], [positionsData]);

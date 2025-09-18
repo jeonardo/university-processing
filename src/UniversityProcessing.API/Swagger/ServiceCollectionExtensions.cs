@@ -1,6 +1,6 @@
 using Microsoft.OpenApi.Models;
 using UniversityProcessing.API.Middlewares;
-using UniversityProcessing.Utils.Routing;
+using UniversityProcessing.API.Routing;
 
 namespace UniversityProcessing.API.Swagger;
 

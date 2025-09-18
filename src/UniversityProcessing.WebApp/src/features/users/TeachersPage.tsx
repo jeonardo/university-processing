@@ -15,7 +15,7 @@ import AppListPagination from 'src/components/lists/AppListPagination';
 import AppList from 'src/components/lists/AppList';
 import UserItem from './components/UserItem';
 import AppListSearch from 'src/components/lists/AppListSearch';
-import { ContractsUserRoleType, useLazyGetApiUsersGetTeachersQuery } from 'src/api/backendApi';
+import { ApiContractsUserRoleTypeDto, useLazyGetApiUsersGetTeachersQuery } from 'src/api/backendApi';
 import {
   Add as AddIcon,
   Block as BlockIcon,
@@ -88,7 +88,7 @@ const TeachersPage: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  const canCreate = currentUser?.role === ContractsUserRoleType.Deanery
+  const canCreate = currentUser?.role === ApiContractsUserRoleTypeDto.Deanery
     || currentUser?.departmentHead;
   const canVerify = canCreate;
 

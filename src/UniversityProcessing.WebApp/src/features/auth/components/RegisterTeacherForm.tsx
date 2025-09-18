@@ -1,7 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
-import { usePostApiAuthRegistrationRegisterTeacherMutation, usePutApiUsersUpdateVerificationMutation } from 'src/api/backendApi';
+import { usePostApiRegistrationRegisterTeacherMutation, usePutApiUsersUpdateVerificationMutation } from 'src/api/backendApi';
 import {
   FormContainer,
   PositionSelector,
@@ -12,14 +12,14 @@ import {
   ValidationRules,
   CommonFormData
 } from './index';
-import { AuthRegistrationGetAvailableUniversityPositionsUniversityPosition, AuthRegistrationGetAvailableFacultiesFaculty, AuthRegistrationGetAvailableDepartmentsDepartment } from 'src/api/backendApi';
+import { ApiRegistrationGetAvailableUniversityPositionsUniversityPositionDto, ApiRegistrationGetAvailableFacultiesFacultyDto, ApiRegistrationGetAvailableDepartmentsDepartmentDto } from 'src/api/backendApi';
 import { IRegisterFormProps } from './RegisterFormProps';
 import { useRegistrationSubmit } from '../hooks/useRegistrationSubmit';
 
 interface TeacherFormData extends CommonFormData {
-  universityPosition: AuthRegistrationGetAvailableUniversityPositionsUniversityPosition | null;
-  faculty: AuthRegistrationGetAvailableFacultiesFaculty | null;
-  department: AuthRegistrationGetAvailableDepartmentsDepartment | null;
+  universityPosition: ApiRegistrationGetAvailableUniversityPositionsUniversityPositionDto | null;
+  faculty: ApiRegistrationGetAvailableFacultiesFacultyDto | null;
+  department: ApiRegistrationGetAvailableDepartmentsDepartmentDto | null;
 }
 
 const RegisterTeacherForm: React.FC<IRegisterFormProps> = ({
@@ -42,7 +42,7 @@ const RegisterTeacherForm: React.FC<IRegisterFormProps> = ({
   };
 
   const { formData, handleFormDataChange, updateFormData } = useFormState(initialFormData);
-  const [tryRegister, { isLoading, isSuccess }] = usePostApiAuthRegistrationRegisterTeacherMutation();
+  const [tryRegister, { isLoading, isSuccess }] = usePostApiRegistrationRegisterTeacherMutation();
   const { validateForm } = useFormValidation();
   const [tryVerify, { }] = usePutApiUsersUpdateVerificationMutation();
 
@@ -78,7 +78,7 @@ const RegisterTeacherForm: React.FC<IRegisterFormProps> = ({
     onSuccess,
   });
 
-  const handleFacultyChange = (faculty: AuthRegistrationGetAvailableFacultiesFaculty | null) => {
+  const handleFacultyChange = (faculty: ApiRegistrationGetAvailableFacultiesFacultyDto | null) => {
     updateFormData({ faculty, department: null });
   };
 

@@ -2,7 +2,7 @@ import { Box, Paper } from "@mui/material";
 import { styled } from "@mui/system";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { ContractsUserRoleType } from "src/api/backendApi";
+import { ApiContractsUserRoleTypeDto } from "src/api/backendApi";
 import { labels, roleSetByType } from "../tools/users.contracts";
 
 const SwitchRoot = styled(Paper)(({ theme }) => ({
@@ -26,8 +26,8 @@ const Thumb = styled(Box)(({ theme }) => ({
 const RoleSwitchPanel = (
     { availableRoles, routeRole }
         : {
-            availableRoles: ContractsUserRoleType[],
-            routeRole: ContractsUserRoleType
+            availableRoles: ApiContractsUserRoleTypeDto[],
+            routeRole: ApiContractsUserRoleTypeDto
         }) => {
     const navigate = useNavigate();
     const roles = useMemo(() =>
@@ -37,7 +37,7 @@ const RoleSwitchPanel = (
     const activeIndex = useMemo(() =>
         roles.findIndex(r => r.value === routeRole), [roles, routeRole]);
 
-    const onSwitchClicked = (switchRole: ContractsUserRoleType) => {
+    const onSwitchClicked = (switchRole: ApiContractsUserRoleTypeDto) => {
         navigate(`/users/${roleSetByType[switchRole]}`, { replace: true });
     };
 

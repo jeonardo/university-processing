@@ -2,7 +2,7 @@ import React from 'react';
 import { ListItem, ListItemText, Typography, Chip, Box, IconButton } from '@mui/material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
 import { SxProps, Theme } from '@mui/material/styles';
-import { GroupsGetGroup } from 'src/api/backendApi';
+import { ApiGroupsGetGroupDto } from 'src/api/backendApi';
 
 interface GroupItemProps<T> {
   item: T;
@@ -12,7 +12,7 @@ interface GroupItemProps<T> {
   className?: string;
 }
 
-const GroupItem: React.FC<GroupItemProps<GroupsGetGroup>> = ({ item, onClick, onDelete, sx, className }) => {
+const GroupItem: React.FC<GroupItemProps<ApiGroupsGetGroupDto>> = ({ item, onClick, onDelete, sx, className }) => {
   const handleDeleteClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     onDelete?.(item);

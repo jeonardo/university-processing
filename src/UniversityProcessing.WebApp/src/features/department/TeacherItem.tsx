@@ -26,7 +26,7 @@ import {
     CircularProgress
 } from '@mui/material';
 import { Person, Add, Edit, Star, StarBorder, MoreVert } from '@mui/icons-material';
-import { DepartmentsGetFullDescriptionDepartmentFullDescriptionUser, DepartmentsGetFullDescriptionResponse, FacultiesGetFullDescriptionFacultyFullDescriptionUser, FacultiesGetFullDescriptionResponse, useGetApiFacultiesGetFullDescriptionQuery, usePatchApiDepartmentsSetDepartmentHeadMutation, usePatchApiFacultiesSetFacultyHeadMutation, usePutApiUsersUpdateVerificationMutation } from "src/api/backendApi";
+import { ApiDepartmentsGetFullDescriptionUserDto, ApiDepartmentsGetFullDescriptionResponseDto, ApiFacultiesGetFullDescriptionUserDto, ApiFacultiesGetFullDescriptionResponseDto, useGetApiFacultiesGetFullDescriptionQuery, usePatchApiDepartmentsSetDepartmentHeadMutation, usePatchApiFacultiesSetFacultyHeadMutation, usePutApiUsersUpdateVerificationMutation } from "src/api/backendApi";
 import AppLoader from "src/components/AppLoader";
 import { namingTools } from "src/core/namingTools";
 import { RegisterDeaneryForm } from "../auth/components";
@@ -42,8 +42,8 @@ import { useAppSelector } from "src/core";
 
 interface TeacherItemProps {
     currentUser: AuthUser | null
-    department: DepartmentsGetFullDescriptionResponse | null
-    item: DepartmentsGetFullDescriptionDepartmentFullDescriptionUser
+    department: ApiDepartmentsGetFullDescriptionResponseDto | null
+    item: ApiDepartmentsGetFullDescriptionUserDto
     refetch: () => void
 }
 const TeacherItem = ({ currentUser, department, item, refetch }: TeacherItemProps) => {
@@ -83,7 +83,7 @@ const TeacherItem = ({ currentUser, department, item, refetch }: TeacherItemProp
         event: React.ChangeEvent<HTMLInputElement>,
         checked: boolean) => {
         const result = await updateVerification({
-            usersUpdateVerificationRequest: {
+            apiUsersUpdateVerificationRequestDto: {
                 isApproved: checked,
                 userId: item.id ?? ''
             }

@@ -52,7 +52,7 @@ const PasswordChangePage: React.FC = () => {
 
     try {
       const { data, error } = await changePassword({
-        authChangePasswordRequest: {
+        apiAuthChangePasswordRequestDto: {
           password: formState.currentPassword,
           newPassword: formState.newPassword
         }

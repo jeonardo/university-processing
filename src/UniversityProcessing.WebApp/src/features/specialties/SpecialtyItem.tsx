@@ -2,7 +2,7 @@ import React from 'react';
 import { ListItem, ListItemText, Typography, Chip, Box, IconButton } from '@mui/material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
 import { SxProps, Theme } from '@mui/material/styles';
-import { SpecialtiesGetSpecialty } from 'src/api/backendApi';
+import { ApiSpecialtiesGetSpecialtyDto } from 'src/api/backendApi';
 
 interface SpecialtyItemProps<T> {
   item: T;
@@ -12,7 +12,7 @@ interface SpecialtyItemProps<T> {
   className?: string;
 }
 
-const SpecialtyItem: React.FC<SpecialtyItemProps<SpecialtiesGetSpecialty>> = ({ item, onClick, onDelete, sx, className }) => {
+const SpecialtyItem: React.FC<SpecialtyItemProps<ApiSpecialtiesGetSpecialtyDto>> = ({ item, onClick, onDelete, sx, className }) => {
   const handleDeleteClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     onDelete?.(item);
@@ -60,6 +60,8 @@ const SpecialtyItem: React.FC<SpecialtyItemProps<SpecialtiesGetSpecialty>> = ({ 
 };
 
 export default SpecialtyItem;
+
+
 
 
 

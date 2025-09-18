@@ -1,7 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
-import { usePostApiAuthRegistrationRegisterDeaneryMutation, usePutApiUsersUpdateVerificationMutation } from 'src/api/backendApi';
+import { usePostApiRegistrationRegisterDeaneryMutation, usePutApiUsersUpdateVerificationMutation } from 'src/api/backendApi';
 import {
   FormContainer,
   PositionSelector,
@@ -11,13 +11,13 @@ import {
   ValidationRules,
   CommonFormData
 } from './index';
-import { AuthRegistrationGetAvailableUniversityPositionsUniversityPosition, AuthRegistrationGetAvailableFacultiesFaculty } from 'src/api/backendApi';
+import { ApiRegistrationGetAvailableUniversityPositionsUniversityPositionDto, ApiRegistrationGetAvailableFacultiesFacultyDto } from 'src/api/backendApi';
 import { IRegisterFormProps } from './RegisterFormProps';
 import { useRegistrationSubmit } from '../hooks/useRegistrationSubmit';
 
 interface DeaneryFormData extends CommonFormData {
-  universityPosition: AuthRegistrationGetAvailableUniversityPositionsUniversityPosition | null;
-  faculty: AuthRegistrationGetAvailableFacultiesFaculty | null;
+  universityPosition: ApiRegistrationGetAvailableUniversityPositionsUniversityPositionDto | null;
+  faculty: ApiRegistrationGetAvailableFacultiesFacultyDto | null;
 }
 
 const RegisterDeaneryForm: React.FC<IRegisterFormProps> = ({
@@ -39,7 +39,7 @@ const RegisterDeaneryForm: React.FC<IRegisterFormProps> = ({
   };
 
   const { formData, handleFormDataChange, updateFormData } = useFormState(initialFormData);
-  const [tryRegister, { isLoading, isSuccess }] = usePostApiAuthRegistrationRegisterDeaneryMutation();
+  const [tryRegister, { isLoading, isSuccess }] = usePostApiRegistrationRegisterDeaneryMutation();
   const { validateForm } = useFormValidation();
   const [tryVerify, { }] = usePutApiUsersUpdateVerificationMutation();
 

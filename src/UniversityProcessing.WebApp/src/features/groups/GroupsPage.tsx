@@ -24,7 +24,7 @@ import {
   useLazyGetApiGroupsGetQuery,
   useDeleteApiGroupsDeleteMutation,
   usePostApiGroupsCreateMutation,
-  GroupsGetGroup
+  ApiGroupsGetGroupDto
 } from 'src/api/backendApi';
 import { useAppSelector, useRequireAdmin } from 'src/core/hooks';
 import { useNavigate } from 'react-router-dom';
@@ -39,7 +39,7 @@ const GroupsPage: React.FC = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [search, setSearch] = useState('');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const [deleteTarget, setDeleteTarget] = useState<GroupsGetGroup | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<ApiGroupsGetGroupDto | null>(null);
 
   // Получаем periodId из состояния
   const periodId = useAppSelector(state => state.period.SelectedPeriod.id);
@@ -73,7 +73,7 @@ const GroupsPage: React.FC = () => {
 
   const handleCreateGroup = async (groupData: any) => {
     try {
-      const result = await createGroup({ groupsCreateRequest: groupData }).unwrap();
+      const result = await createGroup({ apiGroupsCreateRequestDto: groupData }).unwrap();
       enqueueSnackbar('Группа успешно создана', { variant: 'success' });
       setIsCreateDialogOpen(false);
       // Перезагружаем данные
@@ -92,7 +92,7 @@ const GroupsPage: React.FC = () => {
     }
   };
 
-  const handleDeleteClick = (group: GroupsGetGroup) => {
+  const handleDeleteClick = (group: ApiGroupsGetGroupDto) => {
     setDeleteTarget(group);
   };
 

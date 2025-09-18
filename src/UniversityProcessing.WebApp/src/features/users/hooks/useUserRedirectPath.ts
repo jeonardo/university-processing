@@ -2,19 +2,19 @@ import { useEffect, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'src/core';
 import { roleSetByString, roleSetByType } from '../tools/users.contracts';
-import { ContractsUserRoleType } from 'src/api/backendApi';
+import { ApiContractsUserRoleTypeDto } from 'src/api/backendApi';
 
-export const getAvailableRoles = (userRole: ContractsUserRoleType | null | undefined): ContractsUserRoleType[] => {
+export const getAvailableRoles = (userRole: ApiContractsUserRoleTypeDto | null | undefined): ApiContractsUserRoleTypeDto[] => {
     if (!userRole
-        || userRole === ContractsUserRoleType.None) {
+        || userRole === ApiContractsUserRoleTypeDto.None) {
         return [];
     }
 
     switch (userRole) {
-        case ContractsUserRoleType.Admin:
-            return [ContractsUserRoleType.Admin, ContractsUserRoleType.Deanery];
+        case ApiContractsUserRoleTypeDto.Admin:
+            return [ApiContractsUserRoleTypeDto.Admin, ApiContractsUserRoleTypeDto.Deanery];
         default:
-            return [ContractsUserRoleType.Deanery, ContractsUserRoleType.Teacher, ContractsUserRoleType.Student];
+            return [ApiContractsUserRoleTypeDto.Deanery, ApiContractsUserRoleTypeDto.Teacher, ApiContractsUserRoleTypeDto.Student];
     }
 };
 

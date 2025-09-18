@@ -9,7 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { PeriodFormDialog } from "./PeriodFormDialog";
 import { enqueueSnackbarError, useAppDispatch, useAppSelector } from "src/core";
-import { ContractsUserRoleType, PeriodsGetPeriod, useDeleteApiPeriodsDeleteMutation, useLazyGetApiPeriodsGetQuery, usePostApiPeriodsCreateMutation } from "src/api/backendApi";
+import { ApiContractsUserRoleTypeDto, ApiPeriodsGetPeriodDto, useDeleteApiPeriodsDeleteMutation, useLazyGetApiPeriodsGetQuery, usePostApiPeriodsCreateMutation } from "src/api/backendApi";
 import { loadPeriods } from "./period.service";
 
 type PendingDelete = { id: string; name: string } | null;
@@ -36,8 +36,8 @@ export const PeriodsPage: React.FC = () => {
         setFormOpen(true);
     };
 
-    const handleSubmit = async (values: Omit<PeriodsGetPeriod, "id">) => {
-        const response = await fetchCreate({ periodsCreateRequest: { name: values.name, from: values.from, to: values.to } });
+    const handleSubmit = async (values: Omit<ApiPeriodsGetPeriodDto, "id">) => {
+        const response = await fetchCreate({ apiPeriodsCreateRequestDto: { name: values.name, from: values.from, to: values.to } });
         if (response.error) {
             enqueueSnackbarError(response.error);
             return;
@@ -45,7 +45,7 @@ export const PeriodsPage: React.FC = () => {
         await loadPeriods(dispatch, fetchPeriods);
     };
 
-    const confirmDelete = (p: PeriodsGetPeriod) => {
+    const confirmDelete = (p: ApiPeriodsGetPeriodDto) => {
         setDeleteTarget({ id: p.id, name: p.name });
     };
 
@@ -68,7 +68,7 @@ export const PeriodsPage: React.FC = () => {
     );
 
     const canCreate =
-        user?.role === ContractsUserRoleType.Deanery
+        user?.role === ApiContractsUserRoleTypeDto.Deanery
         || user?.departmentHead;
 
     const canDelete = canCreate;

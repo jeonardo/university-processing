@@ -1,7 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
-import { usePostApiAuthRegistrationRegisterStudentMutation, usePutApiUsersUpdateVerificationMutation } from 'src/api/backendApi';
+import { usePostApiRegistrationRegisterStudentMutation, usePutApiUsersUpdateVerificationMutation } from 'src/api/backendApi';
 import {
   FormContainer,
   GroupSelector,
@@ -36,7 +36,7 @@ const RegisterStudentForm: React.FC<IRegisterFormProps> = ({
   };
 
   const { formData, handleFormDataChange, updateFormData } = useFormState(initialFormData);
-  const [tryRegister, { isLoading, isSuccess }] = usePostApiAuthRegistrationRegisterStudentMutation();
+  const [tryRegister, { isLoading, isSuccess }] = usePostApiRegistrationRegisterStudentMutation();
   const { validateForm } = useFormValidation();
   const [tryVerify, { }] = usePutApiUsersUpdateVerificationMutation();
 

@@ -1,40 +1,40 @@
-import { ContractsUserRoleType } from 'src/api/backendApi';
+import { ApiContractsUserRoleTypeDto } from "src/api/backendApi";
 
 export interface RoleLocalization {
   label: string;
-  value: ContractsUserRoleType;
+  value: ApiContractsUserRoleTypeDto;
 }
 
-export const contractsRoleLocalization: Record<ContractsUserRoleType, RoleLocalization> = {
-  [ContractsUserRoleType.None]: {
+export const contractsRoleLocalization: Record<ApiContractsUserRoleTypeDto, RoleLocalization> = {
+  [ApiContractsUserRoleTypeDto.None]: {
     label: 'Не указано',
-    value: ContractsUserRoleType.None
+    value: ApiContractsUserRoleTypeDto.None
   },
-  [ContractsUserRoleType.Admin]: {
+  [ApiContractsUserRoleTypeDto.Admin]: {
     label: 'Администратор',
-    value: ContractsUserRoleType.Admin
+    value: ApiContractsUserRoleTypeDto.Admin
   },
-  [ContractsUserRoleType.Deanery]: {
+  [ApiContractsUserRoleTypeDto.Deanery]: {
     label: 'Сотрудник деканата',
-    value: ContractsUserRoleType.Deanery
+    value: ApiContractsUserRoleTypeDto.Deanery
   },
-  [ContractsUserRoleType.Teacher]: {
+  [ApiContractsUserRoleTypeDto.Teacher]: {
     label: 'Преподаватель',
-    value: ContractsUserRoleType.Teacher
+    value: ApiContractsUserRoleTypeDto.Teacher
   },
-  [ContractsUserRoleType.Student]: {
+  [ApiContractsUserRoleTypeDto.Student]: {
     label: 'Студент',
-    value: ContractsUserRoleType.Student
+    value: ApiContractsUserRoleTypeDto.Student
   }
 };
 
-export const RoleLocalizationLabel = (role: ContractsUserRoleType): string => {
+export const RoleLocalizationLabel = (role: ApiContractsUserRoleTypeDto): string => {
   return contractsRoleLocalization[role]?.label || 'Неизвестная роль';
 };
 
 // Хук для получения локализации
 export const useContractsRoleLocalization = () => {
-  const getRoleLabel = (role: ContractsUserRoleType): string => {
+  const getRoleLabel = (role: ApiContractsUserRoleTypeDto): string => {
     return contractsRoleLocalization[role]?.label || 'Неизвестная роль';
   };
 
@@ -42,8 +42,8 @@ export const useContractsRoleLocalization = () => {
     return Object.values(contractsRoleLocalization);
   };
 
-  const getRoleInfo = (role: ContractsUserRoleType): RoleLocalization => {
-    return contractsRoleLocalization[role] || { label: 'Неизвестная роль', value: ContractsUserRoleType.None };
+  const getRoleInfo = (role: ApiContractsUserRoleTypeDto): RoleLocalization => {
+    return contractsRoleLocalization[role] || { label: 'Неизвестная роль', value: ApiContractsUserRoleTypeDto.None };
   };
 
   return {
@@ -57,7 +57,7 @@ export const useContractsRoleLocalization = () => {
 // Утилиты для работы с ролями
 export const contractsRoleUtils = {
   // Получить все роли в виде массива для селектов
-  getRolesForSelect: (): Array<{ value: ContractsUserRoleType; label: string }> => {
+  getRolesForSelect: (): Array<{ value: ApiContractsUserRoleTypeDto; label: string }> => {
     return Object.values(contractsRoleLocalization).map(role => ({
       value: role.value,
       label: role.label

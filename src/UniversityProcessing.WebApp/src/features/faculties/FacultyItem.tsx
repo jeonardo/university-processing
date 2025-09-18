@@ -1,7 +1,7 @@
 import React from 'react';
 import { ListItem, ListItemText, Typography } from '@mui/material';
 import { SxProps, Theme } from '@mui/material/styles';
-import { FacultiesGetFaculty, useGetApiGroupsGetQuery } from 'src/api/backendApi';
+import { ApiFacultiesGetFacultyDto, useGetApiGroupsGetQuery } from 'src/api/backendApi';
 
 interface FacultyItemProps<T> {
   item: T;
@@ -10,7 +10,7 @@ interface FacultyItemProps<T> {
   className?: string;
 }
 
-const FacultyItem: React.FC<FacultyItemProps<FacultiesGetFaculty>> = ({ item, onClick, sx, className }) => {
+const FacultyItem: React.FC<FacultyItemProps<ApiFacultiesGetFacultyDto>> = ({ item, onClick, sx, className }) => {
   return (
     <ListItem
       key={item.id}

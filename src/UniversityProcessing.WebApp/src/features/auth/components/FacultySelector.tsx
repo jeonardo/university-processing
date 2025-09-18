@@ -1,11 +1,11 @@
 import React from 'react';
-import { AuthRegistrationGetAvailableFacultiesFaculty } from 'src/api/backendApi';
-import { useGetApiAuthRegistrationGetAvailableFacultiesQuery } from 'src/api/backendApi';
+import { ApiRegistrationGetAvailableFacultiesFacultyDto } from 'src/api/backendApi';
+import { useGetApiRegistrationGetAvailableFacultiesQuery } from 'src/api/backendApi';
 import AutocompleteField from 'src/components/forms/AutocompleteField';
 
 interface FacultySelectorProps {
-  value: AuthRegistrationGetAvailableFacultiesFaculty | null;
-  onChange: (value: AuthRegistrationGetAvailableFacultiesFaculty | null) => void;
+  value: ApiRegistrationGetAvailableFacultiesFacultyDto | null;
+  onChange: (value: ApiRegistrationGetAvailableFacultiesFacultyDto | null) => void;
   disabled?: boolean;
   required?: boolean;
 }
@@ -16,7 +16,7 @@ const FacultySelector: React.FC<FacultySelectorProps> = ({
   disabled = false,
   required = false
 }) => {
-  const { data: facultiesData } = useGetApiAuthRegistrationGetAvailableFacultiesQuery();
+  const { data: facultiesData } = useGetApiRegistrationGetAvailableFacultiesQuery();
 
   const faculties = React.useMemo(() =>
     facultiesData?.faculties || [], [facultiesData]);

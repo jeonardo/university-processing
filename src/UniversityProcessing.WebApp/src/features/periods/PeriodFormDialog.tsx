@@ -3,17 +3,17 @@ import {
   Dialog, DialogTitle, DialogContent, DialogActions,
   TextField, Button, FormControlLabel, Switch, Box, Alert
 } from "@mui/material";
-import { PeriodsGetPeriod } from "src/api/backendApi";
+import { ApiPeriodsGetPeriodDto } from "src/api/backendApi";
 
 type Props = {
   open: boolean;
   onClose: () => void;
-  onSubmit: (values: Omit<PeriodsGetPeriod, "id">) => Promise<void> | void;
-  initial?: PeriodsGetPeriod | null;
-  existing: PeriodsGetPeriod[];
+  onSubmit: (values: Omit<ApiPeriodsGetPeriodDto, "id">) => Promise<void> | void;
+  initial?: ApiPeriodsGetPeriodDto | null;
+  existing: ApiPeriodsGetPeriodDto[];
 };
 
-type Errors = Partial<Record<keyof Omit<PeriodsGetPeriod, "id">, string>> & { general?: string };
+type Errors = Partial<Record<keyof Omit<ApiPeriodsGetPeriodDto, "id">, string>> & { general?: string };
 
 function normalizeDate(value: string): string {
   return value;

@@ -4,7 +4,7 @@ import ModalForm from 'src/components/layout/ModalForm';
 import AppList from 'src/components/lists/AppList';
 import DepartmentItem from './DepartmentItem';
 import AppListPagination from 'src/components/lists/AppListPagination';
-import { ContractsUserRoleType, useGetApiFacultiesGetQuery, useLazyGetApiDepartmentsGetQuery, useLazyGetApiFacultiesGetQuery, usePostApiDepartmentsCreateMutation, usePostApiFacultiesCreateMutation } from 'src/api/backendApi';
+import { ApiContractsUserRoleTypeDto, useGetApiFacultiesGetQuery, useLazyGetApiDepartmentsGetQuery, useLazyGetApiFacultiesGetQuery, usePostApiDepartmentsCreateMutation, usePostApiFacultiesCreateMutation } from 'src/api/backendApi';
 import { useAppSelector, useRequireAdmin } from 'src/core/hooks';
 import { useNavigate } from 'react-router-dom';
 import { RegisterAdminForm } from '../auth/components';
@@ -43,7 +43,7 @@ const AddDepartmentModal: React.FC<{
         event.preventDefault();
 
         const result = await createDepartment({
-            departmentsCreateRequest: {
+            apiDepartmentsCreateRequestDto: {
                 name: name,
                 shortName: shortName,
                 facultyId: user?.facultyId ?? ''

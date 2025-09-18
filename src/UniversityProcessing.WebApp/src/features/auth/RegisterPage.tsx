@@ -4,7 +4,7 @@ import { useState } from 'react';
 import RegisterAdminForm from './components/RegisterAdminForm';
 import RegisterStudentForm from './components/RegisterStudentForm';
 import { Link } from 'react-router-dom';
-import { ContractsUserRoleType } from 'src/api/backendApi';
+import { ApiContractsUserRoleTypeDto as ContractsUserRoleType } from 'src/api/backendApi';
 import RegisterTeacherForm from './components/RegisterTeacherForm';
 import RegisterDeaneryForm from './components/RegisterDeaneryForm';
 import { RoleLocalizationLabel } from 'src/core/labelStore';

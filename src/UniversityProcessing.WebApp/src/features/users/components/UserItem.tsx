@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, ListItem, ListItemText, Switch, Tooltip, Typography } from '@mui/material';
-import { usePutApiUsersUpdateBlockingMutation, usePutApiUsersUpdateVerificationMutation, UsersGetAdminsAdmin } from 'src/api/backendApi';
+import { usePutApiUsersUpdateBlockingMutation, usePutApiUsersUpdateVerificationMutation, ApiUsersGetAdminsAdminDto } from 'src/api/backendApi';
 import { AuthUser } from '../../auth/auth.contracts';
 import {
   Block as BlockIcon,
@@ -19,7 +19,7 @@ interface UserItemProps<T> {
   canVerify?: boolean;
 }
 
-const UserItem: React.FC<UserItemProps<UsersGetAdminsAdmin>> = ({
+const UserItem: React.FC<UserItemProps<ApiUsersGetAdminsAdminDto>> = ({
   item,
   currentUser,
   canVerify

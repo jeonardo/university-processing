@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { useLazyGetApiAuthRegistrationGetAvailableGroupsQuery } from 'src/api/backendApi';
+import { useLazyGetApiRegistrationGetAvailableGroupsQuery } from 'src/api/backendApi';
 import AutocompleteField from 'src/components/forms/AutocompleteField';
 import { useDebouncedCallback } from 'src/core/hooks';
 
@@ -17,7 +17,7 @@ const GroupSelector: React.FC<GroupSelectorProps> = ({
   required = false
 }) => {
   const [inputValue, setInputValue] = useState('');
-  const [fetchGroups, { data: groupsData }] = useLazyGetApiAuthRegistrationGetAvailableGroupsQuery();
+  const [fetchGroups, { data: groupsData }] = useLazyGetApiRegistrationGetAvailableGroupsQuery();
 
   const groups = useMemo(() => groupsData?.groupNumbers || [], [groupsData]);
 

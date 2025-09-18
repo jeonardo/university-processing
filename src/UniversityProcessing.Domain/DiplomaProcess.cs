@@ -27,7 +27,7 @@ public class DiplomaProcess : BaseEntity
 
     public virtual Period Period { get; private set; } = null!;
 
-    public virtual ICollection<Student> Students { get; private set; } = null!;
+    public virtual ICollection<Group> Groups { get; private set; } = null!;
 
     public virtual ICollection<Teacher> Teachers { get; private set; } = null!;
 

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { PeriodState } from './period.contracts';
-import { PeriodsGetPeriod } from 'src/api/backendApi';
+import { ApiPeriodsGetPeriodDto } from 'src/api/backendApi';
 
 const initialState: PeriodState = {
     SelectedPeriod: { id: '', name: '', from: '', to: '' },
@@ -11,10 +11,10 @@ const periodSlice = createSlice({
     name: 'period',
     initialState,
     reducers: {
-        setPeriod: (state: PeriodState, action: PayloadAction<PeriodsGetPeriod>) => {
+        setPeriod: (state: PeriodState, action: PayloadAction<ApiPeriodsGetPeriodDto>) => {
             state.SelectedPeriod = action.payload;
         },
-        setPeriods: (state: PeriodState, action: PayloadAction<PeriodsGetPeriod[]>) => {
+        setPeriods: (state: PeriodState, action: PayloadAction<ApiPeriodsGetPeriodDto[]>) => {
             state.Periods = action.payload;
         }
     }

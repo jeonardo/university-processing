@@ -29,7 +29,7 @@ import { logout } from '../auth/auth.slice';
 import { RoleLocalizationLabel } from 'src/core/labelStore';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SchoolIcon from '@mui/icons-material/School';
-import { ContractsUserRoleType, useGetApiPeriodsGetQuery } from 'src/api/backendApi';
+import { ApiContractsUserRoleTypeDto, useGetApiPeriodsGetQuery } from 'src/api/backendApi';
 import { text } from 'stream/consumers';
 import { setPeriod, setPeriods } from '../periods/period.slice';
 
@@ -44,7 +44,7 @@ const PrivateLayout: React.FC = () => {
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const usePeriods = authState.user?.role != ContractsUserRoleType.Admin;
+  const usePeriods = authState.user?.role != ApiContractsUserRoleTypeDto.Admin;
 
   const { data, isSuccess } = useGetApiPeriodsGetQuery();
 
@@ -78,10 +78,10 @@ const PrivateLayout: React.FC = () => {
   // Меню навигации
   const menuItems = [
     { text: 'Главная', icon: <DashboardIcon />, path: '/' },
-    { text: 'Учебные периоды', icon: <Book />, path: '/periods', roles: [ContractsUserRoleType.Deanery], forDepartmentHead: true },
+    { text: 'Учебные периоды', icon: <Book />, path: '/periods', roles: [ApiContractsUserRoleTypeDto.Deanery], forDepartmentHead: true },
     { text: 'Пользователи', icon: <PeopleAltIcon />, path: '/users' },
-    { text: 'Факультеты', icon: <SchoolIcon />, path: '/faculties', roles: [ContractsUserRoleType.Admin] },
-    { text: 'Кафедры', icon: <SchoolIcon />, path: '/departments', roles: [ContractsUserRoleType.Deanery] },
+    { text: 'Факультеты', icon: <SchoolIcon />, path: '/faculties', roles: [ApiContractsUserRoleTypeDto.Admin] },
+    { text: 'Кафедры', icon: <SchoolIcon />, path: '/departments', roles: [ApiContractsUserRoleTypeDto.Deanery] },
     { text: 'Специальности', icon: <MenuBookIcon />, path: '/specialties', roles: [], forDepartmentHead: true },
     { text: 'Группы', icon: <GroupsIcon />, path: '/groups', roles: [], forDepartmentHead: true },
     // { text: 'Дипломные проекты', icon: <AssignmentIcon />, path: '/projects', roles: ['admin', 'deanery', 'departmentHead', 'supervisor', 'student'] },
@@ -93,7 +93,7 @@ const PrivateLayout: React.FC = () => {
   const filteredMenuItems = menuItems
     .filter(item =>
       !item.roles
-      || item.roles.includes(authState.user?.role ?? ContractsUserRoleType.None)
+      || item.roles.includes(authState.user?.role ?? ApiContractsUserRoleTypeDto.None)
       || (item.forDepartmentHead && authState.user?.departmentHead)
     );
 
@@ -219,7 +219,7 @@ const PrivateLayout: React.FC = () => {
             {
               <Chip
                 key={authState.user?.role}
-                label={RoleLocalizationLabel(authState.user?.role ?? ContractsUserRoleType.None)}
+                label={RoleLocalizationLabel(authState.user?.role ?? ApiContractsUserRoleTypeDto.None)}
                 size="small"
                 sx={{ mt: 0.5, bgcolor: teal[50], color: teal[700] }}
               />

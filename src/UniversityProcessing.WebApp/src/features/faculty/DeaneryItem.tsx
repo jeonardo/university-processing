@@ -26,7 +26,6 @@ import {
     CircularProgress
 } from '@mui/material';
 import { Person, Add, Edit, Star, StarBorder, MoreVert } from '@mui/icons-material';
-import { FacultiesGetFullDescriptionFacultyFullDescriptionUser, FacultiesGetFullDescriptionResponse, useGetApiFacultiesGetFullDescriptionQuery, usePatchApiFacultiesSetFacultyHeadMutation, usePutApiUsersUpdateVerificationMutation } from "src/api/backendApi";
 import AppLoader from "src/components/AppLoader";
 import { namingTools } from "src/core/namingTools";
 import { RegisterDeaneryForm } from "../auth/components";
@@ -38,11 +37,12 @@ import {
     Verified as VerifiedIcon,
     Person as PersonIcon
 } from '@mui/icons-material';
+import { ApiFacultiesGetFullDescriptionResponseDto, ApiFacultiesGetFullDescriptionUserDto, usePatchApiFacultiesSetFacultyHeadMutation, usePutApiUsersUpdateVerificationMutation } from "src/api/backendApi";
 
 interface DeaneryItemProps {
     currentUser: AuthUser | null
-    faculty: FacultiesGetFullDescriptionResponse | null
-    item: FacultiesGetFullDescriptionFacultyFullDescriptionUser
+    faculty: ApiFacultiesGetFullDescriptionResponseDto | null
+    item: ApiFacultiesGetFullDescriptionUserDto
     refetch: () => void
 }
 const DeaneryItem = ({ currentUser, faculty, item, refetch }: DeaneryItemProps) => {
@@ -82,7 +82,7 @@ const DeaneryItem = ({ currentUser, faculty, item, refetch }: DeaneryItemProps) 
         event: React.ChangeEvent<HTMLInputElement>,
         checked: boolean) => {
         const result = await updateVerification({
-            usersUpdateVerificationRequest: {
+            apiUsersUpdateVerificationRequestDto: {
                 isApproved: checked,
                 userId: item.id ?? ''
             }

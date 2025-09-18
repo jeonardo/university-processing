@@ -16,18 +16,18 @@ export const VerificationControl = React.memo<VerificationControlProps>(({ userI
 
   const handleVerificationChange = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
     const newVerification = event.target.checked;
-    const result = await setVerification({ 
-      usersUpdateVerificationRequest: { 
-        userId, 
-        isApproved: newVerification 
-      } 
+    const result = await setVerification({
+      apiUsersUpdateVerificationRequestDto: {
+        userId,
+        isApproved: newVerification
+      }
     });
-    
+
     if (result.error) {
       enqueueSnackbarError(result.error);
       return;
     }
-    
+
     setVerificationState(newVerification);
     enqueueSnackbar(
       newVerification ? 'Пользователь верифицирован' : 'Пользователь заблокирован',
@@ -35,12 +35,12 @@ export const VerificationControl = React.memo<VerificationControlProps>(({ userI
     );
   }, [setVerification, userId]);
 
-  const tooltipTitle = useMemo(() => 
-    verification ? 'Снять верификацию' : 'Подтвердить верификацию', 
+  const tooltipTitle = useMemo(() =>
+    verification ? 'Снять верификацию' : 'Подтвердить верификацию',
     [verification]
   );
 
-  const switchTooltipTitle = useMemo(() => 
+  const switchTooltipTitle = useMemo(() =>
     isLoading
       ? "Загружается"
       : verification
@@ -49,13 +49,13 @@ export const VerificationControl = React.memo<VerificationControlProps>(({ userI
     [isLoading, verification]
   );
 
-  const statusText = useMemo(() => 
-    verification ? 'Верифицирован' : 'Не верифицирован', 
+  const statusText = useMemo(() =>
+    verification ? 'Верифицирован' : 'Не верифицирован',
     [verification]
   );
 
-  const iconClassName = useMemo(() => 
-    `text-sm ${verification ? 'text-green-500' : 'text-gray-400'}`, 
+  const iconClassName = useMemo(() =>
+    `text-sm ${verification ? 'text-green-500' : 'text-gray-400'}`,
     [verification]
   );
 

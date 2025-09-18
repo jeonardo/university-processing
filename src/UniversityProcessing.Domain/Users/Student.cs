@@ -9,10 +9,6 @@ public class Student : User
 
     public virtual Diploma? Diploma { get; private set; }
 
-    public Guid? DiplomaProcessId { get; private set; }
-
-    public virtual DiplomaProcess? DiplomaProcess { get; private set; } = null!;
-
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local
     private Student()
@@ -28,8 +24,7 @@ public class Student : User
         DateTime? birthday,
         string? phoneNumber,
         Guid groupId,
-        Guid? diplomaId = null,
-        Guid? diplomaProcessId = null)
+        Guid? diplomaId = null)
         : base(
             UserRoleType.Student,
             userName,
@@ -42,6 +37,5 @@ public class Student : User
     {
         GroupId = groupId;
         DiplomaId = diplomaId;
-        DiplomaProcessId = diplomaProcessId;
     }
 }

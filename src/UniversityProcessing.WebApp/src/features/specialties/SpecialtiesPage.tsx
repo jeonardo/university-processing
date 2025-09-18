@@ -4,8 +4,8 @@ import {
   useLazyGetApiSpecialtiesGetQuery,
   usePostApiSpecialtiesCreateMutation,
   useDeleteApiSpecialtiesDeleteMutation,
-  SpecialtiesGetSpecialty,
-  SpecialtiesCreateRequest
+  ApiSpecialtiesGetSpecialtyDto,
+  ApiSpecialtiesCreateRequestDto
 } from 'src/api/backendApi';
 import AppList from 'src/components/lists/AppList';
 import AppListPagination from 'src/components/lists/AppListPagination';
@@ -22,7 +22,7 @@ const SpecialtiesPage: React.FC = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [search, setSearch] = useState('');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const [deleteTarget, setDeleteTarget] = useState<SpecialtiesGetSpecialty | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<ApiSpecialtiesGetSpecialtyDto | null>(null);
 
   const [getData, { data, isLoading }] = useLazyGetApiSpecialtiesGetQuery({
     pollingInterval: 15000
@@ -39,9 +39,9 @@ const SpecialtiesPage: React.FC = () => {
     setSearch(value);
   };
 
-  const handleCreate = async (form: SpecialtiesCreateRequest) => {
+  const handleCreate = async (form: ApiSpecialtiesCreateRequestDto) => {
     try {
-      await createSpecialty({ specialtiesCreateRequest: form }).unwrap();
+      await createSpecialty({ apiSpecialtiesCreateRequestDto: form }).unwrap();
       enqueueSnackbar('Специальность создана', { variant: 'success' });
       setIsCreateDialogOpen(false);
       getData({ departmentId: user?.departmentId ?? '', pageNumber, pageSize: 25, filter: search, desc: false, orderBy: 'name' });
@@ -50,7 +50,7 @@ const SpecialtiesPage: React.FC = () => {
     }
   };
 
-  const handleDeleteClick = (item: SpecialtiesGetSpecialty) => setDeleteTarget(item);
+  const handleDeleteClick = (item: ApiSpecialtiesGetSpecialtyDto) => setDeleteTarget(item);
 
   const handleDeleteConfirm = async () => {
     if (!deleteTarget?.id) return;
@@ -118,6 +118,8 @@ const SpecialtiesPage: React.FC = () => {
 };
 
 export default SpecialtiesPage;
+
+
 
 
 

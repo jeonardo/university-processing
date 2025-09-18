@@ -9,7 +9,7 @@ import {
   Stack,
   Typography
 } from '@mui/material';
-import { SpecialtiesCreateRequest, AuthRegistrationGetAvailableFacultiesFaculty, AuthRegistrationGetAvailableDepartmentsDepartment } from 'src/api/backendApi';
+import { ApiSpecialtiesCreateRequestDto, ApiRegistrationGetAvailableFacultiesFacultyDto, ApiRegistrationGetAvailableDepartmentsDepartmentDto } from 'src/api/backendApi';
 import FacultySelector from 'src/features/auth/components/FacultySelector';
 import DepartmentSelector from 'src/features/auth/components/DepartmentSelector';
 import { useAppSelector } from 'src/core';
@@ -17,7 +17,7 @@ import { useAppSelector } from 'src/core';
 interface SpecialtyFormDialogProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (data: SpecialtiesCreateRequest) => void;
+  onSubmit: (data: ApiSpecialtiesCreateRequestDto) => void;
   isLoading?: boolean;
 }
 
@@ -85,6 +85,8 @@ const SpecialtyFormDialog: React.FC<SpecialtyFormDialogProps> = ({ open, onClose
 };
 
 export default SpecialtyFormDialog;
+
+
 
 
 

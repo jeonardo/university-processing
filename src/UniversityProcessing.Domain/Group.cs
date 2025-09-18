@@ -20,6 +20,8 @@ public class Group : BaseEntity
 
     public virtual Period Period { get; private set; } = null!;
     public virtual ICollection<Student> Students { get; private set; } = null!;
+    public Guid? DiplomaProcessId { get; private set; }
+    public virtual DiplomaProcess DiplomaProcess { get; private set; } = null!;
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local

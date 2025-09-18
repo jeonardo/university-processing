@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthState, AuthTokens } from './auth.contracts';
 import { ClearAuthTokens, GetAuthTokens, SetAuthTokens } from 'src/core/localStorageToken';
-import { AuthInfoResponse } from 'src/api/backendApi';
+import { ApiAuthInfoResponseDto } from 'src/api/backendApi';
 
 const initialState: AuthState = {
   authorized: !!GetAuthTokens()?.accessToken,
@@ -24,7 +24,7 @@ const authSlice = createSlice({
       state.authorized = true;
       state.tokens = action.payload;
     },
-    setUser: (state: AuthState, action: PayloadAction<AuthInfoResponse>) => {
+    setUser: (state: AuthState, action: PayloadAction<ApiAuthInfoResponseDto>) => {
       state.user = action.payload;
     }
   }

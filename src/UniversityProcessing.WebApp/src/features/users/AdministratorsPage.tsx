@@ -15,7 +15,7 @@ import AppListPagination from 'src/components/lists/AppListPagination';
 import AppList from 'src/components/lists/AppList';
 import UserItem from './components/UserItem';
 import AppListSearch from 'src/components/lists/AppListSearch';
-import { ContractsUserRoleType, useLazyGetApiUsersGetAdminsQuery, usePatchApiFacultiesSetFacultyHeadMutation } from 'src/api/backendApi';
+import { ApiContractsUserRoleTypeDto, useLazyGetApiUsersGetAdminsQuery, usePatchApiFacultiesSetFacultyHeadMutation } from 'src/api/backendApi';
 import {
   Add as AddIcon,
   Block as BlockIcon,
@@ -88,7 +88,7 @@ const AdministratorsPage: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  const canCreate = currentUser?.role === ContractsUserRoleType.Admin;
+  const canCreate = currentUser?.role === ApiContractsUserRoleTypeDto.Admin;
   const canVerify = canCreate;
 
   return (

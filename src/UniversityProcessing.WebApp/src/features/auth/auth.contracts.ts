@@ -1,4 +1,4 @@
-import { ContractsUserRoleType } from 'src/api/backendApi';
+import { ApiContractsUserRoleTypeDto } from 'src/api/backendApi';
 
 export type AuthTokens = {
   accessToken?: string;
@@ -13,7 +13,7 @@ export type AuthState = {
 
 export type AuthUser = {
   userId?: string;
-  role?: ContractsUserRoleType | null;
+  role?: ApiContractsUserRoleTypeDto | null;
   approved?: boolean;
   blocked?: boolean;
   firstName?: string | null;
