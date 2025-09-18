@@ -1,0 +1,41 @@
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+using UniversityProcessing.API.Routing;
+using UniversityProcessing.Domain;
+using UniversityProcessing.Infrastructure.Interfaces.Repositories;
+using UniversityProcessing.Utils.Endpoints;
+
+namespace UniversityProcessing.API.Endpoints.DiplomaProcesses.Users;
+
+internal sealed class AddGroup : IEndpoint
+{
+    public void MapEndpoint(IEndpointRouteBuilder app)
+    {
+        var type = GetType();
+        app
+            .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
+            .WithTags(NamespaceService.GetEndpointTags(type))
+            .RequireAuthorization();
+    }
+
+    private static async Task Handle(
+        [FromBody] RequestDto request,
+        [FromServices] IEfRepository<DiplomaProcess> diplomaProcessRepository,
+        [FromServices] IEfRepository<Group> groupRepository,
+        CancellationToken cancellationToken)
+    {
+        var diplomaProcess = await diplomaProcessRepository.GetByIdRequiredAsync(request.DiplomaProcessId, cancellationToken);
+        var group = await groupRepository.GetByIdRequiredAsync(request.GroupId, cancellationToken);
+        diplomaProcess.Groups.Add(group);
+        await diplomaProcessRepository.UpdateAsync(diplomaProcess, cancellationToken);
+    }
+
+    private sealed class RequestDto
+    {
+        [Required]
+        public Guid DiplomaProcessId { get; set; }
+
+        [Required]
+        public Guid GroupId { get; set; }
+    }
+}

@@ -1,24 +1,23 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
-import { usePostApiRegistrationRegisterAdminMutation, usePutApiUsersUpdateVerificationMutation } from 'src/api/backendApi';
 import {
-  FormContainer,
-  useFormState,
-  useFormValidation,
-  ValidationRules,
-  CommonFormData
-} from './index';
+  usePostApiRegistrationRegisterAdminMutation,
+  usePutApiUsersUpdateVerificationMutation
+} from 'src/api/backendApi';
+import { CommonFormData, FormContainer, useFormState, useFormValidation, ValidationRules } from './index';
 import { IRegisterFormProps } from './RegisterFormProps';
 import { useRegistrationSubmit } from '../hooks/useRegistrationSubmit';
 
-interface AdminFormData extends CommonFormData { }
+interface AdminFormData extends CommonFormData {
+}
 
 const RegisterAdminForm: React.FC<IRegisterFormProps> = ({
-  buttonLabel,
-  verify,
-  redirectToLogin,
-  onSuccess }) => {
+                                                           buttonLabel,
+                                                           verify,
+                                                           redirectToLogin,
+                                                           onSuccess
+                                                         }) => {
   const initialFormData: AdminFormData = {
     userName: '',
     password: '',
@@ -33,7 +32,7 @@ const RegisterAdminForm: React.FC<IRegisterFormProps> = ({
   const { formData, handleFormDataChange, updateFormData } = useFormState(initialFormData);
   const [tryRegister, { isLoading, isSuccess }] = usePostApiRegistrationRegisterAdminMutation();
   const { validateForm } = useFormValidation();
-  const [tryVerify, { }] = usePutApiUsersUpdateVerificationMutation();
+  const [tryVerify, {}] = usePutApiUsersUpdateVerificationMutation();
 
   const validationRules: ValidationRules = {
     requiredFields: ['userName', 'password', 'firstName']
@@ -62,7 +61,7 @@ const RegisterAdminForm: React.FC<IRegisterFormProps> = ({
     tryVerify,
     updateFormData,
     initialFormData,
-    onSuccess,
+    onSuccess
   });
 
   if (isSuccess && redirectToLogin) {
@@ -75,7 +74,7 @@ const RegisterAdminForm: React.FC<IRegisterFormProps> = ({
       onFormDataChange={handleFormDataChange}
       onSubmit={handleSubmit}
       isLoading={isLoading}
-      submitButtonLabel={buttonLabel ?? "Зарегистрироваться"}
+      submitButtonLabel={buttonLabel ?? 'Зарегистрироваться'}
     />
   );
 };

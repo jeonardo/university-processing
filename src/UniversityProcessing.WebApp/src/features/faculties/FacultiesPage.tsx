@@ -1,20 +1,17 @@
 import { useEffect, useState } from 'react';
-import { Box, Button, Container, Dialog, DialogContent, DialogTitle, FormControl, Paper, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, FormControl, Paper, Stack, TextField, Typography } from '@mui/material';
 import ModalForm from 'src/components/layout/ModalForm';
 import AppList from 'src/components/lists/AppList';
 import FacultyItem from './FacultyItem';
 import AppListPagination from 'src/components/lists/AppListPagination';
-import { ApiContractsUserRoleTypeDto, useGetApiFacultiesGetQuery, useLazyGetApiFacultiesGetQuery, usePostApiFacultiesCreateMutation } from 'src/api/backendApi';
-import { useAppSelector, useRequireAdmin } from 'src/core/hooks';
-import { useNavigate } from 'react-router-dom';
+import { useLazyGetApiFacultiesGetQuery, usePostApiFacultiesCreateMutation } from 'src/api/backendApi';
+import { useRequireAdmin } from 'src/core/hooks';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import AppListSearch from 'src/components/lists/AppListSearch';
-import {
-  Add as AddIcon,
-} from '@mui/icons-material';
+import { Add as AddIcon } from '@mui/icons-material';
 import SubmitButton from 'src/components/forms/SubmitButton';
 import { enqueueSnackbar } from 'notistack';
 import { enqueueSnackbarError } from 'src/core/helpers';
-import { useSearchParams } from 'react-router-dom';
 
 
 const AddFacultyModal: React.FC<{
@@ -38,8 +35,7 @@ const AddFacultyModal: React.FC<{
     });
     if (result.error) {
       enqueueSnackbarError(result.error);
-    }
-    else {
+    } else {
       enqueueSnackbar('Факультет добавлен', { variant: 'success' });
       onClose();
       onSuccess();
@@ -141,7 +137,7 @@ const FacultiesPage = () => {
         </Box>
         <AppListSearch
           label="Поиск"
-          placeholder='Введите название факультета'
+          placeholder="Введите название факультета"
           onSearchValueChangedDebounced={onSearchValueChanged} />
       </Paper>
       <Paper className="p-6" sx={{ display: 'flex', flexGrow: 1, flexDirection: 'column', minHeight: 0 }}>
@@ -176,7 +172,7 @@ const FacultiesPage = () => {
             />
           </Paper>)
       }
-    </Container >
+    </Container>
   );
 };
 

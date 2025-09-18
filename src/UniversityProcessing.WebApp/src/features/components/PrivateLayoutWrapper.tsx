@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/core/hooks';
-import { logout, setUser } from 'src/features/auth/auth.slice';
+import { setUser } from 'src/features/auth/auth.slice';
 import { useEffect } from 'react';
 import AppLoader from 'src/components/AppLoader';
 import { useGetApiAuthInfoQuery } from 'src/api/backendApi';

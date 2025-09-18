@@ -1,17 +1,6 @@
-import React, { useMemo, useState } from 'react';
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  TextField,
-  Stack,
-  Typography
-} from '@mui/material';
-import { ApiSpecialtiesCreateRequestDto, ApiRegistrationGetAvailableFacultiesFacultyDto, ApiRegistrationGetAvailableDepartmentsDepartmentDto } from 'src/api/backendApi';
-import FacultySelector from 'src/features/auth/components/FacultySelector';
-import DepartmentSelector from 'src/features/auth/components/DepartmentSelector';
+import React, { useState } from 'react';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from '@mui/material';
+import { ApiSpecialtiesCreateRequestDto } from 'src/api/backendApi';
 import { useAppSelector } from 'src/core';
 
 interface SpecialtyFormDialogProps {

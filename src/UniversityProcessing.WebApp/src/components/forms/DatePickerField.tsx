@@ -13,14 +13,14 @@ interface DatePickerFieldProps {
 }
 
 const DatePickerField: React.FC<DatePickerFieldProps> = ({
-  label,
-  value,
-  onChange,
-  disabled = false,
-  error = false,
-  helperText,
-  required = false
-}) => {
+                                                           label,
+                                                           value,
+                                                           onChange,
+                                                           disabled = false,
+                                                           error = false,
+                                                           helperText,
+                                                           required = false
+                                                         }) => {
   return (
     <DatePicker
       label={label}

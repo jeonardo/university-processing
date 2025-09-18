@@ -19,7 +19,13 @@ import {
   Typography,
   useMediaQuery
 } from '@mui/material';
-import { Book, Dashboard as DashboardIcon, ExitToApp as ExitToAppIcon, Menu as MenuIcon, Groups as GroupsIcon } from '@mui/icons-material';
+import {
+  Book,
+  Dashboard as DashboardIcon,
+  ExitToApp as ExitToAppIcon,
+  Groups as GroupsIcon,
+  Menu as MenuIcon
+} from '@mui/icons-material';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { pink, teal } from '@mui/material/colors';
 import theme from 'src/theme';
@@ -30,7 +36,6 @@ import { RoleLocalizationLabel } from 'src/core/labelStore';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SchoolIcon from '@mui/icons-material/School';
 import { ApiContractsUserRoleTypeDto, useGetApiPeriodsGetQuery } from 'src/api/backendApi';
-import { text } from 'stream/consumers';
 import { setPeriod, setPeriods } from '../periods/period.slice';
 
 const PrivateLayout: React.FC = () => {
@@ -78,12 +83,18 @@ const PrivateLayout: React.FC = () => {
   // Меню навигации
   const menuItems = [
     { text: 'Главная', icon: <DashboardIcon />, path: '/' },
-    { text: 'Учебные периоды', icon: <Book />, path: '/periods', roles: [ApiContractsUserRoleTypeDto.Deanery], forDepartmentHead: true },
+    {
+      text: 'Учебные периоды',
+      icon: <Book />,
+      path: '/periods',
+      roles: [ApiContractsUserRoleTypeDto.Deanery],
+      forDepartmentHead: true
+    },
     { text: 'Пользователи', icon: <PeopleAltIcon />, path: '/users' },
     { text: 'Факультеты', icon: <SchoolIcon />, path: '/faculties', roles: [ApiContractsUserRoleTypeDto.Admin] },
     { text: 'Кафедры', icon: <SchoolIcon />, path: '/departments', roles: [ApiContractsUserRoleTypeDto.Deanery] },
     { text: 'Специальности', icon: <MenuBookIcon />, path: '/specialties', roles: [], forDepartmentHead: true },
-    { text: 'Группы', icon: <GroupsIcon />, path: '/groups', roles: [], forDepartmentHead: true },
+    { text: 'Группы', icon: <GroupsIcon />, path: '/groups', roles: [], forDepartmentHead: true }
     // { text: 'Дипломные проекты', icon: <AssignmentIcon />, path: '/projects', roles: ['admin', 'deanery', 'departmentHead', 'supervisor', 'student'] },
     // { text: 'График защит', icon: <CalendarIcon />, path: '/schedule', roles: ['admin', 'deanery', 'departmentHead', 'commission'] },
     // { text: 'Оценки', icon: <GradeIcon />, path: '/grades', roles: ['commission', 'deanery'] },
@@ -251,11 +262,11 @@ const PrivateLayout: React.FC = () => {
   const renderMainContent = () => (
     <Box
       component="main"
-      className='min-h-screen flex flex-grow bg-gray-100'
+      className="min-h-screen flex flex-grow bg-gray-100"
       sx={{
         pt: { xs: 10, md: 10 },
         pl: { xs: 0, md: 30 },
-        pb: { xs: 1, md: 1 },
+        pb: { xs: 1, md: 1 }
       }}
     >
       <Outlet />
@@ -284,7 +295,7 @@ const PrivateLayout: React.FC = () => {
 // Иконка настроек (временная реализация)
 const SettingsIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+       strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="3"></circle>
     <path
       d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>

@@ -13,13 +13,13 @@ interface FormContainerProps<T extends CommonFormData> {
 }
 
 const FormContainer = <T extends CommonFormData>({
-  formData,
-  onFormDataChange,
-  onSubmit,
-  isLoading,
-  submitButtonLabel = 'Зарегистрироваться',
-  additionalFields
-}: FormContainerProps<T>) => {
+                                                   formData,
+                                                   onFormDataChange,
+                                                   onSubmit,
+                                                   isLoading,
+                                                   submitButtonLabel = 'Зарегистрироваться',
+                                                   additionalFields
+                                                 }: FormContainerProps<T>) => {
   return (
     <FormControl component="form" fullWidth sx={{ pt: 2 }} onSubmit={onSubmit}>
       <Stack spacing={2}>

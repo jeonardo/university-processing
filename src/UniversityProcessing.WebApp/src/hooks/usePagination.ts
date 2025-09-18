@@ -5,7 +5,7 @@ export const usePagination = (pageSize: number = 25) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(1);
 
-  const pageParamString = searchParams.get('page')
+  const pageParamString = searchParams.get('page');
   const pageParam = pageParamString ? parseInt(pageParamString) : 1;
 
   const resetPage = () => setPage(1);
@@ -17,8 +17,8 @@ export const usePagination = (pageSize: number = 25) => {
   };
 
   useEffect(() => {
-    setPage(pageParam)
+    setPage(pageParam);
   }, [pageParam]);
 
   return { page, pageSize, changePage, resetPage };
-}
+};

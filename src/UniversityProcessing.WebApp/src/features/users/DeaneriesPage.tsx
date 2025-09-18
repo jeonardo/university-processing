@@ -1,34 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  Box, Button, Container, InputAdornment, Paper,
-  Switch,
-  TextField, Tooltip, Typography
-} from '@mui/material';
-import {
+  Box,
+  Button,
+  Container,
   Dialog,
-  DialogTitle,
   DialogContent,
-  DialogActions,
+  DialogTitle,
+  Paper,
+  Switch,
+  Tooltip,
+  Typography
 } from '@mui/material';
 import { useAppSelector } from 'src/core/hooks';
 import AppListPagination from 'src/components/lists/AppListPagination';
 import AppList from 'src/components/lists/AppList';
 import UserItem from './components/UserItem';
 import AppListSearch from 'src/components/lists/AppListSearch';
-import { ApiContractsUserRoleTypeDto, useLazyGetApiUsersGetAdminsQuery, useLazyGetApiUsersGetDeaneriesQuery, usePatchApiFacultiesSetFacultyHeadMutation } from 'src/api/backendApi';
-import {
-  Add as AddIcon,
-  Block as BlockIcon,
-  CheckCircle as CheckCircleIcon,
-  Delete as DeleteIcon,
-  Edit as EditIcon,
-  School as SchoolIcon,
-  Search as SearchIcon,
-  VerifiedUser as VerifiedUserIcon,
-  Work as WorkIcon
-} from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import RegisterAdminForm from '../auth/components/RegisterAdminForm';
+import { ApiContractsUserRoleTypeDto, useLazyGetApiUsersGetDeaneriesQuery } from 'src/api/backendApi';
+import { Add as AddIcon } from '@mui/icons-material';
 import { RegisterDeaneryForm } from '../auth/components';
 
 const AddUserModal: React.FC<{
@@ -40,7 +29,7 @@ const AddUserModal: React.FC<{
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>Добавить нового пользователя</DialogTitle>
       <DialogContent>
-        <RegisterDeaneryForm buttonLabel='Добавить' verify={verification} />
+        <RegisterDeaneryForm buttonLabel="Добавить" verify={verification} />
         <Container className="flex items-center gap-2 mt-4">
           <Tooltip title="Будет ли пользователь верифицирован при создании">
             <Switch
@@ -48,7 +37,7 @@ const AddUserModal: React.FC<{
               onChange={(e: any) => setVerification(e.target.checked)}
               color="success"
               size="small"
-              className='opacity-50'
+              className="opacity-50"
             />
           </Tooltip>
           <Typography variant="body2" className="font-medium">
@@ -117,7 +106,7 @@ const DeaneriesPage: React.FC = () => {
         </Box>
         <AppListSearch
           label="Поиск"
-          placeholder='Введите ФИО'
+          placeholder="Введите ФИО"
           onSearchValueChangedDebounced={SearchValueChanged} />
       </Paper>
       <Paper className="p-6" sx={{ display: 'flex', flexGrow: 1, flexDirection: 'column', minHeight: 0 }}>

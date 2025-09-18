@@ -2,31 +2,27 @@ import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
-  Paper,
-  Typography,
+  Container,
   Dialog,
-  DialogTitle,
-  DialogContent,
   DialogActions,
-  Container
+  DialogContent,
+  DialogTitle,
+  Paper,
+  Typography
 } from '@mui/material';
-import {
-  Add as AddIcon,
-  Delete as DeleteIcon,
-  School as SchoolIcon
-} from '@mui/icons-material';
+import { Add as AddIcon, School as SchoolIcon } from '@mui/icons-material';
 import AppList from 'src/components/lists/AppList';
 import AppListPagination from 'src/components/lists/AppListPagination';
 import AppListSearch from 'src/components/lists/AppListSearch';
 import GroupItem from './GroupItem';
 import GroupFormDialog from './GroupFormDialog';
 import {
-  useLazyGetApiGroupsGetQuery,
+  ApiGroupsGetGroupDto,
   useDeleteApiGroupsDeleteMutation,
-  usePostApiGroupsCreateMutation,
-  ApiGroupsGetGroupDto
+  useLazyGetApiGroupsGetQuery,
+  usePostApiGroupsCreateMutation
 } from 'src/api/backendApi';
-import { useAppSelector, useRequireAdmin } from 'src/core/hooks';
+import { useAppSelector } from 'src/core/hooks';
 import { useNavigate } from 'react-router-dom';
 import { enqueueSnackbar } from 'notistack';
 import { enqueueSnackbarError } from 'src/core/helpers';

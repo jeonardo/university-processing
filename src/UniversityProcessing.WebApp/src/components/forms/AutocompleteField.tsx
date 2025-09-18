@@ -54,7 +54,7 @@ function AutocompleteField<TOption>(props: BaseProps<TOption>) {
                 {loading ? <CircularProgress color="inherit" size={16} /> : null}
                 {params.InputProps.endAdornment}
               </>
-            ),
+            )
           }}
         />
       )}

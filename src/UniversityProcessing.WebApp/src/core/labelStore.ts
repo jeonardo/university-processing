@@ -1,4 +1,4 @@
-import { ApiContractsUserRoleTypeDto } from "src/api/backendApi";
+import { ApiContractsUserRoleTypeDto } from 'src/api/backendApi';
 
 export interface RoleLocalization {
   label: string;

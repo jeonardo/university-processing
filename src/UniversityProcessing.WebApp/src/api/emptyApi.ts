@@ -4,9 +4,8 @@ import { RootState } from '../core/store';
 import { login, logout } from 'src/features/auth/auth.slice';
 import { appEnv } from '../core/appEnv';
 import { ApiAuthRefreshResponseDto } from './backendApi';
-import { GetAuthTokens, SetAuthTokens } from 'src/core/localStorageToken';
+import { GetAuthTokens } from 'src/core/localStorageToken';
 import { enqueueSnackbar } from 'notistack';
-import { enqueueSnackbarError } from 'src/core';
 
 const mutex = new Mutex();
 

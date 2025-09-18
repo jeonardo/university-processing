@@ -1,17 +1,21 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
-import { usePostApiRegistrationRegisterDeaneryMutation, usePutApiUsersUpdateVerificationMutation } from 'src/api/backendApi';
 import {
+  ApiRegistrationGetAvailableFacultiesFacultyDto,
+  ApiRegistrationGetAvailableUniversityPositionsUniversityPositionDto,
+  usePostApiRegistrationRegisterDeaneryMutation,
+  usePutApiUsersUpdateVerificationMutation
+} from 'src/api/backendApi';
+import {
+  CommonFormData,
+  FacultySelector,
   FormContainer,
   PositionSelector,
-  FacultySelector,
   useFormState,
   useFormValidation,
-  ValidationRules,
-  CommonFormData
+  ValidationRules
 } from './index';
-import { ApiRegistrationGetAvailableUniversityPositionsUniversityPositionDto, ApiRegistrationGetAvailableFacultiesFacultyDto } from 'src/api/backendApi';
 import { IRegisterFormProps } from './RegisterFormProps';
 import { useRegistrationSubmit } from '../hooks/useRegistrationSubmit';
 
@@ -21,10 +25,11 @@ interface DeaneryFormData extends CommonFormData {
 }
 
 const RegisterDeaneryForm: React.FC<IRegisterFormProps> = ({
-  buttonLabel,
-  verify,
-  redirectToLogin,
-  onSuccess }) => {
+                                                             buttonLabel,
+                                                             verify,
+                                                             redirectToLogin,
+                                                             onSuccess
+                                                           }) => {
   const initialFormData: DeaneryFormData = {
     userName: '',
     password: '',
@@ -41,7 +46,7 @@ const RegisterDeaneryForm: React.FC<IRegisterFormProps> = ({
   const { formData, handleFormDataChange, updateFormData } = useFormState(initialFormData);
   const [tryRegister, { isLoading, isSuccess }] = usePostApiRegistrationRegisterDeaneryMutation();
   const { validateForm } = useFormValidation();
-  const [tryVerify, { }] = usePutApiUsersUpdateVerificationMutation();
+  const [tryVerify, {}] = usePutApiUsersUpdateVerificationMutation();
 
   const validationRules: ValidationRules<DeaneryFormData> = {
     requiredFields: ['userName', 'password', 'firstName', 'faculty']
@@ -72,7 +77,7 @@ const RegisterDeaneryForm: React.FC<IRegisterFormProps> = ({
     tryVerify,
     updateFormData,
     initialFormData,
-    onSuccess,
+    onSuccess
   });
 
   if (isSuccess && redirectToLogin) {
@@ -101,7 +106,7 @@ const RegisterDeaneryForm: React.FC<IRegisterFormProps> = ({
       onFormDataChange={handleFormDataChange}
       onSubmit={handleSubmit}
       isLoading={isLoading}
-      submitButtonLabel={buttonLabel ?? "Зарегистрироваться"}
+      submitButtonLabel={buttonLabel ?? 'Зарегистрироваться'}
       additionalFields={additionalFields}
     />
   );

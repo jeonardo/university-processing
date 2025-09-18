@@ -1,44 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
+  Box,
   Button,
-  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   FormControl,
   InputLabel,
-  Select,
   MenuItem,
+  Select,
   Stack,
-  Box,
+  TextField,
   Typography
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Dayjs } from 'dayjs';
-import dayjs from 'dayjs';
-import {
-  useGetApiSpecialtiesGetQuery,
-  useGetApiPeriodsGetQuery,
-  useLazyGetApiSpecialtiesGetQuery,
-  ApiGroupsCreateRequestDto
-} from 'src/api/backendApi';
-import { enqueueSnackbar } from 'notistack';
+import { ApiGroupsCreateRequestDto, useGetApiPeriodsGetQuery, useGetApiSpecialtiesGetQuery } from 'src/api/backendApi';
 import { AuthUser } from '../auth/auth.contracts';
 
 interface GroupFormDialogProps {
   open: boolean;
   onClose: () => void;
   onSubmit: (data: ApiGroupsCreateRequestDto) => void;
-  user: AuthUser
+  user: AuthUser;
 }
 
 const GroupFormDialog: React.FC<GroupFormDialogProps> = ({
-  open,
-  onClose,
-  onSubmit,
-  user
-}) => {
+                                                           open,
+                                                           onClose,
+                                                           onSubmit,
+                                                           user
+                                                         }) => {
   const [formData, setFormData] = useState<ApiGroupsCreateRequestDto>({
     groupNumber: '',
     startDate: '',

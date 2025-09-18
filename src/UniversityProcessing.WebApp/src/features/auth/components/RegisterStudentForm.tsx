@@ -1,28 +1,31 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import RegisterResultModal from './RegisterResultModal';
-import { usePostApiRegistrationRegisterStudentMutation, usePutApiUsersUpdateVerificationMutation } from 'src/api/backendApi';
 import {
+  usePostApiRegistrationRegisterStudentMutation,
+  usePutApiUsersUpdateVerificationMutation
+} from 'src/api/backendApi';
+import {
+  CommonFormData,
   FormContainer,
   GroupSelector,
   useFormState,
   useFormValidation,
-  ValidationRules,
-  CommonFormData
+  ValidationRules
 } from './index';
 import { IRegisterFormProps } from './RegisterFormProps';
 import { useRegistrationSubmit } from '../hooks/useRegistrationSubmit';
-import { enqueueSnackbar } from 'notistack';
 
 interface StudentFormData extends CommonFormData {
   groupNumber: string;
 }
 
 const RegisterStudentForm: React.FC<IRegisterFormProps> = ({
-  buttonLabel,
-  verify,
-  redirectToLogin,
-  onSuccess }) => {
+                                                             buttonLabel,
+                                                             verify,
+                                                             redirectToLogin,
+                                                             onSuccess
+                                                           }) => {
   const initialFormData: StudentFormData = {
     userName: '',
     password: '',
@@ -38,7 +41,7 @@ const RegisterStudentForm: React.FC<IRegisterFormProps> = ({
   const { formData, handleFormDataChange, updateFormData } = useFormState(initialFormData);
   const [tryRegister, { isLoading, isSuccess }] = usePostApiRegistrationRegisterStudentMutation();
   const { validateForm } = useFormValidation();
-  const [tryVerify, { }] = usePutApiUsersUpdateVerificationMutation();
+  const [tryVerify, {}] = usePutApiUsersUpdateVerificationMutation();
 
   const validationRules: ValidationRules<StudentFormData> = {
     requiredFields: ['userName', 'password', 'firstName', 'groupNumber']
@@ -61,7 +64,7 @@ const RegisterStudentForm: React.FC<IRegisterFormProps> = ({
     tryVerify,
     updateFormData,
     initialFormData,
-    onSuccess,
+    onSuccess
   });
 
   if (isSuccess && redirectToLogin) {
@@ -82,7 +85,7 @@ const RegisterStudentForm: React.FC<IRegisterFormProps> = ({
       onFormDataChange={handleFormDataChange}
       onSubmit={handleSubmit}
       isLoading={isLoading}
-      submitButtonLabel={buttonLabel ?? "Зарегистрироваться"}
+      submitButtonLabel={buttonLabel ?? 'Зарегистрироваться'}
       additionalFields={additionalFields}
     />
   );

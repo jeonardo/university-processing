@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { Alert, Box, Button, CircularProgress, Container, IconButton, InputAdornment, Paper, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  IconButton,
+  InputAdornment,
+  Paper,
+  TextField,
+  Typography
+} from '@mui/material';
 
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { usePostApiAuthChangePasswordMutation } from 'src/api/backendApi';

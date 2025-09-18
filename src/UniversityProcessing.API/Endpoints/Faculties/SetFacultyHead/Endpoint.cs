@@ -14,7 +14,7 @@ internal sealed class Endpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        var type = typeof(Endpoint);
+        var type = GetType();
         app
             .MapPatch(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))

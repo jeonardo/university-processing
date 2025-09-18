@@ -31,7 +31,7 @@ export function useRegistrationSubmit<T>(params: RegistrationSubmitParams<T>) {
     tryVerify,
     updateFormData,
     initialFormData,
-    onSuccess,
+    onSuccess
   } = params;
 
   const handleSubmit = useCallback(async (
@@ -60,7 +60,12 @@ export function useRegistrationSubmit<T>(params: RegistrationSubmitParams<T>) {
     enqueueSnackbar('Пользователь создан', { variant: 'success' });
 
     if (verify && tryVerify) {
-      const verifyResponse = await tryVerify({ usersUpdateVerificationRequest: { userId: response.data.userId, isApproved: true } });
+      const verifyResponse = await tryVerify({
+        usersUpdateVerificationRequest: {
+          userId: response.data.userId,
+          isApproved: true
+        }
+      });
       if (verifyResponse.error) {
         enqueueSnackbarError(verifyResponse.error);
         return;
@@ -81,7 +86,7 @@ export function useRegistrationSubmit<T>(params: RegistrationSubmitParams<T>) {
     tryVerify,
     updateFormData,
     initialFormData,
-    onSuccess,
+    onSuccess
   ]);
 
   return { handleSubmit };

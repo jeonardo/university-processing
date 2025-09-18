@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListItem, ListItemText, Typography, Chip, Box, IconButton } from '@mui/material';
+import { Box, Chip, IconButton, ListItem, ListItemText, Typography } from '@mui/material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
 import { SxProps, Theme } from '@mui/material/styles';
 import { ApiGroupsGetGroupDto } from 'src/api/backendApi';
@@ -31,10 +31,10 @@ const GroupItem: React.FC<GroupItemProps<ApiGroupsGetGroupDto>> = ({ item, onCli
             <Typography variant="h6" component="span">
               {item.number}
             </Typography>
-            <Chip 
-              label="Группа" 
-              size="small" 
-              color="primary" 
+            <Chip
+              label="Группа"
+              size="small"
+              color="primary"
               variant="outlined"
             />
           </Box>

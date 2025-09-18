@@ -1,11 +1,21 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Box, Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, Paper, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import {
-  useLazyGetApiSpecialtiesGetQuery,
-  usePostApiSpecialtiesCreateMutation,
-  useDeleteApiSpecialtiesDeleteMutation,
+  Box,
+  Button,
+  Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Paper,
+  Typography
+} from '@mui/material';
+import {
+  ApiSpecialtiesCreateRequestDto,
   ApiSpecialtiesGetSpecialtyDto,
-  ApiSpecialtiesCreateRequestDto
+  useDeleteApiSpecialtiesDeleteMutation,
+  useLazyGetApiSpecialtiesGetQuery,
+  usePostApiSpecialtiesCreateMutation
 } from 'src/api/backendApi';
 import AppList from 'src/components/lists/AppList';
 import AppListPagination from 'src/components/lists/AppListPagination';
@@ -31,7 +41,14 @@ const SpecialtiesPage: React.FC = () => {
   const [deleteSpecialty, { isLoading: isDeleting }] = useDeleteApiSpecialtiesDeleteMutation();
 
   useEffect(() => {
-    getData({ departmentId: user?.departmentId ?? '', pageNumber, pageSize: 25, filter: search, desc: false, orderBy: 'name' });
+    getData({
+      departmentId: user?.departmentId ?? '',
+      pageNumber,
+      pageSize: 25,
+      filter: search,
+      desc: false,
+      orderBy: 'name'
+    });
   }, [pageNumber, search, getData]);
 
   const handleSearchChange = (value: string) => {
@@ -44,7 +61,14 @@ const SpecialtiesPage: React.FC = () => {
       await createSpecialty({ apiSpecialtiesCreateRequestDto: form }).unwrap();
       enqueueSnackbar('Специальность создана', { variant: 'success' });
       setIsCreateDialogOpen(false);
-      getData({ departmentId: user?.departmentId ?? '', pageNumber, pageSize: 25, filter: search, desc: false, orderBy: 'name' });
+      getData({
+        departmentId: user?.departmentId ?? '',
+        pageNumber,
+        pageSize: 25,
+        filter: search,
+        desc: false,
+        orderBy: 'name'
+      });
     } catch (e: any) {
       enqueueSnackbarError(e);
     }
@@ -58,7 +82,14 @@ const SpecialtiesPage: React.FC = () => {
       await deleteSpecialty({ id: deleteTarget.id }).unwrap();
       enqueueSnackbar('Специальность удалена', { variant: 'success' });
       setDeleteTarget(null);
-      getData({ departmentId: user?.departmentId ?? '', pageNumber, pageSize: 25, filter: search, desc: false, orderBy: 'name' });
+      getData({
+        departmentId: user?.departmentId ?? '',
+        pageNumber,
+        pageSize: 25,
+        filter: search,
+        desc: false,
+        orderBy: 'name'
+      });
     } catch (e: any) {
       enqueueSnackbarError(e);
     }
@@ -97,11 +128,13 @@ const SpecialtiesPage: React.FC = () => {
             <SchoolIcon color="primary" />
             <Typography variant="h4" component="h1" className="font-bold">Специальности</Typography>
           </Box>
-          <Button variant="contained" startIcon={<AddIcon />} onClick={() => setIsCreateDialogOpen(true)} sx={{ borderRadius: 2 }}>
+          <Button variant="contained" startIcon={<AddIcon />} onClick={() => setIsCreateDialogOpen(true)}
+                  sx={{ borderRadius: 2 }}>
             <span className="hidden sm:inline">Добавить специальность</span>
           </Button>
         </Box>
-        <AppListSearch label="Поиск" placeholder="Введите название или код" onSearchValueChangedDebounced={handleSearchChange} />
+        <AppListSearch label="Поиск" placeholder="Введите название или код"
+                       onSearchValueChangedDebounced={handleSearchChange} />
       </Paper>
 
       <Paper className="p-4">
@@ -112,7 +145,8 @@ const SpecialtiesPage: React.FC = () => {
         </AppList>
       </Paper>
 
-      <AppListPagination currentPage={data?.currentPage ?? pageNumber} totalPages={totalPages} onPageChange={setPageNumber} />
+      <AppListPagination currentPage={data?.currentPage ?? pageNumber} totalPages={totalPages}
+                         onPageChange={setPageNumber} />
     </Container>
   );
 };

@@ -6,6 +6,7 @@ public static class NamespaceService
     private const string ENDPOINTS = "Endpoints";
     private const string BASE_PREFIX = "api";
     private const string SINGLE_FILE_ENDPOINT = "Endpoint";
+
     public static string[] GetParentParts(Type type)
     {
         var @namespace = type.Namespace;

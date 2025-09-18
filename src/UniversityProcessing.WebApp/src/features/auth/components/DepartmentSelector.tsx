@@ -1,6 +1,8 @@
 import React from 'react';
-import { ApiRegistrationGetAvailableDepartmentsDepartmentDto } from 'src/api/backendApi';
-import { useLazyGetApiRegistrationGetAvailableDepartmentsQuery } from 'src/api/backendApi';
+import {
+  ApiRegistrationGetAvailableDepartmentsDepartmentDto,
+  useLazyGetApiRegistrationGetAvailableDepartmentsQuery
+} from 'src/api/backendApi';
 import AutocompleteField from 'src/components/forms/AutocompleteField';
 
 interface DepartmentSelectorProps {
@@ -12,12 +14,12 @@ interface DepartmentSelectorProps {
 }
 
 const DepartmentSelector: React.FC<DepartmentSelectorProps> = ({
-  value,
-  onChange,
-  facultyId,
-  disabled = false,
-  required = false
-}) => {
+                                                                 value,
+                                                                 onChange,
+                                                                 facultyId,
+                                                                 disabled = false,
+                                                                 required = false
+                                                               }) => {
   const [fetchDepartments, { data: departmentsData }] = useLazyGetApiRegistrationGetAvailableDepartmentsQuery();
 
   const departments = React.useMemo(() =>

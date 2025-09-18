@@ -19,7 +19,6 @@ import { login } from './auth.slice';
 import { usePostApiAuthLoginMutation } from 'src/api/backendApi';
 import { enqueueSnackbarError } from 'src/core/helpers';
 import TestUsersCard from './components/TestUsersCard';
-import { logDebug } from 'src/core/logger';
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();

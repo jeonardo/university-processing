@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { enqueueSnackbarError } from 'src/core/helpers';
-import { CommonFormData, ExtendedFormData } from '../components/CommonFormFields';
+import { CommonFormData } from '../components/CommonFormFields';
 
 export interface ValidationRules<T = CommonFormData> {
   requiredFields: (keyof T)[];

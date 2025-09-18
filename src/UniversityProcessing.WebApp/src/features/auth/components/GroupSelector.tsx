@@ -11,11 +11,11 @@ interface GroupSelectorProps {
 }
 
 const GroupSelector: React.FC<GroupSelectorProps> = ({
-  value,
-  onChange,
-  disabled = false,
-  required = false
-}) => {
+                                                       value,
+                                                       onChange,
+                                                       disabled = false,
+                                                       required = false
+                                                     }) => {
   const [inputValue, setInputValue] = useState('');
   const [fetchGroups, { data: groupsData }] = useLazyGetApiRegistrationGetAvailableGroupsQuery();
 

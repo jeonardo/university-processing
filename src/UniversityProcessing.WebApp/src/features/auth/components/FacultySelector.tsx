@@ -1,6 +1,8 @@
 import React from 'react';
-import { ApiRegistrationGetAvailableFacultiesFacultyDto } from 'src/api/backendApi';
-import { useGetApiRegistrationGetAvailableFacultiesQuery } from 'src/api/backendApi';
+import {
+  ApiRegistrationGetAvailableFacultiesFacultyDto,
+  useGetApiRegistrationGetAvailableFacultiesQuery
+} from 'src/api/backendApi';
 import AutocompleteField from 'src/components/forms/AutocompleteField';
 
 interface FacultySelectorProps {
@@ -11,11 +13,11 @@ interface FacultySelectorProps {
 }
 
 const FacultySelector: React.FC<FacultySelectorProps> = ({
-  value,
-  onChange,
-  disabled = false,
-  required = false
-}) => {
+                                                           value,
+                                                           onChange,
+                                                           disabled = false,
+                                                           required = false
+                                                         }) => {
   const { data: facultiesData } = useGetApiRegistrationGetAvailableFacultiesQuery();
 
   const faculties = React.useMemo(() =>

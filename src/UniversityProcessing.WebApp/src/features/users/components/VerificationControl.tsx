@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { Stack, Tooltip, CircularProgress, Typography, Switch } from '@mui/material';
+import React, { useCallback, useMemo, useState } from 'react';
+import { CircularProgress, Stack, Switch, Tooltip, Typography } from '@mui/material';
 import { Verified as VerifiedIcon } from '@mui/icons-material';
 import { usePutApiUsersUpdateVerificationMutation } from 'src/api/backendApi';
 import { enqueueSnackbarError } from 'src/core/helpers';
@@ -36,26 +36,26 @@ export const VerificationControl = React.memo<VerificationControlProps>(({ userI
   }, [setVerification, userId]);
 
   const tooltipTitle = useMemo(() =>
-    verification ? 'Снять верификацию' : 'Подтвердить верификацию',
+      verification ? 'Снять верификацию' : 'Подтвердить верификацию',
     [verification]
   );
 
   const switchTooltipTitle = useMemo(() =>
-    isLoading
-      ? "Загружается"
-      : verification
-        ? "Заблокировать"
-        : "Верифицировать",
+      isLoading
+        ? 'Загружается'
+        : verification
+          ? 'Заблокировать'
+          : 'Верифицировать',
     [isLoading, verification]
   );
 
   const statusText = useMemo(() =>
-    verification ? 'Верифицирован' : 'Не верифицирован',
+      verification ? 'Верифицирован' : 'Не верифицирован',
     [verification]
   );
 
   const iconClassName = useMemo(() =>
-    `text-sm ${verification ? 'text-green-500' : 'text-gray-400'}`,
+      `text-sm ${verification ? 'text-green-500' : 'text-gray-400'}`,
     [verification]
   );
 

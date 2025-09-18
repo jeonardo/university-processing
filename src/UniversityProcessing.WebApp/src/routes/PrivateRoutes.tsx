@@ -9,8 +9,6 @@ import UsersLayout from 'src/features/users/components/UsersLayout';
 import AdministratorsPage from 'src/features/users/AdministratorsPage';
 import TeachersPage from 'src/features/users/TeachersPage';
 import StudentsPage from 'src/features/users/StudentsPage';
-import path from 'path';
-import { element } from 'prop-types';
 import DeaneriesPage from 'src/features/users/DeaneriesPage';
 import DepartmentsPage from 'src/features/departments/DepartmentsPage';
 import DepartmentPage from 'src/features/department/DepartmentPage';
