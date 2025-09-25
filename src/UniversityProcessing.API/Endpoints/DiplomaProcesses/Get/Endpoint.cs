@@ -30,7 +30,7 @@ internal sealed class Endpoint : IEndpoint
                 request,
                 x => x.PeriodId == request.PeriodId,
                 x => new DiplomaProcessDto(x.Id, x.Name),
-                null,
+                null,null,
                 cancellationToken);
         return new ResponseDto(entities);
     }

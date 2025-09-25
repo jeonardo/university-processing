@@ -9,7 +9,7 @@ namespace UniversityProcessing.Domain;
 public class Diploma : BaseEntity
 {
     [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
-    public string Title { get; private set; } = null!;
+    public string? Title { get; private set; }
 
     [Range(0, 10)]
     public int? Grade { get; private set; }
@@ -17,9 +17,6 @@ public class Diploma : BaseEntity
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public DiplomaStatus Status { get; private set; } = DiplomaStatus.Created;
 
-    public Guid DiplomaProcessId { get; private set; }
-
-    public virtual DiplomaProcess DiplomaProcess { get; private set; } = null!;
     public Guid StudentId { get; private set; }
     public virtual Student Student { get; private set; } = null!;
     public Guid? SupervisorId { get; private set; }
@@ -32,12 +29,10 @@ public class Diploma : BaseEntity
     {
     }
 
-    public static Diploma Create(string title, Guid diplomaProcessId, Guid studentId, Guid? supervisorId = null)
+    public static Diploma Create(Guid studentId, Guid? supervisorId = null)
     {
         return new Diploma
         {
-            Title = title,
-            DiplomaProcessId = diplomaProcessId,
             StudentId = studentId,
             SupervisorId = supervisorId
         };

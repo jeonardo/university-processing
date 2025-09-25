@@ -11,6 +11,7 @@ public static class QueryExtensions
         BaseGetListQueryParameters parameters,
         Expression<Func<T, bool>>? filter = null,
         Expression<Func<T, TResult>>? select = null,
+        Expression<Func<T, IEnumerable<TResult>>>? selectMany = null,
         Func<IQueryable<T>, IQueryable<T>>? includes = null,
         CancellationToken cancellationToken = default) where T : class
     {
@@ -50,9 +51,20 @@ public static class QueryExtensions
             .Skip((parameters.PageNumber - 1) * parameters.PageSize)
             .Take(parameters.PageSize);
 
-        dynamic itemsTask = select is null
-            ? pagedSource.ToListAsync(cancellationToken)
-            : pagedSource.Select(select).ToListAsync(cancellationToken);
+        dynamic itemsTask;
+
+        if (selectMany is not null)
+        {
+            itemsTask = pagedSource.SelectMany(selectMany).ToListAsync(cancellationToken);
+        }
+        else if (select is not null)
+        {
+            itemsTask = pagedSource.Select(select).ToListAsync(cancellationToken);
+        }
+        else
+        {
+            itemsTask = pagedSource.ToListAsync(cancellationToken);
+        }
 
         await Task.WhenAll(countTask, itemsTask);
 
@@ -61,22 +73,6 @@ public static class QueryExtensions
             countTask.Result,
             parameters.PageNumber,
             parameters.PageSize);
-    }
-
-    public static async Task<PagedList<T>> ToPagedListAsync<T>(
-        this IQueryable<T> source,
-        BaseGetListQueryParameters parameters,
-        Expression<Func<T, bool>>? filter = null,
-        Func<IQueryable<T>, IQueryable<T>>? includes = null,
-        CancellationToken cancellationToken = default) where T : class
-    {
-        return await ToPagedListAsync<T, T>(
-            source,
-            parameters,
-            filter,
-            null,
-            includes,
-            cancellationToken);
     }
 
     private static IQueryable<T> ApplyOrdering<T>(IQueryable<T> source, BaseGetListQueryParameters parameters)

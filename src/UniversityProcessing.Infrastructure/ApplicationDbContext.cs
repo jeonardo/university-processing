@@ -20,11 +20,15 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
     public DbSet<Student> Students { get; set; }
     public DbSet<UniversityPosition> UniversityPositions { get; set; }
     public DbSet<Department> Departments { get; set; }
-    public DbSet<DiplomaProcess> DiplomaPeriods { get; set; }
+    public DbSet<DiplomaProcess> DiplomaProcesses { get; set; }
     public DbSet<Faculty> Faculties { get; set; }
     public DbSet<Diploma> Diplomas { get; set; }
     public DbSet<Specialty> Specialties { get; set; }
     public DbSet<Group> Groups { get; set; }
+    public DbSet<ProjectTitle> ProjectTitles { get; set; }
+    public DbSet<Committee> Committees { get; set; }
+    public DbSet<Period> Periods { get; set; }
+    public DbSet<DefenseSession> DefenseSessions { get; set; }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
     {

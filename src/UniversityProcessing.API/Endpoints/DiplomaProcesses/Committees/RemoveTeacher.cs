@@ -2,18 +2,19 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.API.Routing;
 using UniversityProcessing.Domain;
+using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 using UniversityProcessing.Utils.Endpoints;
 
-namespace UniversityProcessing.API.Endpoints.DiplomaProcesses.Users;
+namespace UniversityProcessing.API.Endpoints.DiplomaProcesses.Committees;
 
-internal sealed class RemoveGroup : IEndpoint
+internal sealed class RemoveTeacher : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         var type = GetType();
         app
-            .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
+            .MapPut(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
             .RequireAuthorization();
     }
@@ -21,12 +22,12 @@ internal sealed class RemoveGroup : IEndpoint
     private static async Task Handle(
         [FromBody] RequestDto request,
         [FromServices] IEfRepository<DiplomaProcess> diplomaProcessRepository,
-        [FromServices] IEfRepository<Group> groupRepository,
+        [FromServices] IEfRepository<Teacher> teacherRepository,
         CancellationToken cancellationToken)
     {
         var diplomaProcess = await diplomaProcessRepository.GetByIdRequiredAsync(request.DiplomaProcessId, cancellationToken);
-        var group = await groupRepository.GetByIdRequiredAsync(request.GroupId, cancellationToken);
-        diplomaProcess.Groups.Remove(group);
+        var teacher = await teacherRepository.GetByIdRequiredAsync(request.UserId, cancellationToken);
+        diplomaProcess.Teachers.Remove(teacher);
         await diplomaProcessRepository.UpdateAsync(diplomaProcess, cancellationToken);
     }
 
@@ -36,6 +37,6 @@ internal sealed class RemoveGroup : IEndpoint
         public Guid DiplomaProcessId { get; set; }
 
         [Required]
-        public Guid GroupId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

@@ -2,19 +2,18 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.API.Routing;
 using UniversityProcessing.Domain;
-using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 using UniversityProcessing.Utils.Endpoints;
 
-namespace UniversityProcessing.API.Endpoints.DiplomaProcesses.Users;
+namespace UniversityProcessing.API.Endpoints.DiplomaProcesses.Groups;
 
-internal sealed class AddTeacher : IEndpoint
+internal sealed class Add : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         var type = GetType();
         app
-            .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
+            .MapPut(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
             .RequireAuthorization();
     }
@@ -22,12 +21,12 @@ internal sealed class AddTeacher : IEndpoint
     private static async Task Handle(
         [FromBody] RequestDto request,
         [FromServices] IEfRepository<DiplomaProcess> diplomaProcessRepository,
-        [FromServices] IEfRepository<Teacher> teacherRepository,
+        [FromServices] IEfRepository<Group> groupRepository,
         CancellationToken cancellationToken)
     {
         var diplomaProcess = await diplomaProcessRepository.GetByIdRequiredAsync(request.DiplomaProcessId, cancellationToken);
-        var teacher = await teacherRepository.GetByIdRequiredAsync(request.UserId, cancellationToken);
-        diplomaProcess.Teachers.Add(teacher);
+        var group = await groupRepository.GetByIdRequiredAsync(request.GroupId, cancellationToken);
+        diplomaProcess.AddGroup(group);
         await diplomaProcessRepository.UpdateAsync(diplomaProcess, cancellationToken);
     }
 
@@ -37,6 +36,6 @@ internal sealed class AddTeacher : IEndpoint
         public Guid DiplomaProcessId { get; set; }
 
         [Required]
-        public Guid UserId { get; set; }
+        public Guid GroupId { get; set; }
     }
 }

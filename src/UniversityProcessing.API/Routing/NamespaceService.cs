@@ -6,6 +6,8 @@ public static class NamespaceService
     private const string ENDPOINTS = "Endpoints";
     private const string BASE_PREFIX = "api";
     private const string SINGLE_FILE_ENDPOINT = "Endpoint";
+    private const string SINGLE_FILE_REQUEST = "RequestDto";
+    private const string SINGLE_FILE_RESPONSE = "ResponseDto";
 
     public static string[] GetParentParts(Type type)
     {
@@ -90,6 +92,11 @@ public static class NamespaceService
         if (type.GenericTypeArguments.Length == 0)
         {
             var parentParts = GetEndpointsParentParts(type);
+
+            if (type.DeclaringType != null)
+            {
+                parentParts = parentParts.Append(type.DeclaringType.Name).ToArray();
+            }
 
             if (type.Name != SINGLE_FILE_ENDPOINT && parentParts.Last() != type.Name)
             {

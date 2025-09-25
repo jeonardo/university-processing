@@ -6,15 +6,15 @@ using UniversityProcessing.Domain.Users;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 using UniversityProcessing.Utils.Endpoints;
 
-namespace UniversityProcessing.API.Endpoints.DiplomaProcesses.Users;
+namespace UniversityProcessing.API.Endpoints.DiplomaProcesses.Teachers;
 
-internal sealed class RemoveTeacher : IEndpoint
+internal sealed class Add : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         var type = GetType();
         app
-            .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
+            .MapPut(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
             .RequireAuthorization();
     }
@@ -27,7 +27,7 @@ internal sealed class RemoveTeacher : IEndpoint
     {
         var diplomaProcess = await diplomaProcessRepository.GetByIdRequiredAsync(request.DiplomaProcessId, cancellationToken);
         var teacher = await teacherRepository.GetByIdRequiredAsync(request.UserId, cancellationToken);
-        diplomaProcess.Teachers.Remove(teacher);
+        diplomaProcess.Teachers.Add(teacher);
         await diplomaProcessRepository.UpdateAsync(diplomaProcess, cancellationToken);
     }
 

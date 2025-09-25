@@ -16,6 +16,8 @@ public class Teacher : User
 
     public virtual ICollection<Committee> Committees { get; private set; } = null!;
 
+    public virtual ICollection<ProjectTitle> ProjectTitles { get; private set; } = null!;
+
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local
     private Teacher()

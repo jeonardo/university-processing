@@ -29,7 +29,7 @@ internal sealed class Endpoint : IEndpoint
                 ? x => x.PeriodId == request.PeriodId
                 : x => x.PeriodId == request.PeriodId && x.Number.Contains(request.Filter),
             x => new GroupDto(x.Id, x.Number),
-            null,
+            null,null,
             cancellationToken);
         return new ResponseDto(entities);
     }

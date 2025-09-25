@@ -30,7 +30,7 @@ internal sealed class Endpoint : IEndpoint
             request,
             x => EF.Functions.Like(x.FullName, $"%{request.Filter}%"),
             x => new AdminDto(x.Id, x.FirstName, x.LastName, x.MiddleName, x.Approved, x.Blocked),
-            null,
+            null,null,
             cancellationToken);
         return new ResponseDto(pagedList);
     }

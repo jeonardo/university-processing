@@ -32,6 +32,7 @@ internal sealed class Endpoint : IEndpoint
                 && (request.Filter == null || x.FullName.Contains(request.Filter))
                 && (request.GroupId == null || x.GroupId == request.GroupId),
             x => new StudentDto(x.Id, x.FirstName, x.LastName, x.MiddleName, x.Approved, x.Blocked),
+            null,
             x => x.Include(y => y.Group),
             cancellationToken);
         return new ResponseDto(pagedList);

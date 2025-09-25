@@ -5,15 +5,15 @@ using UniversityProcessing.Domain;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
 using UniversityProcessing.Utils.Endpoints;
 
-namespace UniversityProcessing.API.Endpoints.DiplomaProcesses.Users;
+namespace UniversityProcessing.API.Endpoints.DiplomaProcesses.Groups;
 
-internal sealed class AddGroup : IEndpoint
+internal sealed class Remove : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         var type = GetType();
         app
-            .MapPost(NamespaceService.GetEndpointRoute(type), Handle)
+            .MapPut(NamespaceService.GetEndpointRoute(type), Handle)
             .WithTags(NamespaceService.GetEndpointTags(type))
             .RequireAuthorization();
     }
@@ -26,7 +26,7 @@ internal sealed class AddGroup : IEndpoint
     {
         var diplomaProcess = await diplomaProcessRepository.GetByIdRequiredAsync(request.DiplomaProcessId, cancellationToken);
         var group = await groupRepository.GetByIdRequiredAsync(request.GroupId, cancellationToken);
-        diplomaProcess.Groups.Add(group);
+        diplomaProcess.Groups.Remove(group);
         await diplomaProcessRepository.UpdateAsync(diplomaProcess, cancellationToken);
     }
 

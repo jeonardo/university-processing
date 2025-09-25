@@ -15,6 +15,7 @@ import DepartmentPage from 'src/features/department/DepartmentPage';
 import { PeriodsPage } from 'src/features/periods/PeriodsPage';
 import GroupsPage from 'src/features/groups/GroupsPage';
 import SpecialtiesPage from 'src/features/specialties/SpecialtiesPage';
+import DiplomaProcessesPage from 'src/features/diploma-processes/DiplomaProcessesPage';
 
 const PrivateRoutes = {
   path: '/',
@@ -78,11 +79,14 @@ const PrivateRoutes = {
     {
       path: 'groups',
       element: <GroupsPage />
-    }
-    ,
+    },
     {
       path: 'specialties',
       element: <SpecialtiesPage />
+    },
+    {
+      path: 'diploma-processes',
+      element: <DiplomaProcessesPage />
     }
   ]
 };

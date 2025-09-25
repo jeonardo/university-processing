@@ -32,7 +32,7 @@ internal sealed class Endpoint : IEndpoint
                 && (EF.Functions.Like(x.Name, $"%{request.Filter}%")
                     || EF.Functions.Like(x.ShortName, $"%{request.Filter}%")),
             x => new DepartmentDto(x.Id, x.Name, x.ShortName),
-            null,
+            null,null,
             cancellationToken);
         return new ResponseDto(pagedList);
     }

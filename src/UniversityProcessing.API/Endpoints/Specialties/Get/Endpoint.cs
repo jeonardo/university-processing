@@ -27,7 +27,7 @@ internal sealed class Endpoint : IEndpoint
             request,
             x => x.DepartmentId == request.DepartmentId,
             x => new SpecialtyDto(x.Id, x.Name, x.ShortName, x.Code),
-            null,
+            null,null,
             cancellationToken);
         return new ResponseDto(entities);
     }
