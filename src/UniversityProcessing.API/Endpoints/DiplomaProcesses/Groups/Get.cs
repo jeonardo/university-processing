@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using UniversityProcessing.API.Routing;
 using UniversityProcessing.Domain;
 using UniversityProcessing.Infrastructure.Interfaces.Repositories;
@@ -22,18 +21,18 @@ internal sealed class GetFullDescription : IEndpoint
 
     private async Task<ResponseDto> Handle(
         [FromBody] RequestDto request,
-        [FromServices] IEfReadRepository<DiplomaProcess> repository,
+        [FromServices] IEfReadRepository<Group> repository,
         CancellationToken cancellationToken)
     {
         var pagedList = await repository.TypedDbContext
             .ToPagedListAsync(
                 request,
                 x =>
-                    x.Id == request.DiplomaProcessId
-                    && (request.Filter == null || x.Name.Contains(request.Filter)), //what name
+                    x.DiplomaProcessId == request.DiplomaProcessId
+                    && (request.Filter == null || x.Number.Contains(request.Filter)),
+                g => new GroupDto(g.Id, g.Number),
                 null,
-                x => x.Groups.Select(g => new GroupDto(g.Id, g.Number)),
-                x => x.Include(d => d.Groups),
+                null,
                 cancellationToken);
 
         return new ResponseDto(pagedList);

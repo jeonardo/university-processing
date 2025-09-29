@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProcessing.API.Routing;
 using UniversityProcessing.Domain;
@@ -17,18 +18,18 @@ internal sealed class Delete : IEndpoint
             .RequireAuthorization();
     }
 
-    private async Task<ResponseDto> Handle(
+    private async Task Handle(
         [FromBody] RequestDto request,
-        [FromServices] IEfReadRepository<DiplomaProcess> repository,
+        [FromServices] IEfRepository<DefenseSession> repository,
         CancellationToken cancellationToken)
     {
+        var entity = await repository.GetByIdRequiredAsync(request.Id, cancellationToken);
+        await repository.DeleteAsync(entity, cancellationToken);
     }
 
-    private class ResponseDto
+    private sealed class RequestDto
     {
-    }
-
-    private class RequestDto
-    {
+        [Required]
+        public Guid Id { get; set; }
     }
 }
