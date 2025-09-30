@@ -105,44 +105,87 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg.apiDepartmentsCreateRequestDto,
       }),
     }),
-    postApiDiplomaProcessesUsersAddGroup: build.mutation<
-      PostApiDiplomaProcessesUsersAddGroupApiResponse,
-      PostApiDiplomaProcessesUsersAddGroupApiArg
+    getApiDiplomaProcessesGetInfo: build.query<
+      GetApiDiplomaProcessesGetInfoApiResponse,
+      GetApiDiplomaProcessesGetInfoApiArg
     >({
       query: (queryArg) => ({
-        url: `/api/DiplomaProcesses/Users/AddGroup`,
-        method: "POST",
-        body: queryArg.apiDiplomaProcessesUsersAddGroupRequestDto,
+        url: `/api/DiplomaProcesses/GetInfo`,
+        params: {
+          Id: queryArg.id,
+        },
       }),
     }),
-    postApiDiplomaProcessesUsersAddTeacher: build.mutation<
-      PostApiDiplomaProcessesUsersAddTeacherApiResponse,
-      PostApiDiplomaProcessesUsersAddTeacherApiArg
+    putApiDiplomaProcessesTeachersAdd: build.mutation<
+      PutApiDiplomaProcessesTeachersAddApiResponse,
+      PutApiDiplomaProcessesTeachersAddApiArg
     >({
       query: (queryArg) => ({
-        url: `/api/DiplomaProcesses/Users/AddTeacher`,
-        method: "POST",
-        body: queryArg.apiDiplomaProcessesUsersAddTeacherRequestDto,
+        url: `/api/DiplomaProcesses/Teachers/Add`,
+        method: "PUT",
+        body: queryArg.apiDiplomaProcessesTeachersAddRequestDto,
       }),
     }),
-    postApiDiplomaProcessesUsersRemoveGroup: build.mutation<
-      PostApiDiplomaProcessesUsersRemoveGroupApiResponse,
-      PostApiDiplomaProcessesUsersRemoveGroupApiArg
+    getApiDiplomaProcessesTeachersGet: build.query<
+      GetApiDiplomaProcessesTeachersGetApiResponse,
+      GetApiDiplomaProcessesTeachersGetApiArg
     >({
       query: (queryArg) => ({
-        url: `/api/DiplomaProcesses/Users/RemoveGroup`,
-        method: "POST",
-        body: queryArg.apiDiplomaProcessesUsersRemoveGroupRequestDto,
+        url: `/api/DiplomaProcesses/Teachers/Get`,
+        params: {
+          DiplomaProcessId: queryArg.diplomaProcessId,
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter,
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+        },
       }),
     }),
-    postApiDiplomaProcessesUsersRemoveTeacher: build.mutation<
-      PostApiDiplomaProcessesUsersRemoveTeacherApiResponse,
-      PostApiDiplomaProcessesUsersRemoveTeacherApiArg
+    putApiDiplomaProcessesTeachersRemove: build.mutation<
+      PutApiDiplomaProcessesTeachersRemoveApiResponse,
+      PutApiDiplomaProcessesTeachersRemoveApiArg
     >({
       query: (queryArg) => ({
-        url: `/api/DiplomaProcesses/Users/RemoveTeacher`,
-        method: "POST",
-        body: queryArg.apiDiplomaProcessesUsersRemoveTeacherRequestDto,
+        url: `/api/DiplomaProcesses/Teachers/Remove`,
+        method: "PUT",
+        body: queryArg.apiDiplomaProcessesTeachersRemoveRequestDto,
+      }),
+    }),
+    putApiDiplomaProcessesGroupsAdd: build.mutation<
+      PutApiDiplomaProcessesGroupsAddApiResponse,
+      PutApiDiplomaProcessesGroupsAddApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/Groups/Add`,
+        method: "PUT",
+        body: queryArg.apiDiplomaProcessesGroupsAddRequestDto,
+      }),
+    }),
+    getApiDiplomaProcessesGroupsGetFullDescription: build.query<
+      GetApiDiplomaProcessesGroupsGetFullDescriptionApiResponse,
+      GetApiDiplomaProcessesGroupsGetFullDescriptionApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/Groups/GetFullDescription`,
+        params: {
+          DiplomaProcessId: queryArg.diplomaProcessId,
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter,
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+        },
+      }),
+    }),
+    putApiDiplomaProcessesGroupsRemove: build.mutation<
+      PutApiDiplomaProcessesGroupsRemoveApiResponse,
+      PutApiDiplomaProcessesGroupsRemoveApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/Groups/Remove`,
+        method: "PUT",
+        body: queryArg.apiDiplomaProcessesGroupsRemoveRequestDto,
       }),
     }),
     getApiDiplomaProcessesGet: build.query<
@@ -153,6 +196,22 @@ const injectedRtkApi = api.injectEndpoints({
         url: `/api/DiplomaProcesses/Get`,
         params: {
           PeriodId: queryArg.periodId,
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter,
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+        },
+      }),
+    }),
+    getApiDiplomaProcessesDiplomasGet: build.query<
+      GetApiDiplomaProcessesDiplomasGetApiResponse,
+      GetApiDiplomaProcessesDiplomasGetApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/Diplomas/Get`,
+        params: {
+          DiplomaProcessId: queryArg.diplomaProcessId,
           PageNumber: queryArg.pageNumber,
           PageSize: queryArg.pageSize,
           Filter: queryArg.filter,
@@ -173,6 +232,53 @@ const injectedRtkApi = api.injectEndpoints({
         },
       }),
     }),
+    postApiDiplomaProcessesDefenseSessionsCreate: build.mutation<
+      PostApiDiplomaProcessesDefenseSessionsCreateApiResponse,
+      PostApiDiplomaProcessesDefenseSessionsCreateApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/DefenseSessions/Create`,
+        method: "POST",
+        body: queryArg.apiDiplomaProcessesDefenseSessionsCreateRequestDto,
+      }),
+    }),
+    deleteApiDiplomaProcessesDefenseSessionsDelete: build.mutation<
+      DeleteApiDiplomaProcessesDefenseSessionsDeleteApiResponse,
+      DeleteApiDiplomaProcessesDefenseSessionsDeleteApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/DefenseSessions/Delete`,
+        method: "DELETE",
+        body: queryArg.apiDiplomaProcessesDefenseSessionsDeleteRequestDto,
+      }),
+    }),
+    getApiDiplomaProcessesDefenseSessionsGetFreeStudents: build.query<
+      GetApiDiplomaProcessesDefenseSessionsGetFreeStudentsApiResponse,
+      GetApiDiplomaProcessesDefenseSessionsGetFreeStudentsApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/DefenseSessions/GetFreeStudents`,
+        params: {
+          DiplomaProcessId: queryArg.diplomaProcessId,
+        },
+      }),
+    }),
+    getApiDiplomaProcessesDefenseSessionsGetPage: build.query<
+      GetApiDiplomaProcessesDefenseSessionsGetPageApiResponse,
+      GetApiDiplomaProcessesDefenseSessionsGetPageApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/DefenseSessions/GetPage`,
+        params: {
+          DiplomaProcessId: queryArg.diplomaProcessId,
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter,
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+        },
+      }),
+    }),
     postApiDiplomaProcessesCreate: build.mutation<
       PostApiDiplomaProcessesCreateApiResponse,
       PostApiDiplomaProcessesCreateApiArg
@@ -181,6 +287,62 @@ const injectedRtkApi = api.injectEndpoints({
         url: `/api/DiplomaProcesses/Create`,
         method: "POST",
         body: queryArg.apiDiplomaProcessesCreateRequestDto,
+      }),
+    }),
+    putApiDiplomaProcessesCommitteesAddTeacher: build.mutation<
+      PutApiDiplomaProcessesCommitteesAddTeacherApiResponse,
+      PutApiDiplomaProcessesCommitteesAddTeacherApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/Committees/AddTeacher`,
+        method: "PUT",
+        body: queryArg.apiDiplomaProcessesCommitteesAddTeacherRequestDto,
+      }),
+    }),
+    postApiDiplomaProcessesCommitteesCreate: build.mutation<
+      PostApiDiplomaProcessesCommitteesCreateApiResponse,
+      PostApiDiplomaProcessesCommitteesCreateApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/Committees/Create`,
+        method: "POST",
+        body: queryArg.apiDiplomaProcessesCommitteesCreateRequestDto,
+      }),
+    }),
+    deleteApiDiplomaProcessesCommitteesDelete: build.mutation<
+      DeleteApiDiplomaProcessesCommitteesDeleteApiResponse,
+      DeleteApiDiplomaProcessesCommitteesDeleteApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/Committees/Delete`,
+        method: "DELETE",
+        body: queryArg.apiDiplomaProcessesCommitteesDeleteRequestDto,
+      }),
+    }),
+    getApiDiplomaProcessesCommitteesGet: build.query<
+      GetApiDiplomaProcessesCommitteesGetApiResponse,
+      GetApiDiplomaProcessesCommitteesGetApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/Committees/Get`,
+        params: {
+          DiplomaProcessId: queryArg.diplomaProcessId,
+          PageNumber: queryArg.pageNumber,
+          PageSize: queryArg.pageSize,
+          Filter: queryArg.filter,
+          Desc: queryArg.desc,
+          OrderBy: queryArg.orderBy,
+        },
+      }),
+    }),
+    putApiDiplomaProcessesCommitteesRemoveTeacher: build.mutation<
+      PutApiDiplomaProcessesCommitteesRemoveTeacherApiResponse,
+      PutApiDiplomaProcessesCommitteesRemoveTeacherApiArg
+    >({
+      query: (queryArg) => ({
+        url: `/api/DiplomaProcesses/Committees/RemoveTeacher`,
+        method: "PUT",
+        body: queryArg.apiDiplomaProcessesCommitteesRemoveTeacherRequestDto,
       }),
     }),
     patchApiFacultiesSetFacultyHead: build.mutation<
@@ -559,21 +721,46 @@ export type PostApiDepartmentsCreateApiResponse =
 export type PostApiDepartmentsCreateApiArg = {
   apiDepartmentsCreateRequestDto: ApiDepartmentsCreateRequestDto;
 };
-export type PostApiDiplomaProcessesUsersAddGroupApiResponse = unknown;
-export type PostApiDiplomaProcessesUsersAddGroupApiArg = {
-  apiDiplomaProcessesUsersAddGroupRequestDto: ApiDiplomaProcessesUsersAddGroupRequestDto;
+export type GetApiDiplomaProcessesGetInfoApiResponse =
+  /** status 200 OK */ ApiDiplomaProcessesGetInfoResponseDto;
+export type GetApiDiplomaProcessesGetInfoApiArg = {
+  id: string;
 };
-export type PostApiDiplomaProcessesUsersAddTeacherApiResponse = unknown;
-export type PostApiDiplomaProcessesUsersAddTeacherApiArg = {
-  apiDiplomaProcessesUsersAddTeacherRequestDto: ApiDiplomaProcessesUsersAddTeacherRequestDto;
+export type PutApiDiplomaProcessesTeachersAddApiResponse = unknown;
+export type PutApiDiplomaProcessesTeachersAddApiArg = {
+  apiDiplomaProcessesTeachersAddRequestDto: ApiDiplomaProcessesTeachersAddRequestDto;
 };
-export type PostApiDiplomaProcessesUsersRemoveGroupApiResponse = unknown;
-export type PostApiDiplomaProcessesUsersRemoveGroupApiArg = {
-  apiDiplomaProcessesUsersRemoveGroupRequestDto: ApiDiplomaProcessesUsersRemoveGroupRequestDto;
+export type GetApiDiplomaProcessesTeachersGetApiResponse =
+  /** status 200 OK */ ApiDiplomaProcessesTeachersGetResponseDtoRead;
+export type GetApiDiplomaProcessesTeachersGetApiArg = {
+  diplomaProcessId: string;
+  pageNumber: number;
+  pageSize: number;
+  filter?: string;
+  desc?: boolean;
+  orderBy?: string;
 };
-export type PostApiDiplomaProcessesUsersRemoveTeacherApiResponse = unknown;
-export type PostApiDiplomaProcessesUsersRemoveTeacherApiArg = {
-  apiDiplomaProcessesUsersRemoveTeacherRequestDto: ApiDiplomaProcessesUsersRemoveTeacherRequestDto;
+export type PutApiDiplomaProcessesTeachersRemoveApiResponse = unknown;
+export type PutApiDiplomaProcessesTeachersRemoveApiArg = {
+  apiDiplomaProcessesTeachersRemoveRequestDto: ApiDiplomaProcessesTeachersRemoveRequestDto;
+};
+export type PutApiDiplomaProcessesGroupsAddApiResponse = unknown;
+export type PutApiDiplomaProcessesGroupsAddApiArg = {
+  apiDiplomaProcessesGroupsAddRequestDto: ApiDiplomaProcessesGroupsAddRequestDto;
+};
+export type GetApiDiplomaProcessesGroupsGetFullDescriptionApiResponse =
+  /** status 200 OK */ ApiDiplomaProcessesGroupsGetFullDescriptionResponseDtoRead;
+export type GetApiDiplomaProcessesGroupsGetFullDescriptionApiArg = {
+  diplomaProcessId: string;
+  pageNumber: number;
+  pageSize: number;
+  filter?: string;
+  desc?: boolean;
+  orderBy?: string;
+};
+export type PutApiDiplomaProcessesGroupsRemoveApiResponse = unknown;
+export type PutApiDiplomaProcessesGroupsRemoveApiArg = {
+  apiDiplomaProcessesGroupsRemoveRequestDto: ApiDiplomaProcessesGroupsRemoveRequestDto;
 };
 export type GetApiDiplomaProcessesGetApiResponse =
   /** status 200 OK */ ApiDiplomaProcessesGetResponseDtoRead;
@@ -585,14 +772,73 @@ export type GetApiDiplomaProcessesGetApiArg = {
   desc?: boolean;
   orderBy?: string;
 };
+export type GetApiDiplomaProcessesDiplomasGetApiResponse =
+  /** status 200 OK */ ApiDiplomaProcessesDiplomasGetResponseDtoRead;
+export type GetApiDiplomaProcessesDiplomasGetApiArg = {
+  diplomaProcessId: string;
+  pageNumber: number;
+  pageSize: number;
+  filter?: string;
+  desc?: boolean;
+  orderBy?: string;
+};
 export type DeleteApiDiplomaProcessesDeleteApiResponse = unknown;
 export type DeleteApiDiplomaProcessesDeleteApiArg = {
   id: string;
+};
+export type PostApiDiplomaProcessesDefenseSessionsCreateApiResponse = unknown;
+export type PostApiDiplomaProcessesDefenseSessionsCreateApiArg = {
+  apiDiplomaProcessesDefenseSessionsCreateRequestDto: ApiDiplomaProcessesDefenseSessionsCreateRequestDto;
+};
+export type DeleteApiDiplomaProcessesDefenseSessionsDeleteApiResponse = unknown;
+export type DeleteApiDiplomaProcessesDefenseSessionsDeleteApiArg = {
+  apiDiplomaProcessesDefenseSessionsDeleteRequestDto: ApiDiplomaProcessesDefenseSessionsDeleteRequestDto;
+};
+export type GetApiDiplomaProcessesDefenseSessionsGetFreeStudentsApiResponse =
+  /** status 200 OK */ ApiDiplomaProcessesDefenseSessionsGetFreeStudentsResponseDto;
+export type GetApiDiplomaProcessesDefenseSessionsGetFreeStudentsApiArg = {
+  diplomaProcessId: string;
+};
+export type GetApiDiplomaProcessesDefenseSessionsGetPageApiResponse =
+  /** status 200 OK */ ApiDiplomaProcessesDefenseSessionsGetPageResponseDtoRead;
+export type GetApiDiplomaProcessesDefenseSessionsGetPageApiArg = {
+  diplomaProcessId: string;
+  pageNumber: number;
+  pageSize: number;
+  filter?: string;
+  desc?: boolean;
+  orderBy?: string;
 };
 export type PostApiDiplomaProcessesCreateApiResponse =
   /** status 200 OK */ ApiDiplomaProcessesCreateResponseDto;
 export type PostApiDiplomaProcessesCreateApiArg = {
   apiDiplomaProcessesCreateRequestDto: ApiDiplomaProcessesCreateRequestDto;
+};
+export type PutApiDiplomaProcessesCommitteesAddTeacherApiResponse = unknown;
+export type PutApiDiplomaProcessesCommitteesAddTeacherApiArg = {
+  apiDiplomaProcessesCommitteesAddTeacherRequestDto: ApiDiplomaProcessesCommitteesAddTeacherRequestDto;
+};
+export type PostApiDiplomaProcessesCommitteesCreateApiResponse = unknown;
+export type PostApiDiplomaProcessesCommitteesCreateApiArg = {
+  apiDiplomaProcessesCommitteesCreateRequestDto: ApiDiplomaProcessesCommitteesCreateRequestDto;
+};
+export type DeleteApiDiplomaProcessesCommitteesDeleteApiResponse = unknown;
+export type DeleteApiDiplomaProcessesCommitteesDeleteApiArg = {
+  apiDiplomaProcessesCommitteesDeleteRequestDto: ApiDiplomaProcessesCommitteesDeleteRequestDto;
+};
+export type GetApiDiplomaProcessesCommitteesGetApiResponse =
+  /** status 200 OK */ ApiDiplomaProcessesCommitteesGetResponseDtoRead;
+export type GetApiDiplomaProcessesCommitteesGetApiArg = {
+  diplomaProcessId: string;
+  pageNumber: number;
+  pageSize: number;
+  filter?: string;
+  desc?: boolean;
+  orderBy?: string;
+};
+export type PutApiDiplomaProcessesCommitteesRemoveTeacherApiResponse = unknown;
+export type PutApiDiplomaProcessesCommitteesRemoveTeacherApiArg = {
+  apiDiplomaProcessesCommitteesRemoveTeacherRequestDto: ApiDiplomaProcessesCommitteesRemoveTeacherRequestDto;
 };
 export type PatchApiFacultiesSetFacultyHeadApiResponse = unknown;
 export type PatchApiFacultiesSetFacultyHeadApiArg = {
@@ -840,21 +1086,74 @@ export type ApiDepartmentsCreateRequestDto = {
   shortName: string;
   facultyId: string;
 };
-export type ApiDiplomaProcessesUsersAddGroupRequestDto = {
-  diplomaProcessId: string;
-  groupId: string;
+export type ApiDiplomaProcessesGetInfoProjectTitleDto = {
+  id?: string;
+  title?: string | null;
+  creatorId?: string;
+  actorId?: string | null;
 };
-export type ApiDiplomaProcessesUsersAddTeacherRequestDto = {
+export type ApiDiplomaProcessesGetInfoResponseDto = {
+  id?: string;
+  name?: string | null;
+  possibleFrom?: string | null;
+  possibleTo?: string | null;
+  requiredProjectTitles?: ApiDiplomaProcessesGetInfoProjectTitleDto[] | null;
+  optionalProjectTitles?: ApiDiplomaProcessesGetInfoProjectTitleDto[] | null;
+};
+export type ApiDiplomaProcessesTeachersAddRequestDto = {
   diplomaProcessId: string;
   userId: string;
 };
-export type ApiDiplomaProcessesUsersRemoveGroupRequestDto = {
+export type ApiDiplomaProcessesTeachersGetTeacherDto = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  middleName?: string | null;
+  position: string;
+};
+export type ApiDiplomaProcessesTeachersGetResponseDto = {
+  items?: ApiDiplomaProcessesTeachersGetTeacherDto[] | null;
+  currentPage?: number;
+  pageSize?: number;
+};
+export type ApiDiplomaProcessesTeachersGetResponseDtoRead = {
+  items?: ApiDiplomaProcessesTeachersGetTeacherDto[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
+export type ApiDiplomaProcessesTeachersRemoveRequestDto = {
+  diplomaProcessId: string;
+  userId: string;
+};
+export type ApiDiplomaProcessesGroupsAddRequestDto = {
   diplomaProcessId: string;
   groupId: string;
 };
-export type ApiDiplomaProcessesUsersRemoveTeacherRequestDto = {
+export type ApiDiplomaProcessesGroupsGetFullDescriptionGroupDto = {
+  id?: string;
+  number?: string | null;
+};
+export type ApiDiplomaProcessesGroupsGetFullDescriptionResponseDto = {
+  items?: ApiDiplomaProcessesGroupsGetFullDescriptionGroupDto[] | null;
+  currentPage?: number;
+  pageSize?: number;
+};
+export type ApiDiplomaProcessesGroupsGetFullDescriptionResponseDtoRead = {
+  items?: ApiDiplomaProcessesGroupsGetFullDescriptionGroupDto[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
+export type ApiDiplomaProcessesGroupsRemoveRequestDto = {
   diplomaProcessId: string;
-  userId: string;
+  groupId: string;
 };
 export type ApiDiplomaProcessesGetDiplomaProcessDto = {
   id?: string;
@@ -874,12 +1173,128 @@ export type ApiDiplomaProcessesGetResponseDtoRead = {
   hasPrevious?: boolean;
   hasNext?: boolean;
 };
+export type ApiDiplomaProcessesDiplomasGetStudentDto = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  middleName?: string | null;
+  groupNumber: string;
+};
+export type ApiDiplomaProcessesDiplomasGetTeacherDto = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  middleName?: string | null;
+  position: string;
+};
+export type ApiDiplomaProcessesDiplomasGetDiplomaDto = {
+  id: string;
+  title?: string | null;
+  status?: YProcessingDomainDiplomaStatus;
+  student: ApiDiplomaProcessesDiplomasGetStudentDto;
+  supervisor?: ApiDiplomaProcessesDiplomasGetTeacherDto;
+};
+export type ApiDiplomaProcessesDiplomasGetResponseDto = {
+  items?: ApiDiplomaProcessesDiplomasGetDiplomaDto[] | null;
+  currentPage?: number;
+  pageSize?: number;
+};
+export type ApiDiplomaProcessesDiplomasGetResponseDtoRead = {
+  items?: ApiDiplomaProcessesDiplomasGetDiplomaDto[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
+export type ApiDiplomaProcessesDefenseSessionsCreateRequestDto = {
+  name: string;
+  date: string;
+  committeeId: string;
+  diplomaProcessId: string;
+  studentIds: string[];
+};
+export type ApiDiplomaProcessesDefenseSessionsDeleteRequestDto = {
+  id: string;
+};
+export type ApiDiplomaProcessesDefenseSessionsGetFreeStudentsStudentDto = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  middleName?: string | null;
+  groupNumber: string;
+};
+export type ApiDiplomaProcessesDefenseSessionsGetFreeStudentsResponseDto = {
+  students: ApiDiplomaProcessesDefenseSessionsGetFreeStudentsStudentDto[];
+};
+export type ApiDiplomaProcessesDefenseSessionsGetPageDefenseSessionDto = {
+  id: string;
+  date: string;
+  committeeName: string;
+};
+export type ApiDiplomaProcessesDefenseSessionsGetPageResponseDto = {
+  items?: ApiDiplomaProcessesDefenseSessionsGetPageDefenseSessionDto[] | null;
+  currentPage?: number;
+  pageSize?: number;
+};
+export type ApiDiplomaProcessesDefenseSessionsGetPageResponseDtoRead = {
+  items?: ApiDiplomaProcessesDefenseSessionsGetPageDefenseSessionDto[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
 export type ApiDiplomaProcessesCreateResponseDto = {
   id?: string;
 };
 export type ApiDiplomaProcessesCreateRequestDto = {
   periodId: string;
   name: string;
+};
+export type ApiDiplomaProcessesCommitteesAddTeacherRequestDto = {
+  diplomaProcessId: string;
+  committeeId: string;
+  userId: string;
+};
+export type ApiDiplomaProcessesCommitteesCreateRequestDto = {
+  diplomaProcessId: string;
+  name: string;
+};
+export type ApiDiplomaProcessesCommitteesDeleteRequestDto = {
+  committeeId: string;
+};
+export type ApiDiplomaProcessesCommitteesGetTeacherDto = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  middleName?: string | null;
+  position: string;
+};
+export type ApiDiplomaProcessesCommitteesGetCommitteeDto = {
+  id: string;
+  name: string;
+  teachers: ApiDiplomaProcessesCommitteesGetTeacherDto[];
+};
+export type ApiDiplomaProcessesCommitteesGetResponseDto = {
+  items?: ApiDiplomaProcessesCommitteesGetCommitteeDto[] | null;
+  currentPage?: number;
+  pageSize?: number;
+};
+export type ApiDiplomaProcessesCommitteesGetResponseDtoRead = {
+  items?: ApiDiplomaProcessesCommitteesGetCommitteeDto[] | null;
+  currentPage?: number;
+  totalPages?: number;
+  pageSize?: number;
+  totalCount?: number;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
+};
+export type ApiDiplomaProcessesCommitteesRemoveTeacherRequestDto = {
+  diplomaProcessId: string;
+  userId: string;
 };
 export type ApiFacultiesGetFacultyDto = {
   id?: string;
@@ -1205,6 +1620,13 @@ export enum ApiContractsUserRoleTypeDto {
   Teacher = "Teacher",
   Student = "Student",
 }
+export enum YProcessingDomainDiplomaStatus {
+  $0 = 0,
+  $1 = 1,
+  $2 = 2,
+  $3 = 3,
+  $4 = 4,
+}
 export const {
   usePostApiAuthRefreshMutation,
   usePostApiAuthLogoutMutation,
@@ -1219,14 +1641,34 @@ export const {
   useLazyGetApiDepartmentsGetFullDescriptionQuery,
   useDeleteApiDepartmentsDeleteMutation,
   usePostApiDepartmentsCreateMutation,
-  usePostApiDiplomaProcessesUsersAddGroupMutation,
-  usePostApiDiplomaProcessesUsersAddTeacherMutation,
-  usePostApiDiplomaProcessesUsersRemoveGroupMutation,
-  usePostApiDiplomaProcessesUsersRemoveTeacherMutation,
+  useGetApiDiplomaProcessesGetInfoQuery,
+  useLazyGetApiDiplomaProcessesGetInfoQuery,
+  usePutApiDiplomaProcessesTeachersAddMutation,
+  useGetApiDiplomaProcessesTeachersGetQuery,
+  useLazyGetApiDiplomaProcessesTeachersGetQuery,
+  usePutApiDiplomaProcessesTeachersRemoveMutation,
+  usePutApiDiplomaProcessesGroupsAddMutation,
+  useGetApiDiplomaProcessesGroupsGetFullDescriptionQuery,
+  useLazyGetApiDiplomaProcessesGroupsGetFullDescriptionQuery,
+  usePutApiDiplomaProcessesGroupsRemoveMutation,
   useGetApiDiplomaProcessesGetQuery,
   useLazyGetApiDiplomaProcessesGetQuery,
+  useGetApiDiplomaProcessesDiplomasGetQuery,
+  useLazyGetApiDiplomaProcessesDiplomasGetQuery,
   useDeleteApiDiplomaProcessesDeleteMutation,
+  usePostApiDiplomaProcessesDefenseSessionsCreateMutation,
+  useDeleteApiDiplomaProcessesDefenseSessionsDeleteMutation,
+  useGetApiDiplomaProcessesDefenseSessionsGetFreeStudentsQuery,
+  useLazyGetApiDiplomaProcessesDefenseSessionsGetFreeStudentsQuery,
+  useGetApiDiplomaProcessesDefenseSessionsGetPageQuery,
+  useLazyGetApiDiplomaProcessesDefenseSessionsGetPageQuery,
   usePostApiDiplomaProcessesCreateMutation,
+  usePutApiDiplomaProcessesCommitteesAddTeacherMutation,
+  usePostApiDiplomaProcessesCommitteesCreateMutation,
+  useDeleteApiDiplomaProcessesCommitteesDeleteMutation,
+  useGetApiDiplomaProcessesCommitteesGetQuery,
+  useLazyGetApiDiplomaProcessesCommitteesGetQuery,
+  usePutApiDiplomaProcessesCommitteesRemoveTeacherMutation,
   usePatchApiFacultiesSetFacultyHeadMutation,
   useGetApiFacultiesGetQuery,
   useLazyGetApiFacultiesGetQuery,

@@ -43,3 +43,4 @@ The page is accessible at `/diploma-processes` route and is integrated into the 
 - Integrates with period selection system
 - Follows Material-UI design patterns
 - Uses RTK Query for API state management
+

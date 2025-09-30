@@ -21,7 +21,7 @@ internal sealed class Get : IEndpoint
     }
 
     private async Task<ResponseDto> Handle(
-        [FromBody] RequestDto request,
+        [AsParameters] RequestDto request,
         [FromServices] IEfReadRepository<Committee> repository,
         CancellationToken cancellationToken)
     {

@@ -20,7 +20,7 @@ internal sealed class Get
     }
 
     private async Task<ResponseDto> Handle(
-        [FromBody] RequestDto request,
+        [AsParameters] RequestDto request,
         [FromServices] IEfReadRepository<DefenseSession> repository,
         CancellationToken cancellationToken)
     {

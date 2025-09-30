@@ -23,7 +23,7 @@ public class Specialty : BaseEntity
 
     public virtual Department Department { get; private set; } = null!;
 
-    public virtual ICollection<Group> Groups { get; private set; } = null!;
+    public virtual ICollection<Group> Groups { get; private set; } = [];
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local

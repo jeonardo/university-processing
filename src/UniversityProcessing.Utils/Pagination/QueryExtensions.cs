@@ -41,7 +41,7 @@ public static class QueryExtensions
             source = source.Where(filter);
         }
 
-        var countTask = source.CountAsync(cancellationToken);
+        var count = await source.CountAsync(cancellationToken);
 
         // Apply ordering
         var orderedSource = ApplyOrdering(source, parameters);
@@ -51,28 +51,26 @@ public static class QueryExtensions
             .Skip((parameters.PageNumber - 1) * parameters.PageSize)
             .Take(parameters.PageSize);
 
-        dynamic itemsTask;
+        var items = Array.Empty<TResult>();
 
         if (selectMany is not null)
         {
-            itemsTask = pagedSource.SelectMany(selectMany).ToListAsync(cancellationToken);
+            items = await pagedSource.SelectMany(selectMany).ToArrayAsync(cancellationToken);
         }
         else if (select is not null)
         {
-            itemsTask = pagedSource.Select(select).ToListAsync(cancellationToken);
+            items = await pagedSource.Select(select).ToArrayAsync(cancellationToken);
+        }
+        else if (typeof(TResult) == typeof(T))
+        {
+            items = (TResult[])(object)await pagedSource.ToArrayAsync(cancellationToken);
         }
         else
         {
-            itemsTask = pagedSource.ToListAsync(cancellationToken);
+            throw new InvalidOperationException($"Cannot project {typeof(T)} to {typeof(TResult)}. Provide a select expression.");
         }
 
-        await Task.WhenAll(countTask, itemsTask);
-
-        return new PagedList<TResult>(
-            itemsTask.Result,
-            countTask.Result,
-            parameters.PageNumber,
-            parameters.PageSize);
+        return new PagedList<TResult>(items, count, parameters.PageNumber, parameters.PageSize);
     }
 
     private static IQueryable<T> ApplyOrdering<T>(IQueryable<T> source, BaseGetListQueryParameters parameters)

@@ -19,11 +19,11 @@ public class Department : BaseEntity
 
     public Guid? HeadUserId { get; private set; }
 
-    public virtual ICollection<DiplomaProcess> DiplomaProcesses { get; private set; } = null!;
+    public virtual ICollection<DiplomaProcess> DiplomaProcesses { get; private set; } = [];
 
-    public virtual ICollection<Specialty> Specialties { get; private set; } = null!;
-    public virtual ICollection<Teacher> Teachers { get; set; } = null!;
-    public virtual ICollection<Student> Students { get; set; } = null!;
+    public virtual ICollection<Specialty> Specialties { get; private set; } = [];
+    public virtual ICollection<Teacher> Teachers { get; set; } = [];
+    public virtual ICollection<Student> Students { get; set; } = [];
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local

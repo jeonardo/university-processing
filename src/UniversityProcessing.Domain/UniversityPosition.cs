@@ -10,8 +10,8 @@ public class UniversityPosition : BaseEntity
     [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string Name { get; private set; } = null!;
 
-    public virtual ICollection<Teacher> Teachers { get; set; } = null!;
-    public virtual ICollection<Deanery> Deaneries { get; set; } = null!;
+    public virtual ICollection<Teacher> Teachers { get; set; } = [];
+    public virtual ICollection<Deanery> Deaneries { get; set; } = [];
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local

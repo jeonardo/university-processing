@@ -15,9 +15,9 @@ public class Period : BaseEntity
     [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string? Comments { get; private set; }
 
-    public virtual ICollection<Group> Groups { get; private set; } = null!;
+    public virtual ICollection<Group> Groups { get; private set; } = [];
 
-    public virtual ICollection<DiplomaProcess> DiplomaProcesses { get; private set; } = null!;
+    public virtual ICollection<DiplomaProcess> DiplomaProcesses { get; private set; } = [];
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local

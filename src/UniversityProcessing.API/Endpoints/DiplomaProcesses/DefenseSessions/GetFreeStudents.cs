@@ -20,7 +20,7 @@ internal sealed class GetFreeStudents : IEndpoint
     }
 
     private async Task<ResponseDto> Handle(
-        [FromBody] RequestDto request,
+        [AsParameters] RequestDto request,
         [FromServices] IEfReadRepository<Group> repository,
         CancellationToken cancellationToken)
     {

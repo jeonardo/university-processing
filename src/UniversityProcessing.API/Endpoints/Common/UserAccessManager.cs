@@ -13,6 +13,10 @@ internal static class UserAccessManager
 
     public static void ThrowIfAccessToRoleIsNotAllowed(UserRoleType currentUserRole, UserRoleType selectedUserRole)
     {
+        return;
+
+        // TODO: implement when role-access will be implemented and will be known
+
         if (_dictionary.TryGetValue(currentUserRole, out var availableRoles) && availableRoles.Contains(selectedUserRole))
         {
             return;

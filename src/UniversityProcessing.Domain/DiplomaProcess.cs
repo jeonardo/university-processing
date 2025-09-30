@@ -15,16 +15,24 @@ public class DiplomaProcess : BaseEntity
     public DateTime? PossibleTo { get; private set; }
     public Guid PeriodId { get; private set; }
     public virtual Period Period { get; private set; } = null!;
-    public virtual ICollection<ProjectTitle> RequiredProjectTitles { get; private set; } = null!;
-    public virtual ICollection<Group> Groups { get; private set; } = null!;
-    public virtual ICollection<Committee> Committees { get; private set; } = null!;
-    public virtual ICollection<Teacher> Teachers { get; private set; } = null!;
-    public virtual ICollection<DefenseSession> DefenseSessions { get; private set; } = null!;
+    public virtual ICollection<ProjectTitle> RequiredProjectTitles { get; private set; } = [];
+    public virtual ICollection<Group> Groups { get; private set; } = [];
+    public virtual ICollection<Committee> Committees { get; private set; } = [];
+    public virtual ICollection<Teacher> Teachers { get; private set; } = [];
+    public virtual ICollection<DefenseSession> DefenseSessions { get; private set; } = [];
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local
     private DiplomaProcess()
     {
+    }
+
+    public static DiplomaProcess Fake(Guid id)
+    {
+        return new DiplomaProcess
+        {
+            Id = id
+        };
     }
 
     public static DiplomaProcess Create(string name, Guid periodId)

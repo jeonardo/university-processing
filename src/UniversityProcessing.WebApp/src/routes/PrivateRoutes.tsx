@@ -16,6 +16,12 @@ import { PeriodsPage } from 'src/features/periods/PeriodsPage';
 import GroupsPage from 'src/features/groups/GroupsPage';
 import SpecialtiesPage from 'src/features/specialties/SpecialtiesPage';
 import DiplomaProcessesPage from 'src/features/diploma-processes/DiplomaProcessesPage';
+import DiplomaProcessLayout from 'src/features/diploma-processes/layout/DiplomaProcessLayout';
+import DiplomaCommitteesPage from 'src/features/diploma-processes/pages/DiplomaCommitteesPage';
+import DiplomaSessionsPage from 'src/features/diploma-processes/pages/DiplomaSessionsPage';
+import DiplomaDiplomasPage from 'src/features/diploma-processes/pages/DiplomaDiplomasPage';
+import DiplomaGroupsPage from 'src/features/diploma-processes/pages/DiplomaGroupsPage';
+import DiplomaTeachersPage from 'src/features/diploma-processes/pages/DiplomaTeachersPage';
 
 const PrivateRoutes = {
   path: '/',
@@ -87,6 +93,19 @@ const PrivateRoutes = {
     {
       path: 'diploma-processes',
       element: <DiplomaProcessesPage />
+    }
+    ,
+    {
+      path: 'diploma-processes/:id',
+      element: <DiplomaProcessLayout />,
+      children: [
+        { index: true, element: <DiplomaCommitteesPage /> },
+        { path: 'committees', element: <DiplomaCommitteesPage /> },
+        { path: 'sessions', element: <DiplomaSessionsPage /> },
+        { path: 'diplomas', element: <DiplomaDiplomasPage /> },
+        { path: 'groups', element: <DiplomaGroupsPage /> },
+        { path: 'teachers', element: <DiplomaTeachersPage /> }
+      ]
     }
   ]
 };

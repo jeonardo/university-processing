@@ -15,11 +15,11 @@ public class Faculty : BaseEntity
 
     public Guid? HeadUserId { get; private set; }
 
-    public virtual ICollection<Department> Departments { get; private set; } = null!;
+    public virtual ICollection<Department> Departments { get; private set; } = [];
 
-    public virtual ICollection<Student> Students { get; private set; } = null!;
-    public virtual ICollection<Teacher> Teachers { get; private set; } = null!;
-    public virtual ICollection<Deanery> Deaneries { get; set; } = null!;
+    public virtual ICollection<Student> Students { get; private set; } = [];
+    public virtual ICollection<Teacher> Teachers { get; private set; } = [];
+    public virtual ICollection<Deanery> Deaneries { get; set; } = [];
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local

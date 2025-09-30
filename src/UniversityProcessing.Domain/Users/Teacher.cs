@@ -10,13 +10,13 @@ public class Teacher : User
 
     public virtual Department Department { get; private set; } = null!;
 
-    public virtual ICollection<Diploma> Diplomas { get; private set; } = null!;
+    public virtual ICollection<Diploma> Diplomas { get; private set; } = [];
 
-    public virtual ICollection<DiplomaProcess> DiplomaProcesses { get; private set; } = null!;
+    public virtual ICollection<DiplomaProcess> DiplomaProcesses { get; private set; } = [];
 
-    public virtual ICollection<Committee> Committees { get; private set; } = null!;
+    public virtual ICollection<Committee> Committees { get; private set; } = [];
 
-    public virtual ICollection<ProjectTitle> ProjectTitles { get; private set; } = null!;
+    public virtual ICollection<ProjectTitle> ProjectTitles { get; private set; } = [];
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local
@@ -46,5 +46,13 @@ public class Teacher : User
     {
         UniversityPositionId = universityPositionId;
         DepartmentId = departmentId;
+    }
+
+    public static Teacher Fake(Guid id)
+    {
+        return new Teacher
+        {
+            Id = id
+        };
     }
 }

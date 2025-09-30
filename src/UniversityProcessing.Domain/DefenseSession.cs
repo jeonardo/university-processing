@@ -15,7 +15,7 @@ public class DefenseSession : BaseEntity
     public virtual Committee Committee { get; private set; } = null!;
     public Guid DiplomaProcessId { get; private set; }
     public virtual DiplomaProcess DiplomaProcess { get; private set; } = null!;
-    public virtual ICollection<Student> Students { get; private set; } = null!;
+    public virtual ICollection<Student> Students { get; private set; } = [];
 
     public static DefenseSession Create(Guid committeeId, string name, Guid diplomaProcessId, DateTime date)
     {

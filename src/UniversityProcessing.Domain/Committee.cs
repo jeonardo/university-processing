@@ -16,8 +16,8 @@ public class Committee : BaseEntity
 
     public Guid? SecretaryId { get; private set; }
     public virtual DiplomaProcess DiplomaProcess { get; private set; } = null!;
-    public virtual ICollection<Group> Groups { get; private set; } = null!;
-    public virtual ICollection<Teacher> Teachers { get; private set; } = null!;
+    public virtual ICollection<Group> Groups { get; private set; } = [];
+    public virtual ICollection<Teacher> Teachers { get; private set; } = [];
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local

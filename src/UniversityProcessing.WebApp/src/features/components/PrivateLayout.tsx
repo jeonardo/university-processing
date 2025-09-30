@@ -96,7 +96,7 @@ const PrivateLayout: React.FC = () => {
     { text: 'Кафедры', icon: <SchoolIcon />, path: '/departments', roles: [ApiContractsUserRoleTypeDto.Deanery] },
     { text: 'Специальности', icon: <MenuBookIcon />, path: '/specialties', roles: [], forDepartmentHead: true },
     { text: 'Группы', icon: <GroupsIcon />, path: '/groups', roles: [], forDepartmentHead: true },
-    { text: 'Дипломные процессы', icon: <AssignmentIcon />, path: '/diploma-processes', roles: [ApiContractsUserRoleTypeDto.Deanery, ApiContractsUserRoleTypeDto.Teacher, ApiContractsUserRoleTypeDto.Student] },
+    { text: 'Дипломные процессы', icon: <AssignmentIcon />, path: '/diploma-processes', roles: [ApiContractsUserRoleTypeDto.Teacher] },
     // { text: 'График защит', icon: <CalendarIcon />, path: '/schedule', roles: ['admin', 'deanery', 'departmentHead', 'commission'] },
     // { text: 'Оценки', icon: <GradeIcon />, path: '/grades', roles: ['commission', 'deanery'] },
     // { text: 'ГЭК', icon: <GroupWorkIcon />, path: '/commissions', roles: ['admin', 'deanery', 'departmentHead'] },

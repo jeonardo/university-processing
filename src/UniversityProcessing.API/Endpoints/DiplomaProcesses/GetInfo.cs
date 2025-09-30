@@ -20,7 +20,7 @@ internal sealed class GetInfo : IEndpoint
     }
 
     private async Task<ResponseDto> Handle(
-        [FromBody] RequestDto request,
+        [AsParameters] RequestDto request,
         [FromServices] IEfReadRepository<DiplomaProcess> repository,
         CancellationToken cancellationToken)
     {

@@ -21,7 +21,7 @@ internal sealed class GetFreeTeachers
     }
 
     private static async Task<ResponseDto> Handle(
-        [FromBody] RequestDto request,
+        [AsParameters] RequestDto request,
         [FromServices] IEfReadRepository<DiplomaProcess> diplomaProcessRepository,
         [FromServices] IEfRepository<Committee> committeeRepository,
         CancellationToken cancellationToken)

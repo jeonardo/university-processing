@@ -19,7 +19,7 @@ public class Group : BaseEntity
     public Guid PeriodId { get; private set; }
 
     public virtual Period Period { get; private set; } = null!;
-    public virtual ICollection<Student> Students { get; private set; } = null!;
+    public virtual ICollection<Student> Students { get; private set; } = [];
     public Guid? DiplomaProcessId { get; private set; }
     public virtual DiplomaProcess DiplomaProcess { get; private set; } = null!;
 
