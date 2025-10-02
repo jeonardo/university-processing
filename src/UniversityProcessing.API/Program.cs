@@ -41,10 +41,11 @@ public static partial class Program
 
         var app = builder.Build();
 
+        app.UseAppSwagger();
+        app.MigrateDb();
+
         if (app.Environment.IsDevelopment())
         {
-            app.UseAppSwagger();
-            app.MigrateDb();
         }
 
         app.UseProtectedMiddleware();

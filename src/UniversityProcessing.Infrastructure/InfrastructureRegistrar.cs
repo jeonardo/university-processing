@@ -35,21 +35,24 @@ public static class InfrastructureRegistrar
     {
         var settings = builder.Configuration.GetSettings<DatabaseSettings>();
 
-        if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+        var useSqlite = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
+
+        if (useSqlite)
         {
             builder.Services.AddDbContext<ApplicationDbContext>(
                 options =>
                     options
                         .UseSqlite(settings.SqliteConnectionString)
                         .UseSnakeCaseNamingConvention());
-            return;
         }
-
-        builder.Services.AddDbContext<ApplicationDbContext>(
-            options =>
-                options
-                    .UseNpgsql(builder.Configuration.GetConnectionString(settings.ConnectionString))
-                    .UseSnakeCaseNamingConvention());
+        else
+        {
+            builder.Services.AddDbContext<ApplicationDbContext>(
+                options =>
+                    options
+                        .UseSqlServer(settings.ConnectionString)
+                        .UseSnakeCaseNamingConvention());
+        }
     }
 
     private static void AddIdentity(this WebApplicationBuilder builder)

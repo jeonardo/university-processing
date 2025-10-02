@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --mode production",
+    "build:dev": "tsc && vite build --mode development",
     "preview": "vite preview",
     "api-generate": "npx @rtk-query/codegen-openapi openapi-config.cts",
     "start": "env-cmd -f .env vite",
+    "start:production": "env-cmd -f .env.production vite preview",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""

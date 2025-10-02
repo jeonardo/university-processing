@@ -38,12 +38,23 @@ if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
 }
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [plugin(), jsconfigPaths()],
-  resolve: {
-    alias: {
-      src: '/src',
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+export default defineConfig(({ mode }) => {
+  return {
+    plugins: [plugin(), jsconfigPaths()],
+    resolve: {
+      alias: {
+        src: '/src',
+        '@': fileURLToPath(new URL('./src', import.meta.url))
+      }
+    },
+    // Ensure environment variables are loaded correctly for all modes
+    envDir: './',
+    build: {
+      // Ensure environment variables are available during build
+      define: {
+        'import.meta.env.VITE_BACKEND_BASEURL': JSON.stringify(process.env.VITE_BACKEND_BASEURL),
+        'import.meta.env.VITE_IS_DEVELOPMENT': JSON.stringify(process.env.VITE_IS_DEVELOPMENT)
+      }
     }
-  }
+  };
 });
