@@ -74,6 +74,21 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
         {
             relationship.DeleteBehavior = DeleteBehavior.SetNull;
         }
+
+        // Apply to all entities that inherit from EntityBase
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            if (typeof(EntityBase).IsAssignableFrom(entityType.ClrType))
+            {
+                var idProperty = entityType.FindProperty(nameof(EntityBase.Id));
+
+                if (idProperty != null)
+                {
+                    // Force SQL Server to use uniqueidentifier for Id
+                    idProperty.SetColumnType("uniqueidentifier");
+                }
+            }
+        }
     }
 
     private static void ApplyIdentitySnakeCaseNames(ModelBuilder modelBuilder)

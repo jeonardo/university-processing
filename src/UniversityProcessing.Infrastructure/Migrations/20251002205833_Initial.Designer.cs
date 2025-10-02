@@ -11,7 +11,7 @@ using UniversityProcessing.Infrastructure;
 namespace UniversityProcessing.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251002204447_Initial")]
+    [Migration("20251002205833_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
