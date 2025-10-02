@@ -67,6 +67,13 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
         ApplySnakeCaseNames(modelBuilder);
 
         AddInitData(modelBuilder);
+
+        foreach (var relationship in modelBuilder.Model
+                     .GetEntityTypes()
+                     .SelectMany(e => e.GetForeignKeys()))
+        {
+            relationship.DeleteBehavior = DeleteBehavior.SetNull;
+        }
     }
 
     private static void ApplyIdentitySnakeCaseNames(ModelBuilder modelBuilder)
