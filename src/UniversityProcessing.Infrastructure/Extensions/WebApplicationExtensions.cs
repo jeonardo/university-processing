@@ -44,15 +44,11 @@ public static class WebApplicationExtensions
             logger.LogInformation("Migrating database...");
 
             // Uncommit when a new clear db structure needs
-            dbContext.Database.EnsureDeleted();
-            dbContext.Database.EnsureCreated();
+            // dbContext.Database.EnsureDeleted();
+            // dbContext.Database.EnsureCreated();
 
             dbContext.Database.Migrate();
-
-            if (app.Environment.IsDevelopment())
-            {
-                serviceScope.ServiceProvider.GetRequiredService<UniversitySeed>().Seed().GetAwaiter().GetResult();
-            }
+            serviceScope.ServiceProvider.GetRequiredService<UniversitySeed>().Seed().GetAwaiter().GetResult();
 
             logger.LogInformation("Database migrated successfully");
         }
