@@ -13,11 +13,11 @@ public class Department : BaseEntity
     [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string ShortName { get; private set; } = null!;
 
-    public Guid FacultyId { get; private set; }
+    public long FacultyId { get; private set; }
 
     public Faculty Faculty { get; private set; } = null!;
 
-    public Guid? HeadUserId { get; private set; }
+    public long? HeadUserId { get; private set; }
 
     public virtual ICollection<DiplomaProcess> DiplomaProcesses { get; private set; } = [];
 
@@ -31,7 +31,7 @@ public class Department : BaseEntity
     {
     }
 
-    public static Department Create(string name, string shortName, Guid facultyId)
+    public static Department Create(string name, string shortName, long facultyId)
     {
         return new Department
         {
@@ -41,7 +41,7 @@ public class Department : BaseEntity
         };
     }
 
-    public void SetHead(Guid leaderId)
+    public void SetHead(long leaderId)
     {
         HeadUserId = leaderId;
     }

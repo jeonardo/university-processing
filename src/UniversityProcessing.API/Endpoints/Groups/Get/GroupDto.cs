@@ -1,7 +1,7 @@
 namespace UniversityProcessing.API.Endpoints.Groups.Get;
 
-public sealed class GroupDto(Guid id, string number)
+public sealed class GroupDto(long id, string number)
 {
-    public Guid Id { get; set; } = id;
+    public long Id { get; set; } = id;
     public string Number { get; set; } = number;
 }

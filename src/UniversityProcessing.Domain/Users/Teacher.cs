@@ -2,11 +2,11 @@ namespace UniversityProcessing.Domain.Users;
 
 public class Teacher : User
 {
-    public Guid UniversityPositionId { get; private set; }
+    public long UniversityPositionId { get; private set; }
 
     public virtual UniversityPosition UniversityPosition { get; private set; } = null!;
 
-    public Guid DepartmentId { get; private set; }
+    public long DepartmentId { get; private set; }
 
     public virtual Department Department { get; private set; } = null!;
 
@@ -32,8 +32,8 @@ public class Teacher : User
         string? email,
         DateTime? birthday,
         string? phoneNumber,
-        Guid universityPositionId,
-        Guid departmentId)
+        long universityPositionId,
+        long departmentId)
         : base(
             UserRoleType.Teacher,
             userName,
@@ -48,7 +48,7 @@ public class Teacher : User
         DepartmentId = departmentId;
     }
 
-    public static Teacher Fake(Guid id)
+    public static Teacher Fake(long id)
     {
         return new Teacher
         {

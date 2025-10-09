@@ -2,4 +2,4 @@ using UniversityProcessing.Domain.Users;
 
 namespace UniversityProcessing.API.Endpoints.Contracts;
 
-public sealed record AuthTokenClaims(Guid UserId, UserRoleType Role, bool Approved, bool Blocked);
+public sealed record AuthTokenClaims(long UserId, UserRoleType Role, bool Approved, bool Blocked);

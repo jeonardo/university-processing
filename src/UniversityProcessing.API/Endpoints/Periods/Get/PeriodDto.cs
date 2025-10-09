@@ -2,10 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace UniversityProcessing.API.Endpoints.Periods.Get;
 
-public sealed class PeriodDto(Guid id, string name, DateTime from, DateTime to, string? comments)
+public sealed class PeriodDto(long id, string name, DateTime from, DateTime to, string? comments)
 {
     [Required]
-    public Guid Id { get; set; } = id;
+    public long Id { get; set; } = id;
 
     [Required]
     public string Name { get; set; } = name;

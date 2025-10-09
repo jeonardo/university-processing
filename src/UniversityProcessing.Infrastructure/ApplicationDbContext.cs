@@ -12,7 +12,7 @@ namespace UniversityProcessing.Infrastructure;
 
 #pragma warning disable CS8618 // Required by Entity Framework
 public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDomainEventDispatcher? dispatcher = null)
-    : IdentityDbContext<User, UserRole, Guid>(options)
+    : IdentityDbContext<User, UserRole, long>(options)
 {
     public DbSet<Admin> Admins { get; set; }
     public DbSet<Deanery> Deaneries { get; set; }
@@ -92,11 +92,11 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
     {
         modelBuilder.Entity<User>().ToTable("users");
         modelBuilder.Entity<UserRole>().ToTable("roles");
-        modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("user_tokens");
-        modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("user_roles");
-        modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("role_claims");
-        modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("user_claims");
-        modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("user_logins");
+        modelBuilder.Entity<IdentityUserToken<long>>().ToTable("user_tokens");
+        modelBuilder.Entity<IdentityUserRole<long>>().ToTable("user_roles");
+        modelBuilder.Entity<IdentityRoleClaim<long>>().ToTable("role_claims");
+        modelBuilder.Entity<IdentityUserClaim<long>>().ToTable("user_claims");
+        modelBuilder.Entity<IdentityUserLogin<long>>().ToTable("user_logins");
     }
 
     private static void ApplySnakeCaseNames(ModelBuilder modelBuilder)

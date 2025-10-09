@@ -2,8 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace UniversityProcessing.API.Endpoints.Registration.Register;
 
-public sealed class BaseResponseDto(Guid userId)
+public sealed class BaseResponseDto(long userId)
 {
     [Required]
-    public Guid UserId { get; set; } = userId;
+    public long UserId { get; set; } = userId;
 }

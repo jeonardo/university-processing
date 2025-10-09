@@ -17,11 +17,11 @@ internal static class ClaimsPrincipalExtensions
             GetUserBlocked(claims));
     }
 
-    public static Guid GetUserId(this IEnumerable<Claim> claims)
+    public static long GetUserId(this IEnumerable<Claim> claims)
     {
         var claimValue = claims.FirstOrDefault(x => x.Type == AppClaimTypes.USER_ID)?.Value;
 
-        if (claimValue is null || !Guid.TryParse(claimValue, out var id))
+        if (claimValue is null || !long.TryParse(claimValue, out var id))
         {
             throw new InvalidTokenException();
         }

@@ -2,8 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace UniversityProcessing.API.Endpoints.Periods.Create;
 
-public sealed class ResponseDto(Guid id)
+public sealed class ResponseDto(long id)
 {
     [Required]
-    public Guid Id { get; set; } = id;
+    public long Id { get; set; } = id;
 }

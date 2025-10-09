@@ -4,6 +4,6 @@ namespace UniversityProcessing.Domain.Events;
 
 public sealed class DiplomaProcessGroupAddedEvent : DomainEventBase
 {
-    public required Guid DiplomaProcessId { get; set; }
-    public required Guid GroupId { get; set; }
+    public required long DiplomaProcessId { get; set; }
+    public required long GroupId { get; set; }
 }

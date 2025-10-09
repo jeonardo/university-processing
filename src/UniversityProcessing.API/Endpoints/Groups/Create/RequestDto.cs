@@ -14,8 +14,8 @@ public sealed class RequestDto
     public DateTime EndDate { get; set; }
 
     [Required]
-    public Guid SpecialtyId { get; set; }
+    public long SpecialtyId { get; set; }
 
     [Required]
-    public Guid PeriodId { get; set; }
+    public long PeriodId { get; set; }
 }

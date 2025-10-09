@@ -5,7 +5,7 @@ namespace UniversityProcessing.API.Endpoints.DiplomaProcesses.Create;
 public sealed record RequestDto
 {
     [Required]
-    public Guid PeriodId { get; set; }
+    public long PeriodId { get; set; }
 
     [Required]
     public string Name { get; set; } = string.Empty;

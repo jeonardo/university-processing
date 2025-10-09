@@ -6,8 +6,8 @@ namespace UniversityProcessing.API.Endpoints.Registration.Register.Teacher;
 public sealed class RequestDto : BaseRequestDto, ITeacherRegistrationForm
 {
     [Required]
-    public Guid UniversityPositionId { get; set; }
+    public long UniversityPositionId { get; set; }
 
     [Required]
-    public Guid DepartmentId { get; set; }
+    public long DepartmentId { get; set; }
 }

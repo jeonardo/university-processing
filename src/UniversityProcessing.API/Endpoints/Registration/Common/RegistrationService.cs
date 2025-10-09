@@ -34,7 +34,7 @@ internal sealed class RegistrationService(
         }
     }
 
-    public async Task<Guid> Register(IRegistrationForm registrationForm, UserRoleType role, CancellationToken cancellationToken)
+    public async Task<long> Register(IRegistrationForm registrationForm, UserRoleType role, CancellationToken cancellationToken)
     {
         var user = await BuildUser(registrationForm, role, cancellationToken);
 

@@ -1,7 +1,7 @@
 namespace UniversityProcessing.API.Endpoints.Registration.GetAvailableUniversityPositions;
 
-public sealed class UniversityPositionDto(Guid id, string name)
+public sealed class UniversityPositionDto(long id, string name)
 {
-    public Guid Id { get; set; } = id;
+    public long Id { get; set; } = id;
     public string Name { get; set; } = name;
 }

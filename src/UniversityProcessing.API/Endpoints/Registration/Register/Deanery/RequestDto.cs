@@ -6,8 +6,8 @@ namespace UniversityProcessing.API.Endpoints.Registration.Register.Deanery;
 public sealed class RequestDto : BaseRequestDto, IDeaneryRegistrationForm
 {
     [Required]
-    public Guid UniversityPositionId { get; set; }
+    public long UniversityPositionId { get; set; }
 
     [Required]
-    public Guid FacultyId { get; set; }
+    public long FacultyId { get; set; }
 }

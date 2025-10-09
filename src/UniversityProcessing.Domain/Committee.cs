@@ -12,9 +12,9 @@ public class Committee : BaseEntity
     [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string Name { get; private set; } = null!;
 
-    public Guid DiplomaProcessId { get; private set; }
+    public long DiplomaProcessId { get; private set; }
 
-    public Guid? SecretaryId { get; private set; }
+    public long? SecretaryId { get; private set; }
     public virtual DiplomaProcess DiplomaProcess { get; private set; } = null!;
     public virtual ICollection<Group> Groups { get; private set; } = [];
     public virtual ICollection<Teacher> Teachers { get; private set; } = [];
@@ -25,7 +25,7 @@ public class Committee : BaseEntity
     {
     }
 
-    public static Committee Create(Guid diplomaProcessId, string name)
+    public static Committee Create(long diplomaProcessId, string name)
     {
         return new Committee
         {

@@ -75,15 +75,15 @@ internal sealed class Get : IEndpoint
     private class RequestDto : BaseGetListQueryParameters
     {
         [Required]
-        public Guid DiplomaProcessId { get; set; }
+        public long DiplomaProcessId { get; set; }
     }
 
     private sealed class ResponseDto(PagedList<DiplomaDto> list) : PagedList<DiplomaDto>(list);
 
-    private sealed class DiplomaDto(Guid id, string? title, DiplomaStatus status, StudentDto student, TeacherDto? supervisor)
+    private sealed class DiplomaDto(long id, string? title, DiplomaStatus status, StudentDto student, TeacherDto? supervisor)
     {
         [Required]
-        public Guid Id { get; set; } = id;
+        public long Id { get; set; } = id;
 
         public string? Title { get; set; } = title;
 
@@ -96,10 +96,10 @@ internal sealed class Get : IEndpoint
         public TeacherDto? Supervisor { get; set; } = supervisor;
     }
 
-    private sealed class TeacherDto(Guid id, string firstName, string lastName, string? middleName, string position)
+    private sealed class TeacherDto(long id, string firstName, string lastName, string? middleName, string position)
     {
         [Required]
-        public Guid Id { get; set; } = id;
+        public long Id { get; set; } = id;
 
         [Required]
         public string FirstName { get; set; } = firstName;
@@ -113,10 +113,10 @@ internal sealed class Get : IEndpoint
         public string Position { get; set; } = position;
     }
 
-    private sealed class StudentDto(Guid id, string firstName, string lastName, string? middleName, string groupNumber)
+    private sealed class StudentDto(long id, string firstName, string lastName, string? middleName, string groupNumber)
     {
         [Required]
-        public Guid Id { get; set; } = id;
+        public long Id { get; set; } = id;
 
         [Required]
         public string FirstName { get; set; } = firstName;

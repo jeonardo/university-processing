@@ -2,11 +2,11 @@ namespace UniversityProcessing.Domain.Users;
 
 public class Deanery : User
 {
-    public Guid UniversityPositionId { get; private set; }
+    public long UniversityPositionId { get; private set; }
 
     public virtual UniversityPosition UniversityPosition { get; private set; } = null!;
 
-    public Guid FacultyId { get; private set; }
+    public long FacultyId { get; private set; }
 
     public virtual Faculty Faculty { get; private set; } = null!;
 
@@ -24,8 +24,8 @@ public class Deanery : User
         string? email,
         DateTime? birthday,
         string? phoneNumber,
-        Guid universityPositionId,
-        Guid facultyId)
+        long universityPositionId,
+        long facultyId)
         : base(
             UserRoleType.Deanery,
             userName,

@@ -17,9 +17,9 @@ public class Diploma : BaseEntity
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public DiplomaStatus Status { get; private set; } = DiplomaStatus.Created;
 
-    public Guid StudentId { get; private set; }
+    public long StudentId { get; private set; }
     public virtual Student Student { get; private set; } = null!;
-    public Guid? SupervisorId { get; private set; }
+    public long? SupervisorId { get; private set; }
 
     public virtual Teacher? Supervisor { get; private set; }
 
@@ -29,7 +29,7 @@ public class Diploma : BaseEntity
     {
     }
 
-    public static Diploma Create(Guid studentId, Guid? supervisorId = null)
+    public static Diploma Create(long studentId, long? supervisorId = null)
     {
         return new Diploma
         {

@@ -8,7 +8,7 @@ public interface IEfReadRepository<T> : IReadRepositoryBase<T> where T : class, 
 {
     DbSet<T> TypedDbContext { get; }
 
-    Task<T> GetByIdRequiredAsync(Guid id, CancellationToken cancellationToken);
+    Task<T> GetByIdRequiredAsync(long id, CancellationToken cancellationToken);
 
     Task AnyRequiredAsync(ISpecification<T> specification, CancellationToken cancellationToken);
 }

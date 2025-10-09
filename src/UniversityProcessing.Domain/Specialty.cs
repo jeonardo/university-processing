@@ -19,7 +19,7 @@ public class Specialty : BaseEntity
     [StringLength(CODE_LENGTH, MinimumLength = CODE_LENGTH)]
     public string Code { get; private set; } = null!;
 
-    public Guid DepartmentId { get; private set; }
+    public long DepartmentId { get; private set; }
 
     public virtual Department Department { get; private set; } = null!;
 
@@ -31,7 +31,7 @@ public class Specialty : BaseEntity
     {
     }
 
-    public static Specialty Create(string name, string shortName, string code, Guid departmentId)
+    public static Specialty Create(string name, string shortName, string code, long departmentId)
     {
         return new Specialty
         {

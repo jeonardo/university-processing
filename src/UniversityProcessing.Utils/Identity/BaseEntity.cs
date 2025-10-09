@@ -3,7 +3,7 @@ using Ardalis.SharedKernel;
 
 namespace UniversityProcessing.Utils.Identity;
 
-public abstract class BaseEntity : EntityBase<Guid>, IAggregateRoot, IHasId
+public abstract class BaseEntity : EntityBase<long>, IAggregateRoot, IHasId
 {
     [DataType(DataType.DateTime)]
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;

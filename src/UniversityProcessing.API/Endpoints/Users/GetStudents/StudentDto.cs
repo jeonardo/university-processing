@@ -1,8 +1,8 @@
 namespace UniversityProcessing.API.Endpoints.Users.GetStudents;
 
-public sealed class StudentDto(Guid id, string firstName, string lastName, string? middleName, bool approved, bool blocked)
+public sealed class StudentDto(long id, string firstName, string lastName, string? middleName, bool approved, bool blocked)
 {
-    public Guid Id { get; set; } = id;
+    public long Id { get; set; } = id;
     public string FirstName { get; set; } = firstName;
     public string LastName { get; set; } = lastName;
     public string? MiddleName { get; set; } = middleName;

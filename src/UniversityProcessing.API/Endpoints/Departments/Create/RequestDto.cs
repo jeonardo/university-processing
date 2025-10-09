@@ -11,5 +11,5 @@ public sealed class RequestDto
     public string ShortName { get; set; } = string.Empty;
 
     [Required]
-    public Guid FacultyId { get; set; }
+    public long FacultyId { get; set; }
 }

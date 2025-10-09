@@ -1,7 +1,7 @@
 namespace UniversityProcessing.API.Endpoints.Faculties.GetFullDescription;
 
 public sealed class UserDto(
-    Guid id,
+    long id,
     string firstName,
     string lastName,
     string? middleName,
@@ -11,7 +11,7 @@ public sealed class UserDto(
     bool blocked,
     bool approved)
 {
-    public Guid Id { get; set; } = id;
+    public long Id { get; set; } = id;
     public string FirstName { get; set; } = firstName;
     public string LastName { get; set; } = lastName;
     public string? MiddleName { get; set; } = middleName;

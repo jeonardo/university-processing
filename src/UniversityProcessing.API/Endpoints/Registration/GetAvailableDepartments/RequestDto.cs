@@ -5,5 +5,5 @@ namespace UniversityProcessing.API.Endpoints.Registration.GetAvailableDepartment
 public sealed class RequestDto
 {
     [Required]
-    public Guid FacultyId { get; set; }
+    public long FacultyId { get; set; }
 }

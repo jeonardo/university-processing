@@ -4,7 +4,7 @@ using UniversityProcessing.Utils.Validation;
 
 namespace UniversityProcessing.Domain.Users;
 
-public class UserRole : IdentityRole<Guid>
+public class UserRole : IdentityRole<long>
 {
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 

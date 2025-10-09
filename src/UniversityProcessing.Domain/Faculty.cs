@@ -13,7 +13,7 @@ public class Faculty : BaseEntity
     [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string ShortName { get; private set; } = null!;
 
-    public Guid? HeadUserId { get; private set; }
+    public long? HeadUserId { get; private set; }
 
     public virtual ICollection<Department> Departments { get; private set; } = [];
 
@@ -36,7 +36,7 @@ public class Faculty : BaseEntity
         };
     }
 
-    public void SetHead(Guid userId)
+    public void SetHead(long userId)
     {
         HeadUserId = userId;
     }

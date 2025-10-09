@@ -6,7 +6,7 @@ namespace UniversityProcessing.API.Endpoints.Users.GetStudents;
 public sealed class RequestDto : BaseGetListQueryParameters
 {
     [Required]
-    public Guid PeriodId { get; set; }
+    public long PeriodId { get; set; }
 
-    public Guid? GroupId { get; set; }
+    public long? GroupId { get; set; }
 }

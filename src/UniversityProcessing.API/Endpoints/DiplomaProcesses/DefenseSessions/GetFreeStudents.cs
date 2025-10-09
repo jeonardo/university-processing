@@ -38,7 +38,7 @@ internal sealed class GetFreeStudents : IEndpoint
     private sealed class RequestDto
     {
         [Required]
-        public Guid DiplomaProcessId { get; set; }
+        public long DiplomaProcessId { get; set; }
     }
 
     private sealed class ResponseDto(IEnumerable<StudentDto> students)
@@ -47,10 +47,10 @@ internal sealed class GetFreeStudents : IEndpoint
         public IEnumerable<StudentDto> Students { get; set; } = students;
     }
 
-    private sealed class StudentDto(Guid id, string firstName, string lastName, string? middleName, string groupNumber)
+    private sealed class StudentDto(long id, string firstName, string lastName, string? middleName, string groupNumber)
     {
         [Required]
-        public Guid Id { get; private set; } = id;
+        public long Id { get; private set; } = id;
 
         [Required]
         public string FirstName { get; private set; } = firstName;

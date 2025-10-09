@@ -50,18 +50,18 @@ internal sealed class GetInfo : IEndpoint
 
     private sealed class RequestDto
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
     }
 
     private sealed class ResponseDto(
-        Guid id,
+        long id,
         string name,
         DateTime? possibleFrom,
         DateTime? possibleTo,
         ICollection<ProjectTitleDto> requiredProjectTitles,
         ICollection<ProjectTitleDto> optionalProjectTitles)
     {
-        public Guid Id { get; init; } = id;
+        public long Id { get; init; } = id;
         public string Name { get; init; } = name;
         public DateTime? PossibleFrom { get; init; } = possibleFrom;
         public DateTime? PossibleTo { get; init; } = possibleTo;
@@ -69,13 +69,13 @@ internal sealed class GetInfo : IEndpoint
         public ICollection<ProjectTitleDto> OptionalProjectTitles { get; init; } = optionalProjectTitles;
     }
 
-    private sealed class ProjectTitleDto(Guid id, string title, Guid creatorId, Guid? actorId)
+    private sealed class ProjectTitleDto(long id, string title, long creatorId, long? actorId)
     {
-        public Guid Id { get; init; } = id;
+        public long Id { get; init; } = id;
         public string Title { get; set; } = title;
 
-        public Guid CreatorId { get; set; } = creatorId;
+        public long CreatorId { get; set; } = creatorId;
 
-        public Guid? ActorId { get; set; } = actorId;
+        public long? ActorId { get; set; } = actorId;
     }
 }

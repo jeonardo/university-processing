@@ -5,5 +5,5 @@ namespace UniversityProcessing.API.Endpoints.Periods.Delete;
 public sealed class RequestDto
 {
     [Required]
-    public Guid Id { get; set; }
+    public long Id { get; set; }
 }

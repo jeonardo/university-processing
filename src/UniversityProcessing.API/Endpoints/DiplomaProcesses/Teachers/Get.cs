@@ -41,15 +41,15 @@ internal sealed class Get : IEndpoint
     private sealed class RequestDto : BaseGetListQueryParameters
     {
         [Required]
-        public Guid DiplomaProcessId { get; set; }
+        public long DiplomaProcessId { get; set; }
     }
 
     private sealed class ResponseDto(PagedList<TeacherDto> pagedList) : PagedList<TeacherDto>(pagedList);
 
-    private sealed class TeacherDto(Guid id, string firstName, string lastName, string? middleName, string position)
+    private sealed class TeacherDto(long id, string firstName, string lastName, string? middleName, string position)
     {
         [Required]
-        public Guid Id { get; set; } = id;
+        public long Id { get; set; } = id;
 
         [Required]
         public string FirstName { get; set; } = firstName;

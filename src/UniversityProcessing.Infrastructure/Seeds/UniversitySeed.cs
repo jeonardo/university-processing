@@ -219,7 +219,7 @@ public class UniversitySeed(
     }
 
     private async Task<Group> AddGroup(
-        Guid periodId,
+        long periodId,
         string groupNumber,
         Specialty specialty,
         DateTime startDate,
@@ -278,7 +278,7 @@ public class UniversitySeed(
     private async Task<User> AddTeacher(
         string username,
         UniversityPosition universityPosition,
-        Guid departmentId)
+        long departmentId)
     {
         var result = new Teacher(username, username, username, null, $"{username}@gmail.com", null, "+375257521111", universityPosition.Id, departmentId);
         result.UpdateVerificationStatus(true);
@@ -303,7 +303,7 @@ public class UniversitySeed(
     private async Task<User> AddDeanery(
         string username,
         UniversityPosition universityPosition,
-        Guid facultyId)
+        long facultyId)
     {
         var result = new Deanery(username, username, username, null, $"{username}@gmail.com", null, "+375257521111", universityPosition.Id, facultyId);
         result.UpdateVerificationStatus(true);

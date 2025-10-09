@@ -6,5 +6,5 @@ namespace UniversityProcessing.API.Endpoints.Departments.Get;
 public sealed class RequestDto : BaseGetListQueryParameters
 {
     [Required]
-    public Guid FacultyId { get; set; }
+    public long FacultyId { get; set; }
 }

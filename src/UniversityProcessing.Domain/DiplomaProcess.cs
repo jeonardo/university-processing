@@ -13,7 +13,7 @@ public class DiplomaProcess : BaseEntity
 
     public DateTime? PossibleFrom { get; private set; }
     public DateTime? PossibleTo { get; private set; }
-    public Guid PeriodId { get; private set; }
+    public long PeriodId { get; private set; }
     public virtual Period Period { get; private set; } = null!;
     public virtual ICollection<ProjectTitle> RequiredProjectTitles { get; private set; } = [];
     public virtual ICollection<Group> Groups { get; private set; } = [];
@@ -27,7 +27,7 @@ public class DiplomaProcess : BaseEntity
     {
     }
 
-    public static DiplomaProcess Fake(Guid id)
+    public static DiplomaProcess Fake(long id)
     {
         return new DiplomaProcess
         {
@@ -35,7 +35,7 @@ public class DiplomaProcess : BaseEntity
         };
     }
 
-    public static DiplomaProcess Create(string name, Guid periodId)
+    public static DiplomaProcess Create(string name, long periodId)
     {
         return new DiplomaProcess
         {

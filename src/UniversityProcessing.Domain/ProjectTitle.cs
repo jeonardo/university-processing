@@ -9,9 +9,9 @@ public sealed class ProjectTitle : BaseEntity
     [StringLength(ValidationConstants.MAX_STRING_LENGTH)]
     public string Title { get; set; } = null!;
 
-    public Guid CreatorId { get; set; }
+    public long CreatorId { get; set; }
 
-    public Guid? ActorId { get; set; }
+    public long? ActorId { get; set; }
 
     // Parameterless constructor used by EF Core
     // ReSharper disable once UnusedMember.Local
@@ -19,7 +19,7 @@ public sealed class ProjectTitle : BaseEntity
     {
     }
 
-    public static ProjectTitle Create(string title, Guid creatorId)
+    public static ProjectTitle Create(string title, long creatorId)
     {
         return new ProjectTitle
         {

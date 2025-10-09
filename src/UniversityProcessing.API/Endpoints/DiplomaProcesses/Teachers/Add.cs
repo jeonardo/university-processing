@@ -34,9 +34,9 @@ internal sealed class Add : IEndpoint
     private sealed class RequestDto
     {
         [Required]
-        public Guid DiplomaProcessId { get; set; }
+        public long DiplomaProcessId { get; set; }
 
         [Required]
-        public Guid UserId { get; set; }
+        public long UserId { get; set; }
     }
 }

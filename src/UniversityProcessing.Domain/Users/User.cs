@@ -8,7 +8,7 @@ using UniversityProcessing.Utils.Validation;
 namespace UniversityProcessing.Domain.Users;
 
 [Index(nameof(FullName))]
-public class User : IdentityUser<Guid>, IAggregateRoot, IHasId
+public class User : IdentityUser<long>, IAggregateRoot, IHasId
 {
     public UserRoleType Role { get; private set; }
     public bool Blocked { get; private set; }

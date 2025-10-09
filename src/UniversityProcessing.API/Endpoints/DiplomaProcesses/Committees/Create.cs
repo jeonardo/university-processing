@@ -30,7 +30,7 @@ internal sealed class Create : IEndpoint
     private sealed class RequestDto
     {
         [Required]
-        public Guid DiplomaProcessId { get; set; }
+        public long DiplomaProcessId { get; set; }
 
         [Required]
         public string Name { get; set; } = string.Empty;

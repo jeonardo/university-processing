@@ -14,5 +14,5 @@ public sealed class RequestDto
     public string Code { get; set; } = string.Empty;
 
     [Required]
-    public Guid DepartmentId { get; set; }
+    public long DepartmentId { get; set; }
 }

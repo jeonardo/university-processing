@@ -12,7 +12,7 @@ public sealed class EfRepository<T>(ApplicationDbContext dbContext) : Repository
 {
     public DbSet<T> TypedDbContext => dbContext.Set<T>();
 
-    public async Task<T> GetByIdRequiredAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<T> GetByIdRequiredAsync(long id, CancellationToken cancellationToken)
     {
         return await GetByIdAsync(id, cancellationToken)
             ?? throw new NotFoundException($"{typeof(T).Name} with id = {id} not found");

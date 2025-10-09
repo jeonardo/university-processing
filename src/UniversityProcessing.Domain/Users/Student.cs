@@ -2,14 +2,14 @@ namespace UniversityProcessing.Domain.Users;
 
 public class Student : User
 {
-    public Guid GroupId { get; private set; }
+    public long GroupId { get; private set; }
 
     public virtual Group Group { get; private set; } = null!;
-    public Guid? DiplomaId { get; private set; }
+    public long? DiplomaId { get; private set; }
 
     public virtual Diploma? Diploma { get; private set; }
 
-    public Guid? DefenseSessionId { get; private set; }
+    public long? DefenseSessionId { get; private set; }
 
     public virtual DefenseSession? DefenseSession { get; private set; }
 
@@ -27,9 +27,9 @@ public class Student : User
         string? email,
         DateTime? birthday,
         string? phoneNumber,
-        Guid groupId,
-        Guid? diplomaId = null,
-        Guid? defenseSessionId = null)
+        long groupId,
+        long? diplomaId = null,
+        long? defenseSessionId = null)
         : base(
             UserRoleType.Student,
             userName,
@@ -45,7 +45,7 @@ public class Student : User
         DefenseSessionId = defenseSessionId;
     }
 
-    public void SetSession(Guid? sessionId)
+    public void SetSession(long? sessionId)
     {
         DefenseSessionId = sessionId;
     }

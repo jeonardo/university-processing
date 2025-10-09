@@ -51,7 +51,7 @@ public static class QueryExtensions
             .Skip((parameters.PageNumber - 1) * parameters.PageSize)
             .Take(parameters.PageSize);
 
-        var items = Array.Empty<TResult>();
+        TResult[] items;
 
         if (selectMany is not null)
         {

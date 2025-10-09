@@ -17,7 +17,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.20");
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,8 +32,8 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("claim_value");
 
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("RoleId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("role_id");
 
                     b.HasKey("Id")
@@ -45,7 +45,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.ToTable("role_claims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<long>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,8 +60,8 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("claim_value");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("UserId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("user_id");
 
                     b.HasKey("Id")
@@ -73,7 +73,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.ToTable("user_claims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<long>", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnType("TEXT")
@@ -87,8 +87,8 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("provider_display_name");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("UserId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("user_id");
 
                     b.HasKey("LoginProvider", "ProviderKey")
@@ -100,14 +100,14 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.ToTable("user_logins", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<long>", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("UserId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("user_id");
 
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("RoleId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("role_id");
 
                     b.HasKey("UserId", "RoleId")
@@ -119,10 +119,10 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.ToTable("user_roles", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<long>", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("UserId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("user_id");
 
                     b.Property<string>("LoginProvider")
@@ -145,12 +145,12 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("TeacherCommittee", b =>
                 {
-                    b.Property<Guid>("teacher_id")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("teacher_id")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("teacher_id");
 
-                    b.Property<Guid>("committee_id")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("committee_id")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("committee_id");
 
                     b.HasKey("teacher_id", "committee_id")
@@ -164,12 +164,12 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("TeacherDiplomaProcess", b =>
                 {
-                    b.Property<Guid>("teacher_id")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("teacher_id")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("teacher_id");
 
-                    b.Property<Guid>("diploma_process_id")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("diploma_process_id")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("diploma_process_id");
 
                     b.HasKey("teacher_id", "diploma_process_id")
@@ -183,17 +183,17 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("UniversityProcessing.Domain.Committee", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT")
                         .HasColumnName("created_at");
 
-                    b.Property<Guid>("DiplomaProcessId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("DiplomaProcessId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("diploma_process_id");
 
                     b.Property<string>("Name")
@@ -202,8 +202,8 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("name");
 
-                    b.Property<Guid?>("SecretaryId")
-                        .HasColumnType("TEXT")
+                    b.Property<long?>("SecretaryId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("secretary_id");
 
                     b.HasKey("Id")
@@ -217,13 +217,13 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("UniversityProcessing.Domain.DefenseSession", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
-                    b.Property<Guid>("CommitteeId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("CommitteeId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("committee_id");
 
                     b.Property<DateTime>("CreatedAt")
@@ -234,8 +234,8 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("date");
 
-                    b.Property<Guid>("DiplomaProcessId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("DiplomaProcessId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("diploma_process_id");
 
                     b.Property<string>("Name")
@@ -258,21 +258,21 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("UniversityProcessing.Domain.Department", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT")
                         .HasColumnName("created_at");
 
-                    b.Property<Guid>("FacultyId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("FacultyId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("faculty_id");
 
-                    b.Property<Guid?>("HeadUserId")
-                        .HasColumnType("TEXT")
+                    b.Property<long?>("HeadUserId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("head_user_id");
 
                     b.Property<string>("Name")
@@ -298,9 +298,9 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("UniversityProcessing.Domain.Diploma", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
@@ -315,12 +315,12 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("status");
 
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("StudentId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("student_id");
 
-                    b.Property<Guid?>("SupervisorId")
-                        .HasColumnType("TEXT")
+                    b.Property<long?>("SupervisorId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("supervisor_id");
 
                     b.Property<string>("Title")
@@ -339,17 +339,17 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("UniversityProcessing.Domain.DiplomaProcess", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT")
                         .HasColumnName("created_at");
 
-                    b.Property<Guid?>("DepartmentId")
-                        .HasColumnType("TEXT")
+                    b.Property<long?>("DepartmentId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("department_id");
 
                     b.Property<string>("Name")
@@ -358,8 +358,8 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("name");
 
-                    b.Property<Guid>("PeriodId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("PeriodId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("period_id");
 
                     b.Property<DateTime?>("PossibleFrom")
@@ -384,17 +384,17 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("UniversityProcessing.Domain.Faculty", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT")
                         .HasColumnName("created_at");
 
-                    b.Property<Guid?>("HeadUserId")
-                        .HasColumnType("TEXT")
+                    b.Property<long?>("HeadUserId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("head_user_id");
 
                     b.Property<string>("Name")
@@ -417,21 +417,21 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("UniversityProcessing.Domain.Group", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
-                    b.Property<Guid?>("CommitteeId")
-                        .HasColumnType("TEXT")
+                    b.Property<long?>("CommitteeId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("committee_id");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT")
                         .HasColumnName("created_at");
 
-                    b.Property<Guid?>("DiplomaProcessId")
-                        .HasColumnType("TEXT")
+                    b.Property<long?>("DiplomaProcessId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("diploma_process_id");
 
                     b.Property<DateTime>("EndDate")
@@ -444,12 +444,12 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("number");
 
-                    b.Property<Guid>("PeriodId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("PeriodId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("period_id");
 
-                    b.Property<Guid>("SpecialtyId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("SpecialtyId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("specialty_id");
 
                     b.Property<DateTime>("StartDate")
@@ -480,9 +480,9 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("UniversityProcessing.Domain.Period", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
                     b.Property<string>("Comments")
@@ -516,29 +516,29 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("UniversityProcessing.Domain.ProjectTitle", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
-                    b.Property<Guid?>("ActorId")
-                        .HasColumnType("TEXT")
+                    b.Property<long?>("ActorId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("actor_id");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT")
                         .HasColumnName("created_at");
 
-                    b.Property<Guid>("CreatorId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("CreatorId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("creator_id");
 
-                    b.Property<Guid?>("DiplomaProcessId")
-                        .HasColumnType("TEXT")
+                    b.Property<long?>("DiplomaProcessId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("diploma_process_id");
 
-                    b.Property<Guid?>("TeacherId")
-                        .HasColumnType("TEXT")
+                    b.Property<long?>("TeacherId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("teacher_id");
 
                     b.Property<string>("Title")
@@ -561,9 +561,9 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("UniversityProcessing.Domain.Specialty", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
                     b.Property<string>("Code")
@@ -576,8 +576,8 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("created_at");
 
-                    b.Property<Guid>("DepartmentId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("DepartmentId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("department_id");
 
                     b.Property<string>("Name")
@@ -607,9 +607,9 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("UniversityProcessing.Domain.UniversityPosition", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
@@ -630,9 +630,9 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("UniversityProcessing.Domain.Users.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
                     b.Property<int>("AccessFailedCount")
@@ -767,9 +767,9 @@ namespace UniversityProcessing.Infrastructure.Migrations
 
             modelBuilder.Entity("UniversityProcessing.Domain.Users.UserRole", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -817,12 +817,12 @@ namespace UniversityProcessing.Infrastructure.Migrations
                 {
                     b.HasBaseType("UniversityProcessing.Domain.Users.User");
 
-                    b.Property<Guid>("FacultyId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("FacultyId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("faculty_id");
 
-                    b.Property<Guid>("UniversityPositionId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("UniversityPositionId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("university_position_id");
 
                     b.HasIndex("FacultyId")
@@ -838,24 +838,24 @@ namespace UniversityProcessing.Infrastructure.Migrations
                 {
                     b.HasBaseType("UniversityProcessing.Domain.Users.User");
 
-                    b.Property<Guid?>("DefenseSessionId")
-                        .HasColumnType("TEXT")
+                    b.Property<long?>("DefenseSessionId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("defense_session_id");
 
-                    b.Property<Guid?>("DepartmentId")
-                        .HasColumnType("TEXT")
+                    b.Property<long?>("DepartmentId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("department_id");
 
-                    b.Property<Guid?>("DiplomaId")
-                        .HasColumnType("TEXT")
+                    b.Property<long?>("DiplomaId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("diploma_id");
 
-                    b.Property<Guid?>("FacultyId")
-                        .HasColumnType("TEXT")
+                    b.Property<long?>("FacultyId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("faculty_id");
 
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("GroupId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("group_id");
 
                     b.HasIndex("DefenseSessionId")
@@ -881,16 +881,16 @@ namespace UniversityProcessing.Infrastructure.Migrations
                 {
                     b.HasBaseType("UniversityProcessing.Domain.Users.User");
 
-                    b.Property<Guid>("DepartmentId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("DepartmentId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("department_id");
 
-                    b.Property<Guid?>("FacultyId")
-                        .HasColumnType("TEXT")
+                    b.Property<long?>("FacultyId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("faculty_id");
 
-                    b.Property<Guid>("UniversityPositionId")
-                        .HasColumnType("TEXT")
+                    b.Property<long>("UniversityPositionId")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("university_position_id");
 
                     b.HasIndex("DepartmentId")
@@ -905,7 +905,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.ToTable("teachers", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
                 {
                     b.HasOne("UniversityProcessing.Domain.Users.UserRole", null)
                         .WithMany()
@@ -915,7 +915,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasConstraintName("fk_role_claims_roles_role_id");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<long>", b =>
                 {
                     b.HasOne("UniversityProcessing.Domain.Users.User", null)
                         .WithMany()
@@ -925,7 +925,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasConstraintName("fk_user_claims_users_user_id");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<long>", b =>
                 {
                     b.HasOne("UniversityProcessing.Domain.Users.User", null)
                         .WithMany()
@@ -935,7 +935,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasConstraintName("fk_user_logins_users_user_id");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<long>", b =>
                 {
                     b.HasOne("UniversityProcessing.Domain.Users.UserRole", null)
                         .WithMany()
@@ -952,7 +952,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                         .HasConstraintName("fk_user_roles_users_user_id");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<long>", b =>
                 {
                     b.HasOne("UniversityProcessing.Domain.Users.User", null)
                         .WithMany()

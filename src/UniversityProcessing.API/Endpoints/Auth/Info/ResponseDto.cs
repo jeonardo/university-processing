@@ -3,7 +3,7 @@ using UniversityProcessing.API.Endpoints.Contracts;
 namespace UniversityProcessing.API.Endpoints.Auth.Info;
 
 public sealed class ResponseDto(
-    Guid userId,
+    long userId,
     UserRoleTypeDto role,
     bool approved,
     bool blocked,
@@ -18,11 +18,11 @@ public sealed class ResponseDto(
     string? phoneNumber,
     string? speciality,
     string? groupNumber,
-    Guid? facultyId,
-    Guid? departmentId,
+    long? facultyId,
+    long? departmentId,
     bool departmentHead = false)
 {
-    public Guid UserId { get; set; } = userId;
+    public long UserId { get; set; } = userId;
     public UserRoleTypeDto Role { get; set; } = role;
     public bool Approved { get; set; } = approved;
     public bool Blocked { get; set; } = blocked;
@@ -37,7 +37,7 @@ public sealed class ResponseDto(
     public string? PhoneNumber { get; set; } = phoneNumber;
     public string? Speciality { get; set; } = speciality;
     public string? GroupNumber { get; set; } = groupNumber;
-    public Guid? FacultyId { get; set; } = facultyId;
-    public Guid? DepartmentId { get; set; } = departmentId;
+    public long? FacultyId { get; set; } = facultyId;
+    public long? DepartmentId { get; set; } = departmentId;
     public bool DepartmentHead { get; set; } = departmentHead;
 }

@@ -1,6 +1,6 @@
 namespace UniversityProcessing.API.Endpoints.Specialties.Create;
 
-public sealed class ResponseDto(Guid id)
+public sealed class ResponseDto(long id)
 {
-    public Guid Id { get; set; } = id;
+    public long Id { get; set; } = id;
 }

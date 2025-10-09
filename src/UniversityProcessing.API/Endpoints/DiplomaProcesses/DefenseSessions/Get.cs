@@ -48,7 +48,7 @@ internal sealed class Get
     private class RequestDto
     {
         [Required]
-        public Guid Id { get; set; }
+        public long Id { get; set; }
     }
 
     private sealed class ResponseDto(string name, DateTime date, CommitteeDto committee, IEnumerable<StudentDto> students)
@@ -66,10 +66,10 @@ internal sealed class Get
         public IEnumerable<StudentDto> Students { get; private set; } = students;
     }
 
-    private sealed class StudentDto(Guid id, string firstName, string lastName, string? middleName, string groupNumber)
+    private sealed class StudentDto(long id, string firstName, string lastName, string? middleName, string groupNumber)
     {
         [Required]
-        public Guid Id { get; private set; } = id;
+        public long Id { get; private set; } = id;
 
         [Required]
         public string FirstName { get; private set; } = firstName;
@@ -83,10 +83,10 @@ internal sealed class Get
         public string GroupNumber { get; private set; } = groupNumber;
     }
 
-    private sealed class CommitteeDto(Guid id, string name, IEnumerable<TeacherDto> teachers)
+    private sealed class CommitteeDto(long id, string name, IEnumerable<TeacherDto> teachers)
     {
         [Required]
-        public Guid Id { get; private set; } = id;
+        public long Id { get; private set; } = id;
 
         [Required]
         public string Name { get; private set; } = name;
@@ -95,10 +95,10 @@ internal sealed class Get
         public IEnumerable<TeacherDto> Teachers { get; private set; } = teachers;
     }
 
-    private sealed class TeacherDto(Guid id, string firstName, string lastName, string? middleName, string position)
+    private sealed class TeacherDto(long id, string firstName, string lastName, string? middleName, string position)
     {
         [Required]
-        public Guid Id { get; private set; } = id;
+        public long Id { get; private set; } = id;
 
         [Required]
         public string FirstName { get; private set; } = firstName;

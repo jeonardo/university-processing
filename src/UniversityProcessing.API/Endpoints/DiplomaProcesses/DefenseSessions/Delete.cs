@@ -30,6 +30,6 @@ internal sealed class Delete : IEndpoint
     private sealed class RequestDto
     {
         [Required]
-        public Guid Id { get; set; }
+        public long Id { get; set; }
     }
 }

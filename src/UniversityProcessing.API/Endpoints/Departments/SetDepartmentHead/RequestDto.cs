@@ -5,8 +5,8 @@ namespace UniversityProcessing.API.Endpoints.Departments.SetDepartmentHead;
 public sealed class RequestDto
 {
     [Required]
-    public Guid DepartmentId { get; set; }
+    public long DepartmentId { get; set; }
 
     [Required]
-    public Guid UserId { get; set; }
+    public long UserId { get; set; }
 }
