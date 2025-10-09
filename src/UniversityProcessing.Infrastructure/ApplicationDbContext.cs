@@ -1,8 +1,8 @@
-﻿using Ardalis.SharedKernel;
+﻿using System.Text;
+using Ardalis.SharedKernel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.NameTranslation;
 using UniversityProcessing.Domain;
 using UniversityProcessing.Domain.Users;
 
@@ -78,16 +78,13 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
         // Apply to all entities that inherit from EntityBase
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
-            if (typeof(EntityBase).IsAssignableFrom(entityType.ClrType))
+            if (!typeof(EntityBase).IsAssignableFrom(entityType.ClrType))
             {
-                var idProperty = entityType.FindProperty(nameof(EntityBase.Id));
-
-                if (idProperty != null)
-                {
-                    // Force SQL Server to use uniqueidentifier for Id
-                    idProperty.SetColumnType("uniqueidentifier");
-                }
+                continue;
             }
+
+            var idProperty = entityType.FindProperty(nameof(EntityBase.Id));
+            idProperty?.SetColumnType("uniqueidentifier");
         }
     }
 
@@ -104,19 +101,48 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
 
     private static void ApplySnakeCaseNames(ModelBuilder modelBuilder)
     {
-        var mapper = new NpgsqlSnakeCaseNameTranslator();
-
         foreach (var entity in modelBuilder.Model.GetEntityTypes())
         {
             foreach (var property in entity.GetProperties())
             {
-                var npgsqlColumnName = mapper.TranslateMemberName(property.GetColumnName());
-
-                property.SetColumnName(npgsqlColumnName);
+                var original = property.GetColumnName();
+                var snake = ToSnakeCase(original);
+                property.SetColumnName(snake);
             }
         }
 
         ApplyIdentitySnakeCaseNames(modelBuilder);
+    }
+
+    private static string ToSnakeCase(string input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            throw new ArgumentNullException(nameof(input));
+        }
+
+        var sb = new StringBuilder();
+
+        for (var i = 0; i < input.Length; i++)
+        {
+            var c = input[i];
+
+            if (char.IsUpper(c))
+            {
+                if (i > 0)
+                {
+                    sb.Append('_');
+                }
+
+                sb.Append(char.ToLowerInvariant(c));
+            }
+            else
+            {
+                sb.Append(c);
+            }
+        }
+
+        return sb.ToString();
     }
 
     // ReSharper disable once UnusedParameter.Local
