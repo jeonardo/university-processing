@@ -60,11 +60,13 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder); //Check table naming
+        base.OnModelCreating(modelBuilder);
 
         ConfigureRelations(modelBuilder);
 
         ApplySnakeCaseNames(modelBuilder);
+
+        SetDefaultStringLength(modelBuilder);
 
         AddInitData(modelBuilder);
 
@@ -85,6 +87,25 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
 
             var idProperty = entityType.FindProperty(nameof(EntityBase.Id));
             idProperty?.SetColumnType("uniqueidentifier");
+        }
+    }
+
+    private static void SetDefaultStringLength(ModelBuilder modelBuilder)
+    {
+        const int defaultStringLength = 256;
+
+        foreach (var entity in modelBuilder.Model.GetEntityTypes())
+        {
+            foreach (var property in entity.GetProperties())
+            {
+                if (property.ClrType == typeof(string))
+                {
+                    if (property.GetMaxLength() == null)
+                    {
+                        property.SetMaxLength(defaultStringLength);
+                    }
+                }
+            }
         }
     }
 
