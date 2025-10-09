@@ -910,7 +910,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.Users.UserRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_role_claims_roles_role_id");
                 });
@@ -920,7 +920,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_user_claims_users_user_id");
                 });
@@ -930,7 +930,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_user_logins_users_user_id");
                 });
@@ -940,14 +940,14 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.Users.UserRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_user_roles_roles_role_id");
 
                     b.HasOne("UniversityProcessing.Domain.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_user_roles_users_user_id");
                 });
@@ -957,7 +957,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_user_tokens_users_user_id");
                 });
@@ -967,14 +967,14 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.Committee", null)
                         .WithMany()
                         .HasForeignKey("committee_id")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_teacher_committees_committees_committee_id");
 
                     b.HasOne("UniversityProcessing.Domain.Users.Teacher", null)
                         .WithMany()
                         .HasForeignKey("teacher_id")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_teacher_committees_teachers_teacher_id");
                 });
@@ -984,14 +984,14 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.DiplomaProcess", null)
                         .WithMany()
                         .HasForeignKey("diploma_process_id")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_teacher_diploma_processes_diploma_processes_diploma_process_id");
 
                     b.HasOne("UniversityProcessing.Domain.Users.Teacher", null)
                         .WithMany()
                         .HasForeignKey("teacher_id")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_teacher_diploma_processes_teachers_teacher_id");
                 });
@@ -1001,7 +1001,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.DiplomaProcess", "DiplomaProcess")
                         .WithMany("Committees")
                         .HasForeignKey("DiplomaProcessId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_committees_diploma_processes_diploma_process_id");
 
@@ -1013,14 +1013,14 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.Committee", "Committee")
                         .WithMany()
                         .HasForeignKey("CommitteeId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_defense_sessions_committees_committee_id");
 
                     b.HasOne("UniversityProcessing.Domain.DiplomaProcess", "DiplomaProcess")
                         .WithMany("DefenseSessions")
                         .HasForeignKey("DiplomaProcessId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_defense_sessions_diploma_processes_diploma_process_id");
 
@@ -1034,7 +1034,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.Faculty", "Faculty")
                         .WithMany("Departments")
                         .HasForeignKey("FacultyId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_departments_faculties_faculty_id");
 
@@ -1046,7 +1046,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.Users.Teacher", "Supervisor")
                         .WithMany("Diplomas")
                         .HasForeignKey("SupervisorId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("fk_diplomas_teachers_supervisor_id");
 
                     b.Navigation("Supervisor");
@@ -1057,13 +1057,13 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.Department", null)
                         .WithMany("DiplomaProcesses")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("fk_diploma_processes_departments_department_id");
 
                     b.HasOne("UniversityProcessing.Domain.Period", "Period")
                         .WithMany("DiplomaProcesses")
                         .HasForeignKey("PeriodId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_diploma_processes_periods_period_id");
 
@@ -1075,26 +1075,26 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.Committee", null)
                         .WithMany("Groups")
                         .HasForeignKey("CommitteeId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("fk_groups_committees_committee_id");
 
                     b.HasOne("UniversityProcessing.Domain.DiplomaProcess", "DiplomaProcess")
                         .WithMany("Groups")
                         .HasForeignKey("DiplomaProcessId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("fk_groups_diploma_processes_diploma_process_id");
 
                     b.HasOne("UniversityProcessing.Domain.Period", "Period")
                         .WithMany("Groups")
                         .HasForeignKey("PeriodId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_groups_periods_period_id");
 
                     b.HasOne("UniversityProcessing.Domain.Specialty", "Specialty")
                         .WithMany("Groups")
                         .HasForeignKey("SpecialtyId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_groups_specialties_specialty_id");
 
@@ -1110,13 +1110,13 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.DiplomaProcess", null)
                         .WithMany("RequiredProjectTitles")
                         .HasForeignKey("DiplomaProcessId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("fk_project_titles_diploma_processes_diploma_process_id");
 
                     b.HasOne("UniversityProcessing.Domain.Users.Teacher", null)
                         .WithMany("ProjectTitles")
                         .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("fk_project_titles_teachers_teacher_id");
                 });
 
@@ -1125,7 +1125,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.Department", "Department")
                         .WithMany("Specialties")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_specialties_departments_department_id");
 
@@ -1147,7 +1147,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.Faculty", "Faculty")
                         .WithMany("Deaneries")
                         .HasForeignKey("FacultyId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_deaneries_faculties_faculty_id");
 
@@ -1161,7 +1161,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.UniversityPosition", "UniversityPosition")
                         .WithMany("Deaneries")
                         .HasForeignKey("UniversityPositionId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_deaneries_university_positions_university_position_id");
 
@@ -1175,31 +1175,31 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.DefenseSession", "DefenseSession")
                         .WithMany("Students")
                         .HasForeignKey("DefenseSessionId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("fk_students_defense_sessions_defense_session_id");
 
                     b.HasOne("UniversityProcessing.Domain.Department", null)
                         .WithMany("Students")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("fk_students_departments_department_id");
 
                     b.HasOne("UniversityProcessing.Domain.Diploma", "Diploma")
                         .WithOne("Student")
                         .HasForeignKey("UniversityProcessing.Domain.Users.Student", "DiplomaId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("fk_students_diplomas_diploma_id");
 
                     b.HasOne("UniversityProcessing.Domain.Faculty", null)
                         .WithMany("Students")
                         .HasForeignKey("FacultyId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("fk_students_faculties_faculty_id");
 
                     b.HasOne("UniversityProcessing.Domain.Group", "Group")
                         .WithMany("Students")
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_students_groups_group_id");
 
@@ -1222,14 +1222,14 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.Department", "Department")
                         .WithMany("Teachers")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_teachers_departments_department_id");
 
                     b.HasOne("UniversityProcessing.Domain.Faculty", null)
                         .WithMany("Teachers")
                         .HasForeignKey("FacultyId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("fk_teachers_faculties_faculty_id");
 
                     b.HasOne("UniversityProcessing.Domain.Users.User", null)
@@ -1242,7 +1242,7 @@ namespace UniversityProcessing.Infrastructure.Migrations
                     b.HasOne("UniversityProcessing.Domain.UniversityPosition", "UniversityPosition")
                         .WithMany("Teachers")
                         .HasForeignKey("UniversityPositionId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_teachers_university_positions_university_position_id");
 

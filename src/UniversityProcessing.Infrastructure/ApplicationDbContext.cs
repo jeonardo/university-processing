@@ -72,7 +72,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
                      .GetEntityTypes()
                      .SelectMany(e => e.GetForeignKeys()))
         {
-            relationship.DeleteBehavior = DeleteBehavior.SetNull;
+            relationship.DeleteBehavior = DeleteBehavior.Cascade;
         }
 
         // Apply to all entities that inherit from EntityBase
