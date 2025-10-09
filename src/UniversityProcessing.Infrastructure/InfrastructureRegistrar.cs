@@ -33,25 +33,11 @@ public static class InfrastructureRegistrar
     private static void AddDbContext(this WebApplicationBuilder builder)
     {
         var settings = builder.Configuration.GetSettings<DatabaseSettings>();
-
-        var useSqlite = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
-
-        if (useSqlite)
-        {
-            builder.Services.AddDbContext<ApplicationDbContext>(
-                options =>
-                    options
-                        .UseSqlite(settings.SqliteConnectionString)
-                        .UseSnakeCaseNamingConvention());
-        }
-        else
-        {
-            builder.Services.AddDbContext<ApplicationDbContext>(
-                options =>
-                    options
-                        .UseSqlServer(settings.ConnectionString)
-                        .UseSnakeCaseNamingConvention());
-        }
+        builder.Services.AddDbContext<ApplicationDbContext>(
+            options =>
+                options
+                    .UseSqlServer(settings.ConnectionString)
+                    .UseSnakeCaseNamingConvention());
     }
 
     private static void AddIdentity(this WebApplicationBuilder builder)

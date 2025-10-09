@@ -74,7 +74,7 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
                      .GetEntityTypes()
                      .SelectMany(e => e.GetForeignKeys()))
         {
-            relationship.DeleteBehavior = DeleteBehavior.Cascade;
+            relationship.DeleteBehavior = DeleteBehavior.NoAction;
         }
 
         // Apply to all entities that inherit from EntityBase
@@ -92,20 +92,19 @@ public sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> 
 
     private static void SetDefaultStringLength(ModelBuilder modelBuilder)
     {
-        const int defaultStringLength = 256;
+        const int defaultLength = 256;
 
-        foreach (var entity in modelBuilder.Model.GetEntityTypes())
+        foreach (var property in modelBuilder.Model
+                     .GetEntityTypes()
+                     .SelectMany(t => t.GetProperties())
+                     .Where(p => p.ClrType == typeof(string)))
         {
-            foreach (var property in entity.GetProperties())
+            if (property.GetMaxLength() == null)
             {
-                if (property.ClrType == typeof(string))
-                {
-                    if (property.GetMaxLength() == null)
-                    {
-                        property.SetMaxLength(defaultStringLength);
-                    }
-                }
+                property.SetMaxLength(defaultLength);
             }
+
+            property.SetColumnType($"nvarchar({property.GetMaxLength() ?? defaultLength})");
         }
     }
 
